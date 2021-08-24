@@ -1,2 +1,2 @@
-# my_website
-my personal website project with my resume and portfolio
+# My website with my resume and portfolio. 
+Still a work in progress.
