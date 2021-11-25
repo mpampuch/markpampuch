@@ -45,7 +45,7 @@
       <h1><a href="index.html">Mark Pampuch</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a> -->
-      <h2>I'm a passionate <span class="typed" data-typed-items="Biologist, Biochemist, Geneticist, Bioinformatician, Scientist"></span> from Toronto.</h2>
+      <h2 class = "from-to">I'm a passionate <span class="typed" data-typed-items="Biologist, Biochemist, Geneticist, Bioinformatician, Scientist"></span> from Toronto.</h2>
 
       <nav id="navbar" class="navbar">
         <ul>
@@ -61,11 +61,11 @@
       </nav><!-- .navbar -->
 
       <div class="social-links">
-        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+        <a href="https://twitter.com/MarkPampuch" class="twitter"><i class="bi bi-twitter"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=100013504470708" class="facebook"><i class="bi bi-facebook"></i></a>
         <!-- <a href="#" class="instagram"><i class="bi bi-instagram"></i></a> -->
-        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-        <a href="#" class="github"><i class="bi bi-github"></i></a>
+        <a href="https://www.linkedin.com/in/mark-pampuch-a07775169/" class="linkedin"><i class="bi bi-linkedin"></i></a>
+        <a href="https://github.com/mpampuch" class="github"><i class="bi bi-github"></i></a>
 
       </div>
 
@@ -105,7 +105,7 @@
             <div class="col-lg-6">
               <ul>
                 <!-- <li><i class="bi bi-chevron-right"></i> <strong>Website:</strong> <span>www.markpampuch.com</span></li> -->
-                <li><i class="bi bi-chevron-right"></i> <strong>Degree:</strong> <span>BSc (currently Ph.D candidate)</span></li>
+                <li><i class="bi bi-chevron-right"></i> <strong>Degree:</strong> <span>BSc in biology (complete) <br>Ph.D candidate in Biochemistry</span></li>
                 <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>markpampuch@gmail.com</span></li>
                 <li><i class="bi bi-chevron-right"></i> <strong>Freelance:</strong> <span>Available</span></li>
               </ul>
@@ -128,7 +128,7 @@
         <div class="col-lg-3 col-md-6">
           <div class="count-box">
             <i class="bx bx-vial" style="line-height:1"></i>
-            <span data-purecounter-start="0" data-purecounter-end="4" data-purecounter-duration="2" data-purecounter-delay="250" class="purecounter"></span>
+            <span data-purecounter-start="0" data-purecounter-end="3" data-purecounter-duration="2" data-purecounter-delay="250" class="purecounter"></span>
             <p>Labs</p>
           </div>
         </div>
@@ -136,7 +136,7 @@
         <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
           <div class="count-box">
             <i class="bi bi-journal-richtext"></i>
-            <span data-purecounter-start="0" data-purecounter-end="4" data-purecounter-duration="2" data-purecounter-delay="250"  class="purecounter"></span>
+            <span data-purecounter-start="0" data-purecounter-end="1" data-purecounter-duration="2" data-purecounter-delay="250"  class="purecounter"></span>
             <p>Publications</p>
           </div>
         </div>
@@ -144,7 +144,7 @@
         <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
           <div class="count-box">
             <i class="bx bx-code-alt" style="line-height:1"> </i>
-            <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter"></span>
+            <span data-purecounter-start="0" data-purecounter-end="7" data-purecounter-duration="1" data-purecounter-delay="250" class="purecounter"></span>
             <p>Languages</p>
           </div>
         </div>
@@ -152,7 +152,7 @@
         <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
           <div class="count-box">
             <i class="bi bi-award"></i>
-            <span data-purecounter-start="0" data-purecounter-end="4" data-purecounter-duration="2" data-purecounter-delay="250" class="purecounter"></span>
+            <span data-purecounter-start="0" data-purecounter-end="3" data-purecounter-duration="2" data-purecounter-delay="250" class="purecounter"></span>
             <p>Awards</p>
           </div>
         </div>
@@ -162,6 +162,8 @@
     </div><!-- End Counts -->
  
     <!-- ======= Skills (renamed languages by me) ======= -->
+    <!-- TODO find better way to represent this (ie. histogram. Get inspiration from here https://ux.stackexchange.com/questions/42798/honest-way-to-show-your-skills-in-portfolio?newreg=9cb908cd69324d4e82b5c2d0cba93ac5, http://sergiopedercini.com/, 
+      and http://www.ryan-hwang.com/about.php) -->
     <div class="skills container">
 
       <div class="section-title">
@@ -424,12 +426,22 @@
   <!-- ======= Resume Section ======= -->
   <section id="resume" class="resume">
     <div class="container">
-
-      <div class="section-title">
-        <h2>Resume</h2>
-        <p>Check My Resume</p>
+      <div class = "row">
+        <div class="col-lg-6">
+          <div class="section-title">
+            <h2>Resume</h2>
+            <p>Check My Resume</p>
+          </div>
+            <h3 class="resume-item"> <a href="./mp_resume.pdf"> Click here to download a PDF of my resume</a></h3>
+          </div>
+        <div class="col-lg-6">
+          <div id="embedpdf"></div>
+        </div>
       </div>
-
+    </div>
+    <!-- 
+</div>
+      </div>
       <div class="row">
         <div class="col-lg-6">
           <h3 class="resume-title">Summary</h3>
@@ -439,7 +451,7 @@
             <p>
             <ul>
               <li>London, ON, Canada</li> 
-              <!-- <li>(123) 456-7891</li> -->
+              <!-- <li>(123) 456-7891</li> 
               <li>markpampuch@gmail.com</li>
             </ul>
             </p>
@@ -456,7 +468,7 @@
             <h4>Bachelor of Science, Honors Specialization in Genetics</h4>
             <h5>2016 - 2020</h5>
             <p><em>University of Western Ontario, London, ON</em></p>
-            <!-- <p>Quia nobis sequi est occaecati aut. Repudiandae et iusto quae reiciendis et quis Eius vel ratione eius unde vitae rerum voluptates asperiores voluptatem Earum molestiae consequatur neque etlon sader mart dila</p> -->
+            <!-- <p>Quia nobis sequi est occaecati aut. Repudiandae et iusto quae reiciendis et quis Eius vel ratione eius unde vitae rerum voluptates asperiores voluptatem Earum molestiae consequatur neque etlon sader mart dila</p> 
             <p>
               <ul>
                 <li>Dean’s Honor List 2017/2018; 2018/2019; 2019/2020</li>
@@ -497,7 +509,9 @@
       </div>
 
     </div>
-  </section><!-- End Resume Section -->
+  </section>
+-->
+<!-- End Resume Section -->
 
 <!-- 
   <!~~ ======= Services Section ======= ~~>
@@ -992,12 +1006,12 @@
             <i class="bx bx-share-alt"></i>
             <h3>Social Profiles</h3>
             <div class="social-links">
-              <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-              <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+              <a href="https://twitter.com/MarkPampuch" class="twitter"><i class="bi bi-twitter"></i></a>
+              <a href="https://www.facebook.com/profile.php?id=100013504470708" class="facebook"><i class="bi bi-facebook"></i></a>
               <!-- <a href="#" class="instagram"><i class="bi bi-instagram"></i></a> -->
               <!-- <a href="#" class="google-plus"><i class="bi bi-skype"></i></a> -->
-              <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-              <a href="#" class="github"><i class="bi bi-github"></i></a>
+              <a href="https://www.linkedin.com/in/mark-pampuch-a07775169/" class="linkedin"><i class="bi bi-linkedin"></i></a>
+              <a href="https://github.com/mpampuch" class="github"><i class="bi bi-github"></i></a>
             </div>
           </div>
         </div>
@@ -1018,7 +1032,7 @@
         </div>
       </div> -->
 
-      <form action="forms/contact.php" method="post" role="form" class="php-email-form mt-4">
+      <form action="https://formspree.io/f/mwkagqyy" method="post" role="form" class="php-email-form mt-4">
         <div class="row">
           <div class="col-md-6 form-group">
             <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
@@ -1056,6 +1070,10 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <!-- Node_modules -->
+  <script src="./node_modules/pdfobject/pdfobject.js"></script>
+  <script>PDFObject.embed("./mp_resume.pdf", "#embedpdf"); </script>
 
 </body>
 
