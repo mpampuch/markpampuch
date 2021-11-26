@@ -2,4 +2,4 @@
 Still a work in progress.
 
 Current link 
-https://mpampuch.github.io/markpampuch/index.html
+https://mpampuch.github.io/markpampuch
