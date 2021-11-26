@@ -160,11 +160,7 @@ h6 {
     font-size: 24px;
   }
   #header h2 {
-<<<<<<< HEAD
-    font-size: 15px;
-=======
     font-size: 13px;
->>>>>>> resume-pdf
     line-height: 20px;
   }
   #header .social-links {
@@ -175,8 +171,6 @@ h6 {
     flex-direction: column;
     align-items: center;
   }
-<<<<<<< HEAD
-=======
   #header .from-to {
     display: block;
     text-align: center;
@@ -187,7 +181,6 @@ h6 {
     padding-bottom: 1px;
     /* TODO fix padding bottom bug. If you don't set it to 6 here, you can see a discrepency on this green line and the one under the text cursor  */
   }
->>>>>>> resume-pdf
 }
 
 /* Header Top */
