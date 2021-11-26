@@ -33,6 +33,17 @@ body::before {
     background-attachment: fixed;
   }
 }
+@media (max-width: 596px) {
+  body::before {
+    background-position: 85%;
+  }
+}
+
+@media (max-width: 895px) {
+  body::before {
+    background-position: 85%;
+  }
+}
 
 a {
   color: #18d26e;
@@ -44,7 +55,12 @@ a:hover {
   text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: "Raleway", sans-serif;
 }
 
@@ -74,7 +90,8 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Poppins", sans-serif;
 }
 
-#header h1 a, #header h1 a:hover {
+#header h1 a,
+#header h1 a:hover {
   color: #fff;
   line-height: 1;
   display: inline-block;
@@ -138,6 +155,41 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+@media (max-width: 306px) {
+  #header h1 {
+    font-size: 24px;
+  }
+  #header h2 {
+<<<<<<< HEAD
+    font-size: 15px;
+=======
+    font-size: 13px;
+>>>>>>> resume-pdf
+    line-height: 20px;
+  }
+  #header .social-links {
+    margin-top: 10px;
+  }
+  #header .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+<<<<<<< HEAD
+=======
+  #header .from-to {
+    display: block;
+    text-align: center;
+  }
+  #header .typed {
+    color: #fff;
+    border-bottom: 2px solid #18d26e;
+    padding-bottom: 1px;
+    /* TODO fix padding bottom bug. If you don't set it to 6 here, you can see a discrepency on this green line and the one under the text cursor  */
+  }
+>>>>>>> resume-pdf
+}
+
 /* Header Top */
 #header.header-top {
   height: 80px;
@@ -148,7 +200,8 @@ h1, h2, h3, h4, h5, h6 {
   background: rgba(0, 0, 0, 0.9);
 }
 
-#header.header-top .social-links, #header.header-top h2 {
+#header.header-top .social-links,
+#header.header-top h2 {
   display: none;
 }
 
@@ -202,7 +255,8 @@ h1, h2, h3, h4, h5, h6 {
   margin-left: 30px;
 }
 
-.navbar a, .navbar a:focus {
+.navbar a,
+.navbar a:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -215,7 +269,8 @@ h1, h2, h3, h4, h5, h6 {
   transition: 0.3s;
 }
 
-.navbar a i, .navbar a:focus i {
+.navbar a i,
+.navbar a:focus i {
   font-size: 12px;
   line-height: 0;
   margin-left: 5px;
@@ -234,12 +289,17 @@ h1, h2, h3, h4, h5, h6 {
   transition: all 0.3s ease-in-out 0s;
 }
 
-.navbar a:hover:before, .navbar li:hover > a:before, .navbar .active:before {
+.navbar a:hover:before,
+.navbar li:hover > a:before,
+.navbar .active:before {
   visibility: visible;
   width: 25px;
 }
 
-.navbar a:hover, .navbar .active, .navbar .active:focus, .navbar li:hover > a {
+.navbar a:hover,
+.navbar .active,
+.navbar .active:focus,
+.navbar li:hover > a {
   color: #fff;
 }
 
@@ -487,7 +547,7 @@ section .container {
 .skills .progress-bar {
   width: 1px;
   height: 10px;
-  transition: .9s;
+  transition: 0.9s;
   background-color: #18d26e;
 }
 
@@ -551,7 +611,8 @@ section .container {
   margin: 0 0 0 45px;
 }
 
-.testimonials .testimonial-item .quote-icon-left, .testimonials .testimonial-item .quote-icon-right {
+.testimonials .testimonial-item .quote-icon-left,
+.testimonials .testimonial-item .quote-icon-right {
   color: rgba(255, 255, 255, 0.25);
   font-size: 26px;
 }
@@ -657,6 +718,11 @@ section .container {
   border: 2px solid #18d26e;
 }
 
+.pdfobject-container {
+  height: 30rem;
+  border: 1rem solid rgba(0, 0, 0, 0.1);
+}
+
 /*--------------------------------------------------------------
 # Services
 --------------------------------------------------------------*/
@@ -673,7 +739,7 @@ section .container {
   height: 64px;
   background: #18d26e;
   border-radius: 5px;
-  transition: all .3s ease-out 0s;
+  transition: all 0.3s ease-out 0s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -688,14 +754,14 @@ section .container {
 
 .services .icon-box .icon::before {
   position: absolute;
-  content: '';
+  content: "";
   left: -8px;
   top: -8px;
   height: 100%;
   width: 100%;
   background: rgba(255, 255, 255, 0.15);
   border-radius: 5px;
-  transition: all .3s ease-out 0s;
+  transition: all 0.3s ease-out 0s;
   transform: translateZ(-1px);
 }
 
@@ -732,7 +798,8 @@ section .container {
   background: #35e888;
 }
 
-.services .icon-box:hover h4 a, .services .icon-box:hover p {
+.services .icon-box:hover h4 a,
+.services .icon-box:hover p {
   color: #fff;
 }
 
@@ -767,7 +834,8 @@ section .container {
   border-radius: 4px;
 }
 
-.portfolio #portfolio-flters li:hover, .portfolio #portfolio-flters li.filter-active {
+.portfolio #portfolio-flters li:hover,
+.portfolio #portfolio-flters li.filter-active {
   background: #18d26e;
 }
 
@@ -1064,7 +1132,8 @@ section .container {
   animation: animate-loading 1s linear infinite;
 }
 
-.contact .php-email-form input, .contact .php-email-form textarea {
+.contact .php-email-form input,
+.contact .php-email-form textarea {
   border-radius: 0;
   box-shadow: none;
   font-size: 14px;
@@ -1074,21 +1143,25 @@ section .container {
   color: #fff;
 }
 
-.contact .php-email-form input:focus, .contact .php-email-form textarea:focus {
+.contact .php-email-form input:focus,
+.contact .php-email-form textarea:focus {
   background-color: rgba(255, 255, 255, 0.11);
 }
 
-.contact .php-email-form input::-webkit-input-placeholder, .contact .php-email-form textarea::-webkit-input-placeholder {
+.contact .php-email-form input::-webkit-input-placeholder,
+.contact .php-email-form textarea::-webkit-input-placeholder {
   color: rgba(255, 255, 255, 0.3);
   opacity: 1;
 }
 
-.contact .php-email-form input::-moz-placeholder, .contact .php-email-form textarea::-moz-placeholder {
+.contact .php-email-form input::-moz-placeholder,
+.contact .php-email-form textarea::-moz-placeholder {
   color: rgba(255, 255, 255, 0.3);
   opacity: 1;
 }
 
-.contact .php-email-form input::placeholder, .contact .php-email-form textarea::placeholder {
+.contact .php-email-form input::placeholder,
+.contact .php-email-form textarea::placeholder {
   color: rgba(255, 255, 255, 0.3);
   opacity: 1;
 }
