@@ -11353,4 +11353,20 @@
         <path fill="none" d="M0 0H24V24H0z"/>
         <path d="M11 11v2l-5.327 6H11v2H3v-2l5.326-6H3v-2h8zm10-8v2l-5.327 6H21v2h-8v-2l5.326-6H13V3h8z"/>
     </g>
-</symbol></svg>
+</symbol>
+<!-- custom icons start here -->
+<!-- BUG ICONS STOP WORKING IF YOU GO PAST \F2DF
+MAYBE SOMETHING TO DO WITH THE BINARY FILES
+IN ORDER TO USE YOUR CUSTOM ICONS, NEED TO USE A CODE THATS ALREADY BEEN ASSIGNED TO SOMETHING ELSE -->
+<symbol viewBox="0 0 24 24" id="ri-rna-line">
+    <g>
+    <path d="M10,10.3v1H9v-1H3v-1h5.9C8.8,9,8.7,8.6,8.5,8.3h-5v-1h4.2c-0.5-0.5-1-0.8-1.7-1c-1.2-0.3-2.2-1-2.9-2C2.4,3.4,2,2.2,2,1
+	V0.8h1v0.5h6v1H3.2c0.1,0.4,0.2,0.7,0.4,1h4.8v1h-4c0.5,0.4,1,0.8,1.6,1l1.3,0.5C8.9,6.6,10,8.4,10,10.3z"/>
+<!-- test -->
+<symbol viewBox="0 0 24 24" id="ri-test-line">
+    <g>
+        <path fill="none" d="M0 0H24V24H0z"/>
+        <path d="M11 11v2l-5.327 6H11v2H3v-2l5.326-6H3v-2h8zm10-8v2l-5.327 6H21v2h-8v-2l5.326-6H13V3h8z"/>
+    </g>
+</symbol>
+</svg>

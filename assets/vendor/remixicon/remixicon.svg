@@ -6830,6 +6830,18 @@
     <glyph glyph-name="zzz-line"
       unicode="&#xF2DF;"
       horiz-adv-x="1200" d="M550 650V550L283.65 250H550V150H150V250L416.3 550H150V650H550zM1050 1050V950L783.65 650H1050V550H650V650L916.3 950H650V1050H1050z" />
+      <!-- CUSTOM ICONS START HERE -->
+      <!-- BUG ICONS STOP WORKING IF YOU GO PAST \F2DF
+MAYBE SOMETHING TO DO WITH THE BINARY FILES
+IN ORDER TO USE YOUR CUSTOM ICONS, NEED TO USE A CODE THATS ALREADY BEEN ASSIGNED TO SOMETHING ELSE -->
+<!-- took code from zzz-line -->
+      <glyph glyph-name="rna-line"
+      unicode="&#xF2E1;"
+      horiz-adv-x="1200" d="M11 11v2l-5.327 6H11v2H3v-2l5.326-6H3v-2h8zm10-8v2l-5.327 6H21v2h-8v-2l5.326-6H13V3h8z" />
+      <!--test-->
+    <!-- <glyph glyph-name="test-line"
+      unicode="&#xF2DF;"
+      horiz-adv-x="1200" d="M550 650V550L283.65 250H550V150H150V250L416.3 550H150V650H550zM1050 1050V950L783.65 650H1050V550H650V650L916.3 950H650V1050H1050z" /> -->
   </font>
 </defs>
 </svg>
