@@ -410,6 +410,7 @@ section .container {
   text-transform: uppercase;
   color: #aaaaaa;
   font-family: "Poppins", sans-serif;
+  line-height: 1;
 }
 
 .section-title h2::after {
