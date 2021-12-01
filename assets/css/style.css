@@ -474,8 +474,12 @@ section .container {
 .rna-icon {
   height: 32px;
   width: 32px;
-  filter: invert(68%) sepia(92%) saturate(402%) hue-rotate(120deg)
-    brightness(87%) contrast(103%);
+  /* filter: invert(68%) sepia(92%) saturate(402%) hue-rotate(120deg)
+    brightness(87%) contrast(103%); */
+  /* color: #11dbcf; */
+  filter: invert(75%) sepia(97%) saturate(910%) hue-rotate(333deg)
+    brightness(102%) contrast(103%);
+  /* color: #ffbb2c; */
 }
 /* https://codepen.io/sosuke/pen/Pjoqqp use this website to convert hex color to filter */
 
@@ -489,8 +493,7 @@ section .container {
   width: 32px;
   filter: invert(14%) sepia(88%) saturate(6914%) hue-rotate(2deg)
     brightness(86%) contrast(103%);
-
-  color: #db0c0c;
+  /* color: #db0c0c; */
 }
 
 /*--------------------------------------------------------------
