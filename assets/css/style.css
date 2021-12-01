@@ -747,6 +747,17 @@ section .container {
   border: 1rem solid rgba(0, 0, 0, 0.1);
 }
 
+.embedded-pdf {
+  height: 35rem;
+  border: 1rem solid rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 992px) {
+  .embedded-pdf {
+    display: none;
+  }
+}
+
 /*--------------------------------------------------------------
 # Publications
 --------------------------------------------------------------*/
