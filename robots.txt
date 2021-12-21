@@ -1,0 +1,4 @@
+Sitemap: https://markpampuch.com/sitemap.xml
+
+User-agent: *
+Disallow:
