@@ -743,7 +743,7 @@ section .container {
 }
 
 .pdfobject-container {
-  height: 35rem;
+  height: 77vh;
   border: 1rem solid rgba(0, 0, 0, 0.1);
 }
 
