@@ -759,6 +759,30 @@ section .container {
 }
 
 /*--------------------------------------------------------------
+# Work Showcase
+--------------------------------------------------------------*/
+
+.work-showcase .work-field {
+  background: rgba(255, 255, 255, 0.08);
+  text-align: center;
+  padding: 30px 30px 25px 30px;
+  margin-bottom: 20px;
+}
+
+.work-showcase .nav-link {
+  color: #18d26e;
+}
+
+.subsection-showcase h2 {
+  margin: 0px;
+}
+
+.subsection-showcase .go-back {
+  padding: 8px 0px 8px 12px;
+  font-style: italic;
+  margin-bottom: 10px;
+}
+/*--------------------------------------------------------------
 # Publications
 --------------------------------------------------------------*/
 
