@@ -268,3 +268,25 @@
     });
   }
 })();
+
+// Automatic age updater
+const birthDate = new Date(1998, 08, 17, 0, 0, 0, 0);
+
+// The current date
+let currentDate = new Date();
+
+// The age in years
+let age = currentDate.getFullYear() - birthDate.getFullYear();
+
+// Compare the months
+let month = currentDate.getMonth() - birthDate.getMonth();
+
+// Compare the days
+let day = currentDate.getDate() - birthDate.getDate();
+
+// If the date has already happened this year
+if (month < 0 || (month == 0 && day < 0)) {
+  age--;
+}
+
+document.querySelector(".age").textContent = age;

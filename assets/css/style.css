@@ -175,11 +175,12 @@ h6 {
     display: block;
     text-align: center;
   }
-  #header .typed {
+  #header h2 span {
     color: #fff;
     border-bottom: 2px solid #18d26e;
     padding-bottom: 1px;
     /* TODO fix padding bottom bug. If you don't set it to 6 here, you can see a discrepency on this green line and the one under the text cursor  */
+    /* FIXED by switiching #header .typed to #header h2 span */
   }
 }
 
