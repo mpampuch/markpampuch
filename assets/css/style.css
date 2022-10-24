@@ -140,6 +140,7 @@ h6 {
 @media (max-width: 992px) {
   #header h1 {
     font-size: 36px;
+    margin-bottom: 35px;
   }
   #header h2 {
     font-size: 20px;
@@ -153,11 +154,24 @@ h6 {
     flex-direction: column;
     align-items: center;
   }
+  #header .from-to {
+    display: block;
+    text-align: center;
+    position: fixed;
+    margin-top: 50px;
+  }
+  #header h2 span {
+    color: #fff;
+    border-bottom: 2px solid #18d26e;
+    padding-bottom: 2px;
+  }
 }
 
 @media (max-width: 306px) {
   #header h1 {
     font-size: 24px;
+    margin-bottom: 10px;
+    text-align: center;
   }
   #header h2 {
     font-size: 13px;
@@ -174,6 +188,8 @@ h6 {
   #header .from-to {
     display: block;
     text-align: center;
+    position: fixed;
+    margin-top: 35px;
   }
   #header h2 span {
     color: #fff;
@@ -181,6 +197,15 @@ h6 {
     padding-bottom: 1px;
     /* TODO fix padding bottom bug. If you don't set it to 6 here, you can see a discrepency on this green line and the one under the text cursor  */
     /* FIXED by switiching #header .typed to #header h2 span */
+  }
+}
+
+@media (max-width: 212px) {
+  #header .from-to {
+    display: block;
+    text-align: center;
+    position: fixed;
+    margin-top: 55px;
   }
 }
 
