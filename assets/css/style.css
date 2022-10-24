@@ -140,7 +140,7 @@ h6 {
 @media (max-width: 992px) {
   #header h1 {
     font-size: 36px;
-    margin-bottom: 35px;
+    margin-bottom: 10px;
   }
   #header h2 {
     font-size: 20px;
@@ -157,13 +157,20 @@ h6 {
   #header .from-to {
     display: block;
     text-align: center;
-    position: fixed;
+    position: absolute;
     margin-top: 50px;
   }
   #header h2 span {
     color: #fff;
     border-bottom: 2px solid #18d26e;
     padding-bottom: 2px;
+  }
+}
+
+@media (max-width: 434px) {
+  #header h1 {
+    font-size: 36px;
+    margin-bottom: 30px;
   }
 }
 
@@ -188,7 +195,6 @@ h6 {
   #header .from-to {
     display: block;
     text-align: center;
-    position: fixed;
     margin-top: 35px;
   }
   #header h2 span {
@@ -204,7 +210,6 @@ h6 {
   #header .from-to {
     display: block;
     text-align: center;
-    position: fixed;
     margin-top: 55px;
   }
 }
