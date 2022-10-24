@@ -270,7 +270,8 @@
 })();
 
 // Automatic age updater
-const birthDate = new Date(1998, 08, 17, 0, 0, 0, 0);
+// Month is 0-indexed so August is month 7, not 8
+const birthDate = new Date(1998, 7, 17, 0, 0, 0, 0);
 
 // The current date
 let currentDate = new Date();
