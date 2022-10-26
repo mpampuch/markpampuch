@@ -602,7 +602,7 @@ section .container {
   }
 }
 
-@media (max-width: 424px) {
+@media (max-width: 401px) {
   .progress {
     font-size: 0.63rem;
   }
