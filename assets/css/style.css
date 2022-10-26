@@ -232,6 +232,7 @@ h6 {
 #header.header-top h1 {
   margin-right: auto;
   font-size: 36px;
+  margin-bottom: 0px;
 }
 
 #header.header-top .container {
@@ -441,7 +442,7 @@ section .container {
   text-transform: uppercase;
   color: #aaaaaa;
   font-family: "Poppins", sans-serif;
-  line-height: 1;
+  line-height: 1.3;
 }
 
 .section-title h2::after {
@@ -588,6 +589,23 @@ section .container {
   font-weight: 600;
   font-family: "Poppins", sans-serif;
   color: #fff;
+}
+
+/* For about section mobile fixing */
+@media (max-width: 424px) {
+  .skills .progress .skill {
+    padding: 5px 0px;
+  }
+
+  .progress {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 424px) {
+  .progress {
+    font-size: 0.63rem;
+  }
 }
 
 .skills .progress .skill .val {
