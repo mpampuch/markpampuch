@@ -1304,6 +1304,8 @@ section .container {
   animation: animate-loading 1s linear infinite;
 }
 
+test {
+}
 .contact .php-email-form input,
 .contact .php-email-form textarea {
   border-radius: 0;
