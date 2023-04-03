@@ -362,6 +362,7 @@ h6 {
     max-width: 70%;
     height: auto;
     border: 0.15rem solid #aaaaaa;
+    filter: grayscale(1);
     border-radius: 50%;
     align-self: flex-end;
   }
@@ -487,6 +488,35 @@ section .container {
 /*--------------------------------------------------------------
 # About
 --------------------------------------------------------------*/
+.about-me .me-container img {
+  max-width: 100%;
+  height: auto;
+  border: 0.15rem solid #aaaaaa;
+  filter: grayscale(1);
+  border-radius: 50%;
+}
+
+@media (max-width: 991px) {
+  /* Edit photo when the screen display gets smaller */
+  .me-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .about-me .me-container img {
+    max-width: 70%;
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Make my photo a little bigger when the page is mobile sized */
+  .about-me .me-container img {
+    max-width: 100%;
+  }
+}
+
 .about-me .content h3 {
   font-weight: 700;
   font-size: 26px;
