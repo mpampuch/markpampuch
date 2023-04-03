@@ -448,7 +448,7 @@ section .container {
 
   /* Make my photo a little bigger when the page is mobile sized */
   .me-container img {
-    max-width: 80%;
+    max-width: 100%;
   }
 }
 
