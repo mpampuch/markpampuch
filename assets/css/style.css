@@ -350,6 +350,21 @@ h6 {
   .navbar ul {
     display: none;
   }
+
+  /* Edit photo when the screen display gets smaller */
+  .me-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .me-container img {
+    max-width: 70%;
+    height: auto;
+    border: 0.15rem solid #aaaaaa;
+    border-radius: 50%;
+    align-self: flex-end;
+  }
 }
 
 .navbar-mobile {
@@ -429,6 +444,11 @@ section .container {
   }
   section.section-show {
     top: 80px;
+  }
+
+  /* Make my photo a little bigger when the page is mobile sized */
+  .me-container img {
+    max-width: 80%;
   }
 }
 
