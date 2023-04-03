@@ -488,6 +488,12 @@ section .container {
 /*--------------------------------------------------------------
 # About
 --------------------------------------------------------------*/
+.about-me .me-container-parent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .about-me .me-container img {
   max-width: 100%;
   height: auto;
@@ -547,6 +553,10 @@ section .container {
 
 .about-me .content p:last-child {
   margin-bottom: 0;
+}
+
+.about-me .description {
+  text-align: justify;
 }
 
 .rna-icon-box {
