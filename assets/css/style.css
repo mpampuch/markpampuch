@@ -556,13 +556,27 @@ section .container {
     max-width: 100%;
   }
 }
-
+/* Header */
 .about-me .content h3 {
   font-weight: 700;
   font-size: 26px;
   color: #18d26e;
 }
 
+@media (max-width: 1200px) {
+  /* Edit header */
+  .about-me .content h3 {
+    font-size: 24px;
+  }
+}
+@media (max-width: 992px) {
+  /* Edit header */
+  .about-me .content h3 {
+    font-size: 26px;
+    text-align: center;
+    padding-bottom: 1.1rem;
+  }
+}
 .about-me .content ul {
   list-style: none;
   padding: 0;
