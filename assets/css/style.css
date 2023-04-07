@@ -607,6 +607,13 @@ section .container {
   text-align: justify;
 }
 
+@media (max-width: 575px) {
+  /* Edit for phones */
+  .about-me .description {
+    text-align: center;
+  }
+}
+
 .rna-icon-box {
   height: 32px;
   width: 42px;
