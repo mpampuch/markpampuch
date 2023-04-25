@@ -28,11 +28,14 @@ body::before {
   z-index: -1;
 }
 
+/* Use high-res photo on large monitors  */
 @media (min-width: 1024px) {
   body::before {
-    background-attachment: fixed;
+    background: #040404 url("../img/bg.jpg") top right no-repeat;
+    background-size: cover;
   }
 }
+
 @media (max-width: 596px) {
   body::before {
     background-position: 85%;
