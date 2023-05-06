@@ -923,6 +923,14 @@ section .container {
   .embedded-pdf {
     display: none;
   }
+
+  .resume-container {
+    flex: 0 0 auto;
+    width: 0%;
+  }
+  .resume-link-container {
+    width: 100%;
+  }
 }
 
 /*--------------------------------------------------------------
@@ -935,6 +943,9 @@ section .container {
   padding: 30px 30px 25px 30px;
   margin-bottom: 20px;
 }
+.work-field:hover {
+  cursor: pointer;
+}
 
 .work-showcase .nav-link {
   color: #18d26e;
@@ -944,7 +955,14 @@ section .container {
   margin: 0px;
 }
 
+.subsection-showcase .go-back-container {
+  display: block;
+  padding: 8px 0px 8px 0px;
+  margin-bottom: 10px;
+}
+
 .subsection-showcase .go-back {
+  display: inline;
   padding: 8px 0px 8px 12px;
   font-style: italic;
   margin-bottom: 10px;

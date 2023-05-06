@@ -291,3 +291,32 @@ if (month < 0 || (month == 0 && day < 0)) {
 }
 
 document.querySelector(".age").textContent = age;
+
+/* 
+WORK SHOWCASE SECTION EVENT PROPAGATION 
+Here I have the code used to create clickable tabbed components in the work showcase section.
+The event listener is attached to the parent element of the tabs and the content (the row containing all the work tabs).
+The first thing I did was check where the target of the event was.
+If it was outside the tabs, I did nothing. (guard clause)
+If it was inside the tabs, I selected the closest tab element
+From that tab, I selected the child anchor element and got the href attribute
+I then followed the href attribute to the content element
+*/
+
+// Select all the work tabs containers
+// Did this instead of adding an event listener to the workshowcase section because there are less of these elements than there are sections with a class of work-showcase so this way I am adding less event listeners and improving performance
+const workTabsContainers = document.querySelectorAll(".work-tabs-container");
+
+// Add an event listener to each container
+workTabsContainers.forEach((workTabsContainer) => {
+  workTabsContainer.addEventListener("click", (e) => {
+    // Guard clause
+    if (!e.target.closest(".work-field")) return;
+
+    // Select the closest tab element
+    const clicked = e.target.closest(".work-field");
+
+    // Mimic a click on the tabs anchor element to trigger its event handler
+    clicked.querySelector(".nav-link").click();
+  });
+});
