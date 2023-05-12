@@ -1874,17 +1874,3 @@ Prism.languages.clike = {
       "." === e.content[0] && t.push("dotfile");
     }
   }));
-
-// remove items if the inner text is "hide"
-treeviewList = document.getElementsByClassName("treeview-part");
-for (item of treeviewList) {
-  // get child element with a class of entry-name
-  span = item.getElementsByClassName("entry-name")[0];
-  // if the inner text contains "hide", remove the item
-  if (span.innerText === "hide") {
-    span.innerText = "\n";
-    span.classList.add("no-before");
-  }
-  // remove the ::before within the <span> element
-  console.log(span);
-}

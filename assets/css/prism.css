@@ -505,7 +505,7 @@ pre[class*="language-"] {
 } */
 
 .special-treeview {
-  white-space: normal !important;
+  white-space: break-spaces !important;
   word-break: break-word !important;
 }
 
