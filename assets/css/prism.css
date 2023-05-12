@@ -46,7 +46,7 @@ pre.truncated-output {
   border-radius: 0.2em;
   outline: none;
   border-left: 0.1rem solid #6c757d;
-  border-right: 0.1rem solid #6c757d;
+  /* border-right: 0.1rem solid #6c757d; */
   padding-left: 1.5rem;
   max-height: 50vh;
   margin-bottom: 1rem;
@@ -507,4 +507,9 @@ pre[class*="language-"] {
 .special-treeview {
   white-space: normal !important;
   word-break: break-word !important;
+}
+
+/* Remove hidden lines from treeview */
+.no-before::before {
+  display: none !important;
 }

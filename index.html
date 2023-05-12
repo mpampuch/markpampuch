@@ -939,113 +939,119 @@
               &#8701; Back to Software Showcase
             </a>
           </div>
-          <p>
-            <em>
-              I am currently finishing up school so I don't have a lot of free
-              time to add to this section but I am slowly working on it. I have
-              a few more projects that I will be adding to this section soon.
-              Here is a sample of one of them. If you want to see more of my CLI
-              tools that I have built, check back to this page soon or reach out
-              to me to disucss it.
-            </em>
-          </p>
-          <div class="section-title">
-            <p>Building a simple DNA basecaller in Python</p>
-          </div>
-          <p>
-            Here I described how I built a program to convert electrical signals
-            into DNA code.
-          </p>
-          <p>This post is almost complete. Come back soon to see it.</p>
-          <!-- TEST POST -->
-          <p>
-            I went to the Oxford Nanopore Community meetup 2022 to learn more
-            about how the Oxford Nanopore sequencing devices work. One of the
-            workshops I participated in educated us about the history of
-            basecalling algorithms and had us try to build our own basecaller
-            using sample raw data.
-          </p>
-          <p>
-            As a brief summary, nanopore sequencing is a technology that allows
-            you to determine the sequences of DNA (and potentially RNA) in your
-            sample of interest. How this works is that extracted DNA are prepped
-            with reagents to make the DNA molecules nanopore sequencing
-            compatible. The prepped sample is then loaded onto the sequencing
-            device that contains a membrane full of biological pore proteins,
-            termemd &quot;nanopores&quot;, that can allow molecules to pass from
-            one side of the membrane to the other. Samples are loaded alongside
-            so-called &quot;motor proteins&quot; that bind to DNA molecules,
-            tether themselves near a pore, and begin to feed the strand of DNA
-            through the nanopore by unwinding the double-stranded and passing it
-            into the pore as a single strand of DNA (in most cases).
-          </p>
-          <div class="workshowcase-img-container">
-            <img
-              class="img-fluid"
-              src="assets/img/nanopore_sequencing.gif"
-              alt="Nanopore Sequencing"
-            />
-          </div>
-          <p>
-            Throughout this whole process, an electrical current is being
-            applied through the membrane. As molecules pass through the pores,
-            disruptions in the electrical current can be observed and measured.
-          </p>
-          <p>
-            This is where the concept of Hidden Markov Models (HMMs) come in.
-            HMMs are statistical models that make use of probabilistic
-            transitions between hidden states to explain observed outputs. In
-            the case of nanopore sequencing and DNA basecalling, the hidden
-            states represent the unknown sequence of DNA bases, while the
-            observed outputs correspond to the electrical signals measured by
-            the sequencing device. Based on the observed electrical signals, we
-            can design a program that estimates the probabilities of
-            transitioning between different hidden states, and use this
-            information to infer the most likely sequence of DNA bases that
-            passed through the nanopore.
-          </p>
-          <div class="workshowcase-img-container">
-            <img
-              class="img-fluid"
-              src="assets/img/nanopore_basecalling.gif"
-              alt="DNA Basecaller"
-            />
-          </div>
-          <p>
-            The premise of our project was simple, given a list of electrical
-            readings at many different timepoints, decipher the sequence of DNA
-            that went through the nanopore molecule. All we were given were
-            three files to start with:
-          </p>
-          <pre class="no-code">
-<code class="language-treeview special-treeview">signals.json &larr; A file containing electrical signal data obtained from a nanopore device
+          <div class="blog-post">
+            <p>
+              <em>
+                I am currently finishing up school so I don't have a lot of free
+                time to add to this section but I am slowly working on it. I
+                have a few more projects that I will be adding to this section
+                soon. Here is a sample of one of them. If you want to see more
+                of my CLI tools that I have built, check back to this page soon
+                or reach out to me to disucss it.
+              </em>
+            </p>
+            <div class="section-title">
+              <p>Building a simple DNA basecaller in Python</p>
+            </div>
+            <p>
+              Here I described how I built a program to convert electrical
+              signals into DNA code.
+            </p>
+            <p>This post is almost complete. Come back soon to see it.</p>
+            <!-- TEST POST -->
+            <p>
+              I went to the Oxford Nanopore Community meetup 2022 to learn more
+              about how the Oxford Nanopore sequencing devices work. One of the
+              workshops I participated in educated us about the history of
+              basecalling algorithms and had us try to build our own basecaller
+              using sample raw data.
+            </p>
+            <p>
+              As a brief summary, nanopore sequencing is a technology that
+              allows you to determine the sequences of DNA (and potentially RNA)
+              in your sample of interest. How this works is that extracted DNA
+              are prepped with reagents to make the DNA molecules nanopore
+              sequencing compatible. The prepped sample is then loaded onto the
+              sequencing device that contains a membrane full of biological pore
+              proteins, termemd &quot;nanopores&quot;, that can allow molecules
+              to pass from one side of the membrane to the other. Samples are
+              loaded alongside so-called &quot;motor proteins&quot; that bind to
+              DNA molecules, tether themselves near a pore, and begin to feed
+              the strand of DNA through the nanopore by unwinding the
+              double-stranded and passing it into the pore as a single strand of
+              DNA (in most cases).
+            </p>
+            <div class="workshowcase-img-container">
+              <img
+                class="img-fluid"
+                src="assets/img/nanopore_sequencing.gif"
+                alt="Nanopore Sequencing"
+              />
+            </div>
+            <p>
+              Throughout this whole process, an electrical current is being
+              applied through the membrane. As molecules pass through the pores,
+              disruptions in the electrical current can be observed and
+              measured.
+            </p>
+            <p>
+              This is where the concept of Hidden Markov Models (HMMs) come in.
+              HMMs are statistical models that make use of probabilistic
+              transitions between hidden states to explain observed outputs. In
+              the case of nanopore sequencing and DNA basecalling, the hidden
+              states represent the unknown sequence of DNA bases, while the
+              observed outputs correspond to the electrical signals measured by
+              the sequencing device. Based on the observed electrical signals,
+              we can design a program that estimates the probabilities of
+              transitioning between different hidden states, and use this
+              information to infer the most likely sequence of DNA bases that
+              passed through the nanopore.
+            </p>
+            <div class="workshowcase-img-container">
+              <img
+                class="img-fluid"
+                src="assets/img/nanopore_basecalling.gif"
+                alt="DNA Basecaller"
+              />
+            </div>
+            <p>
+              The premise of our project was simple, given a list of electrical
+              readings at many different timepoints, decipher the sequence of
+              DNA that went through the nanopore molecule. All we were given
+              were three files to start with:
+            </p>
+            <pre class="no-code">
+<code class="language-treeview special-treeview">
+signals.json &larr; A file containing electrical signal data obtained from a nanopore device
+
 kmer_table.json &larr; A file containing a table each DNA dinucleotide and thier corresponding electrical signature.
+
 sequences.json &larr; A file containing the correct sequences corresponding to the raw electrical data (to test the accuracy of the basecaller)
 
 </code></pre>
-          <p>
-            I&#39;ll elaborate on these further as they come up in the code.
-          </p>
-          <p>
-            The workshop was very independent. We were left to our own devices
-            and given 3 hours to come up with a potential solution. Here is the
-            solution that I came up with.
-          </p>
-          <p>
-            I decided to tackle this challenge in Python. The first thing I did
-            was import the modules I was going to use.
-          </p>
-          <pre
-            class="line-numbers"
-          ><code class="language-python"># Import the required modules
+            <p>
+              I&#39;ll elaborate on these further as they come up in the code.
+            </p>
+            <p>
+              The workshop was very independent. We were left to our own devices
+              and given 3 hours to come up with a potential solution. Here is
+              the solution that I came up with.
+            </p>
+            <p>
+              I decided to tackle this challenge in Python. The first thing I
+              did was import the modules I was going to use.
+            </p>
+            <pre
+              class="line-numbers"
+            ><code class="language-python"># Import the required modules
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import json</code></pre>
-          <p>Then I imported all files and saved them into variables.</p>
-          <pre
-            class="line-numbers"
-          ><code class="language-python"># Opening JSON files and JSON objects as lists or dictionaries
+            <p>Then I imported all files and saved them into variables.</p>
+            <pre
+              class="line-numbers"
+            ><code class="language-python"># Opening JSON files and JSON objects as lists or dictionaries
 with open('sequences.json') as f:
     sequencing = json.load(f)
     
@@ -1054,25 +1060,25 @@ with open('signals.json') as f2:
     
 with open('kmer_table.json') as f3:
     kmer_table = json.load(f3)</code></pre>
-          <p>
-            The next thing I needed to do is investigate the contents of each
-            file.
-          </p>
-          <p>Starting off with the sequencing file.</p>
-          <pre
-            class="line-numbers"
-          ><code class="language-python">print(type(sequencing))</code></pre>
-          <pre
-            class="output no-lang-display"
-          ><code class="language-output">&lt;class 'list'&gt;</code></pre>
-          <pre
-            class="line-numbers"
-          ><code class="language-python"># Prints the first 80 base pairs of each sequence
+            <p>
+              The next thing I needed to do is investigate the contents of each
+              file.
+            </p>
+            <p>Starting off with the sequencing file.</p>
+            <pre
+              class="line-numbers"
+            ><code class="language-python">print(type(sequencing))</code></pre>
+            <pre
+              class="output no-lang-display"
+            ><code class="language-output">&lt;class 'list'&gt;</code></pre>
+            <pre
+              class="line-numbers"
+            ><code class="language-python"># Prints the first 80 base pairs of each sequence
 for i, seq in enumerate(sequencing):
     print(f"sequence {i + 1}: {seq[0:80]}")</code></pre>
-          <pre
-            class="truncated-output"
-          ><code class="language-truncout">sequence 1: CCTTACCAGTTTCATAATAAATAAGGTTCCCACATGCTACCTGTCCGGGCGACCGTAGGGCGAATACCGCGCTGCACGTG
+            <pre
+              class="truncated-output"
+            ><code class="language-truncout">sequence 1: CCTTACCAGTTTCATAATAAATAAGGTTCCCACATGCTACCTGTCCGGGCGACCGTAGGGCGAATACCGCGCTGCACGTG
 sequence 2: TGACCGTTTGCAGGCATTGCTTGGATCCATATAGCGCACAAATAGTCGCGAGTATGGTTGGTGATCAAAAGACCTGTAGA
 sequence 3: AGCGCTCGGCTAAAACTAGCCTGGCCATCGTTGTCATAAACCTATCCCGGCGTCCGCTTAGCGTACTGAAGGTGTTCGTA
 sequence 4: GCCCGTAGAAAAACAGGTTGAGGACAATAGCAGTTACGAATACAATTATCGATCCGGTGGTGAAAGACGTCATCGCACCT
@@ -1102,11 +1108,81 @@ sequence 197: TCCAGACACGAACTGAAGGACTGGAGCTTCGAACTTGCGTCGGTCGAGATGTATGCTATTTAATCA
 sequence 198: GTTGATCTCCTATACGTGGGCTCGGGATTGAACTAGACTACCTCGGTTACCCCTCCCAATAATGTATACAATAACCCTCT
 sequence 199: CGTCGTGGCAGAAACTTTCTTTCGCTGAGATACACTACGGTAACTTCTCTAAATCCATCTAAAGGCCTATATTCACCTAA
 sequence 200: GATTTGTTTTAACTTGCACACCCGGTGGTCCTAACTTATCACGGTTCCTGTCACGGTAAAGCTTCTACTGCGACCAGCTC</code></pre>
-          <p>
-            The sequencing file contains a list of 200 sequences that will be
-            used to benchmark the accuracy of my basecaller.
-          </p>
-          <pre class="line-numbers">
+            <p>
+              The sequencing file contains a list of 200 sequences that will be
+              used to benchmark the accuracy of my basecaller.
+            </p>
+            <p>
+              The next file contains the raw numerical data obtained from the
+              sequencing device. Let's see what this looks like.
+            </p>
+            <pre
+              class="line-numbers"
+            ><code class="language-python">print(type(signals))</code></pre>
+            <pre
+              class="output no-lang-display"
+            ><code class="language-output">&lt;class 'list'&gt;</code></pre>
+            <pre
+              class="line-numbers"
+            ><code class="language-python"># Prints the first 80 electrical current readings for each DNA sequence
+# Only print the data for the first and last 3 sequences to not overclutter the output
+for i, sig in enumerate(signals):
+    if i < 3 or i >= len(signals) - 3:
+        print(f"signal {i + 1}: {sig[0:80]}", end="\n");
+    if i == 3:
+        print("...")</code></pre>
+            <pre class="output"><code class="language-output">
+signal 1: [0.3100529743453997, 0.3158634462325644, 0.31208845112970585, 0.31708760150559795, 0.3123011896833653, 0.31436657306891536, 0.441634747471758, 0.4407353774410627, 0.4446590187328251, 0.43930513606416066, 0.43076376005652706, 0.4328593195800709, 0.4429004272747269, 0.9361748673202694, 0.9390461565805324, 0.9340941773738767, 0.9415035256947212, 0.9359606710046688, 0.943332432954438, 0.9353710639164073, 0.9419725335868708, 0.9401975844192835, 0.7471104323783434, 0.7543959853309887, 0.746393462038096, 0.746710131244383, 0.7528868451684507, 0.747498631994136, 0.7476246277309819, 0.7486243971631584, 0.7459993232405099, 0.06667997763869558, 0.0649340587939394, 0.062222685213238066, 0.06206643173130584, 0.06430062205106872, 0.06956134040207629, 0.06598387921012897, 0.0604661714628984, 0.06560967682099546, 0.31202491531158766, 0.3117040072647851, 0.3199658855006085, 0.3108242484092875, 0.31058326033949035, 0.30469157885101905, 0.24439068341818745, 0.2518044917549384, 0.24722031639525904, 0.252061655207133, 0.24554051579053626, 0.24693076069467307, 0.25269828282782403, 0.25584356952185233, 0.12736989120569608, 0.129791323366885, 0.13181837668548962, 0.12916035661261638, 0.1213262398467999, 0.6870786211499699, 0.6900207826827397, 0.6858406123948471, 0.6893077841492848, 0.6811833748584222, 0.9341854880845744, 0.9396155189823407, 0.9285516539555502, 0.9330691499908618, 0.9374291267283594, 0.9306224221015219, 0.9377284839843284, 0.934301810037233, 0.9363336216179967, 0.9364640685863979, 0.9382571727902347, 0.9352448450616708, 0.9378587456292904, 0.9350953727974025, 0.9397242940403095, 0.9442752364531524]
+signal 2: [0.8718274187396214, 0.8701425065460943, 0.8736259998975986, 0.873563917571122, 0.8650604183657802, 0.873097399690971, 0.8727233417770178, 0.8694257721321107, 0.871501837917242, 0.8759874130843427, 0.8763655561883015, 0.8762994742089532, 0.8726961912153857, 0.8717003819220065, 0.8755815519018014, 0.8734274313657613, 0.8791456680423432, 0.8796572345884945, 0.4981095474949926, 0.493466052165371, 0.5007334390525425, 0.4973244180014974, 0.5032891882812756, 0.06530039807092146, 0.0582975625632877, 0.06669292223744569, 0.06806910936103525, 0.06404489553159515, 0.06494058414660187, 0.06041628781925487, 0.05906335840732782, 0.06751954748570266, 0.3134644364681886, 0.31213329920146377, 0.3122242999220129, 0.3155110458612274, 0.3116373949351636, 0.3105062883956581, 0.31128102557675413, 0.31185001119590655, 0.3105541145917271, 0.3128531292426612, 0.37303360549249376, 0.3731802886295113, 0.3829461567909086, 0.3750290419359434, 0.3818319447236752, 0.3709809415682388, 0.3780192669371244, 0.3750452720284999, 0.694264040073273, 0.6856392546114898, 0.6946692919574114, 0.6851454156060066, 0.6875305097928515, 0.682875656267178, 0.6873617953935149, 0.6866727075854471, 0.6830624567091332, 0.6801160137914215, 0.6910856277693966, 0.6894805503128675, 0.6847146459314587, 0.6870728254541224, 0.6845991846173449, 0.6869477013746157, 0.6885001707549948, 0.6889124626282804, 0.9354960925055359, 0.9366607824920513, 0.9395644675378666, 0.9348626941960132, 0.9352777715381704, 0.9378274008343893, 0.9394790489943761, 0.9358042009950395, 0.9406861231946123, 0.9372197435360158, 0.9348090298787833, 0.9378776616289848]
+signal 3: [0.1274964684895317, 0.11763153197627063, 0.12233869311664558, 0.12254135138028113, 0.12329276649411786, 0.12496405394528928, 0.12305279351256104, 0.12239640235761852, 0.1246080684691115, 0.12432869653873103, 0.5560826306023586, 0.5553832011121335, 0.5602097558363068, 0.5652997841669394, 0.5617131749677041, 0.5595141922509749, 0.5662509925302252, 0.5519983950524241, 0.5654846593366483, 0.5651964400615108, 0.37905706999889854, 0.3746771430684578, 0.3741134090613114, 0.3724145635578148, 0.38049633862938553, 0.3713483578883748, 0.37691884470929016, 0.3779694670140296, 0.37592619157277657, 0.3713721450438278, 0.384927780972506, 0.37590647784363934, 0.5619483350547104, 0.5603338030303621, 0.5592816320030317, 0.566222509541765, 0.5686722608390449, 0.5680271476000597, 0.5618333249682713, 0.5558656685026228, 0.5602826033697548, 0.564526733886477, 0.5631099032475467, 0.5610104754500993, 0.5580318158535241, 0.43578874108032767, 0.4412567352358483, 0.4338171603530718, 0.4357294506306183, 0.44022261476155106, 0.43335530477482764, 0.4304955471531175, 0.4396365723016269, 0.44029933079579625, 0.4383513242791009, 0.8067275170443323, 0.8119974772736225, 0.8188054252021972, 0.8067538465592148, 0.8136093042092316, 0.8102415519807998, 0.8133409264855411, 0.807648751586652, 0.8057651962969663, 0.8146957560581631, 0.8130323584640134, 0.8134334644374099, 0.8065623716874014, 0.8142275377946145, 0.8175714067476539, 0.37283845202236987, 0.3763459626275503, 0.372998084137685, 0.37856234526935145, 0.37169400880892456, 0.37449915023108193, 0.3784276749805034, 0.37684731771537266, 0.37120261139844263, 0.374844623437569]
+...
+signal 198: [0.6921936583913131, 0.6929469439559184, 0.6831279102032887, 0.6887385736647821, 0.6777946896132349, 0.6849696392478317, 0.6921244754934774, 0.6905801930851725, 0.6854101468617635, 0.6896460991103326, 0.6825116574630986, 0.6824764078060804, 0.6898633248858523, 0.6937365112132673, 0.6887585074530919, 0.6890768597122101, 0.9421082551685703, 0.9400501622697477, 0.9314443889323214, 0.9390270120195359, 0.939450621016608, 0.9397182138953516, 0.9315150824279522, 0.8743698500861806, 0.8745155587037003, 0.8719907884673278, 0.8748959598514212, 0.8800718023963146, 0.8694379088762506, 0.8706182690992401, 0.8699051995162409, 0.8792076188806851, 0.8730294199990056, 0.8804206030956366, 0.5037697406367723, 0.48984054839486557, 0.4951452166933016, 0.49288082282212947, 0.497623584340674, 0.5065239477765119, 0.5066215863440017, 0.18898116216060534, 0.187459740748378, 0.18698611034484586, 0.18582029956678953, 0.18575776415235454, 0.19097358490149405, 0.1893103419723928, 0.19055735676203864, 0.19143450240450882, 0.18671323718151872, 0.18744343782208284, 0.19501530992791913, 0.813879660298781, 0.8154418116163831, 0.8062478317124162, 0.8192301836464629, 0.8092749712733941, 0.8045974896150151, 0.8090206224361796, 0.8148429176407843, 0.8155292175624317, 0.8130456302359815, 0.8018364537533587, 0.8115358885897485, 0.8174555727790886, 0.4341396165459761, 0.4426843838282123, 0.43745119696158646, 0.4367867577631802, 0.4360314265173659, 0.44028734943250203, 0.43099919960952465, 0.4390299538389471, 0.43403530527287376, 0.43713693726849395, 0.43806148458515565, 0.4397573820298558, 0.4423007887421328, 0.4329612343142859]
+signal 199: [0.37511356666345974, 0.3732188172574157, 0.3766826805391929, 0.378946188667255, 0.36980891541241895, 0.37291900736031325, 0.36740332725669994, 0.3781855107568417, 0.3765533575109063, 0.3730304691556473, 0.3734847396981682, 0.36777457317812745, 0.37766467277211924, 0.6866468970868385, 0.6869252220047867, 0.6809483946213962, 0.6884042060334641, 0.6822242664994125, 0.6914621143743624, 0.8082132388272841, 0.8177249607122832, 0.8152733609209599, 0.8094833048173833, 0.8117879213139008, 0.8079605599257219, 0.8211145826397316, 0.8133131061251264, 0.818826895730872, 0.8195377801343101, 0.8103341177706156, 0.37114487135846885, 0.36897149168144283, 0.3729882864864854, 0.3659396094037252, 0.3754084402772783, 0.3707015265583655, 0.3736264577945466, 0.6916405560469775, 0.6896243152907189, 0.6818406854424618, 0.6875521546689678, 0.6924355482330501, 0.6943283057458314, 0.6874446035363492, 0.6818928881262954, 0.6871875379591865, 0.6817051917806289, 0.6814097008856999, 0.8808241360150421, 0.8754977601246159, 0.8753877219204552, 0.8736839997387661, 0.6258349679787194, 0.6268309625624313, 0.6235885396088324, 0.6244147352226377, 0.6237884828008239, 0.6279050081077552, 0.6203130253973985, 0.6257366348678228, 0.623006583912816, 0.6260556177067069, 0.6230116778691505, 0.6211624827759077, 0.5632572371750116, 0.5635742337798384, 0.5629627783637978, 0.5674693244955594, 0.558453986962408, 0.5695069358034348, 0.5643719332096544, 0.5571968236072049, 0.24686692351918185, 0.24803103883222286, 0.25473947518326495, 0.24670410154849873, 0.12487128051740992, 0.12336858821290289, 0.12886237036632436, 0.12632991434803018]
+signal 200: [0.4965896260247073, 0.503147546863643, 0.5074540271373705, 0.4994575363838496, 0.5030391863427802, 0.5023133051148065, 0.497618338740552, 0.190495466063656, 0.19452453470652062, 0.18866880895420154, 0.19211215236658935, 0.18489948629042924, 0.19360314760236613, 0.18916225871773007, 0.1885724015113846, 0.1877425021836601, 0.1835116492162438, 0.18780699883694185, 0.1843148767948086, 0.19455680573867482, 0.1863005240695882, 0.19170712655405187, 0.9371328000646023, 0.9374187126678553, 0.936239194011627, 0.9280312160085781, 0.935771580873965, 0.9360535537661905, 0.9359144171135485, 0.9410242631402418, 0.9437963026167502, 0.9308311909199294, 0.9432783267221693, 0.9323361432921073, 0.9329231280729392, 0.938816407045115, 0.9374749656743449, 0.9346029317122143, 0.938464122130661, 0.8721400372206707, 0.872300786463957, 0.8807978292977977, 0.8756186512537023, 0.8749175914720416, 0.8749445859757259, 0.8712607513249992, 0.8791549988635969, 0.8776937589692215, 0.8795066449257479, 0.6921780038475386, 0.6813975224046545, 0.688040297675312, 0.6891537559103618, 0.6894304023484992, 0.6894564992010884, 0.6845481835437235, 0.6814274234761432, 0.6914817484473015, 0.6824467369833629, 0.6872203763146844, 0.6815172712427255, 0.6888938537467207, 0.6844644676698142, 0.6861460620553707, 0.9387423224092766, 0.9306285260059989, 0.9380209458916023, 0.9367948908398598, 0.9377807630316575, 0.9369310681540363, 0.9330864861693335, 0.9419121541713907, 0.9424454593140845, 0.939219939281965, 0.9408843796150103, 0.930354401821948, 0.9389099341077157, 0.9417874521707633, 0.9385513932566601, 0.9397627128626431]
+          </code></pre>
+            <p>
+              The signals file contains a list of 200 signals that correspond to
+              the 200 sequences found in the sequences file. As the DNA
+              sequences pass through a nanopore protein the electrical current
+              is disrupted. The current is measured at consistent time points
+              and outputted.
+            </p>
+            <p>
+              Lastly, the last file is the k-mer table file. k-mers are
+              sequences of DNA of length k. This file is what will be used to
+              decode the signal and turn the electrical data into DNA code.
+            </p>
+            <pre
+              class="line-numbers"
+            ><code class="language-python">print(type(kmer_table))</code></pre>
+            <pre
+              class="output no-lang-display"
+            ><code class="language-output">&lt;class 'dict'&gt;</code></pre>
+            <pre
+              class="line-numbers"
+            ><code class="language-python"># Output the table with each key, value pair on a newline
+print(json.dumps(kmer_table, separators = (",\n ", ": ")))</code></pre>
+
+            <pre
+              class="output no-lang-display"
+            ><code class="language-output">{"AA": 0.0,
+"AC": 0.0625,
+"AG": 0.125,
+"AT": 0.1875,
+"CA": 0.25,
+"CC": 0.3125,
+"CG": 0.375,
+"CT": 0.4375,
+"GA": 0.5,
+"GC": 0.5625,
+"GG": 0.625,
+"GT": 0.6875,
+"TA": 0.75,
+"TC": 0.8125,
+"TG": 0.875,
+"TT": 0.9375}</code></pre>
+            <!-- TEST BLOCK OF CODE -->
+            <pre class="line-numbers">
 <code class="language-python">def get_label_details(timepoints: "list") -> "tuple(int, str)":
 # Get the corresponding signals array for the given time range
 signals_from_timepoints = signal_1.signal[timepoints]
@@ -1156,7 +1232,8 @@ fig, axs = plt.subplots(1, 2, figsize=(12, 4))
 # Plot the first plot on the left subplot
 plot_subplot(plot_num = 0, with_color = True)
 plot_subplot(plot_num = 1, with_color = False)</code></pre>
-          <!-- END TEST POST -->
+            <!-- END TEST POST -->
+          </div>
         </div>
       </div>
     </section>

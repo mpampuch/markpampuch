@@ -937,6 +937,23 @@ section .container {
 # Work Showcase
 --------------------------------------------------------------*/
 
+/* Center post and appear like its elevated */
+.blog-post {
+  max-width: 920px;
+  margin: auto;
+  padding-left: 50px;
+  padding-right: 50px;
+  box-shadow: 0 9px 0px 0px #000, 0 -9px 0px 0px #000,
+    -1px 0px 20px -4px #212529, 0px 0px 0px -4px #212529;
+}
+
+/* remove the box shadow past 1200px */
+@media (max-width: 1200px) {
+  .blog-post {
+    box-shadow: none;
+  }
+}
+
 .work-showcase .work-field {
   background: rgba(255, 255, 255, 0.08);
   text-align: center;
