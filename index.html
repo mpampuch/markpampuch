@@ -61,6 +61,10 @@
 
     <!-- Node_modules -->
 
+    <!-- Syntax highlighting -->
+    <link href="assets/css/prism.css" rel="stylesheet" />
+    <script defer src="assets/js/prism.js"></script>
+
     <!-- =======================================================
   * Template Name: Personal - v4.3.0
   * Template URL: https://bootstrapmade.com/personal-free-resume-bootstrap-template/
@@ -953,6 +957,138 @@
             into DNA code.
           </p>
           <p>This post is almost complete. Come back soon to see it.</p>
+          <!-- TEST POST -->
+          <p>
+            I went to the Oxford Nanopore Community meetup 2022 to learn more
+            about how the Oxford Nanopore sequencing devices work. One of the
+            workshops I participated in educated us about the history of
+            basecalling algorithms and had us try to build our own basecaller
+            using sample raw data.
+          </p>
+          <p>
+            As a brief summary, nanopore sequencing is a technology that allows
+            you to determine the sequences of DNA (and potentially RNA) in your
+            sample of interest. How this works is that extracted DNA are prepped
+            with reagents to make the DNA molecules nanopore sequencing
+            compatible. The prepped sample is then loaded onto the sequencing
+            device that contains a membrane full of biological pore proteins,
+            termemd &quot;nanopores&quot;, that can allow molecules to pass from
+            one side of the membrane to the other. Samples are loaded alongside
+            so-called &quot;motor proteins&quot; that bind to DNA molecules,
+            tether themselves near a pore, and begin to feed the strand of DNA
+            through the nanopore by unwinding the double-stranded and passing it
+            into the pore as a single strand of DNA (in most cases).
+          </p>
+          <div class="workshowcase-img-container">
+            <img
+              class="img-fluid"
+              src="assets/img/nanopore_sequencing.gif"
+              alt="Nanopore Sequencing"
+            />
+          </div>
+          <p>
+            Throughout this whole process, an electrical current is being
+            applied through the membrane. As molecules pass through the pores,
+            disruptions in the electrical current can be observed and measured.
+          </p>
+          <p>
+            This is where the concept of Hidden Markov Models (HMMs) come in.
+            HMMs are statistical models that make use of probabilistic
+            transitions between hidden states to explain observed outputs. In
+            the case of nanopore sequencing and DNA basecalling, the hidden
+            states represent the unknown sequence of DNA bases, while the
+            observed outputs correspond to the electrical signals measured by
+            the sequencing device. Based on the observed electrical signals, we
+            can design a program that estimates the probabilities of
+            transitioning between different hidden states, and use this
+            information to infer the most likely sequence of DNA bases that
+            passed through the nanopore.
+          </p>
+          <div class="workshowcase-img-container">
+            <img
+              class="img-fluid"
+              src="assets/img/nanopore_basecalling.gif"
+              alt="DNA Basecaller"
+            />
+          </div>
+          <p>
+            The premise of our project was simple, given a list of electrical
+            readings at many different timepoints, decipher the sequence of DNA
+            that went through the nanopore molecule. All we were given were
+            three files to start with:
+          </p>
+          <ul>
+            <li>
+              A file containing electrical signal data obtained from a nanopore
+              device
+            </li>
+            <li>
+              A file containing a table each DNA dinucleotide and thier
+              corresponding electrical signature.
+            </li>
+            <li>
+              A file containing the correct sequences that correspond to the raw
+              electrical data (only used to check the accuracy of the
+              basecaller)
+            </li>
+          </ul>
+          <p>
+            I&#39;ll elaborate on these further as they come up in the code.
+          </p>
+          <!-- <pre> -->
+          <pre class="line-numbers">
+<code class="language-python">def get_label_details(timepoints: "list") -> "tuple(int, str)":
+# Get the corresponding signals array for the given time range
+signals_from_timepoints = signal_1.signal[timepoints]
+
+# Get the maximum value of the signal for the given time range (this will be used to generate the y-axis value of the label)
+max_signal = np.max(signals_from_timepoints)
+
+# Basecall the average of the signal for each timepoint
+# Figure out the average of the signal, then loop through the dinucleotide table and figure out which dinucleotide signal is the closest to the average (calculate the minimal distance between the average and the dinucleotide signals)
+average_signal = np.mean(signals_from_timepoints)
+differences = list()
+for dinuc, signature in kmer_table.items():
+    differences.append((dinuc, abs(average_signal - signature)))
+minimal_dist = np.min([x[1] for x in differences])
+dinuccall = [x[0] for x in differences if x[1] == minimal_dist][0]
+
+# Return y-axis value (max_signal + some padding) and label (dinculeotide)
+return (max_signal + 0.0225, dinuccall)
+
+def plot_subplot(plot_num: "int (0 or 1)", with_color: "bool") -> None:
+"""Plot subplots of the signal with annotations"""
+axs[plot_num].plot(signal_1.signal[0:100])
+axs[plot_num].set_xlim(right=100)
+axs[plot_num].set_ylim(top=1)
+axs[plot_num].set_xlabel('Time point')
+axs[plot_num].set_ylabel('Signal')
+
+for i, v in enumerate(dna_capture_timepoints):
+
+    # Color the background of the plot if with_color is True
+    if with_color:
+        axs[plot_num].axvspan(xmin=v[0], xmax=v[-1], color='green', alpha=0.1)
+        if i > 0 and i in dna_step_timepoints:
+            axs[0].axvspan(xmin=i, xmax=i+1, color='red', alpha=0.3)
+            
+    # Only label the first 11 labels because there are 11 visible DNA capture events in the first 100 time points
+    if i < 11:
+        label_data = get_label_details(v)
+        x_center = (v[0] + v[-1]) / 2  # calculate the center of the green area
+        y_center = label_data[0] 
+        basecall = label_data[1] 
+        axs[plot_num].text(x_center, y_center, basecall, ha='center', va='center', fontsize=10) # ha = horizontal alignment, va = vertical alignment
+
+# Set up the figure with two subplots
+fig, axs = plt.subplots(1, 2, figsize=(12, 4))
+
+# Plot the first plot on the left subplot
+plot_subplot(plot_num = 0, with_color = True)
+plot_subplot(plot_num = 1, with_color = False)
+</code>
+          </pre>
+          <!-- END TEST POST -->
         </div>
       </div>
     </section>

@@ -967,6 +967,13 @@ section .container {
   font-style: italic;
   margin-bottom: 10px;
 }
+
+.workshowcase-img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
 /*--------------------------------------------------------------
 # Publications
 --------------------------------------------------------------*/
