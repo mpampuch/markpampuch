@@ -1018,34 +1018,94 @@
             three files to start with:
           </p>
           <pre class="no-code">
-<code class="language-treeview" style="
-/* inline stlye just for word wrap because will probably never use this again */
-  white-space: normal !important;
-  word-break: break-word !important;
-  ">signals.json &larr; A file containing electrical signal data obtained from a nanopore device
+<code class="language-treeview special-treeview">signals.json &larr; A file containing electrical signal data obtained from a nanopore device
 kmer_table.json &larr; A file containing a table each DNA dinucleotide and thier corresponding electrical signature.
-sequences.json &larr; A file containing the correct sequences that correspond to the raw electrical data (to test accuracy of the basecaller)
+sequences.json &larr; A file containing the correct sequences corresponding to the raw electrical data (to test the accuracy of the basecaller)
 
 </code></pre>
-          <ul>
-            <li>
-              A file containing electrical signal data obtained from a nanopore
-              device&larr;
-            </li>
-            <li>
-              A file containing a table each DNA dinucleotide and thier
-              corresponding electrical signature.
-            </li>
-            <li>
-              A file containing the correct sequences that correspond to the raw
-              electrical data (only used to check the accuracy of the
-              basecaller)
-            </li>
-          </ul>
           <p>
             I&#39;ll elaborate on these further as they come up in the code.
           </p>
-          <!-- <pre> -->
+          <p>
+            The workshop was very independent. We were left to our own devices
+            and given 3 hours to come up with a potential solution. Here is the
+            solution that I came up with.
+          </p>
+          <p>
+            I decided to tackle this challenge in Python. The first thing I did
+            was import the modules I was going to use.
+          </p>
+          <pre
+            class="line-numbers"
+          ><code class="language-python"># Import the required modules
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import json</code></pre>
+          <p>Then I imported all files and saved them into variables.</p>
+          <pre
+            class="line-numbers"
+          ><code class="language-python"># Opening JSON files and JSON objects as lists or dictionaries
+with open('sequences.json') as f:
+    sequencing = json.load(f)
+    
+with open('signals.json') as f2:
+    signals = json.load(f2)
+    
+with open('kmer_table.json') as f3:
+    kmer_table = json.load(f3)</code></pre>
+          <p>
+            The next thing I needed to do is investigate the contents of each
+            file.
+          </p>
+          <p>Starting off with the sequencing file.</p>
+          <pre
+            class="line-numbers"
+          ><code class="language-python">print(type(sequencing))</code></pre>
+          <pre
+            class="output no-lang-display"
+          ><code class="language-output">&lt;class 'list'&gt;</code></pre>
+          <pre
+            class="line-numbers"
+          ><code class="language-python"># Prints the first 80 base pairs of each sequence
+for i, seq in enumerate(sequencing):
+    print(f"sequence {i + 1}: {seq[0:80]}")</code></pre>
+          <pre
+            class="truncated-output"
+          ><code class="language-truncout">sequence 1: CCTTACCAGTTTCATAATAAATAAGGTTCCCACATGCTACCTGTCCGGGCGACCGTAGGGCGAATACCGCGCTGCACGTG
+sequence 2: TGACCGTTTGCAGGCATTGCTTGGATCCATATAGCGCACAAATAGTCGCGAGTATGGTTGGTGATCAAAAGACCTGTAGA
+sequence 3: AGCGCTCGGCTAAAACTAGCCTGGCCATCGTTGTCATAAACCTATCCCGGCGTCCGCTTAGCGTACTGAAGGTGTTCGTA
+sequence 4: GCCCGTAGAAAAACAGGTTGAGGACAATAGCAGTTACGAATACAATTATCGATCCGGTGGTGAAAGACGTCATCGCACCT
+sequence 5: GACACGAAGACTTCAGGCGTGCAGATGCGAAACGCGCAGTCGCACCGATATATACACGATTGCTCTCAGGCCGCATGGTT
+sequence 6: CAACTATCATGCAGTATTGTCACGCGTTGCCTGCCTTGACTAGCGGCTATTATATGATGATGCGATCGTTTAGGCCAGCT
+sequence 7: AGGCTGGTGAGAGTACTCGTCGCTTCCAATAATAATCGATACAAGCTATCCAGTGTATCCCATGAACCACGTACCCTTCG
+sequence 8: GCTGGGCTATTTTCCAGACCACATGAATCGGTTTCTGCGGCTGGGTCTTCAGTTGGCACGTCCTTTGGGGGTCCCAGGCA
+sequence 9: AGTTCTCTCCGATTGGCTGACAGTAACAAGCCGGGTGGACCCGGGAGGTTTTTTGTAACTGTTAGCTAGAATGCGCTCAA
+sequence 10: GCGAAACCCGATACAAAACAGCATACACGCAGTAGATACTATTGGTCCGGAAAAAATGTCACTCCAGTAATGACTTAGTC
+sequence 11: TAGATTAATTTGCTTAAGGAACACTCGGTTGGCGCCTGTAACTTGAACAGGCCTTAGAGCCACCGATATGGATGCTTGTA
+sequence 12: GGCGAGAAGACGGTAATAAGCGAGTGTTCCCACGGGCTTTGGGATGCTTGTCTCAAGTCTTTCCCGACAGCATTAAGTCT
+sequence 13: CTGCATTGCGGCTCGTGATACGTAATGCGTTACGCAAATACTTCAGTCAGTGTCTAGACGTCCAAGTTTTCTTTAGAGCC
+sequence 14: ATGGGTGCCAGCGACCGATGAGAAGACATGAACCGGGGGGTCCTTTGGTTACCGAGCTTCAACCACGGGAAATGCTAATG
+sequence 15: AAGCGGCGTAACTCTCTGGGCAGTGGTATTCTACTCGACTACTCCTTAAGCGCCCATGCTGACAATGTGCGGACGTGGCC
+sequence 16: CTGAATGACGGATAAGGTGCAGAGGACACATGTAGGACTAATAGAAAAGAACTCGGCAAAGTCTCCACCAACGCCTCGGC
+sequence 17: GGATTGCCACAGGAAACATCTAACGAGACCTACTGGTTACGTTAGTAGTCATGCGCACCCATCTTGAGATATGCGAACGT
+sequence 18: TCACCTCCCTGAGGTGTGACTACTAATCTCCCGCCGGGAGTCCACTACTGGTAAATTATCACAGCTAGCACTGTTTGGCA
+sequence 19: AACATGTGGCTGCCCACGGTTAGTCCGCGCCACCCAATTTAGAGTCAATAATTATTCCAGGTAAGAAACAACACAGCTCT
+sequence 20: CGTAATAATTATACGAAAACTTCCCCGTCTGTTCGCAATGAGGGGTATCGTTGGGTACTTCCCTACTCGAACCTCTTATC
+sequence 21: CCAAACCCCGTAAAGAGATCACGAGACACGGCAGGCCGCAGACCTATGTACGGCGGCATTTATAGCCATAGGACCCCGTA
+sequence 22: CACGATTTTGGCACTGCCGCCGATTAACCTATCTTGCGGTTTACAATGAGTCTAGTTAACGGCTGTTGAATGAACCCGTG
+sequence 23: GGCTTTCCGTCGGTCAAGATTTTGCTGTTGAAAGGATGAGGTCTTGAATCGAACCCTTAGTTGTGAATAACGAATGACTA
+sequence 24: TTTACCTTATCGAATAGTTTATAGAAATTCGCTCGTTGAGTTCACGGTGGACAGTGTGCGTCCCGGGCGACGCGCTTGGT
+sequence 25: GGGTGCCAAAGCCTGTTCAAGCCGGGTCGTTTATATAGGTCCGAGATTGTAGATGAATTATTAAGGTCATTTCGAAGCAG
+... 
+sequence 197: TCCAGACACGAACTGAAGGACTGGAGCTTCGAACTTGCGTCGGTCGAGATGTATGCTATTTAATCAGGCACACGACTATT
+sequence 198: GTTGATCTCCTATACGTGGGCTCGGGATTGAACTAGACTACCTCGGTTACCCCTCCCAATAATGTATACAATAACCCTCT
+sequence 199: CGTCGTGGCAGAAACTTTCTTTCGCTGAGATACACTACGGTAACTTCTCTAAATCCATCTAAAGGCCTATATTCACCTAA
+sequence 200: GATTTGTTTTAACTTGCACACCCGGTGGTCCTAACTTATCACGGTTCCTGTCACGGTAAAGCTTCTACTGCGACCAGCTC</code></pre>
+          <p>
+            The sequencing file contains a list of 200 sequences that will be
+            used to benchmark the accuracy of my basecaller.
+          </p>
           <pre class="line-numbers">
 <code class="language-python">def get_label_details(timepoints: "list") -> "tuple(int, str)":
 # Get the corresponding signals array for the given time range
@@ -1095,8 +1155,7 @@ fig, axs = plt.subplots(1, 2, figsize=(12, 4))
 
 # Plot the first plot on the left subplot
 plot_subplot(plot_num = 0, with_color = True)
-plot_subplot(plot_num = 1, with_color = False)</code>
-          </pre>
+plot_subplot(plot_num = 1, with_color = False)</code></pre>
           <!-- END TEST POST -->
         </div>
       </div>

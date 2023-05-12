@@ -35,8 +35,41 @@ pre[class*="language-"] {
   border-radius: 0.2em;
   outline: 0.1rem solid #6c757d;
   max-height: 60vh;
-  padding-bottom: 0;
+  margin-bottom: 1rem;
 }
+/* Output formatting */
+pre.output,
+pre.truncated-output {
+  padding: 1em;
+  margin: 0.5em 0;
+  overflow: auto;
+  border-radius: 0.2em;
+  outline: none;
+  border-left: 0.1rem solid #6c757d;
+  border-right: 0.1rem solid #6c757d;
+  padding-left: 1.5rem;
+  max-height: 50vh;
+  margin-bottom: 1rem;
+  font-size: calc(var(--font-size-em) / 1.15);
+}
+/* Remove right border to not clutter view in small screens*/
+@media (max-width: 992px) {
+  pre.output,
+  pre.truncated-output {
+    border-right: none;
+  }
+}
+
+/* Print output before the codeblock */
+pre.output::before {
+  content: "Output:\a";
+  color: #acacac;
+}
+pre.truncated-output::before {
+  content: "Output (truncated):\a";
+  color: #acacac;
+}
+
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
   background: black;
@@ -185,7 +218,7 @@ div.code-toolbar > .toolbar > .toolbar-item > span {
   font-size: 0.8em;
   padding: 0 0.5em;
   background: #f5f2f0;
-  background: rgba(224, 224, 224, 0.2);
+  background: #2d2d2dcc;
   box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.2);
   border-radius: 0.5em;
 }
@@ -211,10 +244,8 @@ div.code-toolbar > .toolbar > .toolbar-item:first-child > span {
   padding-left: 0;
 }
 /* Only show this on larger views to not overlap too much with the code */
-@media (max-width: 992) {
-  div.code-toolbar > .toolbar > .toolbar-item:first-child > a,
-  div.code-toolbar > .toolbar > .toolbar-item:first-child > button,
-  div.code-toolbar > .toolbar > .toolbar-item:first-child > span {
+@media (max-width: 992px) {
+  div.code-toolbar > .toolbar > .toolbar-item:first-child {
     display: none;
   }
 }
@@ -223,7 +254,20 @@ div.code-toolbar > .toolbar > .toolbar-item:first-child > span {
 pre.no-code + .toolbar {
   display: none;
 }
-pre.no-code {
+
+/* Display output on hover in gray if class is output or truncated-output */
+pre.output + .toolbar .toolbar-item:first-child > a,
+pre.output + .toolbar .toolbar-item:first-child > button,
+pre.output + .toolbar .toolbar-item:first-child > span,
+pre.truncated-output + .toolbar .toolbar-item:first-child > a,
+pre.truncated-output + .toolbar .toolbar-item:first-child > button,
+pre.truncated-output + .toolbar .toolbar-item:first-child > span {
+  color: #acacacbb;
+}
+
+/* Don't display output if class is no-lang-display */
+pre.no-lang-display + .toolbar .toolbar-item:first-child {
+  display: none;
 }
 
 span.inline-color-wrapper {
@@ -459,3 +503,8 @@ pre[class*="language-"] {
   white-space: normal !important;
   word-break: break-word !important;
 } */
+
+.special-treeview {
+  white-space: normal !important;
+  word-break: break-word !important;
+}

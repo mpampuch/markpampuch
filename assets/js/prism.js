@@ -1140,6 +1140,8 @@ Prism.languages.clike = {
   if ("undefined" != typeof Prism && "undefined" != typeof document)
     if (Prism.plugins.toolbar) {
       var e = {
+        output: "Output", // Custom label for the toolbar button
+        truncout: "Output", // Custom label for the collapsed output button
         none: "Plain text",
         plain: "Plain text",
         plaintext: "Plain text",
