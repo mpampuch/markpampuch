@@ -1017,10 +1017,20 @@
             that went through the nanopore molecule. All we were given were
             three files to start with:
           </p>
+          <pre class="no-code">
+<code class="language-treeview" style="
+/* inline stlye just for word wrap because will probably never use this again */
+  white-space: normal !important;
+  word-break: break-word !important;
+  ">signals.json &larr; A file containing electrical signal data obtained from a nanopore device
+kmer_table.json &larr; A file containing a table each DNA dinucleotide and thier corresponding electrical signature.
+sequences.json &larr; A file containing the correct sequences that correspond to the raw electrical data (to test accuracy of the basecaller)
+
+</code></pre>
           <ul>
             <li>
               A file containing electrical signal data obtained from a nanopore
-              device
+              device&larr;
             </li>
             <li>
               A file containing a table each DNA dinucleotide and thier
@@ -1085,8 +1095,7 @@ fig, axs = plt.subplots(1, 2, figsize=(12, 4))
 
 # Plot the first plot on the left subplot
 plot_subplot(plot_num = 0, with_color = True)
-plot_subplot(plot_num = 1, with_color = False)
-</code>
+plot_subplot(plot_num = 1, with_color = False)</code>
           </pre>
           <!-- END TEST POST -->
         </div>
