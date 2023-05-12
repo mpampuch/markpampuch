@@ -1182,6 +1182,16 @@ print(json.dumps(kmer_table, separators = (",\n ", ": ")))</code></pre>
 "TG": 0.875,
 "TT": 0.9375}</code></pre>
             <!-- TEST BLOCK OF CODE -->
+            <pre
+              class="output no-code"
+            ><code class="language-output">&nbsp;</code></pre>
+            <div class="workshowcase-img-container">
+              <img
+                class="img-fluid"
+                src="assets/img/signals_highlighted.png"
+                alt="signal_graph_with_dinucleotide_labels"
+              />
+            </div>
             <pre class="line-numbers">
 <code class="language-python">def get_label_details(timepoints: "list") -> "tuple(int, str)":
 # Get the corresponding signals array for the given time range
@@ -1191,7 +1201,8 @@ signals_from_timepoints = signal_1.signal[timepoints]
 max_signal = np.max(signals_from_timepoints)
 
 # Basecall the average of the signal for each timepoint
-# Figure out the average of the signal, then loop through the dinucleotide table and figure out which dinucleotide signal is the closest to the average (calculate the minimal distance between the average and the dinucleotide signals)
+# Figure out the average of the signal, then loop through the dinucleotide table and figure out which dinucleotide signal is the closest to the average 
+# (calculate the minimal distance between the average and the dinucleotide signals)
 average_signal = np.mean(signals_from_timepoints)
 differences = list()
 for dinuc, signature in kmer_table.items():

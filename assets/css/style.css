@@ -946,7 +946,7 @@ section .container {
   box-shadow: 0 9px 0px 0px #000, 0 -9px 0px 0px #000,
     -1px 0px 20px -4px #212529, 0px 0px 0px -4px #212529;
 }
-div > .blog-post-title {
+div > p.blog-post-title {
   font-size: 34px;
   text-align: center;
   margin-top: 15px;
