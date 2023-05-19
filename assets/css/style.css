@@ -943,13 +943,17 @@ section .container {
   margin: auto;
   padding-left: 50px;
   padding-right: 50px;
-  box-shadow: 0 9px 0px 0px #000, 0 -9px 0px 0px #000,
-    -1px 0px 20px -4px #212529, 0px 0px 0px -4px #212529;
+  box-shadow: 0 9px 0px 0px #000, 0 -9px 0px 0px #000, 0px 0px 15px -4px #212529,
+    0px 0px 0px -4px #212529;
 }
 div > p.blog-post-title {
   font-size: 34px;
   text-align: center;
   margin-top: 15px;
+}
+
+.blog-post_paragraph {
+  text-align: justify;
 }
 
 /* remove the box shadow past 1200px */
