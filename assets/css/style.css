@@ -864,6 +864,7 @@ section .container {
   margin-top: -2px;
   border-left: 2px solid rgba(255, 255, 255, 0.2);
   position: relative;
+  font-size: 1.73rem;
 }
 
 .resume .resume-item h4 {
