@@ -583,6 +583,7 @@ section .container {
 .about-me .content ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .about-me .content ul li {
