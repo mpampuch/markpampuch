@@ -1791,6 +1791,17 @@ plot_subplot(plot_num = 1, with_color = False)</code></pre>
                 alt="signal_graph_with_dinucleotide_labels"
               />
             </div>
+            <pre class="line-numbers"><code class="language-r"># FOR 5 CENTERS
+
+# apply fuzzy clustering algorithm
+fc_filt_0.5_clr_fcm_out_rm <- fcm(t(fc_filt_0.5_clr_out_rm_lab), dmetric='sqeuclidean', centers=5) 
+#converts object into plottable object (of k-means type)
+fc_filt_0.5_clr_fcm_out_rm_2 <- ppclust2(fc_filt_0.5_clr_fcm_out_rm, "kmeans") 
+
+# plot groupings
+factoextra::fviz_cluster(fc_filt_0.5_clr_fcm_out_rm_2, data = t(fc_filt_0.5_clr_out_rm_lab),
+  ellipse.type = "norm", labelsize=10,  palette = "jco",
+  repel = TRUE)</code></pre>
             <!-- END TEST POST -->
           </div>
         </div>

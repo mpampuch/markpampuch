@@ -899,6 +899,23 @@ Prism.languages.clike = {
     "string-interpolation"
   ].inside.interpolation.inside.rest = Prism.languages.python),
   (Prism.languages.py = Prism.languages.python);
+
+Prism.languages.r = {
+  comment: /#.*/,
+  string: { pattern: /(['"])(?:\\.|(?!\1)[^\\\r\n])*\1/, greedy: !0 },
+  "percent-operator": { pattern: /%[^%\s]*%/, alias: "operator" },
+  boolean: /\b(?:FALSE|TRUE)\b/,
+  ellipsis: /\.\.(?:\.|\d+)/,
+  number: [
+    /\b(?:Inf|NaN)\b/,
+    /(?:\b0x[\dA-Fa-f]+(?:\.\d*)?|\b\d+(?:\.\d*)?|\B\.\d+)(?:[EePp][+-]?\d+)?[iL]?/,
+  ],
+  keyword:
+    /\b(?:NA|NA_character_|NA_complex_|NA_integer_|NA_real_|NULL|break|else|for|function|if|in|next|repeat|while)\b/,
+  operator: /->?>?|<(?:=|<?-)?|[>=!]=?|::?|&&?|\|\|?|[+*\/^$@~]/,
+  punctuation: /[(){}\[\],;]/,
+};
+
 !(function () {
   if ("undefined" != typeof Prism && "undefined" != typeof document) {
     var e = "line-numbers",
