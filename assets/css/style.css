@@ -588,7 +588,16 @@ section .container {
 .about-me .content ul li {
   margin-bottom: 20px;
   display: flex;
-  align-items: center;
+  align-items: baseline;
+}
+
+.about-me .content ul li span.symbol {
+  color: #18d26e;
+}
+.about-me .content ul li span.arrow {
+  transform: rotate(90deg) translate(-25%, 0);
+  font-size: 0.9rem;
+  display: inline-block;
 }
 
 .about-me .content ul strong {
