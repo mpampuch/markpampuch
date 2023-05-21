@@ -617,6 +617,11 @@ section .container {
   }
 }
 
+/* Purecounter edit - Add dollar sign to money counter */
+i.bx-money + span::before {
+  content: "$";
+}
+
 .rna-icon-box {
   height: 32px;
   width: 42px;
