@@ -744,6 +744,10 @@ i.bx-money + span::before {
 /*--------------------------------------------------------------
 # Skills
 --------------------------------------------------------------*/
+.skills {
+  padding-bottom: 18px;
+}
+
 .skills .progress {
   height: 60px;
   display: block;
@@ -763,6 +767,10 @@ i.bx-money + span::before {
 
 /* For about section mobile fixing */
 @media (max-width: 424px) {
+  .section-subtitle h2 {
+    font-size: 13px;
+  }
+
   .skills .progress .skill {
     padding: 5px 0px;
   }
@@ -773,6 +781,10 @@ i.bx-money + span::before {
 }
 
 @media (max-width: 401px) {
+  .section-subtitle h2 {
+    font-size: 12px;
+  }
+
   .progress {
     font-size: 0.63rem;
   }
