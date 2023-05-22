@@ -665,7 +665,23 @@ section .container {
 @media (max-width: 575px) {
   /* Edit for phones */
   .about-me .description {
-    text-align: center;
+    font-size: 0.88rem;
+    text-align: justify;
+  }
+  .about-me .description::before {
+    content: "\a Biography:\a";
+    white-space: pre;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0;
+    line-height: 1px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #aaaaaa;
+    font-family: "Poppins", sans-serif;
+    line-height: 1.3;
+    text-align: left;
+    display: block;
   }
 }
 
