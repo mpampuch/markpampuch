@@ -672,6 +672,7 @@ section .container {
 }
 
 .about-me .biography h2 {
+  margin-top: 10px;
   margin-bottom: 2px;
 }
 /* Only display biography subheading on smaller screens */
