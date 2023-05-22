@@ -148,7 +148,7 @@
   let offsetList =
     window.innerWidth >= 992
       ? ["70%", "80%", "80%", "90%"] // offset for desktop
-      : ["65%", "80%", "80%", "96%"]; // offset for mobile
+      : ["65%", "80%", "80%", "92%"]; // offset for mobile
   skillsContents.forEach((skillsContent, index) => {
     if (skillsContent) {
       new Waypoint({
