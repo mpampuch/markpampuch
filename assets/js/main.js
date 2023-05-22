@@ -144,19 +144,28 @@
   /**
    * Skills animation
    */
-  let skilsContent = select(".skills-content");
-  if (skilsContent) {
-    new Waypoint({
-      element: skilsContent,
-      offset: "80%",
-      handler: function (direction) {
-        let progress = select(".progress .progress-bar", true);
-        progress.forEach((el) => {
-          el.style.width = el.getAttribute("aria-valuenow") + "%";
-        });
-      },
-    });
-  }
+  let skillsContents = select(".skills-content", true);
+  let offsetList =
+    window.innerWidth >= 992
+      ? ["70%", "80%", "80%", "90%"] // offset for desktop
+      : ["65%", "80%", "80%", "96%"]; // offset for mobile
+  skillsContents.forEach((skillsContent, index) => {
+    if (skillsContent) {
+      new Waypoint({
+        element: skillsContent,
+        offset: offsetList[index],
+        handler: function (direction) {
+          let progress = skillsContent.querySelectorAll(
+            ".progress .progress-bar"
+          );
+          console.log(offsetList[index]);
+          progress.forEach((el) => {
+            el.style.width = el.getAttribute("aria-valuenow") + "%";
+          });
+        },
+      });
+    }
+  });
 
   /**
    * Testimonials slider
