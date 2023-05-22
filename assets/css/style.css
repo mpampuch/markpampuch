@@ -469,13 +469,18 @@ section .container {
   line-height: 1.3;
 }
 
-.section-title h2::after {
+.section-title h2::after,
+.section-title .techstack span::after {
   content: "";
   width: 120px;
   height: 1px;
   display: inline-block;
   background: #18d26e;
   margin: 4px 10px;
+}
+
+.section-title .techstack::after {
+  content: none;
 }
 
 .section-subtitle h2 {
