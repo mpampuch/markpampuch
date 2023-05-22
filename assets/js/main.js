@@ -158,7 +158,7 @@
           let progress = skillsContent.querySelectorAll(
             ".progress .progress-bar"
           );
-          console.log(offsetList[index]);
+          // console.log(offsetList[index]);
           progress.forEach((el) => {
             el.style.width = el.getAttribute("aria-valuenow") + "%";
           });
