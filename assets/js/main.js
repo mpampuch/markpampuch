@@ -339,9 +339,13 @@ workTabsContainers.forEach((workTabsContainer) => {
       resetClicked();
 
       // Load the blogpost into the content element
+      // Generate a random number between 100 and 500
+      min = 300;
+      max = 500;
+      let randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
       setTimeout(() => {
         loadBlogPost(html);
-      }, 500);
+      }, randomNum);
     }
   });
 });
