@@ -1,0 +1,812 @@
+<div class="blog-post">
+  <div class="section-title">
+    <p class="blog-post-title">Building a simple DNA basecaller in Python</p>
+  </div>
+  <p class="blog-post_paragraph">
+    Here I described how I built a program to convert electrical signals into
+    DNA code.
+  </p>
+  <p class="blog-post_paragraph">
+    This post is almost complete. Come back soon to see it.
+  </p>
+  <!-- TEST POST -->
+  <p class="blog-post_paragraph">
+    I went to the Oxford Nanopore Community meetup 2022 to learn more about how
+    the Oxford Nanopore sequencing devices work. One of the workshops I
+    participated in educated us about the history of basecalling algorithms and
+    had us try to build our own basecaller using sample raw data.
+  </p>
+  <p class="blog-post_paragraph">
+    As a brief summary, nanopore sequencing is a technology that allows you to
+    determine the sequences of DNA (and potentially RNA) in your sample of
+    interest. How this works is that extracted DNA are prepped with reagents to
+    make the DNA molecules nanopore sequencing compatible. The prepped sample is
+    then loaded onto the sequencing device that contains a membrane full of
+    biological pore proteins, termemd &quot;nanopores&quot;, that can allow
+    molecules to pass from one side of the membrane to the other. Samples are
+    loaded alongside so-called &quot;motor proteins&quot; that bind to DNA
+    molecules, tether themselves near a pore, and begin to feed the strand of
+    DNA through the nanopore by unwinding the double-stranded and passing it
+    into the pore as a single strand of DNA (in most cases).
+  </p>
+  <div class="workshowcase-img-container">
+    <img
+      class="img-fluid"
+      src="assets/img/nanopore_sequencing.gif"
+      alt="Nanopore Sequencing"
+    />
+  </div>
+  <p class="blog-post_paragraph">
+    Throughout this whole process, an electrical current is being applied
+    through the membrane. As molecules pass through the pores, disruptions in
+    the electrical current can be observed and measured.
+  </p>
+  <p class="blog-post_paragraph">
+    This is where the concept of
+    <a href="https://en.wikipedia.org/wiki/Hidden_Markov_model" target="_blank"
+      >Hidden Markov Models</a
+    >
+    (HMMs) come in. HMMs are statistical models that make use of probabilistic
+    transitions between hidden states to explain observed outputs. In the case
+    of nanopore sequencing and DNA basecalling, the hidden states represent the
+    unknown sequence of DNA bases, while the observed outputs correspond to the
+    electrical signals measured by the sequencing device. Based on the observed
+    electrical signals, we can design a program that estimates the probabilities
+    of transitioning between different hidden states, and use this information
+    to infer the most likely sequence of DNA bases that passed through the
+    nanopore.
+  </p>
+  <div class="workshowcase-img-container">
+    <img
+      class="img-fluid"
+      src="assets/img/nanopore_basecalling.gif"
+      alt="DNA Basecaller"
+    />
+  </div>
+  <p class="blog-post_paragraph">
+    The premise of our project was simple, given a list of electrical readings
+    at many different timepoints, decipher the sequence of DNA that went through
+    the nanopore molecule. All we were given were three files to start with:
+  </p>
+  <pre class="no-code">
+<code class="language-treeview special-treeview">signals.json &larr; A file containing electrical signal data obtained from a nanopore device
+
+kmer_table.json &larr; A file containing a table each DNA dinucleotide and their corresponding electrical signature
+
+sequences.json &larr; A file containing the correct sequences corresponding to the raw electrical data (to test the accuracy of the basecaller)
+</code></pre>
+  <p class="blog-post_paragraph">
+    I&#39;ll elaborate on these further as they come up in the code.
+  </p>
+  <p class="blog-post_paragraph">
+    The workshop was very independent. We were left to our own devices and given
+    3 hours to come up with a potential solution. Here is the solution that I
+    came up with.
+  </p>
+  <p class="blog-post_paragraph">
+    I decided to tackle this challenge in Python. The first thing I did was
+    import the modules I was going to use.
+  </p>
+  <pre
+    class="line-numbers"
+  ><code class="language-python"># Import the required modules
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import json</code></pre>
+  <p class="blog-post_paragraph">
+    Then I imported all files and saved them into variables.
+  </p>
+  <pre
+    class="line-numbers"
+  ><code class="language-python"># Opening JSON files and JSON objects as lists or dictionaries
+with open('sequences.json') as f:
+sequencing = json.load(f)
+
+with open('signals.json') as f2:
+signals = json.load(f2)
+
+with open('kmer_table.json') as f3:
+kmer_table = json.load(f3)</code></pre>
+  <p class="blog-post_paragraph">
+    The next thing I needed to do is investigate the contents of each file.
+  </p>
+  <p class="blog-post_paragraph">Starting off with the sequencing file.</p>
+  <pre
+    class="line-numbers"
+  ><code class="language-python">print(type(sequencing))</code></pre>
+  <pre
+    class="output no-lang-display"
+  ><code class="language-output">&lt;class 'list'&gt;</code></pre>
+  <pre
+    class="line-numbers"
+  ><code class="language-python"># Prints the first 80 base pairs of each sequence
+for i, seq in enumerate(sequencing):
+print(f"sequence {i + 1}: {seq[0:80]}")</code></pre>
+  <pre
+    class="truncated-output"
+  ><code class="language-truncout">sequence 1: CCTTACCAGTTTCATAATAAATAAGGTTCCCACATGCTACCTGTCCGGGCGACCGTAGGGCGAATACCGCGCTGCACGTG
+sequence 2: TGACCGTTTGCAGGCATTGCTTGGATCCATATAGCGCACAAATAGTCGCGAGTATGGTTGGTGATCAAAAGACCTGTAGA
+sequence 3: AGCGCTCGGCTAAAACTAGCCTGGCCATCGTTGTCATAAACCTATCCCGGCGTCCGCTTAGCGTACTGAAGGTGTTCGTA
+sequence 4: GCCCGTAGAAAAACAGGTTGAGGACAATAGCAGTTACGAATACAATTATCGATCCGGTGGTGAAAGACGTCATCGCACCT
+sequence 5: GACACGAAGACTTCAGGCGTGCAGATGCGAAACGCGCAGTCGCACCGATATATACACGATTGCTCTCAGGCCGCATGGTT
+sequence 6: CAACTATCATGCAGTATTGTCACGCGTTGCCTGCCTTGACTAGCGGCTATTATATGATGATGCGATCGTTTAGGCCAGCT
+sequence 7: AGGCTGGTGAGAGTACTCGTCGCTTCCAATAATAATCGATACAAGCTATCCAGTGTATCCCATGAACCACGTACCCTTCG
+sequence 8: GCTGGGCTATTTTCCAGACCACATGAATCGGTTTCTGCGGCTGGGTCTTCAGTTGGCACGTCCTTTGGGGGTCCCAGGCA
+sequence 9: AGTTCTCTCCGATTGGCTGACAGTAACAAGCCGGGTGGACCCGGGAGGTTTTTTGTAACTGTTAGCTAGAATGCGCTCAA
+sequence 10: GCGAAACCCGATACAAAACAGCATACACGCAGTAGATACTATTGGTCCGGAAAAAATGTCACTCCAGTAATGACTTAGTC
+sequence 11: TAGATTAATTTGCTTAAGGAACACTCGGTTGGCGCCTGTAACTTGAACAGGCCTTAGAGCCACCGATATGGATGCTTGTA
+sequence 12: GGCGAGAAGACGGTAATAAGCGAGTGTTCCCACGGGCTTTGGGATGCTTGTCTCAAGTCTTTCCCGACAGCATTAAGTCT
+sequence 13: CTGCATTGCGGCTCGTGATACGTAATGCGTTACGCAAATACTTCAGTCAGTGTCTAGACGTCCAAGTTTTCTTTAGAGCC
+sequence 14: ATGGGTGCCAGCGACCGATGAGAAGACATGAACCGGGGGGTCCTTTGGTTACCGAGCTTCAACCACGGGAAATGCTAATG
+sequence 15: AAGCGGCGTAACTCTCTGGGCAGTGGTATTCTACTCGACTACTCCTTAAGCGCCCATGCTGACAATGTGCGGACGTGGCC
+sequence 16: CTGAATGACGGATAAGGTGCAGAGGACACATGTAGGACTAATAGAAAAGAACTCGGCAAAGTCTCCACCAACGCCTCGGC
+sequence 17: GGATTGCCACAGGAAACATCTAACGAGACCTACTGGTTACGTTAGTAGTCATGCGCACCCATCTTGAGATATGCGAACGT
+sequence 18: TCACCTCCCTGAGGTGTGACTACTAATCTCCCGCCGGGAGTCCACTACTGGTAAATTATCACAGCTAGCACTGTTTGGCA
+sequence 19: AACATGTGGCTGCCCACGGTTAGTCCGCGCCACCCAATTTAGAGTCAATAATTATTCCAGGTAAGAAACAACACAGCTCT
+sequence 20: CGTAATAATTATACGAAAACTTCCCCGTCTGTTCGCAATGAGGGGTATCGTTGGGTACTTCCCTACTCGAACCTCTTATC
+sequence 21: CCAAACCCCGTAAAGAGATCACGAGACACGGCAGGCCGCAGACCTATGTACGGCGGCATTTATAGCCATAGGACCCCGTA
+sequence 22: CACGATTTTGGCACTGCCGCCGATTAACCTATCTTGCGGTTTACAATGAGTCTAGTTAACGGCTGTTGAATGAACCCGTG
+sequence 23: GGCTTTCCGTCGGTCAAGATTTTGCTGTTGAAAGGATGAGGTCTTGAATCGAACCCTTAGTTGTGAATAACGAATGACTA
+sequence 24: TTTACCTTATCGAATAGTTTATAGAAATTCGCTCGTTGAGTTCACGGTGGACAGTGTGCGTCCCGGGCGACGCGCTTGGT
+sequence 25: GGGTGCCAAAGCCTGTTCAAGCCGGGTCGTTTATATAGGTCCGAGATTGTAGATGAATTATTAAGGTCATTTCGAAGCAG
+... 
+sequence 197: TCCAGACACGAACTGAAGGACTGGAGCTTCGAACTTGCGTCGGTCGAGATGTATGCTATTTAATCAGGCACACGACTATT
+sequence 198: GTTGATCTCCTATACGTGGGCTCGGGATTGAACTAGACTACCTCGGTTACCCCTCCCAATAATGTATACAATAACCCTCT
+sequence 199: CGTCGTGGCAGAAACTTTCTTTCGCTGAGATACACTACGGTAACTTCTCTAAATCCATCTAAAGGCCTATATTCACCTAA
+sequence 200: GATTTGTTTTAACTTGCACACCCGGTGGTCCTAACTTATCACGGTTCCTGTCACGGTAAAGCTTCTACTGCGACCAGCTC</code></pre>
+  <p class="blog-post_paragraph">
+    The sequencing file contains a list of 200 sequences that will be used to
+    benchmark the accuracy of my basecaller.
+  </p>
+  <p class="blog-post_paragraph">
+    The next file contains the raw numerical data obtained from the sequencing
+    device. Let's see what this looks like.
+  </p>
+  <pre
+    class="line-numbers"
+  ><code class="language-python">print(type(signals))</code></pre>
+  <pre
+    class="output no-lang-display"
+  ><code class="language-output">&lt;class 'list'&gt;</code></pre>
+  <pre
+    class="line-numbers"
+  ><code class="language-python"># Prints the first 80 electrical current readings for each sequencing run
+# Only print the data for the first and last 3 readings to not overclutter the output
+for i, sig in enumerate(signals):
+if i < 3 or i >= len(signals) - 3:
+print(f"signal {i + 1}: {sig[0:80]}", end="\n");
+if i == 3:
+print("...")</code></pre>
+  <pre class="output"><code class="language-output">
+signal 1: [0.3100529743453997, 0.3158634462325644, 0.31208845112970585, 0.31708760150559795, 0.3123011896833653, 0.31436657306891536, 0.441634747471758, 0.4407353774410627, 0.4446590187328251, 0.43930513606416066, 0.43076376005652706, 0.4328593195800709, 0.4429004272747269, 0.9361748673202694, 0.9390461565805324, 0.9340941773738767, 0.9415035256947212, 0.9359606710046688, 0.943332432954438, 0.9353710639164073, 0.9419725335868708, 0.9401975844192835, 0.7471104323783434, 0.7543959853309887, 0.746393462038096, 0.746710131244383, 0.7528868451684507, 0.747498631994136, 0.7476246277309819, 0.7486243971631584, 0.7459993232405099, 0.06667997763869558, 0.0649340587939394, 0.062222685213238066, 0.06206643173130584, 0.06430062205106872, 0.06956134040207629, 0.06598387921012897, 0.0604661714628984, 0.06560967682099546, 0.31202491531158766, 0.3117040072647851, 0.3199658855006085, 0.3108242484092875, 0.31058326033949035, 0.30469157885101905, 0.24439068341818745, 0.2518044917549384, 0.24722031639525904, 0.252061655207133, 0.24554051579053626, 0.24693076069467307, 0.25269828282782403, 0.25584356952185233, 0.12736989120569608, 0.129791323366885, 0.13181837668548962, 0.12916035661261638, 0.1213262398467999, 0.6870786211499699, 0.6900207826827397, 0.6858406123948471, 0.6893077841492848, 0.6811833748584222, 0.9341854880845744, 0.9396155189823407, 0.9285516539555502, 0.9330691499908618, 0.9374291267283594, 0.9306224221015219, 0.9377284839843284, 0.934301810037233, 0.9363336216179967, 0.9364640685863979, 0.9382571727902347, 0.9352448450616708, 0.9378587456292904, 0.9350953727974025, 0.9397242940403095, 0.9442752364531524]
+signal 2: [0.8718274187396214, 0.8701425065460943, 0.8736259998975986, 0.873563917571122, 0.8650604183657802, 0.873097399690971, 0.8727233417770178, 0.8694257721321107, 0.871501837917242, 0.8759874130843427, 0.8763655561883015, 0.8762994742089532, 0.8726961912153857, 0.8717003819220065, 0.8755815519018014, 0.8734274313657613, 0.8791456680423432, 0.8796572345884945, 0.4981095474949926, 0.493466052165371, 0.5007334390525425, 0.4973244180014974, 0.5032891882812756, 0.06530039807092146, 0.0582975625632877, 0.06669292223744569, 0.06806910936103525, 0.06404489553159515, 0.06494058414660187, 0.06041628781925487, 0.05906335840732782, 0.06751954748570266, 0.3134644364681886, 0.31213329920146377, 0.3122242999220129, 0.3155110458612274, 0.3116373949351636, 0.3105062883956581, 0.31128102557675413, 0.31185001119590655, 0.3105541145917271, 0.3128531292426612, 0.37303360549249376, 0.3731802886295113, 0.3829461567909086, 0.3750290419359434, 0.3818319447236752, 0.3709809415682388, 0.3780192669371244, 0.3750452720284999, 0.694264040073273, 0.6856392546114898, 0.6946692919574114, 0.6851454156060066, 0.6875305097928515, 0.682875656267178, 0.6873617953935149, 0.6866727075854471, 0.6830624567091332, 0.6801160137914215, 0.6910856277693966, 0.6894805503128675, 0.6847146459314587, 0.6870728254541224, 0.6845991846173449, 0.6869477013746157, 0.6885001707549948, 0.6889124626282804, 0.9354960925055359, 0.9366607824920513, 0.9395644675378666, 0.9348626941960132, 0.9352777715381704, 0.9378274008343893, 0.9394790489943761, 0.9358042009950395, 0.9406861231946123, 0.9372197435360158, 0.9348090298787833, 0.9378776616289848]
+signal 3: [0.1274964684895317, 0.11763153197627063, 0.12233869311664558, 0.12254135138028113, 0.12329276649411786, 0.12496405394528928, 0.12305279351256104, 0.12239640235761852, 0.1246080684691115, 0.12432869653873103, 0.5560826306023586, 0.5553832011121335, 0.5602097558363068, 0.5652997841669394, 0.5617131749677041, 0.5595141922509749, 0.5662509925302252, 0.5519983950524241, 0.5654846593366483, 0.5651964400615108, 0.37905706999889854, 0.3746771430684578, 0.3741134090613114, 0.3724145635578148, 0.38049633862938553, 0.3713483578883748, 0.37691884470929016, 0.3779694670140296, 0.37592619157277657, 0.3713721450438278, 0.384927780972506, 0.37590647784363934, 0.5619483350547104, 0.5603338030303621, 0.5592816320030317, 0.566222509541765, 0.5686722608390449, 0.5680271476000597, 0.5618333249682713, 0.5558656685026228, 0.5602826033697548, 0.564526733886477, 0.5631099032475467, 0.5610104754500993, 0.5580318158535241, 0.43578874108032767, 0.4412567352358483, 0.4338171603530718, 0.4357294506306183, 0.44022261476155106, 0.43335530477482764, 0.4304955471531175, 0.4396365723016269, 0.44029933079579625, 0.4383513242791009, 0.8067275170443323, 0.8119974772736225, 0.8188054252021972, 0.8067538465592148, 0.8136093042092316, 0.8102415519807998, 0.8133409264855411, 0.807648751586652, 0.8057651962969663, 0.8146957560581631, 0.8130323584640134, 0.8134334644374099, 0.8065623716874014, 0.8142275377946145, 0.8175714067476539, 0.37283845202236987, 0.3763459626275503, 0.372998084137685, 0.37856234526935145, 0.37169400880892456, 0.37449915023108193, 0.3784276749805034, 0.37684731771537266, 0.37120261139844263, 0.374844623437569]
+...
+signal 198: [0.6921936583913131, 0.6929469439559184, 0.6831279102032887, 0.6887385736647821, 0.6777946896132349, 0.6849696392478317, 0.6921244754934774, 0.6905801930851725, 0.6854101468617635, 0.6896460991103326, 0.6825116574630986, 0.6824764078060804, 0.6898633248858523, 0.6937365112132673, 0.6887585074530919, 0.6890768597122101, 0.9421082551685703, 0.9400501622697477, 0.9314443889323214, 0.9390270120195359, 0.939450621016608, 0.9397182138953516, 0.9315150824279522, 0.8743698500861806, 0.8745155587037003, 0.8719907884673278, 0.8748959598514212, 0.8800718023963146, 0.8694379088762506, 0.8706182690992401, 0.8699051995162409, 0.8792076188806851, 0.8730294199990056, 0.8804206030956366, 0.5037697406367723, 0.48984054839486557, 0.4951452166933016, 0.49288082282212947, 0.497623584340674, 0.5065239477765119, 0.5066215863440017, 0.18898116216060534, 0.187459740748378, 0.18698611034484586, 0.18582029956678953, 0.18575776415235454, 0.19097358490149405, 0.1893103419723928, 0.19055735676203864, 0.19143450240450882, 0.18671323718151872, 0.18744343782208284, 0.19501530992791913, 0.813879660298781, 0.8154418116163831, 0.8062478317124162, 0.8192301836464629, 0.8092749712733941, 0.8045974896150151, 0.8090206224361796, 0.8148429176407843, 0.8155292175624317, 0.8130456302359815, 0.8018364537533587, 0.8115358885897485, 0.8174555727790886, 0.4341396165459761, 0.4426843838282123, 0.43745119696158646, 0.4367867577631802, 0.4360314265173659, 0.44028734943250203, 0.43099919960952465, 0.4390299538389471, 0.43403530527287376, 0.43713693726849395, 0.43806148458515565, 0.4397573820298558, 0.4423007887421328, 0.4329612343142859]
+signal 199: [0.37511356666345974, 0.3732188172574157, 0.3766826805391929, 0.378946188667255, 0.36980891541241895, 0.37291900736031325, 0.36740332725669994, 0.3781855107568417, 0.3765533575109063, 0.3730304691556473, 0.3734847396981682, 0.36777457317812745, 0.37766467277211924, 0.6866468970868385, 0.6869252220047867, 0.6809483946213962, 0.6884042060334641, 0.6822242664994125, 0.6914621143743624, 0.8082132388272841, 0.8177249607122832, 0.8152733609209599, 0.8094833048173833, 0.8117879213139008, 0.8079605599257219, 0.8211145826397316, 0.8133131061251264, 0.818826895730872, 0.8195377801343101, 0.8103341177706156, 0.37114487135846885, 0.36897149168144283, 0.3729882864864854, 0.3659396094037252, 0.3754084402772783, 0.3707015265583655, 0.3736264577945466, 0.6916405560469775, 0.6896243152907189, 0.6818406854424618, 0.6875521546689678, 0.6924355482330501, 0.6943283057458314, 0.6874446035363492, 0.6818928881262954, 0.6871875379591865, 0.6817051917806289, 0.6814097008856999, 0.8808241360150421, 0.8754977601246159, 0.8753877219204552, 0.8736839997387661, 0.6258349679787194, 0.6268309625624313, 0.6235885396088324, 0.6244147352226377, 0.6237884828008239, 0.6279050081077552, 0.6203130253973985, 0.6257366348678228, 0.623006583912816, 0.6260556177067069, 0.6230116778691505, 0.6211624827759077, 0.5632572371750116, 0.5635742337798384, 0.5629627783637978, 0.5674693244955594, 0.558453986962408, 0.5695069358034348, 0.5643719332096544, 0.5571968236072049, 0.24686692351918185, 0.24803103883222286, 0.25473947518326495, 0.24670410154849873, 0.12487128051740992, 0.12336858821290289, 0.12886237036632436, 0.12632991434803018]
+signal 200: [0.4965896260247073, 0.503147546863643, 0.5074540271373705, 0.4994575363838496, 0.5030391863427802, 0.5023133051148065, 0.497618338740552, 0.190495466063656, 0.19452453470652062, 0.18866880895420154, 0.19211215236658935, 0.18489948629042924, 0.19360314760236613, 0.18916225871773007, 0.1885724015113846, 0.1877425021836601, 0.1835116492162438, 0.18780699883694185, 0.1843148767948086, 0.19455680573867482, 0.1863005240695882, 0.19170712655405187, 0.9371328000646023, 0.9374187126678553, 0.936239194011627, 0.9280312160085781, 0.935771580873965, 0.9360535537661905, 0.9359144171135485, 0.9410242631402418, 0.9437963026167502, 0.9308311909199294, 0.9432783267221693, 0.9323361432921073, 0.9329231280729392, 0.938816407045115, 0.9374749656743449, 0.9346029317122143, 0.938464122130661, 0.8721400372206707, 0.872300786463957, 0.8807978292977977, 0.8756186512537023, 0.8749175914720416, 0.8749445859757259, 0.8712607513249992, 0.8791549988635969, 0.8776937589692215, 0.8795066449257479, 0.6921780038475386, 0.6813975224046545, 0.688040297675312, 0.6891537559103618, 0.6894304023484992, 0.6894564992010884, 0.6845481835437235, 0.6814274234761432, 0.6914817484473015, 0.6824467369833629, 0.6872203763146844, 0.6815172712427255, 0.6888938537467207, 0.6844644676698142, 0.6861460620553707, 0.9387423224092766, 0.9306285260059989, 0.9380209458916023, 0.9367948908398598, 0.9377807630316575, 0.9369310681540363, 0.9330864861693335, 0.9419121541713907, 0.9424454593140845, 0.939219939281965, 0.9408843796150103, 0.930354401821948, 0.9389099341077157, 0.9417874521707633, 0.9385513932566601, 0.9397627128626431]
+</code></pre>
+  <p class="blog-post_paragraph">
+    The signals file contains a list of 200 signals that correspond to the 200
+    sequences found in the sequences file. As the DNA sequences pass through a
+    nanopore protein the electrical current is disrupted. The current is
+    measured at consistent time points and outputted.
+  </p>
+  <p class="blog-post_paragraph">
+    Lastly, the last file is the k-mer table file. k-mers are sequences of DNA
+    of length k. This file is what will be used to decode the signal and turn
+    the electrical data into DNA code.
+  </p>
+  <pre
+    class="line-numbers"
+  ><code class="language-python">print(type(kmer_table))</code></pre>
+  <pre
+    class="output no-lang-display"
+  ><code class="language-output">&lt;class 'dict'&gt;</code></pre>
+  <pre
+    class="line-numbers"
+  ><code class="language-python"># Output the table with each key, value pair on a newline
+print(json.dumps(kmer_table, separators = (",\n ", ": ")))</code></pre>
+
+  <pre class="output no-lang-display"><code class="language-output">{"AA": 0.0,
+"AC": 0.0625,
+"AG": 0.125,
+"AT": 0.1875,
+"CA": 0.25,
+"CC": 0.3125,
+"CG": 0.375,
+"CT": 0.4375,
+"GA": 0.5,
+"GC": 0.5625,
+"GG": 0.625,
+"GT": 0.6875,
+"TA": 0.75,
+"TC": 0.8125,
+"TG": 0.875,
+"TT": 0.9375}</code></pre>
+  <p class="blog-post_paragraph">
+    As you can see, the data provided in this k-mer table are for k-mers of
+    length 2, also referred to as <em>dinucleotides</em>. The nanopores inside
+    the sequencing device span the length of a couple of DNA bases and as so
+    multiple bases are inside a nanopore protein at any given time as the strand
+    of DNA is fed through the pore. Each permutation of DNA sequences will have
+    a unique disruption pattern to the electrical current and therefore have a
+    unique electrical signal that can be used to decode the sequence if these
+    signatures are known beforehand (as in the table above). In real-life, many
+    more bases can exist inside a nanopore at a given time than just 2 at once,
+    and real life DNA bases can contain modifications that would need them to be
+    treated as separate bases (termed
+    <a href="https://en.wikipedia.org/wiki/Epigenetics" target="_blank"
+      >Epigenetics</a
+    >). However, encoding all these permututations of k-mers would be too
+    exhaustive for this challenge, as the goal of this problem is to get us to
+    help us develop a conceptual understanding of what is going on at the
+    molecular level within these sequencing devices and how various basecalling
+    algorithms work and not so much to develop the most accurate basecalling
+    algorithm possible. Therefore, a simplified dinucleotide table was provided.
+  </p>
+  <p class="blog-post_paragraph">
+    I'll also create a way to group the signal data and the sequence data in
+    order to keep things organized in my code and not have to remember which
+    index I need to access corresponding data between my lists. I did this by
+    creating a signal class whose objects contain the corresponding signals and
+    correct sequences extracted using their index in the original lists.
+  </p>
+  <pre class="line-numbers"><code class="language-python">class Signal:
+
+def __init__(self, signal_index):
+self.signal_index = signal_index
+self.signal = np.row_stack(signals[signal_index]) # Convert the signal data into a numpy array for easier slicing
+self.correct_seq = sequencing[signal_index]
+
+def __str__(self) -> str:
+nl = "\n" # Trick I used to format newlines in f-strings
+smoothed_signal = self.smoothed_signal if hasattr(self, "smoothed_signal") else "n/a"
+return f"Signals array: {nl}{self.signal} {nl} {nl}Smoothed Signal: {nl}{smoothed_signal} {nl} {nl}Correct sequence: {nl}{self.correct_seq}"
+
+def __repr__(self) -> str:
+nl = "\n"
+smoothed_signal = self.smoothed_signal.__repr__() if hasattr(self, "smoothed_signal") else "n/a"
+return f"Signal index: {nl}{self.signal_index} {nl} {nl}Signals array (numpy array): {self.signal.__repr__()} {nl} {nl}Smoothed Signal (numpy array): {nl}{smoothed_signal}{nl} {nl}Correct sequence: {nl}{self.correct_seq} "</code></pre>
+  <p class="blog-post_paragraph">
+    Now that all the provided data has been previewed and organized, it would be
+    nice to visualize it to explore it further. Plotting out the electrical
+    signals in relation to their time points can help the user visualize the
+    story of what actually happened to the DNA molecule as it passed through the
+    pore.
+  </p>
+  <p class="blog-post_paragraph">
+    In order to do this, I will select one of the series of signals from the
+    signals data comprised of 200 sets of signals. I will be using this set of
+    signals for the rest of the project to try to get my basecaller to work and
+    then apply my basecaller on the rest of the 199 signals once I believe it's
+    finished to see how well it performs.
+  </p>
+  <pre
+    class="line-numbers"
+  ><code class="language-python"># Extract signal data from first sequencing run (index 0)
+signal_1 = Signal(0)
+
+# Preview the contents of the object
+print(signal_1)</code></pre>
+  <pre class="truncated-output"><code class="language-truncout">Signals array: 
+[[ 3.10052974e-01]
+[ 3.15863446e-01]
+[ 3.12088451e-01]
+[ 3.17087602e-01]
+[ 3.12301190e-01]
+[ 3.14366573e-01]
+[ 4.41634747e-01]
+[ 4.40735377e-01]
+[ 4.44659019e-01]
+[ 4.39305136e-01]
+[ 4.30763760e-01]
+[ 4.32859320e-01]
+[ 4.42900427e-01]
+[ 9.36174867e-01]
+[ 9.39046157e-01]
+[ 9.34094177e-01]
+[ 9.41503526e-01]
+[ 9.35960671e-01]
+[ 9.43332433e-01]
+[ 9.35371064e-01]
+[ 9.41972534e-01]
+[ 9.40197584e-01]
+[ 7.47110432e-01]
+[ 7.54395985e-01]
+[ 7.46393462e-01]
+[ 7.46710131e-01]
+[ 7.52886845e-01]
+[ 7.47498632e-01]
+[ 7.47624628e-01]
+[ 7.48624397e-01]
+[ 7.45999323e-01]
+[ 6.66799776e-02]
+[ 6.49340588e-02]
+[ 6.22226852e-02]
+[ 6.20664317e-02]
+[ 6.43006221e-02]
+[ 6.95613404e-02]
+[ 6.59838792e-02]
+[ 6.04661715e-02]
+...  
+[ 6.85390322e-01]
+[ 6.90598138e-01]
+[ 6.82551341e-01]
+[ 6.85252495e-01]
+[ 8.76283884e-01]
+[ 8.83671748e-01]
+[ 8.77991853e-01]
+[ 8.76095308e-01]
+[ 8.74319666e-01]
+[ 8.69710228e-01]] 
+
+Smoothed Signal: 
+n/a 
+
+Correct sequence: 
+CCTTACCAGTTTCATAATAAATAAGGTTCCCACATGCTACCTGTCCGGGCGACCGTAGGGCGAATACCGCGCTGCACGTGCCTCGCTACTTGTACACATGT</code></pre>
+  <p class="blog-post_paragraph">
+    Next I'll visualize the sequencing data using pyplot
+  </p>
+  <pre
+    class="line-numbers"
+  ><code class="language-python">plt.plot(signal_1.signal);
+plt.xlabel('Time point');
+plt.ylabel('Signal');</code></pre>
+  <pre
+    class="output-img no-code"
+  ><code class="language-output">&nbsp;</code></pre>
+  <div class="workshowcase-img-container">
+    <img
+      class="img-fluid"
+      src="assets/img/nanopore_signal.png"
+      alt="signal_graph_with_dinucleotide_labels"
+    />
+  </div>
+  <p class="blog-post_paragraph">
+    As expected, the entire sequencing data looks like a chaotic electrogram
+    that is difficult to decipher. It would be helpful to zoom in and see a
+    subsection on this plot in higher resolution to see what features we can
+    pick up on to begin basecalling.
+  </p>
+  <p class="blog-post_paragraph">
+    To do this, I'll plot only a subsection of the signal data (only the first
+    100 time points).
+  </p>
+  <pre
+    class="line-numbers"
+  ><code class="language-python"># Plot the data from the first 100 timepoints 
+plot_range = 100
+plt.plot(signal_1.signal[0:100]);
+plt.xlabel('Time point');
+plt.ylabel('Signal');</code></pre>
+  <pre
+    class="output-img no-code"
+  ><code class="language-output">&nbsp;</code></pre>
+  <div class="workshowcase-img-container">
+    <img
+      class="img-fluid"
+      src="assets/img/nanopore_signal_zoomed.png"
+      alt="signal_graph_with_dinucleotide_labels"
+    />
+  </div>
+  <p class="blog-post_paragraph">
+    At this resolution we can see a lot more clearly what may be happening as
+    the DNA is going through the nanopore. How I like to conceptualize this is
+    by breaking down the plot into 2 components: vertical-like elements and
+    horizontal-like elements. Remember that inside the sequencer the DNA is
+    being threaded through the nanopore by a motor protein. More specifically,
+    the DNA is being
+    <em>ratcheted</em> through the pore in a stepwise fashion. As the motor
+    protein steps through and unwinds the DNA, there are periods where the DNA
+    is let go of temporarilty, moves quickly through the nanopore channel, and
+    then the motor protein stops the DNA. As the DNA is static, the sequencer
+    will take a reading, and then take another reading, and take another
+    reading, etc. until eventually the DNA will take a step. The DNA steps are
+    random and it&#39;s driven by the dynamics of the motor protein. The
+    &quot;static phase&quot; is therefore represented by the horzontal-like
+    elements on the plot. These will be hereby known as &quot;sequencing
+    events&quot; as they are the only time the DNA is stationary enough to
+    provide an accurate reading. The vertical-like elements thereby represent
+    the moments of time when the DNA is moving through the pore. This happens so
+    quickly that there is no extractable sequence data from these timepoints.
+  </p>
+
+  <p class="blog-post_paragraph">
+    Another thing you can notice at this high resolution is that the horizontal,
+    sequencing events are a little jagged and not very smooth. This is "noise"
+    that can be caused by a variety of events occuring inside the pore. The DNA
+    molecule is not rigid inside the pore. It is moving around and displacing
+    within the pore itself. Additionally, the motor protein is constantly
+    undergoing conformation changes that if picked up by the nanopore can appear
+    in the final signal.
+  </p>
+  <p class="blog-post_paragraph">
+    Now that we have a good idea of what is going on on the molecular level in
+    our data, we can begin to think about what steps we need to take to build
+    the basecaller.
+  </p>
+  <p class="blog-post_paragraph">
+    There are 2 big-picture approaches that can be implemented to tackle this
+    challenge:
+  </p>
+  <ol>
+    <li>
+      We can filter the data at a sequence level by converting each signal from
+      every timepoint into a corresponding dinucleotide and then trying to cut
+      the sequence down to it&#39;s correct length
+    </li>
+    <li>
+      We can filter the data at the signal level by trying to warp the signal in
+      a way that would reduce incorrect sequencing calls and then perform the
+      conversion using the k-mer table.
+    </li>
+  </ol>
+  <p class="blog-post_paragraph">
+    None of these strategies is the correct or incorrect one per-se, but the
+    steps needed to implement these strategies differ greatly. Some people at
+    the workshop attempted to build their basecallers using the first one,
+    whereas others chose the second one. I personally opted to go with the
+    second strategy because I liked the visual aid that the signal data
+    provides. I have more of an intuition for when things are or aren&#39;t
+    making sense looking at the signal plot compared to pure DNA code which
+    would help me know if I&#39;m on the right track.
+  </p>
+  <p class="blog-post_paragraph">
+    Now that I have a strategy chosen, I'll begin to attempt to analyze the
+    data.
+  </p>
+  <p class="blog-post_paragraph">
+    The first challenge I have to tackle is to &quot;smooth&quot; the data. Data
+    smoothing is a technique used in data analysis and data science to reduce
+    the noise or variability in a dataset. It involves applying a mathematical
+    algorithm to the data to remove fluctuations, outliers, or other sources of
+    noise in the data. The purpose of data smoothing is to reveal underlying
+    trends, patterns, or relationships in the data that may be obscured by
+    random variations. There are different methods of data smoothing, but for
+    this case whats important to find is any jumps in the electrical signal
+    indicating the strand of DNA taking a &quot;step&quot; through the motor
+    protein and introducing a new DNA base into the nanopore protein.
+  </p>
+  <pre
+    class="line-numbers"
+  ><code class="language-python"># Create a function called smooth_data 
+# Takes in a signal object and adds a smoothed array to it
+def smooth_data(obj):
+# setattr() used to set the named attribute on the given object to the specified value
+# setattr(x, 'y', v) is equivalent to x.y = v''
+setattr(
+obj, 
+"smoothed_signal",
+# smooth the data by taking the absolute value of timepoint 1 - timepoint 2 for all timepoints of this signal
+np.abs(np.array(obj.signal[0:len(obj.signal) - 1]) - np.array(obj.signal[1:len(obj.signal)]))
+)</code></pre>
+  <p class="blog-post_paragraph">
+    Now I'll apply the smoothing function to the signal from the first
+    sequencing run and check the ouptut
+  </p>
+  <pre class="line-numbers"><code class="language-python">smooth_data(signal_1);
+signal_1.smoothed_signal</code></pre>
+  <pre
+    class="truncated-output"
+  ><code class="language-truncout">array([[5.81047189e-03],
+[3.77499510e-03],
+[4.99915038e-03],
+[4.78641182e-03],
+[2.06538339e-03],
+[1.27268174e-01],
+[8.99370031e-04],
+[3.92364129e-03],
+[5.35388267e-03],
+[8.54137601e-03],
+[2.09555952e-03],
+[1.00411077e-02],
+[4.93274440e-01],
+[2.87128926e-03],
+[4.95197921e-03],
+[7.40934832e-03],
+[5.54285469e-03],
+[7.37176195e-03],
+[7.96136904e-03],
+[6.60146967e-03],
+[1.77494917e-03],
+[1.93087152e-01],
+[7.28555295e-03],
+[8.00252329e-03],
+[3.16669206e-04],
+...
+[7.38786395e-03],
+[5.67989496e-03],
+[1.89654495e-03],
+[1.77564261e-03],
+[4.60943763e-03]])</code></pre>
+  <p class="blog-post_paragraph">
+    Now I overlayed the smoothed signal on the signal plot to see if I could
+    find and identify any jumps in the electrical signal
+  </p>
+  <pre
+    class="line-numbers"
+  ><code class="language-python"># Plot the signal and the smoothed signal overlayed
+plt.plot(signal_1.signal[0:plot_range]);
+plt.plot(signal_1.smoothed_signal[0:plot_range]);
+plt.xlabel('Time point');
+plt.ylabel('Signal');</code></pre>
+  <pre
+    class="output-img no-code"
+  ><code class="language-output">&nbsp;</code></pre>
+  <div class="workshowcase-img-container">
+    <img
+      class="img-fluid"
+      src="assets/img/basecaller_blog_post/nanopore_signal_and_smoothed_signal.png"
+      alt="signal_graph_with_smooth_signal_overlayed"
+    />
+  </div>
+  <p class="blog-post_paragraph">
+    I also plotted the smoothed data on a histogram to visualize the
+    distribution of the differences between subsequent time points and to see if
+    theres a any differences that appear less frequently than the others. These
+    would likely indicate steps of the motor protein since these events occur at
+    much less frequent time points and have a larger impact on the amplitude of
+    the electrical current than static DNA residing in the pore.
+  </p>
+  <pre
+    class="line-numbers"
+  ><code class="language-python"># Plot histogram of the smoothed signal
+plt.hist(signal_1.smoothed_signal, bins = 100, range=[0,0.1]);</code></pre>
+  <pre
+    class="output-img no-code"
+  ><code class="language-output">&nbsp;</code></pre>
+  <div class="workshowcase-img-container">
+    <img
+      class="img-fluid"
+      src="assets/img/basecaller_blog_post/histogram.png"
+      alt="histogram of smooth signal"
+    />
+  </div>
+  <p class="blog-post_paragraph">
+    From this histogram, it looks like most of the differences between
+    subsequent time points are less than 0.02. I decided to then try calling a
+    difference of 0.03 as the determining cutoff for whether DNA is static or
+    whether it has taken a step inside the pore.
+  </p>
+  <pre
+    class="line-numbers"
+  ><code class="language-python">cutoff = 0.03</code></pre>
+
+  <p class="blog-post_paragraph">
+    Overlaying the cutoff value on the histogram you can see the small group of
+    bars belonging to large changes in the signal between 2 successive
+    timepoints.
+  </p>
+  <pre
+    class="line-numbers"
+  ><code class="language-python"># Plot histogram with cutoff line
+plt.hist(signal_1.smoothed_signal, bins = 100, range=[0,0.1]);
+plt.axvline(x = cutoff, color = 'red')
+plt.xlim(right=0.105)
+plt.axvspan(xmin=cutoff, xmax=0.12, color='orange', alpha=0.1);
+plt.text(0.069, 60, 'Any signal change in this area \nrepresents a change in \nbasepairs in the pore', fontsize = 12, color = "red", horizontalalignment = "center");</code></pre>
+  <pre
+    class="output-img no-code"
+  ><code class="language-output">&nbsp;</code></pre>
+  <div class="workshowcase-img-container">
+    <img
+      class="img-fluid"
+      src="assets/img/basecaller_blog_post/histogram_w_cutoff.png"
+      alt="histogram of smooth signal with cutoff line"
+    />
+  </div>
+  <p class="blog-post_paragraph">
+    Going back to the signals plot, you can better visualize the moments that
+    the motor protein takes a step and the DNA inside the pore changes by
+    overlay this cutoff point
+  </p>
+  <pre
+    class="line-numbers"
+  ><code class="language-python"># Plot the smoothed signal with the cutoff line
+plt.plot(signal_1.signal[0:plot_range]);
+plt.plot(signal_1.smoothed_signal[0:plot_range]);
+plt.xlabel('Time point');
+plt.ylabel('Signal');
+plt.axhline(y = cutoff, color = 'red');
+plt.ylim(top=0.99)
+plt.axhspan(ymin=cutoff, ymax=1, color='orange', alpha=0.1);
+plt.text(82, 0.2, f'Signal deltas \n(orange lines) \nin this area \n (exceeding the \nthreshold of {cutoff})\nrepresents a \n change in \nbasepairs \nin the pore', fontsize = 10, color = "red", horizontalalignment="center");</code></pre>
+  <div class="workshowcase-img-container">
+    <img
+      class="img-fluid"
+      src="assets/img/basecaller_blog_post/nanopore_signal_w_cutoff.png"
+      alt="signal graph with cutoff line"
+    />
+  </div>
+  <p class="blog-post_paragraph">
+    Now that I have a cutoff value for determining when the DNA in the pore
+    change, I can use this value to grab the signal value of the timepoints at
+    which the steps happened
+  </p>
+  <pre
+    class="line-numbers"
+  ><code class="language-python"># Checks each timepoint 
+# Assigns it boolean value if value is greater than the cutoff 
+timepoints_bool = signal_1.smoothed_signal > cutoff
+
+# Grab the indicies of the timepoints where the value was greater than the cutoff
+dna_step_timepoints = np.array([i for i, x in enumerate(timepoints_bool) if x])
+
+# Insert a timepoint 0 at the beginning of the array to represent the inital DNA that was present
+dna_step_timepoints = np.insert(dna_step_timepoints, 0, 0)
+
+# Output the timepoints
+dna_step_timepoints</code></pre>
+  <pre
+    class="output no-lang-display"
+  ><code class="language-output">array([  0,   5,  12,  21,  30,  39,  45,  53,  58,  63,  93, 101, 106,
+121, 129, 136, 146, 157, 173, 185, 197, 214, 229, 235, 244, 260,
+272, 298, 306, 318, 327, 336, 351, 359, 373, 388, 394, 410, 422,
+436, 446, 452, 463, 476, 499, 503, 506, 513, 524, 535, 542, 549,
+556, 567, 577, 588, 599, 609, 621, 625, 636, 649, 656, 664, 676,
+693, 708, 717, 728, 734, 740, 753, 759, 765, 775, 788, 798, 807,
+815, 826, 839, 850, 861, 869, 883, 895, 904, 913, 924, 931, 939,
+951, 961, 972, 982, 993])
+</code></pre>
+  <p class="blog-post_paragraph">
+    At this stage, I can to start to work towards isolating data from the
+    periods where the DNA is static in the pore. The plan is for each DNA
+    capture event, isolate one value that I can use to compare to the k-mer
+    table and start basecalling. Practically, this can be broken down into two
+    steps:
+  </p>
+  <ol>
+    <li>
+      <p class="blog-post_paragraph">
+        Grabbing all the timepoints between DNA movement events to isolate all
+        the data for each DNA capture event
+      </p>
+    </li>
+    <li>
+      <p class="blog-post_paragraph">
+        Grab the average value of the electrical current for that DNA capture
+        event
+      </p>
+    </li>
+  </ol>
+  <p class="blog-post_paragraph">
+    Having a list of these these average values from the DNA capture events that
+    we can use to cross-reference the k-mer table will almost be all the
+    information needed to create the corresponding DNA sequence.
+  </p>
+  <pre
+    class="line-numbers"
+  ><code class="language-python"># Create a list of the means of the signal values between each timepoint
+dna_capture_timepoints = list()
+dna_capture_means = list()
+
+# Loop through each timepoint and calculate the mean of the signal values between each timepoint
+for i in range(0,len(dna_step_timepoints)-1):
+minimum = dna_step_timepoints[i]+1 if i == 0 else dna_step_timepoints[i]+2
+maximum = dna_step_timepoints[(i+1)]
+dna_capture_timepoints.append(list(range(minimum,maximum)))
+dna_capture_means.append(np.mean(signal_1.signal[minimum:maximum]))
+
+# Print the groups of timepoints where the DNA was captured
+print(f"The DNA was captured at the following timepoints: {dna_capture_timepoints}")
+
+# Print the means of the signal values between each timepoint
+print(f"The mean signal values between each timepoint were: {dna_capture_means}")</code></pre>
+  <pre
+    class="output"
+  ><code class="language-output">The DNA was captured at the following timepoints: [[1, 2, 3, 4], [7, 8, 9, 10, 11], [14, 15, 16, 17, 18, 19, 20], [23, 24, 25, 26, 27, 28, 29], [32, 33, 34, 35, 36, 37, 38], [41, 42, 43, 44], [47, 48, 49, 50, 51, 52], [55, 56, 57], [60, 61, 62], [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92], [95, 96, 97, 98, 99, 100], [103, 104, 105], [108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120], [123, 124, 125, 126, 127, 128], [131, 132, 133, 134, 135], [138, 139, 140, 141, 142, 143, 144, 145], [148, 149, 150, 151, 152, 153, 154, 155, 156], [159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172], [175, 176, 177, 178, 179, 180, 181, 182, 183, 184], [187, 188, 189, 190, 191, 192, 193, 194, 195, 196], [199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213], [216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228], [231, 232, 233, 234], [237, 238, 239, 240, 241, 242, 243], [246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259], [262, 263, 264, 265, 266, 267, 268, 269, 270, 271], [274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294, 295, 296, 297], [300, 301, 302, 303, 304, 305], [308, 309, 310, 311, 312, 313, 314, 315, 316, 317], [320, 321, 322, 323, 324, 325, 326], [329, 330, 331, 332, 333, 334, 335], [338, 339, 340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350], [353, 354, 355, 356, 357, 358], [361, 362, 363, 364, 365, 366, 367, 368, 369, 370, 371, 372], [375, 376, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387], [390, 391, 392, 393], [396, 397, 398, 399, 400, 401, 402, 403, 404, 405, 406, 407, 408, 409], [412, 413, 414, 415, 416, 417, 418, 419, 420, 421], [424, 425, 426, 427, 428, 429, 430, 431, 432, 433, 434, 435], [438, 439, 440, 441, 442, 443, 444, 445], [448, 449, 450, 451], [454, 455, 456, 457, 458, 459, 460, 461, 462], [465, 466, 467, 468, 469, 470, 471, 472, 473, 474, 475], [478, 479, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 490, 491, 492, 493, 494, 495, 496, 497, 498], [501, 502], [505], [508, 509, 510, 511, 512], [515, 516, 517, 518, 519, 520, 521, 522, 523], [526, 527, 528, 529, 530, 531, 532, 533, 534], [537, 538, 539, 540, 541], [544, 545, 546, 547, 548], [551, 552, 553, 554, 555], [558, 559, 560, 561, 562, 563, 564, 565, 566], [569, 570, 571, 572, 573, 574, 575, 576], [579, 580, 581, 582, 583, 584, 585, 586, 587], [590, 591, 592, 593, 594, 595, 596, 597, 598], [601, 602, 603, 604, 605, 606, 607, 608], [611, 612, 613, 614, 615, 616, 617, 618, 619, 620], [623, 624], [627, 628, 629, 630, 631, 632, 633, 634, 635], [638, 639, 640, 641, 642, 643, 644, 645, 646, 647, 648], [651, 652, 653, 654, 655], [658, 659, 660, 661, 662, 663], [666, 667, 668, 669, 670, 671, 672, 673, 674, 675], [678, 679, 680, 681, 682, 683, 684, 685, 686, 687, 688, 689, 690, 691, 692], [695, 696, 697, 698, 699, 700, 701, 702, 703, 704, 705, 706, 707], [710, 711, 712, 713, 714, 715, 716], [719, 720, 721, 722, 723, 724, 725, 726, 727], [730, 731, 732, 733], [736, 737, 738, 739], [742, 743, 744, 745, 746, 747, 748, 749, 750, 751, 752], [755, 756, 757, 758], [761, 762, 763, 764], [767, 768, 769, 770, 771, 772, 773, 774], [777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787], [790, 791, 792, 793, 794, 795, 796, 797], [800, 801, 802, 803, 804, 805, 806], [809, 810, 811, 812, 813, 814], [817, 818, 819, 820, 821, 822, 823, 824, 825], [828, 829, 830, 831, 832, 833, 834, 835, 836, 837, 838], [841, 842, 843, 844, 845, 846, 847, 848, 849], [852, 853, 854, 855, 856, 857, 858, 859, 860], [863, 864, 865, 866, 867, 868], [871, 872, 873, 874, 875, 876, 877, 878, 879, 880, 881, 882], [885, 886, 887, 888, 889, 890, 891, 892, 893, 894], [897, 898, 899, 900, 901, 902, 903], [906, 907, 908, 909, 910, 911, 912], [915, 916, 917, 918, 919, 920, 921, 922, 923], [926, 927, 928, 929, 930], [933, 934, 935, 936, 937, 938], [941, 942, 943, 944, 945, 946, 947, 948, 949, 950], [953, 954, 955, 956, 957, 958, 959, 960], [963, 964, 965, 966, 967, 968, 969, 970, 971], [974, 975, 976, 977, 978, 979, 980, 981], [984, 985, 986, 987, 988, 989, 990, 991, 992]]
+The mean signal values between each timepoint were: [0.31433517213780837, 0.43766452237492925, 0.9387543658730736, 0.7491620115243135, 0.0642193126949508, 0.31326935037854287, 0.24937600377839395, 0.130256685554997, 0.6883897264089572, 0.9372835292344889, 0.8148747782419928, 0.2500042503271521, 0.18569914026032414, 0.7510911443970629, 0.00392339248324384, 0.1892595360671514, 0.7509671177793753, 0.0009498651449908699, 0.18710419821843122, 0.750668820709487, -0.0002529691162086578, 0.1257338697558691, 0.6237778941843132, 0.6862620039107608, 0.9383219774984897, 0.8127863831755139, 0.3116878043677131, 0.2516589568454785, 0.06157514347086608, 0.24949118459818745, 0.18762856827691252, 0.8745833345080214, 0.5616904534557398, 0.4378769913326242, 0.7512417921320028, 0.06147870467947927, 0.31357493638649636, 0.4376594336082557, 0.8755724550452259, 0.6894146297238046, 0.814734307815625, 0.31150221756447016, 0.37454563413346376, 0.6252475443942963, 0.5607016208278222, 0.37872502271507247, 0.5025199366186491, 0.06287775116129021, 0.31237448207047425, 0.37394365483020914, 0.6854133837754858, 0.7499338821623402, 0.12480661788385078, 0.6224798139002761, 0.5613696531351453, 0.37578712447141316, 0.5020485546133144, -0.0005370835430390335, 0.19247278427776948, 0.7499260255527416, 0.06372496407234154, 0.31360170537601817, 0.3752872820544597, 0.5622017782921571, 0.37512069275695975, 0.5625488786660855, 0.4363644398931193, 0.8761449035773369, 0.5619980341934347, 0.2486155974064191, 0.061132847116016936, 0.3748807884224359, 0.6880008024015126, 0.8754137023198767, 0.562818173974388, 0.3146106037265035, 0.43890865038957905, 0.8138947779327852, 0.374499740479943, 0.5634887467048468, 0.43901270638739603, 0.7494805632785352, 0.0620242520911263, 0.43695078248901803, 0.9390048759808696, 0.8755561616520022, 0.6889436874191136, 0.7493057290788284, 0.06314669411367502, 0.2519495612069659, 0.06238869640698343, 0.2500586110334643, 0.18980609110495494, 0.8752194462720972, 0.6902774248534667]</code></pre>
+  <!-- TEMPLATES -->
+  <!-- Paragraph -->
+  <p class="blog-post_paragraph">...</p>
+  <!-- Python code block -->
+  <pre class="line-numbers"><code class="language-python">
+  
+</code></pre>
+  <!-- Graph output -->
+  <pre
+    class="output-img no-code"
+  ><code class="language-output">&nbsp;</code></pre>
+  <div class="workshowcase-img-container">
+    <img
+      class="img-fluid"
+      src="assets/img/basecaller_blog_post/..."
+      alt="..."
+    />
+  </div>
+  <!-- Text output with output tag-->
+  <pre class="output"><code class="language-output">...</code></pre>
+  <!-- Text output without output tag-->
+  <pre
+    class="output no-lang-display"
+  ><code class="language-output">...</code></pre>
+  <!-- Truncated text output -->
+  <pre class="truncated-output"><code class="language-truncout">...</code></pre>
+  <!-- TEST BLOCK OF CODE -->
+  <pre class="line-numbers"><code class="language-python">...</code></pre>
+  <pre
+    class="output-img no-code"
+  ><code class="language-output">&nbsp;</code></pre>
+  <div class="workshowcase-img-container">
+    <img
+      class="img-fluid"
+      src="assets/img/signals_highlighted.png"
+      alt="signal_graph_with_dinucleotide_labels"
+    />
+  </div>
+  <pre class="line-numbers">
+<code class="language-python">def get_label_details(timepoints: "list") -> "tuple(int, str)":
+# Get the corresponding signals array for the given time range
+signals_from_timepoints = signal_1.signal[timepoints]
+
+# Get the maximum value of the signal for the given time range (this will be used to generate the y-axis value of the label)
+max_signal = np.max(signals_from_timepoints)
+
+# Basecall the average of the signal for each timepoint
+# Figure out the average of the signal, then loop through the dinucleotide table and figure out which dinucleotide signal is the closest to the average 
+# (calculate the minimal distance between the average and the dinucleotide signals)
+average_signal = np.mean(signals_from_timepoints)
+differences = list()
+for dinuc, signature in kmer_table.items():
+differences.append((dinuc, abs(average_signal - signature)))
+minimal_dist = np.min([x[1] for x in differences])
+dinuccall = [x[0] for x in differences if x[1] == minimal_dist][0]
+
+# Return y-axis value (max_signal + some padding) and label (dinculeotide)
+return (max_signal + 0.0225, dinuccall)
+
+def plot_subplot(plot_num: "int (0 or 1)", with_color: "bool") -> None:
+"""Plot subplots of the signal with annotations"""
+axs[plot_num].plot(signal_1.signal[0:100])
+axs[plot_num].set_xlim(right=100)
+axs[plot_num].set_ylim(top=1)
+axs[plot_num].set_xlabel('Time point')
+axs[plot_num].set_ylabel('Signal')
+
+for i, v in enumerate(dna_capture_timepoints):
+
+# Color the background of the plot if with_color is True
+if with_color:
+axs[plot_num].axvspan(xmin=v[0], xmax=v[-1], color='green', alpha=0.1)
+if i > 0 and i in dna_step_timepoints:
+axs[0].axvspan(xmin=i, xmax=i+1, color='red', alpha=0.3)
+
+# Only label the first 11 labels because there are 11 visible DNA capture events in the first 100 time points
+if i < 11:
+label_data = get_label_details(v)
+x_center = (v[0] + v[-1]) / 2  # calculate the center of the green area
+y_center = label_data[0] 
+basecall = label_data[1] 
+axs[plot_num].text(x_center, y_center, basecall, ha='center', va='center', fontsize=10) # ha = horizontal alignment, va = vertical alignment
+
+# Set up the figure with two subplots
+fig, axs = plt.subplots(1, 2, figsize=(12, 4))
+
+# Plot the first plot on the left subplot
+plot_subplot(plot_num = 0, with_color = True)
+plot_subplot(plot_num = 1, with_color = False)</code></pre>
+  <pre
+    class="output-img no-code"
+  ><code class="language-output">&nbsp;</code></pre>
+  <div class="workshowcase-img-container">
+    <img
+      class="img-fluid"
+      src="assets/img/singals_with_dinucleotide_labels.png"
+      alt="signal_graph_with_dinucleotide_labels"
+    />
+  </div>
+  <pre class="line-numbers"><code class="language-r"># FOR 5 CENTERS
+
+# apply fuzzy clustering algorithm
+fc_filt_0.5_clr_fcm_out_rm <- fcm(t(fc_filt_0.5_clr_out_rm_lab), dmetric='sqeuclidean', centers=5) 
+#converts object into plottable object (of k-means type)
+fc_filt_0.5_clr_fcm_out_rm_2 <- ppclust2(fc_filt_0.5_clr_fcm_out_rm, "kmeans") 
+
+# plot groupings
+factoextra::fviz_cluster(fc_filt_0.5_clr_fcm_out_rm_2, data = t(fc_filt_0.5_clr_out_rm_lab),
+ellipse.type = "norm", labelsize=10,  palette = "jco",
+repel = TRUE)</code></pre>
+</div>
