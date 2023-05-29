@@ -965,6 +965,7 @@ div > p.blog-post-title {
 
 /* Align text to the right on smaller screens */
 @media (max-width: 768px) {
+  .blog-post-title,
   .blog-post_paragraph {
     text-align: left;
   }
