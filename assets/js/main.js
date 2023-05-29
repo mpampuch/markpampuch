@@ -292,6 +292,10 @@ if (month < 0 || (month == 0 && day < 0)) {
 
 document.querySelector(".age").textContent = age;
 
+function capitalize(word) {
+  return word[0].toUpperCase() + word.slice(1).toLowerCase();
+}
+
 /* 
 WORK SHOWCASE SECTION EVENT PROPAGATION 
 Here I have the code used to create clickable tabbed components in the work showcase section.
@@ -332,20 +336,45 @@ workTabsContainers.forEach((workTabsContainer) => {
       // Set clicked to true so that the blogpost not retrieved again (because of the .click() method above
       clicked = true;
 
+      // Set the value of the go back tab to the showcase that it was clicked from
+      const goBackValue = clickedEl
+        .querySelector(".nav-link")
+        .getAttribute("data-goback");
+
+      let goBackEl = document
+        .querySelector(".section-show")
+        .querySelector(".go-back");
+
+      goBackEl.innerHTML = `&#8701; Back to ${capitalize(
+        goBackValue
+      )} Showcase`;
+      goBackEl.setAttribute("href", `#${goBackValue}`);
+
       // Retrieve the blogpost
+      // Calculate the elapsed time
+      const startTime = performance.now();
       let html = await retrieveBlogPost(`./assets/blog-posts/${blogPost}.html`);
+      const endTime = performance.now();
+
+      // Calculate the elapsed time
+      const elapsedTime = endTime - startTime;
 
       // Reset clicked to false so that the blogpost can be retrieved again
       resetClicked();
 
       // Load the blogpost into the content element
-      // Generate a random number between 100 and 500
-      min = 300;
-      max = 500;
+      // Generate a random number between min and max values
+      let min = 300;
+      let max = 500;
       let randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+
+      // Calculate the wait time
+      const waitTime =
+        randomNum - elapsedTime <= 0 ? 0 : randomNum - elapsedTime;
+
       setTimeout(() => {
         loadBlogPost(html);
-      }, randomNum);
+      }, waitTime);
     }
   });
 });
