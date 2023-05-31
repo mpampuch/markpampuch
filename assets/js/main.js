@@ -386,7 +386,7 @@ window.addEventListener("load", async () => {
     console.log(await document.querySelector(".section-show"));
 
     // If there is a data attribute of blogpost in the URL, load the blogpost
-    if (document.querySelector(".section-show").getAttribute("data-blogpost")) {
+    if (document.querySelector(".section-show").hasAttribute("data-blogpost")) {
       // Get the data attribute of the clicked element
       const blogPost = document
         .querySelector(".section-show")

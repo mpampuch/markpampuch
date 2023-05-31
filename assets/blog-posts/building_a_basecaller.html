@@ -1,4 +1,13 @@
 <div class="blog-post">
+  <p class="blog-post_paragraph">
+    <em>
+      I am currently finishing up school so I don't have a lot of free time to
+      add to this section but I am slowly working on it. I have a few more
+      projects that I will be adding to this section soon. Here is a sample of
+      one of them. If you want to see more of my CLI tools that I have built,
+      check back to this page soon or reach out to me to disucss it.
+    </em>
+  </p>
   <div class="section-title">
     <p class="blog-post-title">Building a simple DNA basecaller in Python</p>
   </div>
@@ -614,6 +623,9 @@ plt.axhline(y = cutoff, color = 'red');
 plt.ylim(top=0.99)
 plt.axhspan(ymin=cutoff, ymax=1, color='orange', alpha=0.1);
 plt.text(82, 0.2, f'Signal deltas \n(orange lines) \nin this area \n (exceeding the \nthreshold of {cutoff})\nrepresents a \n change in \nbasepairs \nin the pore', fontsize = 10, color = "red", horizontalalignment="center");</code></pre>
+  <pre
+    class="output-img no-code"
+  ><code class="language-output">&nbsp;</code></pre>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
@@ -650,7 +662,7 @@ dna_step_timepoints</code></pre>
 693, 708, 717, 728, 734, 740, 753, 759, 765, 775, 788, 798, 807,
 815, 826, 839, 850, 861, 869, 883, 895, 904, 913, 924, 931, 939,
 951, 961, 972, 982, 993])
-</code></pre>
+  </code></pre>
   <p class="blog-post_paragraph">
     At this stage, I can to start to work towards isolating data from the
     periods where the DNA is static in the pore. The plan is for each DNA
@@ -704,8 +716,8 @@ The mean signal values between each timepoint were: [0.31433517213780837, 0.4376
   <p class="blog-post_paragraph">...</p>
   <!-- Python code block -->
   <pre class="line-numbers"><code class="language-python">
-  
-</code></pre>
+    
+  </code></pre>
   <!-- Graph output -->
   <pre
     class="output-img no-code"
@@ -733,8 +745,28 @@ The mean signal values between each timepoint were: [0.31433517213780837, 0.4376
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/basecaller_blog_post/signals_highlighted.png"
-      alt="signal_graph_with_dinucleotide_labels"
+      src="assets/img/basecaller_blog_post/signals_highlighted_thresholds_only.png"
+      alt="signal graph with threshold regions highlighted"
+    />
+  </div>
+  <pre
+    class="output-img no-code"
+  ><code class="language-output">&nbsp;</code></pre>
+  <div class="workshowcase-img-container">
+    <img
+      class="img-fluid"
+      src="assets/img/basecaller_blog_post/signals_highlighted_w_overlaps.png"
+      alt="signal graph with capture regions highlighted but with overlapping capture regions and threshold regions"
+    />
+  </div>
+  <pre
+    class="output-img no-code"
+  ><code class="language-output">&nbsp;</code></pre>
+  <div class="workshowcase-img-container">
+    <img
+      class="img-fluid"
+      src="assets/img/basecaller_blog_post/signals_highlighted.png"
+      alt="signal graph with capture regions highlighted containing no overlaps"
     />
   </div>
   <pre class="line-numbers">
@@ -772,8 +804,8 @@ for i, v in enumerate(dna_capture_timepoints):
 if with_color:
 axs[plot_num].axvspan(xmin=v[0], xmax=v[-1], color='green', alpha=0.1)
 if i > 0 and i in dna_step_timepoints:
-axs[0].axvspan(xmin=i, xmax=i+1, color='red', alpha=0.3)
-
+  axs[0].axvspan(xmin=i, xmax=i+1, color='red', alpha=0.3)
+  
 # Only label the first 11 labels because there are 11 visible DNA capture events in the first 100 time points
 if i < 11:
 label_data = get_label_details(v)
@@ -783,7 +815,7 @@ basecall = label_data[1]
 axs[plot_num].text(x_center, y_center, basecall, ha='center', va='center', fontsize=10) # ha = horizontal alignment, va = vertical alignment
 
 # Set up the figure with two subplots
-fig, axs = plt.subplots(2, 1, figsize=(10, 10))
+fig, axs = plt.subplots(2, 1, figsize=(7, 10))
 
 # Plot the first plot on the left subplot
 plot_subplot(plot_num = 0, with_color = True)
@@ -809,4 +841,5 @@ fc_filt_0.5_clr_fcm_out_rm_2 <- ppclust2(fc_filt_0.5_clr_fcm_out_rm, "kmeans")
 factoextra::fviz_cluster(fc_filt_0.5_clr_fcm_out_rm_2, data = t(fc_filt_0.5_clr_out_rm_lab),
 ellipse.type = "norm", labelsize=10,  palette = "jco",
 repel = TRUE)</code></pre>
+  <!-- END TEST POST -->
 </div>
