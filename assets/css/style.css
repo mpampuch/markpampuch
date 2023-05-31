@@ -980,9 +980,11 @@ div > p.blog-post-title {
   text-align: center;
   padding: 30px 30px 25px 30px;
   margin-bottom: 20px;
+  transition: ease-in-out 0.2s;
 }
 .work-field:hover {
   cursor: pointer;
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .work-showcase .nav-link {
