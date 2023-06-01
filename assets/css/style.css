@@ -948,7 +948,7 @@ section .container {
 }
 div > p.blog-post-title {
   font-size: 34px;
-  text-align: center;
+  text-align: left;
   margin-top: 15px;
 }
 

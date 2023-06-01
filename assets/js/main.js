@@ -269,7 +269,7 @@
   }
 })();
 
-// Automatic age updater
+/*==================== Automatic Age Updater ====================*/
 // Month is 0-indexed so August is month 7, not 8
 const birthDate = new Date(1998, 7, 17, 0, 0, 0, 0);
 
@@ -292,10 +292,99 @@ if (month < 0 || (month == 0 && day < 0)) {
 
 document.querySelector(".age").textContent = age;
 
-function capitalize(word) {
-  return word[0].toUpperCase() + word.slice(1).toLowerCase();
+/*==================== End Automatic Age Updater ====================*/
+
+/*==================== Code to keep all elements the same size ====================*/
+/*For work showcase tabs specifically. Since they are responsive sometimes some elemnts are sized bigger than others*/
+let currentWorkEls = {
+  els: null,
+  targetHeight: null,
+};
+// Match the height of the tabbed components so that they are all evenly sized when responsive
+document.body.addEventListener("click", function (event) {
+  // Get the tabbed components for the work section
+  let workEls = document.querySelectorAll(".section-show .work-field");
+
+  // Guard clause
+  if (!workEls) return;
+
+  // Remember the current tabbed components
+  currentWorkEls.els = workEls;
+
+  // Get the max height of the tabbed components. This will be the target height
+  currentWorkEls.targetHeight = getMaxHeight(workEls);
+
+  // Match the height of the tabbed components
+  matchContentHeight(workEls, currentWorkEls.targetHeight);
+});
+
+window.addEventListener("resize", function (event) {
+  // Get the tabbed components for the work section
+  let workEls = document.querySelectorAll(".section-show .work-field");
+
+  // Guard clause, Don't do anything if the tabbed components haven't changed
+  if (!workEls || workEls === currentWorkEls) return;
+
+  // Match the height of the tabbed components
+  matchContentHeight(workEls, currentWorkEls.targetHeight);
+});
+
+function getMaxHeight(els) {
+  let maxHeight = 0;
+
+  // Find the maximum height
+  for (let i = 0; i < els.length; i++) {
+    const element = els[i];
+    const height = element.clientHeight;
+    maxHeight = Math.max(maxHeight, height);
+  }
+
+  return maxHeight;
 }
 
+function matchContentHeight(els, targetHeight) {
+  function adjustPadding(els) {
+    const elements = els;
+
+    // Apply extra padding to match the maximum content height
+    for (let i = 0; i < elements.length; i++) {
+      const element = elements[i];
+
+      const contentHeight = element.clientHeight;
+
+      if (contentHeight !== targetHeight) {
+        // Calculate the extra padding needed
+        const extraPadding = targetHeight - contentHeight;
+
+        // Get the computed styles of the element
+        const styles = window.getComputedStyle(element);
+
+        // Get the currently computed top and bottom padding
+        const totalPaddingTop =
+          parseInt(styles.getPropertyValue("padding-top")) + extraPadding / 2;
+        const totalPaddingBottom =
+          parseInt(styles.getPropertyValue("padding-bottom")) +
+          extraPadding / 2;
+
+        // Remove the transition so that the padding change is instant
+        element.style.transition = "padding 0s ease-in-out";
+
+        // Apply the new padding
+        element.style.paddingTop = `${totalPaddingTop}px`;
+        element.style.paddingBottom = `${totalPaddingBottom}px`;
+      }
+    }
+  }
+
+  // Initial adjustment
+  adjustPadding(els);
+
+  // Recalculate padding on window resize
+  // window.addEventListener("resize", adjustPadding(els));
+}
+/*==================== End Code to keep all elements the same size ====================*/
+
+/*==================== Code to Load Blogposts! Important section ====================*/
 /* 
 WORK SHOWCASE SECTION EVENT PROPAGATION 
 Here I have the code used to create clickable tabbed components in the work showcase section.
@@ -345,10 +434,15 @@ workTabsContainers.forEach((workTabsContainer) => {
         .querySelector(".section-show")
         .querySelector(".go-back");
 
-      goBackEl.innerHTML = `&#8701; Back to ${capitalize(
+      goBackEl.innerHTML = `&#8701; Back to ${formatGoBack(
         goBackValue
       )} Showcase`;
       goBackEl.setAttribute("href", `#${goBackValue}`);
+
+      // Retrieve the blogpost section
+      const blogPostSectionEl = document
+        .querySelector(".section-show")
+        .closest("section");
 
       // Retrieve the blogpost
       // Calculate the elapsed time
@@ -369,11 +463,15 @@ workTabsContainers.forEach((workTabsContainer) => {
       let randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
 
       // Calculate the wait time
-      const waitTime =
-        randomNum - elapsedTime <= 0 ? 0 : randomNum - elapsedTime;
+      let waitTime = randomNum - elapsedTime <= 0 ? 0 : randomNum - elapsedTime;
+
+      // If no load specified, set wait time to 0
+      if (clickedEl.querySelector(".nav-link").hasAttribute("data-noload")) {
+        waitTime = 0;
+      }
 
       setTimeout(() => {
-        loadBlogPost(html);
+        loadBlogPost(blogPostSectionEl, html);
       }, waitTime);
     }
   });
@@ -383,21 +481,36 @@ workTabsContainers.forEach((workTabsContainer) => {
 window.addEventListener("load", async () => {
   // Wait for the page to load to ensure .show-section is present
   setTimeout(async () => {
-    console.log(await document.querySelector(".section-show"));
+    try {
+      // If there is a data attribute of blogpost in the URL, load the blogpost
+      if (
+        // document.body.classList.contains("section-show") &&
+        document.querySelector(".section-show").hasAttribute("data-blogpost")
+      ) {
+        // Retrieve the blogpost section
+        const blogPostSectionEl = document
+          .querySelector(".section-show")
+          .closest("section");
 
-    // If there is a data attribute of blogpost in the URL, load the blogpost
-    if (document.querySelector(".section-show").hasAttribute("data-blogpost")) {
-      // Get the data attribute of the clicked element
-      const blogPost = document
-        .querySelector(".section-show")
-        .getAttribute("data-blogpost");
-      console.log(blogPost);
+        // Get the data attribute of the clicked element
+        const blogPost = document
+          .querySelector(".section-show")
+          .getAttribute("data-blogpost");
 
-      // Retrieve the blogpost
-      let html = await retrieveBlogPost(`./assets/blog-posts/${blogPost}.html`);
+        // Retrieve the blogpost
+        let html = await retrieveBlogPost(
+          `./assets/blog-posts/${blogPost}.html`
+        );
 
-      // Load the blogpost into the content element
-      loadBlogPost(html);
+        // Load the blogpost into the content element
+        loadBlogPost(blogPostSectionEl, html);
+      }
+    } catch (error) {
+      if (error instanceof TypeError) {
+        console.log("Page loaded correctly");
+      } else {
+        console.log(error);
+      }
     }
   }, 1000);
 });
@@ -439,10 +552,10 @@ async function retrieveBlogPost(filePath) {
   }
 }
 
-function loadBlogPost(html) {
+function loadBlogPost(blogPostSectionEl, html) {
   // Add the blogpost to the DOM if the .insert-html-below element exists
-  if (!document.querySelector(".insert-html-below")) return;
-  document
+  if (!blogPostSectionEl.querySelector(".insert-html-below")) return;
+  blogPostSectionEl
     .querySelector(".insert-html-below")
     .insertAdjacentHTML("afterend", html);
 
@@ -450,7 +563,7 @@ function loadBlogPost(html) {
   reloadJavaScriptFile("assets/js/prism.js");
 
   // Remove the .insert-html-below element so that the blogpost is only added once. This will also remove the loading spinner
-  document.querySelector(".insert-html-below").remove();
+  blogPostSectionEl.querySelector(".insert-html-below").remove();
 }
 
 function reloadJavaScriptFile(filePath) {
@@ -464,3 +577,30 @@ function reloadJavaScriptFile(filePath) {
   const firstScript = document.getElementsByTagName("script")[0];
   firstScript.parentNode.insertBefore(script, firstScript);
 }
+
+/*==================== End Code to Load Blogposts ====================*/
+
+/*==================== General Helper functions ====================*/
+
+// Function to capitalize the first letter of a string
+function capitalize(word) {
+  return word[0].toUpperCase() + word.slice(1).toLowerCase();
+}
+
+// Format the go back strings
+function formatGoBack(word) {
+  conversions = {
+    "work-showcase": "Showcase",
+    science: "Science",
+    software: "Software",
+    business: "Business",
+    "wet-lab": "Wet Lab",
+    "dry-lab": "Dry Lab",
+    "other-science": "Other Science Projects",
+    "cli-softwares": "Command Line Softwares",
+    "web-softwares": "Web Softwares",
+  };
+
+  return conversions[word];
+}
+/*==================== End General Helper functions ====================*/
