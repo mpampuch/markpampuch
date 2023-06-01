@@ -308,6 +308,14 @@ document.body.addEventListener("click", function (event) {
   // Guard clause
   if (!workEls) return;
 
+  // Reset the style of the previous tabbed components if they exist
+  if (currentWorkEls.els && currentWorkEls.els !== workEls) {
+    for (let i = 0; i < currentWorkEls.els.length; i++) {
+      currentWorkEls.els[i].style.paddingTop = "";
+      currentWorkEls.els[i].style.paddingBottom = "";
+    }
+  }
+
   // Remember the current tabbed components
   currentWorkEls.els = workEls;
 
