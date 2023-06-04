@@ -301,6 +301,10 @@ if (month < 0 || (month == 0 && day < 0)) {
 
 document.querySelector(".age").textContent = age;
 
+function capitalize(word) {
+  return word[0].toUpperCase() + word.slice(1).toLowerCase();
+}
+
 /* 
 WORK SHOWCASE SECTION EVENT PROPAGATION 
 Here I have the code used to create clickable tabbed components in the work showcase section.
@@ -314,18 +318,158 @@ I then followed the href attribute to the content element
 
 // Select all the work tabs containers
 // Did this instead of adding an event listener to the workshowcase section because there are less of these elements than there are sections with a class of work-showcase so this way I am adding less event listeners and improving performance
-const workTabsContainers = document.querySelectorAll(".work-tabs-container");
 
+// Create a set to store the blog posts to retrieve and remove falsey values
+const workTabsContainers = document.querySelectorAll(".work-tabs-container");
+clicked = false;
 // Add an event listener to each container
 workTabsContainers.forEach((workTabsContainer) => {
-  workTabsContainer.addEventListener("click", (e) => {
+  workTabsContainer.addEventListener("click", async (e) => {
     // Guard clause
     if (!e.target.closest(".work-field")) return;
 
     // Select the closest tab element
-    const clicked = e.target.closest(".work-field");
+    const clickedEl = e.target.closest(".work-field");
 
     // Mimic a click on the tabs anchor element to trigger its event handler
-    clicked.querySelector(".nav-link").click();
+    clickedEl.querySelector(".nav-link").click();
+
+    // Get the data attribute of the clicked element
+    const blogPost = clickedEl
+      .querySelector(".nav-link")
+      .getAttribute("data-blogpost");
+
+    // If the element has a data attribute of blogpost, retrieve the blogpost
+    // Set clicked to true so that the blogpost is only retrieved once
+    if (blogPost && !clicked) {
+      // Set clicked to true so that the blogpost not retrieved again (because of the .click() method above
+      clicked = true;
+
+      // Set the value of the go back tab to the showcase that it was clicked from
+      const goBackValue = clickedEl
+        .querySelector(".nav-link")
+        .getAttribute("data-goback");
+
+      let goBackEl = document
+        .querySelector(".section-show")
+        .querySelector(".go-back");
+
+      goBackEl.innerHTML = `&#8701; Back to ${capitalize(
+        goBackValue
+      )} Showcase`;
+      goBackEl.setAttribute("href", `#${goBackValue}`);
+
+      // Retrieve the blogpost
+      // Calculate the elapsed time
+      const startTime = performance.now();
+      let html = await retrieveBlogPost(`./assets/blog-posts/${blogPost}.html`);
+      const endTime = performance.now();
+
+      // Calculate the elapsed time
+      const elapsedTime = endTime - startTime;
+
+      // Reset clicked to false so that the blogpost can be retrieved again
+      resetClicked();
+
+      // Load the blogpost into the content element
+      // Generate a random number between min and max values
+      let min = 300;
+      let max = 500;
+      let randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+
+      // Calculate the wait time
+      const waitTime =
+        randomNum - elapsedTime <= 0 ? 0 : randomNum - elapsedTime;
+
+      setTimeout(() => {
+        loadBlogPost(html);
+      }, waitTime);
+    }
   });
 });
+
+// Function to load the blogpost if it was not accessed by clicking on a tab
+window.addEventListener("load", async () => {
+  // Wait for the page to load to ensure .show-section is present
+  setTimeout(async () => {
+    console.log(await document.querySelector(".section-show"));
+
+    // If there is a data attribute of blogpost in the URL, load the blogpost
+    if (document.querySelector(".section-show").getAttribute("data-blogpost")) {
+      // Get the data attribute of the clicked element
+      const blogPost = document
+        .querySelector(".section-show")
+        .getAttribute("data-blogpost");
+      console.log(blogPost);
+
+      // Retrieve the blogpost
+      let html = await retrieveBlogPost(`./assets/blog-posts/${blogPost}.html`);
+
+      // Load the blogpost into the content element
+      loadBlogPost(html);
+    }
+  }, 1000);
+});
+
+function resetClicked() {
+  setTimeout(() => {
+    // Reset clicked to false so that the blogpost can be retrieved again
+    clicked = false;
+  }, 10);
+}
+
+// Retrieve blogpost HTML from an HTML file
+async function retrieveBlogPost(filePath) {
+  try {
+    // Fetch the HTML
+    const response = await fetch(filePath);
+
+    // Throw an error if the response is not ok
+    if (!response.ok) {
+      throw new Error(`Failed to load HTML from ${filePath}`);
+    }
+
+    // Convert the response to text
+    const html = await response.text();
+
+    // Return the HTML
+    return html;
+
+    // Catch any errors
+  } catch (error) {
+    // Log the error to the console
+    console.error(error);
+
+    // Return an error message
+    html = `<p>Failed to load blog post</p>`;
+
+    // Return the HTML
+    return html;
+  }
+}
+
+function loadBlogPost(html) {
+  // Add the blogpost to the DOM if the .insert-html-below element exists
+  if (!document.querySelector(".insert-html-below")) return;
+  document
+    .querySelector(".insert-html-below")
+    .insertAdjacentHTML("afterend", html);
+
+  // Reload the code formatting file after HTML insertion
+  reloadJavaScriptFile("assets/js/prism.js");
+
+  // Remove the .insert-html-below element so that the blogpost is only added once. This will also remove the loading spinner
+  document.querySelector(".insert-html-below").remove();
+}
+
+function reloadJavaScriptFile(filePath) {
+  const script = document.createElement("script");
+  script.src = filePath;
+  script.async = true;
+  script.onload = () => {
+    console.log(`JavaScript file '${filePath}' has been reloaded.`);
+  };
+
+  const firstScript = document.getElementsByTagName("script")[0];
+  firstScript.parentNode.insertBefore(script, firstScript);
+}
