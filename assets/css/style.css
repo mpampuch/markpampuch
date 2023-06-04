@@ -1058,6 +1058,10 @@ div > p.blog-post-title {
   }
 }
 
+.work-showcase a.direct-link {
+  display: inline;
+}
+
 .work-showcase .work-field {
   background: rgba(255, 255, 255, 0.08);
   text-align: center;
@@ -1732,4 +1736,13 @@ test {
 
 .flagged {
   background-color: #ff0000 !important;
+}
+
+.remove-whitespace {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.remove-background {
+  background-color: transparent !important;
 }
