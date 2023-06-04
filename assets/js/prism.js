@@ -1158,7 +1158,8 @@ Prism.languages.r = {
     if (Prism.plugins.toolbar) {
       var e = {
         output: "Output", // Custom label for the toolbar button
-        truncout: "Output", // Custom label for the collapsed output button
+        truncout: "Output", // Custom label for the collapsed output button,
+        commandline: "Command Line", // Custom label for the toolbar button
         none: "Plain text",
         plain: "Plain text",
         plaintext: "Plain text",
