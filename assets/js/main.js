@@ -607,7 +607,7 @@ function capitalize(word) {
 // Format the go back strings
 function formatGoBack(word) {
   conversions = {
-    "work-showcase": "Showcase",
+    "work-showcase": "",
     science: "Science",
     software: "Software",
     business: "Business",
