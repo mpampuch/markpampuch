@@ -11,14 +11,7 @@
   <div class="section-title">
     <p class="blog-post-title">Building a simple DNA basecaller in Python</p>
   </div>
-  <p class="blog-post_paragraph">
-    Here I described how I built a program to convert electrical signals into
-    DNA code.
-  </p>
-  <p class="blog-post_paragraph">
-    This post is almost complete. Come back soon to see it.
-  </p>
-  <!-- TEST POST -->
+
   <p class="blog-post_paragraph">
     I went to the Oxford Nanopore Community meetup 2022 to learn more about how
     the Oxford Nanopore sequencing devices work. One of the workshops I
@@ -351,17 +344,15 @@ print(signal_1)</code></pre>
 [ 8.74319666e-01]
 [ 8.69710228e-01]] 
 
-Smoothed Signal: 
-n/a 
 
 Correct sequence: 
 CCTTACCAGTTTCATAATAAATAAGGTTCCCACATGCTACCTGTCCGGGCGACCGTAGGGCGAATACCGCGCTGCACGTGCCTCGCTACTTGTACACATGT</code></pre>
   <p class="blog-post_paragraph">
     Next I'll visualize the sequencing data using pyplot
   </p>
-  <pre
-    class="line-numbers"
-  ><code class="language-python">plt.plot(signal_1.signal);
+  <pre class="line-numbers"><code class="language-python"># Plot the signal
+plt.plot(signal_1.signal);
+# Add the axis labels
 plt.xlabel('Time point');
 plt.ylabel('Signal');</code></pre>
   <pre
@@ -482,21 +473,25 @@ plt.ylabel('Signal');</code></pre>
   <pre
     class="line-numbers"
   ><code class="language-python"># Create a function called smooth_data 
-# Takes in a signal object and adds a smoothed array to it
-def smooth_data(obj):
-# setattr() used to set the named attribute on the given object to the specified value
-# setattr(x, 'y', v) is equivalent to x.y = v''
-setattr(
-obj, 
-"smoothed_signal",
-# smooth the data by taking the absolute value of timepoint 1 - timepoint 2 for all timepoints of this signal
-np.abs(np.array(obj.signal[0:len(obj.signal) - 1]) - np.array(obj.signal[1:len(obj.signal)]))
-)</code></pre>
+def smooth_data(signal):
+  # Subtract the first element from the second, the second from the third, and so on. Get the absolute value of the result
+  smoothed_signal = np.abs(np.array(signal.signal[0:len(signal.signal) - 1]) - np.array(signal.signal[1:len(signal.signal)]))
+
+  # Return the smoothed signal
+  return smoothed_signal</code></pre>
   <p class="blog-post_paragraph">
     Now I'll apply the smoothing function to the signal from the first
     sequencing run and check the ouptut
   </p>
-  <pre class="line-numbers"><code class="language-python">smooth_data(signal_1);
+  <pre
+    class="line-numbers"
+  ><code class="language-python"># Calculate the smoothed signal
+smoothed_signal = smooth_data(signal_1)
+
+# Set the smoothed_signal attribute of Signal 1 to the smoothed signal
+setattr(signal_1, "smoothed_signal", smoothed_signal)
+
+# Output the smoothed signal
 signal_1.smoothed_signal</code></pre>
   <pre
     class="truncated-output"
@@ -540,6 +535,7 @@ signal_1.smoothed_signal</code></pre>
   ><code class="language-python"># Plot the signal and the smoothed signal overlayed
 plt.plot(signal_1.signal[0:plot_range]);
 plt.plot(signal_1.smoothed_signal[0:plot_range]);
+# Add the axis labels
 plt.xlabel('Time point');
 plt.ylabel('Signal');</code></pre>
   <pre
@@ -576,7 +572,7 @@ plt.hist(signal_1.smoothed_signal, bins = 100, range=[0,0.1]);</code></pre>
   </div>
   <p class="blog-post_paragraph">
     From this histogram, it looks like most of the differences between
-    subsequent time points are less than 0.02. I decided to then try calling a
+    subsequent time points are less than 0.03. I decided to then try calling a
     difference of 0.03 as the determining cutoff for whether DNA is static or
     whether it has taken a step inside the pore.
   </p>
@@ -593,9 +589,13 @@ plt.hist(signal_1.smoothed_signal, bins = 100, range=[0,0.1]);</code></pre>
     class="line-numbers"
   ><code class="language-python"># Plot histogram with cutoff line
 plt.hist(signal_1.smoothed_signal, bins = 100, range=[0,0.1]);
+# Add a vertical line at the cutoff point
 plt.axvline(x = cutoff, color = 'red')
+# Limit the x-axis to the right of the cutoff
 plt.xlim(right=0.105)
+# Highlight the area to the right of the cutoff
 plt.axvspan(xmin=cutoff, xmax=0.12, color='orange', alpha=0.1);
+# Add text to the plot
 plt.text(0.069, 60, 'Any signal change in this area \nrepresents a change in \nbasepairs in the pore', fontsize = 12, color = "red", horizontalalignment = "center");</code></pre>
   <pre
     class="output-img no-code"
@@ -610,18 +610,23 @@ plt.text(0.069, 60, 'Any signal change in this area \nrepresents a change in \nb
   <p class="blog-post_paragraph">
     Going back to the signals plot, you can better visualize the moments that
     the motor protein takes a step and the DNA inside the pore changes by
-    overlay this cutoff point
+    overlay this cutoff point.
   </p>
   <pre
     class="line-numbers"
   ><code class="language-python"># Plot the smoothed signal with the cutoff line
 plt.plot(signal_1.signal[0:plot_range]);
 plt.plot(signal_1.smoothed_signal[0:plot_range]);
+# Add the axis labels
 plt.xlabel('Time point');
 plt.ylabel('Signal');
+# Add the cutoff line
 plt.axhline(y = cutoff, color = 'red');
+# Limit the y-axis to just below 1
 plt.ylim(top=0.99)
+# Highlight the area above the cutoff
 plt.axhspan(ymin=cutoff, ymax=1, color='orange', alpha=0.1);
+# Add text to the plot
 plt.text(82, 0.2, f'Signal deltas \n(orange lines) \nin this area \n (exceeding the \nthreshold of {cutoff})\nrepresents a \n change in \nbasepairs \nin the pore', fontsize = 10, color = "red", horizontalalignment="center");</code></pre>
   <pre
     class="output-img no-code"
@@ -636,22 +641,25 @@ plt.text(82, 0.2, f'Signal deltas \n(orange lines) \nin this area \n (exceeding 
   <p class="blog-post_paragraph">
     Now that I have a cutoff value for determining when the DNA in the pore
     change, I can use this value to grab the signal value of the timepoints at
-    which the steps happened
+    which the steps happened.
   </p>
   <pre
     class="line-numbers"
-  ><code class="language-python"># Checks each timepoint 
-# Assigns it boolean value if value is greater than the cutoff 
-timepoints_bool = signal_1.smoothed_signal > cutoff
+  ><code class="language-python">def get_movement_timepoints(signal, cutoff):
+  # Checks each timepoint and assigns it boolean value if value is greater than the cutoff 
+  timepoints_bool = signal.smoothed_signal > cutoff
 
-# Grab the indicies of the timepoints where the value was greater than the cutoff
-dna_step_timepoints = np.array([i for i, x in enumerate(timepoints_bool) if x])
+  # Grab the indicies of the timepoints where the value was greater than the cutoff
+  dna_step_timepoints = np.array([i for i, x in enumerate(timepoints_bool) if x])
 
-# Insert a timepoint 0 at the beginning of the array to represent the inital DNA that was present
-dna_step_timepoints = np.insert(dna_step_timepoints, 0, 0)
+  # Insert a timepoint 0 at the beginning of the array to represent the inital DNA that was present
+  dna_step_timepoints = np.insert(dna_step_timepoints, 0, 0)
 
-# Output the timepoints
-dna_step_timepoints</code></pre>
+  # Output the timepoints
+  return dna_step_timepoints
+
+# Output the timepoints where the DNA starts moving
+dna_movement_timepoints = get_movement_timepoints(signal_1, cutoff)</code></pre>
   <pre
     class="output no-lang-display"
   ><code class="language-output">array([  0,   5,  12,  21,  30,  39,  45,  53,  58,  63,  93, 101, 106,
@@ -663,6 +671,38 @@ dna_step_timepoints</code></pre>
 815, 826, 839, 850, 861, 869, 883, 895, 904, 913, 924, 931, 939,
 951, 961, 972, 982, 993])
   </code></pre>
+  <p class="blog-post_paragraph">
+    Overlaying these timepoints on the electrical current graph, you can
+    visualize the moments these steps occur.
+  </p>
+  <pre class="line-numbers"><code class="language-python"># Plot the signal 
+plt.plot(signal_1.signal[0:100]);
+# Limit the x-axis to the first 100 timepoints
+plt.xlim(right=100)
+# Add axis labels
+plt.xlabel('Time point');
+plt.ylabel('Signal');
+
+# Highlight the locations where DNA movement was detected
+for i in dna_movement_timepoints:
+  if i > 0:
+    plt.axvspan(xmin=i, xmax=i+1, color='red', alpha=0.3);</code></pre>
+  <pre
+    class="output-img no-code"
+  ><code class="language-output">&nbsp;</code></pre>
+  <div class="workshowcase-img-container">
+    <img
+      class="img-fluid"
+      src="assets/img/basecaller_blog_post/signals_highlighted_thresholds_only.png"
+      alt="signal graph with threshold regions highlighted"
+    />
+  </div>
+  <p>
+    As expected, the step values calculated correspond perfectly to the large
+    vertical-like elements in the electrical signal graph. This suggests that
+    the threshold value determined through the data smoothing was a good value
+    to use to determine when the DNA in the pore changes.
+  </p>
   <p class="blog-post_paragraph">
     At this stage, I can to start to work towards isolating data from the
     periods where the DNA is static in the pore. The plan is for each DNA
@@ -689,66 +729,50 @@ dna_step_timepoints</code></pre>
     we can use to cross-reference the k-mer table will almost be all the
     information needed to create the corresponding DNA sequence.
   </p>
+  <p class="blog-post_paragraph">Let's start with the first step</p>
   <pre
     class="line-numbers"
-  ><code class="language-python"># Create a list of the means of the signal values between each timepoint
-dna_capture_timepoints = list()
-dna_capture_means = list()
+  ><code class="language-python">def get_capture_timepoints(signal, cutoff):
+  # Create a list to store the timepoints where the DNA was captured
+  dna_capture_timepoints = list()
 
-# Loop through each timepoint and calculate the mean of the signal values between each timepoint
-for i in range(0,len(dna_step_timepoints)-1):
-minimum = dna_step_timepoints[i]+1 if i == 0 else dna_step_timepoints[i]+2
-maximum = dna_step_timepoints[(i+1)]
-dna_capture_timepoints.append(list(range(minimum,maximum)))
-dna_capture_means.append(np.mean(signal_1.signal[minimum:maximum]))
+  # Loop through each timepoint and calculate the mean of the signal values between each timepoint
+  for i in range(0,len(dna_movement_timepoints)-1):
+    minimum = dna_movement_timepoints[i]
+    maximum = dna_movement_timepoints[(i+1)]+1 # Add 1 to capture 100% of time before the DNA moves
+    dna_capture_timepoints.append(list(range(minimum,maximum)))
+    
+  # Return the list of timepoints
+  return dna_capture_timepoints
+
+# Save it to a variable
+dna_capture_timepoints = get_capture_timepoints(signal_1, cutoff)
 
 # Print the groups of timepoints where the DNA was captured
-print(f"The DNA was captured at the following timepoints: {dna_capture_timepoints}")
-
-# Print the means of the signal values between each timepoint
-print(f"The mean signal values between each timepoint were: {dna_capture_means}")</code></pre>
+print(f"The DNA was captured at the following timepoints: {dna_capture_timepoints}")</code></pre>
   <pre
     class="output"
-  ><code class="language-output">The DNA was captured at the following timepoints: [[1, 2, 3, 4], [7, 8, 9, 10, 11], [14, 15, 16, 17, 18, 19, 20], [23, 24, 25, 26, 27, 28, 29], [32, 33, 34, 35, 36, 37, 38], [41, 42, 43, 44], [47, 48, 49, 50, 51, 52], [55, 56, 57], [60, 61, 62], [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92], [95, 96, 97, 98, 99, 100], [103, 104, 105], [108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120], [123, 124, 125, 126, 127, 128], [131, 132, 133, 134, 135], [138, 139, 140, 141, 142, 143, 144, 145], [148, 149, 150, 151, 152, 153, 154, 155, 156], [159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172], [175, 176, 177, 178, 179, 180, 181, 182, 183, 184], [187, 188, 189, 190, 191, 192, 193, 194, 195, 196], [199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213], [216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228], [231, 232, 233, 234], [237, 238, 239, 240, 241, 242, 243], [246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259], [262, 263, 264, 265, 266, 267, 268, 269, 270, 271], [274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294, 295, 296, 297], [300, 301, 302, 303, 304, 305], [308, 309, 310, 311, 312, 313, 314, 315, 316, 317], [320, 321, 322, 323, 324, 325, 326], [329, 330, 331, 332, 333, 334, 335], [338, 339, 340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350], [353, 354, 355, 356, 357, 358], [361, 362, 363, 364, 365, 366, 367, 368, 369, 370, 371, 372], [375, 376, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387], [390, 391, 392, 393], [396, 397, 398, 399, 400, 401, 402, 403, 404, 405, 406, 407, 408, 409], [412, 413, 414, 415, 416, 417, 418, 419, 420, 421], [424, 425, 426, 427, 428, 429, 430, 431, 432, 433, 434, 435], [438, 439, 440, 441, 442, 443, 444, 445], [448, 449, 450, 451], [454, 455, 456, 457, 458, 459, 460, 461, 462], [465, 466, 467, 468, 469, 470, 471, 472, 473, 474, 475], [478, 479, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 490, 491, 492, 493, 494, 495, 496, 497, 498], [501, 502], [505], [508, 509, 510, 511, 512], [515, 516, 517, 518, 519, 520, 521, 522, 523], [526, 527, 528, 529, 530, 531, 532, 533, 534], [537, 538, 539, 540, 541], [544, 545, 546, 547, 548], [551, 552, 553, 554, 555], [558, 559, 560, 561, 562, 563, 564, 565, 566], [569, 570, 571, 572, 573, 574, 575, 576], [579, 580, 581, 582, 583, 584, 585, 586, 587], [590, 591, 592, 593, 594, 595, 596, 597, 598], [601, 602, 603, 604, 605, 606, 607, 608], [611, 612, 613, 614, 615, 616, 617, 618, 619, 620], [623, 624], [627, 628, 629, 630, 631, 632, 633, 634, 635], [638, 639, 640, 641, 642, 643, 644, 645, 646, 647, 648], [651, 652, 653, 654, 655], [658, 659, 660, 661, 662, 663], [666, 667, 668, 669, 670, 671, 672, 673, 674, 675], [678, 679, 680, 681, 682, 683, 684, 685, 686, 687, 688, 689, 690, 691, 692], [695, 696, 697, 698, 699, 700, 701, 702, 703, 704, 705, 706, 707], [710, 711, 712, 713, 714, 715, 716], [719, 720, 721, 722, 723, 724, 725, 726, 727], [730, 731, 732, 733], [736, 737, 738, 739], [742, 743, 744, 745, 746, 747, 748, 749, 750, 751, 752], [755, 756, 757, 758], [761, 762, 763, 764], [767, 768, 769, 770, 771, 772, 773, 774], [777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787], [790, 791, 792, 793, 794, 795, 796, 797], [800, 801, 802, 803, 804, 805, 806], [809, 810, 811, 812, 813, 814], [817, 818, 819, 820, 821, 822, 823, 824, 825], [828, 829, 830, 831, 832, 833, 834, 835, 836, 837, 838], [841, 842, 843, 844, 845, 846, 847, 848, 849], [852, 853, 854, 855, 856, 857, 858, 859, 860], [863, 864, 865, 866, 867, 868], [871, 872, 873, 874, 875, 876, 877, 878, 879, 880, 881, 882], [885, 886, 887, 888, 889, 890, 891, 892, 893, 894], [897, 898, 899, 900, 901, 902, 903], [906, 907, 908, 909, 910, 911, 912], [915, 916, 917, 918, 919, 920, 921, 922, 923], [926, 927, 928, 929, 930], [933, 934, 935, 936, 937, 938], [941, 942, 943, 944, 945, 946, 947, 948, 949, 950], [953, 954, 955, 956, 957, 958, 959, 960], [963, 964, 965, 966, 967, 968, 969, 970, 971], [974, 975, 976, 977, 978, 979, 980, 981], [984, 985, 986, 987, 988, 989, 990, 991, 992]]
-The mean signal values between each timepoint were: [0.31433517213780837, 0.43766452237492925, 0.9387543658730736, 0.7491620115243135, 0.0642193126949508, 0.31326935037854287, 0.24937600377839395, 0.130256685554997, 0.6883897264089572, 0.9372835292344889, 0.8148747782419928, 0.2500042503271521, 0.18569914026032414, 0.7510911443970629, 0.00392339248324384, 0.1892595360671514, 0.7509671177793753, 0.0009498651449908699, 0.18710419821843122, 0.750668820709487, -0.0002529691162086578, 0.1257338697558691, 0.6237778941843132, 0.6862620039107608, 0.9383219774984897, 0.8127863831755139, 0.3116878043677131, 0.2516589568454785, 0.06157514347086608, 0.24949118459818745, 0.18762856827691252, 0.8745833345080214, 0.5616904534557398, 0.4378769913326242, 0.7512417921320028, 0.06147870467947927, 0.31357493638649636, 0.4376594336082557, 0.8755724550452259, 0.6894146297238046, 0.814734307815625, 0.31150221756447016, 0.37454563413346376, 0.6252475443942963, 0.5607016208278222, 0.37872502271507247, 0.5025199366186491, 0.06287775116129021, 0.31237448207047425, 0.37394365483020914, 0.6854133837754858, 0.7499338821623402, 0.12480661788385078, 0.6224798139002761, 0.5613696531351453, 0.37578712447141316, 0.5020485546133144, -0.0005370835430390335, 0.19247278427776948, 0.7499260255527416, 0.06372496407234154, 0.31360170537601817, 0.3752872820544597, 0.5622017782921571, 0.37512069275695975, 0.5625488786660855, 0.4363644398931193, 0.8761449035773369, 0.5619980341934347, 0.2486155974064191, 0.061132847116016936, 0.3748807884224359, 0.6880008024015126, 0.8754137023198767, 0.562818173974388, 0.3146106037265035, 0.43890865038957905, 0.8138947779327852, 0.374499740479943, 0.5634887467048468, 0.43901270638739603, 0.7494805632785352, 0.0620242520911263, 0.43695078248901803, 0.9390048759808696, 0.8755561616520022, 0.6889436874191136, 0.7493057290788284, 0.06314669411367502, 0.2519495612069659, 0.06238869640698343, 0.2500586110334643, 0.18980609110495494, 0.8752194462720972, 0.6902774248534667]</code></pre>
-  <!-- TEMPLATES -->
-  <!-- Paragraph -->
-  <p class="blog-post_paragraph">...</p>
-  <!-- Python code block -->
-  <pre class="line-numbers"><code class="language-python">
-    
-  </code></pre>
-  <!-- Graph output -->
+  ><code class="language-output">The DNA was captured at the following timepoints: [[0, 1, 2, 3, 4, 5], [5, 6, 7, 8, 9, 10, 11, 12], [12, 13, 14, 15, 16, 17, 18, 19, 20, 21], [21, 22, 23, 24, 25, 26, 27, 28, 29, 30], [30, 31, 32, 33, 34, 35, 36, 37, 38, 39], [39, 40, 41, 42, 43, 44, 45], [45, 46, 47, 48, 49, 50, 51, 52, 53], [53, 54, 55, 56, 57, 58], [58, 59, 60, 61, 62, 63], [63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93], [93, 94, 95, 96, 97, 98, 99, 100, 101], [101, 102, 103, 104, 105, 106], [106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121], [121, 122, 123, 124, 125, 126, 127, 128, 129], [129, 130, 131, 132, 133, 134, 135, 136], [136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146], [146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157], [157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173], [173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185], [185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197], [197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214], [214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229], [229, 230, 231, 232, 233, 234, 235], [235, 236, 237, 238, 239, 240, 241, 242, 243, 244], [244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 260], [260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272], [272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294, 295, 296, 297, 298], [298, 299, 300, 301, 302, 303, 304, 305, 306], [306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318], [318, 319, 320, 321, 322, 323, 324, 325, 326, 327], [327, 328, 329, 330, 331, 332, 333, 334, 335, 336], [336, 337, 338, 339, 340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351], [351, 352, 353, 354, 355, 356, 357, 358, 359], [359, 360, 361, 362, 363, 364, 365, 366, 367, 368, 369, 370, 371, 372, 373], [373, 374, 375, 376, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387, 388], [388, 389, 390, 391, 392, 393, 394], [394, 395, 396, 397, 398, 399, 400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410], [410, 411, 412, 413, 414, 415, 416, 417, 418, 419, 420, 421, 422], [422, 423, 424, 425, 426, 427, 428, 429, 430, 431, 432, 433, 434, 435, 436], [436, 437, 438, 439, 440, 441, 442, 443, 444, 445, 446], [446, 447, 448, 449, 450, 451, 452], [452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462, 463], [463, 464, 465, 466, 467, 468, 469, 470, 471, 472, 473, 474, 475, 476], [476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 490, 491, 492, 493, 494, 495, 496, 497, 498, 499], [499, 500, 501, 502, 503], [503, 504, 505, 506], [506, 507, 508, 509, 510, 511, 512, 513], [513, 514, 515, 516, 517, 518, 519, 520, 521, 522, 523, 524], [524, 525, 526, 527, 528, 529, 530, 531, 532, 533, 534, 535], [535, 536, 537, 538, 539, 540, 541, 542], [542, 543, 544, 545, 546, 547, 548, 549], [549, 550, 551, 552, 553, 554, 555, 556], [556, 557, 558, 559, 560, 561, 562, 563, 564, 565, 566, 567], [567, 568, 569, 570, 571, 572, 573, 574, 575, 576, 577], [577, 578, 579, 580, 581, 582, 583, 584, 585, 586, 587, 588], [588, 589, 590, 591, 592, 593, 594, 595, 596, 597, 598, 599], [599, 600, 601, 602, 603, 604, 605, 606, 607, 608, 609], [609, 610, 611, 612, 613, 614, 615, 616, 617, 618, 619, 620, 621], [621, 622, 623, 624, 625], [625, 626, 627, 628, 629, 630, 631, 632, 633, 634, 635, 636], [636, 637, 638, 639, 640, 641, 642, 643, 644, 645, 646, 647, 648, 649], [649, 650, 651, 652, 653, 654, 655, 656], [656, 657, 658, 659, 660, 661, 662, 663, 664], [664, 665, 666, 667, 668, 669, 670, 671, 672, 673, 674, 675, 676], [676, 677, 678, 679, 680, 681, 682, 683, 684, 685, 686, 687, 688, 689, 690, 691, 692, 693], [693, 694, 695, 696, 697, 698, 699, 700, 701, 702, 703, 704, 705, 706, 707, 708], [708, 709, 710, 711, 712, 713, 714, 715, 716, 717], [717, 718, 719, 720, 721, 722, 723, 724, 725, 726, 727, 728], [728, 729, 730, 731, 732, 733, 734], [734, 735, 736, 737, 738, 739, 740], [740, 741, 742, 743, 744, 745, 746, 747, 748, 749, 750, 751, 752, 753], [753, 754, 755, 756, 757, 758, 759], [759, 760, 761, 762, 763, 764, 765], [765, 766, 767, 768, 769, 770, 771, 772, 773, 774, 775], [775, 776, 777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787, 788], [788, 789, 790, 791, 792, 793, 794, 795, 796, 797, 798], [798, 799, 800, 801, 802, 803, 804, 805, 806, 807], [807, 808, 809, 810, 811, 812, 813, 814, 815], [815, 816, 817, 818, 819, 820, 821, 822, 823, 824, 825, 826], [826, 827, 828, 829, 830, 831, 832, 833, 834, 835, 836, 837, 838, 839], [839, 840, 841, 842, 843, 844, 845, 846, 847, 848, 849, 850], [850, 851, 852, 853, 854, 855, 856, 857, 858, 859, 860, 861], [861, 862, 863, 864, 865, 866, 867, 868, 869], [869, 870, 871, 872, 873, 874, 875, 876, 877, 878, 879, 880, 881, 882, 883], [883, 884, 885, 886, 887, 888, 889, 890, 891, 892, 893, 894, 895], [895, 896, 897, 898, 899, 900, 901, 902, 903, 904], [904, 905, 906, 907, 908, 909, 910, 911, 912, 913], [913, 914, 915, 916, 917, 918, 919, 920, 921, 922, 923, 924], [924, 925, 926, 927, 928, 929, 930, 931], [931, 932, 933, 934, 935, 936, 937, 938, 939], [939, 940, 941, 942, 943, 944, 945, 946, 947, 948, 949, 950, 951], [951, 952, 953, 954, 955, 956, 957, 958, 959, 960, 961], [961, 962, 963, 964, 965, 966, 967, 968, 969, 970, 971, 972], [972, 973, 974, 975, 976, 977, 978, 979, 980, 981, 982], [982, 983, 984, 985, 986, 987, 988, 989, 990, 991, 992, 993]]</code></pre>
+  <p class="blog-post_paragraph">
+    Once again it would be helpful to visualize these ranges on the signals
+    graph to ensure the ranges are correct.
+  </p>
   <pre
-    class="output-img no-code"
-  ><code class="language-output">&nbsp;</code></pre>
-  <div class="workshowcase-img-container">
-    <img
-      class="img-fluid"
-      src="assets/img/basecaller_blog_post/..."
-      alt="..."
-    />
-  </div>
-  <!-- Text output with output tag-->
-  <pre class="output"><code class="language-output">...</code></pre>
-  <!-- Text output without output tag-->
-  <pre
-    class="output no-lang-display"
-  ><code class="language-output">...</code></pre>
-  <!-- Truncated text output -->
-  <pre class="truncated-output"><code class="language-truncout">...</code></pre>
-  <!-- TEST BLOCK OF CODE -->
-  <pre class="line-numbers"><code class="language-python">...</code></pre>
-  <pre
-    class="output-img no-code"
-  ><code class="language-output">&nbsp;</code></pre>
-  <div class="workshowcase-img-container">
-    <img
-      class="img-fluid"
-      src="assets/img/basecaller_blog_post/signals_highlighted_thresholds_only.png"
-      alt="signal graph with threshold regions highlighted"
-    />
-  </div>
+    class="line-numbers"
+  ><code class="language-python">plt.plot(signal_1.signal[0:100]);
+# Limit the x-axis to the first 100 timepoints
+plt.xlim(right=100)
+# Add axis labels
+plt.xlabel('Time point');
+plt.ylabel('Signal');
+
+for i,v in enumerate(dna_capture_timepoints):
+  # Highlight ranges where the DNA was captured
+  plt.axvspan(xmin=v[0], xmax=v[-1], color='green', alpha=0.1);
+  
+  # Highlight the locations where DNA movement was detected
+  if i > 0 and i in dna_movement_timepoints :
+    plt.axvspan(xmin=i, xmax=i+1, color='red', alpha=0.3);</code></pre>
   <pre
     class="output-img no-code"
   ><code class="language-output">&nbsp;</code></pre>
@@ -759,9 +783,61 @@ The mean signal values between each timepoint were: [0.31433517213780837, 0.4376
       alt="signal graph with capture regions highlighted but with overlapping capture regions and threshold regions"
     />
   </div>
+  <p class="blog-post_paragraph">
+    Here you can see the ranges that were just calculated highlighted in green.
+    Upon first glance everything looks perfect. As you'd expect, the ranges
+    correspond to the flat-like parts of the signal graph, corresponding to the
+    moments in time where the DNA is captured in the pore. However the problem
+    is that by capturing all the timepoints between the moments the DNA moves
+    determined through the threshold, there may be some brief moments in time
+    where the DNA starts to move or is just about to finish moving through the
+    pore that are also classified as a moment of time where the DNA is captured.
+    Because the slope of the electrical current is so steep at the moments the
+    DNA moves, these brief moments can have a huge effect on the average signal
+    value and can cause the basecaller to make a mistake when comparing the
+    average signal value to the dinucleotide table.
+  </p>
+  <p class="blog-post_paragraph">
+    You can notice this on the graph by looking at where the green regions and
+    the red regions touch. If you look closely, there are a few moments where
+    the green regions may be picking up or close to picking up values where the
+    DNA is moving through the pore. And because this graph is only a small
+    portion of the entire signal graph, there are probably many more moments
+    like this in the entire signal graph that have a more severe effect on the
+    average signal value. To fix this problem I decided add a little bit of
+    buffer between the minimum and maximum capture values to shorten the range
+    of capture. This is what the code looks like:
+  </p>
   <pre
-    class="output-img no-code"
-  ><code class="language-output">&nbsp;</code></pre>
+    class="line-numbers"
+  ><code class="language-python">def get_capture_timepoints(signal, cutoff):
+  # Reinitialize the list to store the timepoints where the DNA was captured
+  dna_capture_timepoints = list()
+
+  # Loop through each timepoint and calculate the mean of the signal values between each timepoint
+  for i in range(0,len(dna_movement_timepoints)-1):
+    
+    """Modify the miniminum and maximum values to make the capture range a bit shorter
+    Add a little less buffer to the very start to capture more of the initial capture event""" 
+    minimum_buffer = 2
+    maximum_buffer = 0
+    minimum = dna_movement_timepoints[i] + 1 if i == 0 else dna_movement_timepoints[i] + minimum_buffer
+    maximum = dna_movement_timepoints[(i+1)] - maximum_buffer
+    
+    # The rest of the code is the same as before
+    dna_capture_timepoints.append(list(range(minimum,maximum)))
+    
+  # Return the list of timepoints
+  return dna_capture_timepoints
+
+# Save it to a variable
+dna_capture_timepoints = get_capture_timepoints(signal_1, cutoff)
+  
+# Print the groups of timepoints where the DNA was captured
+print(f"The DNA was captured at the following timepoints: {dna_capture_timepoints}")</code></pre>
+  <pre
+    class="output"
+  ><code class="language-output">The DNA was captured at the following timepoints: [[1, 2, 3, 4], [7, 8, 9, 10, 11], [14, 15, 16, 17, 18, 19, 20], [23, 24, 25, 26, 27, 28, 29], [32, 33, 34, 35, 36, 37, 38], [41, 42, 43, 44], [47, 48, 49, 50, 51, 52], [55, 56, 57], [60, 61, 62], [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92], [95, 96, 97, 98, 99, 100], [103, 104, 105], [108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120], [123, 124, 125, 126, 127, 128], [131, 132, 133, 134, 135], [138, 139, 140, 141, 142, 143, 144, 145], [148, 149, 150, 151, 152, 153, 154, 155, 156], [159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172], [175, 176, 177, 178, 179, 180, 181, 182, 183, 184], [187, 188, 189, 190, 191, 192, 193, 194, 195, 196], [199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213], [216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228], [231, 232, 233, 234], [237, 238, 239, 240, 241, 242, 243], [246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259], [262, 263, 264, 265, 266, 267, 268, 269, 270, 271], [274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294, 295, 296, 297], [300, 301, 302, 303, 304, 305], [308, 309, 310, 311, 312, 313, 314, 315, 316, 317], [320, 321, 322, 323, 324, 325, 326], [329, 330, 331, 332, 333, 334, 335], [338, 339, 340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350], [353, 354, 355, 356, 357, 358], [361, 362, 363, 364, 365, 366, 367, 368, 369, 370, 371, 372], [375, 376, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387], [390, 391, 392, 393], [396, 397, 398, 399, 400, 401, 402, 403, 404, 405, 406, 407, 408, 409], [412, 413, 414, 415, 416, 417, 418, 419, 420, 421], [424, 425, 426, 427, 428, 429, 430, 431, 432, 433, 434, 435], [438, 439, 440, 441, 442, 443, 444, 445], [448, 449, 450, 451], [454, 455, 456, 457, 458, 459, 460, 461, 462], [465, 466, 467, 468, 469, 470, 471, 472, 473, 474, 475], [478, 479, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 490, 491, 492, 493, 494, 495, 496, 497, 498], [501, 502], [505], [508, 509, 510, 511, 512], [515, 516, 517, 518, 519, 520, 521, 522, 523], [526, 527, 528, 529, 530, 531, 532, 533, 534], [537, 538, 539, 540, 541], [544, 545, 546, 547, 548], [551, 552, 553, 554, 555], [558, 559, 560, 561, 562, 563, 564, 565, 566], [569, 570, 571, 572, 573, 574, 575, 576], [579, 580, 581, 582, 583, 584, 585, 586, 587], [590, 591, 592, 593, 594, 595, 596, 597, 598], [601, 602, 603, 604, 605, 606, 607, 608], [611, 612, 613, 614, 615, 616, 617, 618, 619, 620], [623, 624], [627, 628, 629, 630, 631, 632, 633, 634, 635], [638, 639, 640, 641, 642, 643, 644, 645, 646, 647, 648], [651, 652, 653, 654, 655], [658, 659, 660, 661, 662, 663], [666, 667, 668, 669, 670, 671, 672, 673, 674, 675], [678, 679, 680, 681, 682, 683, 684, 685, 686, 687, 688, 689, 690, 691, 692], [695, 696, 697, 698, 699, 700, 701, 702, 703, 704, 705, 706, 707], [710, 711, 712, 713, 714, 715, 716], [719, 720, 721, 722, 723, 724, 725, 726, 727], [730, 731, 732, 733], [736, 737, 738, 739], [742, 743, 744, 745, 746, 747, 748, 749, 750, 751, 752], [755, 756, 757, 758], [761, 762, 763, 764], [767, 768, 769, 770, 771, 772, 773, 774], [777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787], [790, 791, 792, 793, 794, 795, 796, 797], [800, 801, 802, 803, 804, 805, 806], [809, 810, 811, 812, 813, 814], [817, 818, 819, 820, 821, 822, 823, 824, 825], [828, 829, 830, 831, 832, 833, 834, 835, 836, 837, 838], [841, 842, 843, 844, 845, 846, 847, 848, 849], [852, 853, 854, 855, 856, 857, 858, 859, 860], [863, 864, 865, 866, 867, 868], [871, 872, 873, 874, 875, 876, 877, 878, 879, 880, 881, 882], [885, 886, 887, 888, 889, 890, 891, 892, 893, 894], [897, 898, 899, 900, 901, 902, 903], [906, 907, 908, 909, 910, 911, 912], [915, 916, 917, 918, 919, 920, 921, 922, 923], [926, 927, 928, 929, 930], [933, 934, 935, 936, 937, 938], [941, 942, 943, 944, 945, 946, 947, 948, 949, 950], [953, 954, 955, 956, 957, 958, 959, 960], [963, 964, 965, 966, 967, 968, 969, 970, 971], [974, 975, 976, 977, 978, 979, 980, 981], [984, 985, 986, 987, 988, 989, 990, 991, 992]]</code></pre>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
@@ -769,6 +845,20 @@ The mean signal values between each timepoint were: [0.31433517213780837, 0.4376
       alt="signal graph with capture regions highlighted containing no overlaps"
     />
   </div>
+  <p class="blog-post_paragraph">
+    You can see that by shortening the ranges for when the signal is considered
+    captured, you can ensure that all the electrical signal data present in
+    those ranges corresponds to moments where the DNA is static only. You lose a
+    little bit of accuracy but not capturing all the data from when the DNA is
+    captured, but this is seemingly marginal as enough data is still captured in
+    the ranges to calculate a summary value for each timepoint and compare to
+    the dinucleotide table.
+  </p>
+  <p class="blog-post_paragraph">
+    You can see this distinction better when you overlay the two graphs in gif
+    form. Notice the lack of overlaps between the capture ranges and the ranges
+    when the DNA is moving in the second graph.
+  </p>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
@@ -776,77 +866,2487 @@ The mean signal values between each timepoint were: [0.31433517213780837, 0.4376
       alt="comparison of full capture ranges and shortened capture ranges"
     />
   </div>
-  <pre class="line-numbers">
-<code class="language-python">def get_label_details(timepoints: "list") -> "tuple(int, str)":
-# Get the corresponding signals array for the given time range
-signals_from_timepoints = signal_1.signal[timepoints]
-
-# Get the maximum value of the signal for the given time range (this will be used to generate the y-axis value of the label)
-max_signal = np.max(signals_from_timepoints)
-
-# Basecall the average of the signal for each timepoint
-# Figure out the average of the signal, then loop through the dinucleotide table and figure out which dinucleotide signal is the closest to the average 
-# (calculate the minimal distance between the average and the dinucleotide signals)
-average_signal = np.mean(signals_from_timepoints)
-differences = list()
-for dinuc, signature in kmer_table.items():
-differences.append((dinuc, abs(average_signal - signature)))
-minimal_dist = np.min([x[1] for x in differences])
-dinuccall = [x[0] for x in differences if x[1] == minimal_dist][0]
-
-# Return y-axis value (max_signal + some padding) and label (dinculeotide)
-return (max_signal + 0.0225, dinuccall)
-
-def plot_subplot(plot_num: "int (0 or 1)", with_color: "bool") -> None:
-"""Plot subplots of the signal with annotations"""
-axs[plot_num].plot(signal_1.signal[0:100])
-axs[plot_num].set_xlim(right=100)
-axs[plot_num].set_ylim(top=1)
-axs[plot_num].set_xlabel('Time point')
-axs[plot_num].set_ylabel('Signal')
-
-for i, v in enumerate(dna_capture_timepoints):
-
-# Color the background of the plot if with_color is True
-if with_color:
-axs[plot_num].axvspan(xmin=v[0], xmax=v[-1], color='green', alpha=0.1)
-if i > 0 and i in dna_step_timepoints:
-  axs[0].axvspan(xmin=i, xmax=i+1, color='red', alpha=0.3)
-  
-# Only label the first 11 labels because there are 11 visible DNA capture events in the first 100 time points
-if i < 11:
-label_data = get_label_details(v)
-x_center = (v[0] + v[-1]) / 2  # calculate the center of the green area
-y_center = label_data[0] 
-basecall = label_data[1] 
-axs[plot_num].text(x_center, y_center, basecall, ha='center', va='center', fontsize=10) # ha = horizontal alignment, va = vertical alignment
-
-# Set up the figure with two subplots
-fig, axs = plt.subplots(2, 1, figsize=(7, 10))
-
-# Plot the first plot on the left subplot
-plot_subplot(plot_num = 0, with_color = True)
-plot_subplot(plot_num = 1, with_color = False)</code></pre>
+  <p>
+    Now that I have a strong certainty that timepoints corresponding to the DNA
+    capture events are accurate, I can begin to determine what the true signal
+    value should be for each capture event. The easiest way to do this would be
+    to just take the average value for each capture event.
+  </p>
   <pre
-    class="output-img no-code"
-  ><code class="language-output">&nbsp;</code></pre>
+    class="line-numbers"
+  > <code class="language-python">def get_mean(signal, capture_ranges):    
+  # Get the minimum and maximum timepoints for the capture range 
+  minimum = capture_ranges[0]
+  maximum = capture_ranges[-1]
+  
+  # If the minimum and maximum are different, take the mean of the signal between those timepoints
+  if minimum != maximum:
+    signal_means = np.mean(signal.signal[minimum:maximum])
+    
+  # If the minimum and maximum are the same, the mean is just the signal at that timepoint
+  elif minimum == maximum:
+    signal_means = signal.signal[minimum]
+    
+  # Return the mean signal value
+  return signal_means
+
+
+def get_capture_means (signal, capture_ranges):
+  # Initialize a list to store the mean signal values
+  dna_capture_means = list()
+
+  # Loop through each capture range and calculate the mean of the signal values between each timepoint
+  for i in capture_ranges:
+    dna_capture_means.append(get_mean(signal, i))
+  
+  # Return the list of mean signal values
+  return dna_capture_means
+
+# Save it to a variable
+dna_capture_means = get_capture_means(signal_1, dna_capture_timepoints)
+
+# Print the means of the signal values between each timepoint
+print(f"The mean signal values between each timepoint were: {dna_capture_means}")</code></pre>
+  <pre
+    class="output"
+  ><code class="language-output">The mean signal values between each timepoint were: [0.3150131662892894, 0.4388658230736439, 0.9382180045874408, 0.7492516139178393, 0.0648448362336262, 0.31416471372489374, 0.24871154796850795, 0.1308048500261873, 0.6879306975387933, 0.9370147095493105, 0.8159946817442971, 0.24863837283436427, 0.18605255407371368, 0.751014020900838, 0.004255596959964134, 0.18929806587588077, 0.7514755426453339, 0.0011823610953436306, 0.187467075517471, 0.7507884372502139, 2.5870896072124716e-05, 0.1262400931431966, 0.6240087553876384, 0.6866547933581, 0.9386703979027454, 0.8128445892628149, 0.31167593379749114, 0.2516419592575371, 0.06132959678341394, 0.24987594891890097, 0.18731848359063394, 0.8749174700728205, 0.5608392456658148, 0.4379674418878848, 0.7514539619115898, 0.06256210834128777, 0.3131973515651855, 0.4376931440899407, 0.8755278991756956, 0.6893415491698264, 0.8153524156074078, 0.311137568574452, 0.3737306713764218, 0.6253556444287833, 0.5589792437418337, array([0.37872502]), 0.5013373929581939, 0.0633991898846784, 0.31232163205244223, 0.37451955745237364, 0.6851198704100576, 0.7497175931477327, 0.12481725738905967, 0.6217719306961202, 0.5622003206562043, 0.37614806672730927, 0.5022579756624813, -0.00047589780351690376, 0.19090715855006127, 0.7499095545393254, 0.06350294507341912, 0.314077071113244, 0.37549389148237877, 0.5629573518749411, 0.3748965636638899, 0.5626400191947448, 0.4364733853164748, 0.8757241408520289, 0.5606866969884582, 0.2482026347335776, 0.06072948755345618, 0.3761473448185078, 0.6883768600160365, 0.8748179870203537, 0.5624995114267668, 0.3147353655147443, 0.43951941642678233, 0.8135594790161494, 0.37368900538425576, 0.5634998303778214, 0.4389919970670458, 0.7494307820780715, 0.06355513434040884, 0.43699445180493124, 0.9394337642485967, 0.8754225300569566, 0.6872994354595927, 0.7498742724964946, 0.06354843720884656, 0.2512742474294959, 0.06273223469201125, 0.24919664305885744, 0.19024481785117403, 0.8747400619650362, 0.6912431853106157]</code></pre>
+  <p class="blog-post_paragraph">
+    Now that we have the average current values, the next step is to find a way
+    to determine which k-mer signature value it's closest to. One common way of
+    performing this is to calculate the Euclidean distance between event and
+    each kmer. The Euclidean distance measures the straight-line distance
+    between two points in any-dimensional space (2-dimensions in this case). To
+    compute the Euclidean distance, you calculate the squared difference between
+    corresponding coordinates of the two points, sum up these squared
+    differences across all dimensions, and take the square root of the result to
+    obtain the final distance value. By finding the k-mer signature with the
+    shortest euclidean distance to the average current value for a particular
+    capture range, you can begin to basecall the DNA captured in the pore at
+    that moment.
+  </p>
+  <pre
+    class="line-numbers"
+  ><code class="language-python"># Write a function to calculate the euclidian distance between two values
+def euclidian_distance(x,y):
+  dist = np.sqrt(np.square((x - y)))
+  return dist
+
+# Write a function to basecall the dinucleotide based on the mean signal value
+def basecall(signal, capture_ranges, kmer_table):
+  # Get the mean signal value for the capture range
+  capture_mean = get_mean(signal, capture_ranges)
+  
+  # Initialize an empty list to store the euclidian distances between the capture mean and each dinucleotide signature
+  euc_distances = list()
+  
+  # Loop through each dinucleotide signature and calculate the euclidian distance between the capture mean and the signature
+  for dinuc, signature in kmer_table.items():
+    euc_distances.append((dinuc, euclidian_distance(capture_mean, signature)))
+    
+  # Get the minimum euclidian distance
+  min_dist = np.min([x[1] for x in euc_distances])
+  
+  # Make a basecall
+  dinuccall = [x[0] for x in euc_distances if x[1] == min_dist][0]
+  
+  # Return the basecall
+  return dinuccall
+
+def basecall_signal(signal, capture_ranges, kmer_table):
+  # Initialize a list to store the basecalls
+  basecalls = []
+
+  # Loop through each capture range and basecall each capture range
+  for cap_range in capture_ranges:
+    basecalls.append(basecall(signal, cap_range, kmer_table))
+  
+  # Return the list of basecalls
+  return basecalls
+
+# Initialize a list to store the basecalls
+basecalls = basecall_signal(signal_1, dna_capture_timepoints, kmer_table)
+
+# Print the basecalls
+print(basecalls)</code></pre>
+  <pre
+    class="output"
+  ><code class="language-output">['CC', 'CT', 'TT', 'TA', 'AC', 'CC', 'CA', 'AG', 'GT', 'TT', 'TC', 'CA', 'AT', 'TA', 'AA', 'AT', 'TA', 'AA', 'AT', 'TA', 'AA', 'AG', 'GG', 'GT', 'TT', 'TC', 'CC', 'CA', 'AC', 'CA', 'AT', 'TG', 'GC', 'CT', 'TA', 'AC', 'CC', 'CT', 'TG', 'GT', 'TC', 'CC', 'CG', 'GG', 'GC', 'CG', 'GA', 'AC', 'CC', 'CG', 'GT', 'TA', 'AG', 'GG', 'GC', 'CG', 'GA', 'AA', 'AT', 'TA', 'AC', 'CC', 'CG', 'GC', 'CG', 'GC', 'CT', 'TG', 'GC', 'CA', 'AC', 'CG', 'GT', 'TG', 'GC', 'CC', 'CT', 'TC', 'CG', 'GC', 'CT', 'TA', 'AC', 'CT', 'TT', 'TG', 'GT', 'TA', 'AC', 'CA', 'AC', 'CA', 'AT', 'TG', 'GT']</code></pre>
+  <pre
+    class="line-numbers"
+  > <code class="language-python"># Define a function to plot the signal and basecalls
+def visualize_basecalls(signal, capture_ranges, basecalls):
+  
+  # Define a function to help place the basecalls where they belong on the graph
+  def get_label_details(timepoints: "list") -> "tuple(int, str)":
+    # Get the corresponding signals array for the given time range
+    signals_from_timepoints = signal_1.signal[timepoints]
+    
+    # Get the maximum value of the signal for the given time range (this will be used to generate the y-axis value of the label)
+    max_signal = np.max(signals_from_timepoints)
+    
+    # Basecall the average of the signal for each timepoint
+    dinuccall = basecall(signal_1, timepoints, kmer_table)
+    
+    # Return y-axis value (max_signal + some padding) and label (dinculeotide)
+    return (max_signal + 0.0225, dinuccall)
+
+  # Define a function to plot the colorized and decolorized subplots
+  def plot_subplot(plot_num: "int (0 or 1)", with_color: "bool") -> None:
+    #Plot subplots of the signal with annotations
+    axs[plot_num].plot(signal_1.signal[0:100])
+    axs[plot_num].set_xlim(right=100)
+    axs[plot_num].set_ylim(top=1)
+    axs[plot_num].set_xlabel('Time point')
+    axs[plot_num].set_ylabel('Signal')
+    
+    # Loop through each capture range and plot the corresponding label
+    for i, v in enumerate(dna_capture_timepoints):
+
+      # Color the background of the plot if with_color is True
+      if with_color:
+        axs[plot_num].axvspan(xmin=v[0], xmax=v[-1], color='green', alpha=0.1)
+        if i > 0 and i in dna_movement_timepoints:
+          axs[0].axvspan(xmin=i, xmax=i+1, color='red', alpha=0.3)
+          
+      # Only label the first 11 labels because there are 11 visible DNA capture events in the first 100 time points
+      if i < 11:
+        label_data = get_label_details(v)
+        x_center = (v[0] + v[-1]) / 2  # calculate the center of the green area
+        y_center = label_data[0] 
+        basecall = label_data[1] 
+        axs[plot_num].text(x_center, y_center, basecall, ha='center', va='center', fontsize=10) # ha = horizontal alignment, va = vertical alignment
+
+  # Set up the figure with two subplots
+  fig, axs = plt.subplots(2, 1, figsize=(7, 10))
+
+  # Plot the colorized graph on top
+  plot_subplot(plot_num = 0, with_color = True)
+  # Plot the decolorized graph on top
+  plot_subplot(plot_num = 1, with_color = False) 
+
+# Output the graphs
+visualize_basecalls(signal_1, dna_capture_timepoints, basecalls)</code></pre>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
       src="assets/img/basecaller_blog_post/signals_with_dinucleotide_labels.png"
-      alt="signal_graph_with_dinucleotide_labels"
+      alt="signal graph with dinucleotide labels"
     />
   </div>
-  <pre class="line-numbers"><code class="language-r"># FOR 5 CENTERS
+  <p class="blog-post_paragraph">
+    We are almost done. You can see now that each capture point has the
+    nucleotides that are present in the pore resolved. So at this stage it would
+    seem intuitive to just collapse all the dinucleotides down to a single
+    sequence and have that be the final sequence of DNA. However remember that
+    the motor protein feeds the DNA through the pore one step (or one DNA base)
+    at a time. Even though the pore can hold two basepairs (in this example),
+    each base within the pore at adjacent capture periods is not unique. If you
+    look at the graph, you can notice that the last DNA base at any capture
+    event matches the first DNA base at the next capture event. This means that
+    to get the final sequence, you have to only take last DNA base into account
+    (the new one that just entered the pore), in order to not "double-count"
+    bases. The only exception to this is the first capture event, where we can
+    clearly see in these examples that it starts with both bases already in the
+    pore.
+  </p>
+  <pre
+    class="line-numbers"
+  ><code class="language-python">def collapse_seq(basecalls: "list") -> "str":
+  """Collapse a list of basecalls into a single string"""
+  
+  # Initialize an empty string to store the final sequence
+  final_seq = ""
+  
+  # Loop through each dinucleotide in the list of basecalls
+  for i, v in enumerate(basecalls):
+    
+    # If it's the first basecall, add both bases to the final sequence
+    if i == 0:
+      final_seq += v
+      continue
+    
+    # Otherwise, add the second base to the final sequence
+    final_seq += v[-1]
+    
+  # Return the final sequence
+  return final_seq
 
-# apply fuzzy clustering algorithm
-fc_filt_0.5_clr_fcm_out_rm <- fcm(t(fc_filt_0.5_clr_out_rm_lab), dmetric='sqeuclidean', centers=5) 
-#converts object into plottable object (of k-means type)
-fc_filt_0.5_clr_fcm_out_rm_2 <- ppclust2(fc_filt_0.5_clr_fcm_out_rm, "kmeans") 
+# Assign the collapsed sequence to a variable
+basecalled_seq = collapse_seq(basecalls)
 
-# plot groupings
-factoextra::fviz_cluster(fc_filt_0.5_clr_fcm_out_rm_2, data = t(fc_filt_0.5_clr_out_rm_lab),
-ellipse.type = "norm", labelsize=10,  palette = "jco",
-repel = TRUE)</code></pre>
-  <!-- END TEST POST -->
+# Set the basecalled sequence as the sequence attribute of the signal
+setattr(signal_1, "basecalled_seq", basecalled_seq)
+
+# Print the collapsed sequence
+print(f"The basecalled sequence for the first signal is: {signal_1.basecalled_seq}")</code></pre>
+  <pre
+    class="output"
+  ><code class="language-output">The basecalled sequence for the first signal is: CCTTACCAGTTCATAATAATAAGGTTCCACATGCTACCTGTCCGGCGACCGTAGGCGAATACCGCGCTGCACGTGCCTCGCTACTTGTACACATGT</code></pre>
+  <p class="blog-post_paragraph">
+    Now that we have the first version of the basecaller built, we can measure
+    its accuracy by comparing it to the correct sequence for that signal.
+  </p>
+  <p class="blog-post_paragraph">
+    edlib is a quick sequence alignment package that can be used in python. I'll
+    use this to measure my alignment accuracy.
+  </p>
+  <pre class="line-numbers"> <code class="language-python">import edlib
+
+def align(basecalled_seq: "str", correct_seq: "str") -> "dict":
+  """Align two sequences using edlib"""
+  
+  # Perform the alignment
+  align_result = edlib.align(basecalled_seq, correct_seq, task='path')
+  
+  # Format the alignment result
+  nice_alignment = edlib.getNiceAlignment(align_result, basecalled_seq, correct_seq)
+  
+  # Return the alignment result
+  # print(align_result)
+  return align_result, nice_alignment
+
+# Perform the alignment
+align_result, nice_alignment = align(signal_1.basecalled_seq, signal_1.correct_seq)
+
+# Print the alignment
+print("basecalled: " + nice_alignment['query_aligned'])
+print("            " + nice_alignment['matched_aligned'])
+print("   correct: " + nice_alignment['target_aligned'])</code></pre>
+  <pre
+    class="output"
+  ><code class="language-output">basecalled: CCTTACCAGTT-CATAATAA-TAAGGTTCC-ACATGCTACCTGTCCGG-CGACCGTAGG-CGAATACCGCGCTGCACGTGCCTCGCTACTTGTACACATGT
+            |||||||||||-||||||||-|||||||||-|||||||||||||||||-||||||||||-|||||||||||||||||||||||||||||||||||||||||
+   correct: CCTTACCAGTTTCATAATAAATAAGGTTCCCACATGCTACCTGTCCGGGCGACCGTAGGGCGAATACCGCGCTGCACGTGCCTCGCTACTTGTACACATGT
+  </code></pre>
+
+  <pre
+    class="line-numbers"
+  > <code class="language-python"># Measure the accuracy of the basecaller
+def measure_accuracy (alignment: "dict", correct_seq: "str") -> "float":
+  acc = (1 - alignment['editDistance'] / len(correct_seq)) * 100  
+  return acc
+
+# Store the accuracy of the basecaller for the first signal
+seq_acc = measure_accuracy(align_result, signal_1.correct_seq)
+
+# Print the accuracy
+print(f"The accuracy of the basecaller is: {seq_acc}%")</code></pre>
+  <pre
+    class="output"
+  ><code class="language-output">The accuracy of the basecaller is: 95.04950495049505%</code></pre>
+  <p class="blog-post_paragraph">
+    The first version of the basecaller was able to achieve an accuracy of 95%.
+    Not a bad start. If you look closely at the sequence, you'll notice that the
+    mismatches only occur at repetative sequences. This is a notorious problem
+    for nanopore sequencing, known as "homopolymer indel errors". Homopolymers
+    are repetitive sequences of the same nucleotide base (A, T, C, or G) within
+    a DNA or RNA molecule. They can occur naturally or as a result of DNA or RNA
+    synthesis or replication errors. For example, a homopolymer could consist of
+    a repeated sequence of "A" nucleotides, such as "AAAAAA". The main challenge
+    with homopolymers in nanopore sequencing arises from the difficulty in
+    distinguishing the duration of time each nucleotide spends in the pore.
+    Since each nucleotide in a homopolymer has the same base, the electrical
+    signals produced by the pore can be similar or indistinguishable for
+    consecutive nucleotides. As a result, the sequencing process may struggle to
+    accurately determine the exact length or number of repeated nucleotides in a
+    homopolymer region, and as a result insert or delete a DNA base at that
+    sequence. To mitigate the challenges posed by homopolymers, various
+    strategies are employed in nanopore sequencing, such as using specialized
+    base-calling algorithms, employing specific sequencing chemistries or pore
+    types that improve homopolymer resolution, and combining nanopore sequencing
+    with other technologies for validation or error correction.
+  </p>
+  <p class="blog-post_paragraph">
+    For this example, I'll apply a similar approach to determining homopolymers
+    as I did with the signals. I'll plot out a histogram of a certain signal
+    feature and I'll try to find a cutoff point that can distingusish between
+    two groupings, homopolymer-containing signals and non-homopolymer-continaing
+    signals. Since homopolymers typically don't of change to the electrical
+    current, organizing the predicted capture regions by their size and then
+    looking at the regions with longer durations may be best way at finding
+    homopolymers in the signal.
+  </p>
+  <pre
+    class="line-numbers"
+  > <code class="language-python"># Initialize a list to store lengths of the capture ranges
+capture_ranges_lengths = []
+
+# Loop through each capture range and append the length of the capture range to the list
+for i in dna_capture_timepoints:
+  capture_ranges_lengths.append(len(i))
+  
+# Print the lengths of the capture ranges
+print(f"The lengths (aka number of timepoints in) of the capture ranges are: {sorted(capture_ranges_lengths)}")</code></pre>
+  <pre
+    class="output"
+  ><code class="language-output">The lengths (aka number of timepoints in) of the capture ranges are: [1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 12, 12, 12, 13, 13, 13, 13, 13, 14, 14, 14, 15, 15, 21, 24, 28]</code></pre>
+  <pre
+    class="line-numbers"
+  > <code class="language-python"># Plot a histogram of the capture range lengths
+plt.hist(capture_ranges_lengths, bins=25, range=[0,30]);</code></pre>
+  <div class="workshowcase-img-container">
+    <img
+      class="img-fluid"
+      src="assets/img/basecaller_blog_post/capture_length_histogram.png"
+      alt="histogram of capture range lengths"
+    />
+  </div>
+  <p class="blog-post_paragraph">
+    Here you can once again see what looks to be one grouping of ranges followed
+    by a couple of outliers on the histogram. The outliers are longer signal
+    reads so this indicates that these are likely homopolymers. Since they all
+    seem to exist past the the 20 timepoints mark, that seems like a good place
+    to try putting a threshold to find homopolymers.
+  </p>
+  <pre
+    class="line-numbers"
+  > <code class="language-python">homopolymer_cutoff = 20</code></pre>
+  <pre
+    class="line-numbers"
+  > <code class="language-python"># Plot a histogram of the capture range lengths
+plt.hist(capture_ranges_lengths, bins=25, range=[0,30]);
+# add a vertical line to show the cutoff
+plt.axvline(x = homopolymer_cutoff, color = 'purple');
+# Limit the x-axis to the right of the cutoff
+plt.xlim(right=31)
+# Highlight the area to the right of the cutoff
+plt.axvspan(xmin=homopolymer_cutoff, xmax=31, color='purple', alpha=0.1);
+# Add text to the plot
+plt.text(26, 
+         10, 
+         'Capture events \nthis long \nare likely \nhomopolymers', 
+         fontsize = 12, 
+         color = "purple", 
+         horizontalalignment = "center");</code></pre>
+  <div class="workshowcase-img-container">
+    <img
+      class="img-fluid"
+      src="assets/img/basecaller_blog_post/capture_length_histogram_w_cutoff.png"
+      alt="histogram of capture range lengths with homopolymer cutoff"
+    />
+  </div>
+  <p class="blog-post_paragraph">
+    Now that we have a threshold point, we can try to adjust the capture
+    timepoints factor in homopolymers. If we find suspected homopolymers in the
+    signal, we can split up the capture ranges bases on how many homopolymers
+    are suspected to be there.
+  </p>
+  <pre
+    class="line-numbers"
+  > <code class="language-python">def adjust_capture_timepoints(capture_timepoints, homopolymer_cutoff):
+  # Make a copy of the capture timepoints to not modify the original argument
+  capture_ranges = capture_timepoints.copy()
+
+  # Loop through each capture range
+  for i, capture_range in enumerate(capture_ranges):
+  
+    # If the capture range is long enough to be a suspected homopolymer
+    if len(capture_range) >= homopolymer_cutoff:
+      # Split the capture range in half
+      split_point = int(len(capture_range) / 2)
+      capture_ranges[i] = capture_range[:split_point]
+
+      # Add the second half of the capture range to the next index in the list
+      # If this range is also a suspected homopolymer, it will be split in the next iteration
+      capture_ranges.insert(i+1, capture_range[split_point:])
+    
+  # Remove any empty lists that may have been created by the splitting
+  capture_ranges = [x for x in capture_ranges if x != []]
+  
+  # Return the updated capture ranges
+  return capture_ranges
+
+dna_capture_timepoints = adjust_capture_timepoints(dna_capture_timepoints, homopolymer_cutoff)</code></pre>
+  <p class="blog-post_paragraph">
+    In the first 100 timepoints that we graphed, there was a homopolymer (a
+    "TTT" subsequence that was called as a "TT"). Therefore we can visualize the
+    same range as before and check if this was correctly adjusted.
+  </p>
+  <pre
+    class="line-numbers"
+  > <code class="language-python">visualize_basecalls(signal_1, dna_capture_timepoints, basecalls)</code></pre>
+  <div class="workshowcase-img-container">
+    <img
+      class="img-fluid"
+      src="assets/img/basecaller_blog_post/signals_with_dinucleotide_labels_homopolymers_fixed.png"
+      alt="signal graph with dinucleotide labels and homopolymers fixed"
+    />
+  </div>
+  <p class="blog-post_paragraph">
+    It worked perfectly! You can see the longest flat portion of the signal of
+    this graph get split into 2 basecalls. The "GT", "TT" and "TT" calls will
+    get flattened into a "TTT" call at the very end.
+  </p>
+  <p class="blog-post_paragraph">
+    Lets run the rest of the pipeline to see if this improved the total
+    sequencing accuracy.
+  </p>
+  <pre class="line-numbers"> <code class="language-python"># Basecall the signal
+basecalls = basecall_signal(signal_1, dna_capture_timepoints, kmer_table)
+
+# Collapse the basecalls into a single sequence
+final_sequence = collapse_seq(basecalls)
+
+# Set the basecalled sequence as an attribute of the signal object
+setattr(signal_1, "basecalled_seq", final_sequence)
+
+# Align the basecalled sequence to the correct sequence
+alignment, nice_alignment = align(signal_1.basecalled_seq, signal_1.correct_seq)
+
+# Calculate the accuracy of the basecaller
+accuracy = measure_accuracy(alignment, signal_1.correct_seq)
+
+# Print the alignment and the accuracy
+print("basecalled: " + nice_alignment['query_aligned'])
+print("            " + nice_alignment['matched_aligned'])
+print("   correct: " + nice_alignment['target_aligned'])
+print("\n")
+print(f"The accuracy of the basecaller is: {accuracy}%")</code></pre>
+  <pre
+    class="output"
+  ><code class="language-output">basecalled: CCTTACCAGTTTCATAATAA-TAAGGTTCCCACATGCTACCTGTCCGGGCGACCGTAGG-CGAATACCGCGCTGCACGTGCCTCGCTACTTGTACACATGT
+    ||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||
+correct: CCTTACCAGTTTCATAATAAATAAGGTTCCCACATGCTACCTGTCCGGGCGACCGTAGGGCGAATACCGCGCTGCACGTGCCTCGCTACTTGTACACATGT
+
+
+The accuracy of the basecaller is: 98.01980198019803%</code></pre>
+  <p class="blog-post_paragraph">
+    With a simple tweak, I was able to improve the accuracy of the basecaller to
+    98% percent for this particular sequnece. Now I can go ahead an run it on
+    all 200 signals, and determine the average accuracy of the basecaller I just
+    designed.
+  </p>
+  <pre
+    class="line-numbers"
+  > <code class="language-python"># Putting it all together
+def basecall_all(
+  signals: "list", 
+  kmer_signatures: "dict", 
+  correct_seqs: "list", 
+  movement_cutoff: "float" = 0.03, 
+  homopolymer_cutoff: "int" = 20,
+  detailed: "bool" = True) -> "list":
+  
+  # Initialize a list to store the accuracies of each signal
+  accuracies = []
+  
+  # Loop through each signal in the list of signals
+  for i, v in enumerate(signals):
+    
+    # Instantiate a new signal object
+    current_signal = Signal(i)
+    
+    # Smooth the signal
+    smoothed_signal = smooth_data(current_signal)
+
+    # Set the smoothed signal as an attribute of the signal object
+    setattr(current_signal, "smoothed_signal", smoothed_signal)
+    
+    # Get the timepoints where the DNA moves through the pore
+    dna_movement_timepoints = get_movement_timepoints(current_signal, movement_cutoff)
+    
+    # Set the DNA capture timepoints as an attribute of the signal object
+    setattr(current_signal, "movement_timepoints", dna_movement_timepoints)
+    
+    # Get the timepoints where the DNA is captured in the pore
+    dna_capture_timepoints = get_capture_timepoints(current_signal, movement_cutoff)
+
+    # Adjust the DNA movement timepoints to account for homopolymers
+    dna_capture_timepoints = adjust_capture_timepoints(dna_capture_timepoints, homopolymer_cutoff)
+    
+    # Set the DNA capture timepoints as an attribute of the signal object
+    setattr(current_signal, "capture_timepoints", dna_capture_timepoints)
+    
+    # Basecall the signal
+    basecalls_list = basecall_signal(current_signal, current_signal.capture_timepoints, kmer_signatures)
+    
+    # Collapse the basecalls into a single sequence
+    final_sequence = collapse_seq(basecalls_list)
+    
+    # Set the basecalled sequence as an attribute of the signal object
+    setattr(current_signal, "basecalled_seq", final_sequence)
+    
+    # Align the basecalled sequence to the correct sequence
+    alignment, nice_alignment = align(current_signal.basecalled_seq, current_signal.correct_seq)
+    
+    # Calculate the accuracy of the basecaller
+    accuracy = measure_accuracy(alignment, current_signal.correct_seq)
+    accuracies.append(accuracy)
+    
+    # Print out the alignment
+    if detailed:
+      print(f"Basecalling signal {i+1} out of {len(signals)}")
+      print(f"The alignment for signal {i + 1} is:")
+      print("basecalled: " + nice_alignment['query_aligned'])
+      print("            " + nice_alignment['matched_aligned'])
+      print("   correct: " + nice_alignment['target_aligned'])
+      print(f"The accuracy for this sequence is: {accuracy}%")
+      print("\n")
+      
+  # Determine the average accuracy of the basecaller
+  basecaller_accuracy = sum(accuracies) / len(accuracies) if len(accuracies) > 0 else 0
+  print(f"Finished basecalling {len(signals)} signals")
+  print(f"The average accuracy of the basecaller is: {basecaller_accuracy}%")
+  
+  
+basecall_all(signals, kmer_table, sequencing, movement_cutoff = 0.03, homopolymer_cutoff = 20, detailed=True)</code></pre>
+  <pre
+    class="output"
+  ><code class="language-output">Basecalling signal 1 out of 200
+The alignment for signal 1 is:
+basecalled: CCTTACCAGTTTCATAATAA-TAAGGTTCCCACATGCTACCTGTCCGGGCGACCGTAGG-CGAATACCGCGCTGCACGTGCCTCGCTACTTGTACACATGT
+            ||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||
+   correct: CCTTACCAGTTTCATAATAAATAAGGTTCCCACATGCTACCTGTCCGGGCGACCGTAGGGCGAATACCGCGCTGCACGTGCCTCGCTACTTGTACACATGT
+The accuracy for this sequence is: 98.01980198019803%
+
+
+Basecalling signal 2 out of 200
+The alignment for signal 2 is:
+basecalled: TGACCGTTTGCAGGCATTGCTTGGATCCATATAGCGCACAA-TAGTCGCGAGTATGGTTGGTGATCAAA-GACCTGTAGATGTTATACTGTCAGCCCATATG
+            |||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||
+   correct: TGACCGTTTGCAGGCATTGCTTGGATCCATATAGCGCACAAATAGTCGCGAGTATGGTTGGTGATCAAAAGACCTGTAGATGTTATACTGTCAGCCCATATG
+The accuracy for this sequence is: 98.0392156862745%
+
+
+Basecalling signal 3 out of 200
+The alignment for signal 3 is:
+basecalled: AGCGCTCGGCTAAA-CTAGCCTGGCCATCGTTGTCATAA-CCTATCCCGGCGTCCGCTTAGCGTACTGAAGGTGTTCGTAATGTCTCC-TCGGCCAGCGCGTCG
+            ||||||||||||||-||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||
+   correct: AGCGCTCGGCTAAAACTAGCCTGGCCATCGTTGTCATAAACCTATCCCGGCGTCCGCTTAGCGTACTGAAGGTGTTCGTAATGTCTCCCTCGGCCAGCGCGTCG
+The accuracy for this sequence is: 97.11538461538461%
+
+
+Basecalling signal 4 out of 200
+The alignment for signal 4 is:
+basecalled: GCCCGTAGAAA--CAGGTTGAGGACAATAGCAGTTACGAATACAATTATCGATCCGGTGGTGAA-GACGTCATCGCACCTCCAACACACC-ATGAGAGAACGG
+            |||||||||||--|||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||-||||||||||||
+   correct: GCCCGTAGAAAAACAGGTTGAGGACAATAGCAGTTACGAATACAATTATCGATCCGGTGGTGAAAGACGTCATCGCACCTCCAACACACCCATGAGAGAACGG
+The accuracy for this sequence is: 96.11650485436894%
+
+
+Basecalling signal 5 out of 200
+The alignment for signal 5 is:
+basecalled: GACACGAAGACTTCAGGCGTGCAGATGCGAA-CGCGCAGTCGCACC-ATATATACACGATTGCTCT-AGGCCGCATGGTTACCTCCAGTTTCAA-GCATA
+            |||||||||||||||||||||||||||||||-||||||||||||||-|||||||||||||||||||-|||||||||||||||||||||||||||-|||||
+   correct: GACACGAAGACTTCAGGCGTGCAGATGCGAAACGCGCAGTCGCACCGATATATACACGATTGCTCTCAGGCCGCATGGTTACCTCCAGTTTCAAAGCATA
+The accuracy for this sequence is: 96.0%
+
+
+Basecalling signal 6 out of 200
+The alignment for signal 6 is:
+basecalled: CAACTATCATGCAGTATTGTCACGCGTTGCCTGCCTTGACTAGCGGCTATTATATGATGATGCGATCGTT-AGGCCAGCTCCCATT-CGATACGCACTAAC
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||-||||||||||||||
+   correct: CAACTATCATGCAGTATTGTCACGCGTTGCCTGCCTTGACTAGCGGCTATTATATGATGATGCGATCGTTTAGGCCAGCTCCCATTTCGATACGCACTAAC
+The accuracy for this sequence is: 98.01980198019803%
+
+
+Basecalling signal 7 out of 200
+The alignment for signal 7 is:
+basecalled: AGGCTGGTGAG-GTACTCGTCGCTTCCAATAATAATCGATACAAGCTATCCAGTGTATCCCATGAACCACGTACC-TTCGCGGCCGACAA-TCGTATCCCGA-
+            |||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||-|||||||||||-
+   correct: AGGCTGGTGAGAGTACTCGTCGCTTCCAATAATAATCGATACAAGCTATCCAGTGTATCCCATGAACCACGTACCCTTCGCGGCCGACAAATCGTATCCCGAC
+The accuracy for this sequence is: 96.11650485436894%
+
+
+Basecalling signal 8 out of 200
+The alignment for signal 8 is:
+basecalled: GCTGG-CTATTT-CCAGACCACATGAATCGGTT-CTGCGGCTGG-T-TTCAGTTGGCACGTCCTTTGGG--TCC-AGGCACGTGCATCGGCCACAGGCACACGGC
+            |||||-||||||-||||||||||||||||||||-||||||||||-|-||||||||||||||||||||||--|||-||||||||||||||||||||||||||||||
+   correct: GCTGGGCTATTTTCCAGACCACATGAATCGGTTTCTGCGGCTGGGTCTTCAGTTGGCACGTCCTTTGGGGGTCCCAGGCACGTGCATCGGCCACAGGCACACGGC
+The accuracy for this sequence is: 92.38095238095238%
+
+
+Basecalling signal 9 out of 200
+The alignment for signal 9 is:
+basecalled: AGTTCTCTCCGATTGGCTGACAGTAACAAGCCGGGTGGACCCGGGAGGTTTT--GTAACTGTTAGCTAGAATGCGCTCAATAGCACC-ACACTT-ATCTTGA
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||--|||||||||||||||||||||||||||||||||-||||||-|||||||
+   correct: AGTTCTCTCCGATTGGCTGACAGTAACAAGCCGGGTGGACCCGGGAGGTTTTTTGTAACTGTTAGCTAGAATGCGCTCAATAGCACCCACACTTTATCTTGA
+The accuracy for this sequence is: 96.07843137254902%
+
+
+Basecalling signal 10 out of 200
+The alignment for signal 10 is:
+basecalled: GCGAA-CC-GATACAAA-CAGCATACACGCAGTAGATACTATTGGTCCGGAAAA--TGTCACTCCAGTAATGACTTAGTCCAGTCCAGGTGTGCCTGGGTCTAGAA
+            |||||-||-||||||||-||||||||||||||||||||||||||||||||||||--||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: GCGAAACCCGATACAAAACAGCATACACGCAGTAGATACTATTGGTCCGGAAAAAATGTCACTCCAGTAATGACTTAGTCCAGTCCAGGTGTGCCTGGGTCTAGAA
+The accuracy for this sequence is: 95.28301886792453%
+
+
+Basecalling signal 11 out of 200
+The alignment for signal 11 is:
+basecalled: TAGATTAATT-GCTTAAGGAACACTCGGTTGGCGCCTGTAACTTGAACAGGCCTTAGAGCCACCGATATGGATGCTTGTAGTAGCCACACCTGTAAGCTG
+            ||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: TAGATTAATTTGCTTAAGGAACACTCGGTTGGCGCCTGTAACTTGAACAGGCCTTAGAGCCACCGATATGGATGCTTGTAGTAGCCACACCTGTAAGCTG
+The accuracy for this sequence is: 99.0%
+
+
+Basecalling signal 12 out of 200
+The alignment for signal 12 is:
+basecalled: GGCGAGAAGACGGTAATAAGCGAGTGTTCCCACGGGCTT-GG-ATGCTTGTCTCAAGTCTTTCC-GACAGCATTAAGTCTAAGCGCATAAGACCGCTGATC
+            |||||||||||||||||||||||||||||||||||||||-||-|||||||||||||||||||||-||||||||||||||||||||||||||||||||||||
+   correct: GGCGAGAAGACGGTAATAAGCGAGTGTTCCCACGGGCTTTGGGATGCTTGTCTCAAGTCTTTCCCGACAGCATTAAGTCTAAGCGCATAAGACCGCTGATC
+The accuracy for this sequence is: 97.02970297029702%
+
+
+Basecalling signal 13 out of 200
+The alignment for signal 13 is:
+basecalled: CTGCATTGCGGCTCGTGATACGTAATGCGTTACGCAA-TACTTCAGTCAGTGTCTAGACGTCCAAGTTT-CTT-AGAGCC-GCCGTGGCCTGGCGGTAATATAAA
+            |||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||-|||-||||||-||||||||||||||||||||||||
+   correct: CTGCATTGCGGCTCGTGATACGTAATGCGTTACGCAAATACTTCAGTCAGTGTCTAGACGTCCAAGTTTTCTTTAGAGCCCGCCGTGGCCTGGCGGTAATATAAA
+The accuracy for this sequence is: 96.19047619047619%
+
+
+Basecalling signal 14 out of 200
+The alignment for signal 14 is:
+basecalled: ATGG-TGCCAGCGACCGATGAGAAGACATGAACCGGGG--TCCTT-GGTTACCGAGCTTCAACCACGG-AA-TGCTAATGGG-AGGCAGAGTTACAT-
+            ||||-|||||||||||||||||||||||||||||||||--|||||-||||||||||||||||||||||-||-||||||||||-||||||||||||||-
+   correct: ATGGGTGCCAGCGACCGATGAGAAGACATGAACCGGGGGGTCCTTTGGTTACCGAGCTTCAACCACGGGAAATGCTAATGGGGAGGCAGAGTTACATC
+The accuracy for this sequence is: 91.83673469387756%
+
+
+Basecalling signal 15 out of 200
+The alignment for signal 15 is:
+basecalled: AAGCGGCGTAACTCTCTGGGCAGTGGTATTCTACTCGACTACTCCTTAAGCGCC-ATGCTGACAATGTGCGGACGTGGCCACTTATTAA-GATGGCTGG-AG
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||-|||||||||-||
+   correct: AAGCGGCGTAACTCTCTGGGCAGTGGTATTCTACTCGACTACTCCTTAAGCGCCCATGCTGACAATGTGCGGACGTGGCCACTTATTAAAGATGGCTGGGAG
+The accuracy for this sequence is: 97.05882352941177%
+
+
+Basecalling signal 16 out of 200
+The alignment for signal 16 is:
+basecalled: CTGA-TGACGGATAAGGTGCAGAGGACACATGTAGGACTAATAGAAA-GAACTCGGCAA-GTCTCCACCAACGCCTCGGCGCGAATCACTAATAGACC-TTTT
+            ||||-||||||||||||||||||||||||||||||||||||||||||-|||||||||||-||||||||||||||||||||||||||||||||||||||-||||
+   correct: CTGAATGACGGATAAGGTGCAGAGGACACATGTAGGACTAATAGAAAAGAACTCGGCAAAGTCTCCACCAACGCCTCGGCGCGAATCACTAATAGACCCTTTT
+The accuracy for this sequence is: 96.11650485436894%
+
+
+Basecalling signal 17 out of 200
+The alignment for signal 17 is:
+basecalled: GGATTGCCACAGGAA-CATCTAACGAGACCTACTGGTTACGTTAG-AGTCATGCGCACC-ATCTTGAGATATGCGAACGTAAGCCGTTACGTCG-CTAGCCGTC
+            |||||||||||||||-|||||||||||||||||||||||||||||-|||||||||||||-||||||||||||||||||||||||||||||||||-|||||||||
+   correct: GGATTGCCACAGGAAACATCTAACGAGACCTACTGGTTACGTTAGTAGTCATGCGCACCCATCTTGAGATATGCGAACGTAAGCCGTTACGTCGGCTAGCCGTC
+The accuracy for this sequence is: 96.15384615384616%
+
+
+Basecalling signal 18 out of 200
+The alignment for signal 18 is:
+basecalled: TCACCTCC-TGAGGTGTGACTACTAATCTCCCGCCGG-AGTCCACTACTGGTAA-TTATCACAGCTAGCACTGTTTGGCATAGTAAGCACCGTCAATT-C
+            ||||||||-||||||||||||||||||||||||||||-||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||-|
+   correct: TCACCTCCCTGAGGTGTGACTACTAATCTCCCGCCGGGAGTCCACTACTGGTAAATTATCACAGCTAGCACTGTTTGGCATAGTAAGCACCGTCAATTTC
+The accuracy for this sequence is: 96.0%
+
+
+Basecalling signal 19 out of 200
+The alignment for signal 19 is:
+basecalled: AACATGTGGC-GCCCACGGTTAGTCCGCGCCACCCAATT-AGAGTCAATAATTATTCCAGGTAAAGAA-CAACACAGCTCTTT-GACTTGGCTCAA
+            ||||||||||-||||||||||||||||||||||||||||-||||||||||||||||||||||||-|||-||||||||||||||-||||||||||||
+   correct: AACATGTGGCTGCCCACGGTTAGTCCGCGCCACCCAATTTAGAGTCAATAATTATTCCAGGTAA-GAAACAACACAGCTCTTTTGACTTGGCTCAA
+The accuracy for this sequence is: 94.73684210526316%
+
+
+Basecalling signal 20 out of 200
+The alignment for signal 20 is:
+basecalled: CGTAATAATTATACGAAA-CTTCCC-GTCTGTTCGCAATGAGGG-TATCGTTGG-TACTTCC-TACTCGAACCTCTTATCGGGCCACC-ACGCAGTCC
+            ||||||||||||||||||-||||||-||||||||||||||||||-|||||||||-|||||||-|||||||||||||||||||-|||||-|||||||||
+   correct: CGTAATAATTATACGAAAACTTCCCCGTCTGTTCGCAATGAGGGGTATCGTTGGGTACTTCCCTACTCGAACCTCTTATCGG-CCACCCACGCAGTCC
+The accuracy for this sequence is: 92.78350515463917%
+
+
+Basecalling signal 21 out of 200
+The alignment for signal 21 is:
+basecalled: CCAAACCC-GTAAAGAGATCACGAGACACGGCAGGCCGCAGACCTATGTACGGCGGCATT-ATAGCCATAGGACCC-GTAGGAGATAGCACGTTAGCT
+            ||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||-|||||||||||||||||||||
+   correct: CCAAACCCCGTAAAGAGATCACGAGACACGGCAGGCCGCAGACCTATGTACGGCGGCATTTATAGCCATAGGACCCCGTAGGAGATAGCACGTTAGCT
+The accuracy for this sequence is: 96.93877551020408%
+
+
+Basecalling signal 22 out of 200
+The alignment for signal 22 is:
+basecalled: CACGATTT-GGCACTGCCGCCGATTAACCTATCTTG-GGTTTACAATGAGTCTAGTTAACGGCTGTTGAATGAACC-GTGTAATCAACATAA-CGGCTGTCTAA
+            ||||||||-|||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||-|||||||||||||||-|||||||||||
+   correct: CACGATTTTGGCACTGCCGCCGATTAACCTATCTTGCGGTTTACAATGAGTCTAGTTAACGGCTGTTGAATGAACCCGTGTAATCAACATAAACGGCTGTCTAA
+The accuracy for this sequence is: 96.15384615384616%
+
+
+Basecalling signal 23 out of 200
+The alignment for signal 23 is:
+basecalled: GGCTTTCCGTCGGTCAAGATTT-GCTGTTGAA-GGAT-AGGTCTTGAATCGAACCCTTAGTTGTGAATAACGAATGACTAG-TCCATTGCAATT-CTTGTATTGCT
+            ||||||||||||||||||||||-|||||||||-||||-|||||||||||||||||||||||||||||||||||||||||||-||||||||||||-|||||||||||
+   correct: GGCTTTCCGTCGGTCAAGATTTTGCTGTTGAAAGGATGAGGTCTTGAATCGAACCCTTAGTTGTGAATAACGAATGACTAGATCCATTGCAATTTCTTGTATTGCT
+The accuracy for this sequence is: 95.28301886792453%
+
+
+Basecalling signal 24 out of 200
+The alignment for signal 24 is:
+basecalled: TT-ACCTTATCGAATAGTTTATAGAA-TTCGCTCGTTGAGTTCACGGTGGACAGTGTGCGTCC-GG-CGACGCGCTTGGTAATAGTAATCCACCCC-AGA--
+            ||-|||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||-||-|||||||||||||||||||||||||||||-|||--
+   correct: TTTACCTTATCGAATAGTTTATAGAAATTCGCTCGTTGAGTTCACGGTGGACAGTGTGCGTCCCGGGCGACGCGCTTGGTAATAGTAATCCACCCCCAGAAA
+The accuracy for this sequence is: 93.13725490196079%
+
+
+Basecalling signal 25 out of 200
+The alignment for signal 25 is:
+basecalled: GGGTGCCAAAGCCTGTTCAAGCCGGGTCGTT-ATATAGGTCCGAGATTGTAGATGAATTATTAAGGTCATT-CGAAGCAGAGTCTAGAGG-AGCAATGCCT
+            |||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||-||||||||||||||||||-||||||||||
+   correct: GGGTGCCAAAGCCTGTTCAAGCCGGGTCGTTTATATAGGTCCGAGATTGTAGATGAATTATTAAGGTCATTTCGAAGCAGAGTCTAGAGGGAGCAATGCCT
+The accuracy for this sequence is: 97.02970297029702%
+
+
+Basecalling signal 26 out of 200
+The alignment for signal 26 is:
+basecalled: ATAGGCATGGAGTGAGGGACTGAAGTTGGCGAGTCTTCGGAATTAGAGTCACGGTCTCCAAGGATTACGCCGCAGTATTGTGCCGGCTGGTAGCTGTCGAT
+            |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: ATAGGCATGGAGTGAGGGACTGAAGTTGGCGAGTCTTCGGAATTAGAGTCACGGTCTCCAAGGATTACGCCGCAGTATTGTGCCGGCTGGTAGCTGTCGAT
+The accuracy for this sequence is: 100.0%
+
+
+Basecalling signal 27 out of 200
+The alignment for signal 27 is:
+basecalled: TTGGG-CGAGATGTAGAACATTCGAAGCC-TG-CAGGTCCGGTTAAGTTAAGGTCGGGTACTCAACCTTT-CAATTGAGAAGG-CC-AGATAGCTCTGAG
+            |||||-|||||||||||||||||||||||-||-|||||||||||||||||||||||||||||||||||||-||||||||||||-||-|||||||||||||
+   correct: TTGGGGCGAGATGTAGAACATTCGAAGCCCTGGCAGGTCCGGTTAAGTTAAGGTCGGGTACTCAACCTTTTCAATTGAGAAGGGCCCAGATAGCTCTGAG
+The accuracy for this sequence is: 94.0%
+
+
+Basecalling signal 28 out of 200
+The alignment for signal 28 is:
+basecalled: GTCTGCTTCTGTATGAAGTCCGCTCCGGG-TCGGTCCGAAACC-GCTTCAGCATGTTTGTTT-GCGGCTCATCCAAGTCGG-CCGGCTCGCTTACACTCGCACTGGCCA
+            |||||||||||||||||||||||||||||-|||||||||||||-||||||||||||||||||-||||||||||||||||||-|||||||||||||||||||||||||||
+   correct: GTCTGCTTCTGTATGAAGTCCGCTCCGGGGTCGGTCCGAAACCCGCTTCAGCATGTTTGTTTTGCGGCTCATCCAAGTCGGGCCGGCTCGCTTACACTCGCACTGGCCA
+The accuracy for this sequence is: 96.3302752293578%
+
+
+Basecalling signal 29 out of 200
+The alignment for signal 29 is:
+basecalled: GTGCAAGCTGTAGTAGGACGTCGTCATGTGTCTGGAGAAGATGTCTAA-CATCTGAAA-TACGCTGTAGTCGTGGAGAGCC-TTTGCACATTAATAGA
+            ||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||-||||||||||||||||||||||-||||||||||||||||
+   correct: GTGCAAGCTGTAGTAGGACGTCGTCATGTGTCTGGAGAAGATGTCTAAACATCTGAAAATACGCTGTAGTCGTGGAGAGCCCTTTGCACATTAATAGA
+The accuracy for this sequence is: 96.93877551020408%
+
+
+Basecalling signal 30 out of 200
+The alignment for signal 30 is:
+basecalled: ATACTCGATAG-CGCGATCACACGTGCACGTGGGTAGTTAACTATATACCCGCGTCGAGGAGTGGTCGCAATATGATACCTCGCTCTCATGTGCGTCTTCT
+            |||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: ATACTCGATAGACGCGATCACACGTGCACGTGGGTAGTTAACTATATACCCGCGTCGAGGAGTGGTCGCAATATGATACCTCGCTCTCATGTGCGTCTTCT
+The accuracy for this sequence is: 99.00990099009901%
+
+
+Basecalling signal 31 out of 200
+The alignment for signal 31 is:
+basecalled: TGGG-TGGACACTGG-AATT-GACCATTACCACGATACCATAGTGTCACGGACTGCCTAGCGGCCCAGACCC-AA-GTGTTAAGTGGGCATATGTCGAGC
+            ||||-||||||||||-||||-|||||||||||||||||||||||||||||||||||||||||||||||||||-||-||||||||||||||||||||||||
+   correct: TGGGGTGGACACTGGGAATTTGACCATTACCACGATACCATAGTGTCACGGACTGCCTAGCGGCCCAGACCCCAAAGTGTTAAGTGGGCATATGTCGAGC
+The accuracy for this sequence is: 95.0%
+
+
+Basecalling signal 32 out of 200
+The alignment for signal 32 is:
+basecalled: TACTACGAATCCCAACTGTCGAA-TAAGCTGCT--CC-GAGTGCCGATAGCAGCTCATTGTTCCTCATGAGAGGTATTACTCAGTGCTGAACCTATGAAATA-
+            |||||||||||||||||||||||-|||||||||--||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-
+   correct: TACTACGAATCCCAACTGTCGAAATAAGCTGCTTTCCCGAGTGCCGATAGCAGCTCATTGTTCCTCATGAGAGGTATTACTCAGTGCTGAACCTATGAAATAA
+The accuracy for this sequence is: 95.14563106796116%
+
+
+Basecalling signal 33 out of 200
+The alignment for signal 33 is:
+basecalled: AAGGTAGAAACTTCGGATAGGCTATT-CTCATTACGGCTTGCACGATGCAGATGCATACGGTCCTGCCAGTACAGCCC-ACCTTGAACTAATGTAATTGCCGCAT-
+            ||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||-
+   correct: AAGGTAGAAACTTCGGATAGGCTATTTCTCATTACGGCTTGCACGATGCAGATGCATACGGTCCTGCCAGTACAGCCCCACCTTGAACTAATGTAATTGCCGCATA
+The accuracy for this sequence is: 97.16981132075472%
+
+
+Basecalling signal 34 out of 200
+The alignment for signal 34 is:
+basecalled: GATTCATTCATGCACATAGTGACCACCGGCCTAACCTCGGCACTGATGTGAGGTGTCGCGAGACCAAGTTGATATACC-AGCTCACTACGCTGTCATAGTG
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||
+   correct: GATTCATTCATGCACATAGTGACCACCGGCCTAACCTCGGCACTGATGTGAGGTGTCGCGAGACCAAGTTGATATACCCAGCTCACTACGCTGTCATAGTG
+The accuracy for this sequence is: 99.00990099009901%
+
+
+Basecalling signal 35 out of 200
+The alignment for signal 35 is:
+basecalled: GGTTCC-GTTCCTTCGGCATCCTGCTGGCCTCGCGGCC-GTGTCACGTGAGCC-GTAGATTTT----GGCCGTAGAGTTT--CAAA-GTT-CTTCCTTCCACG
+            ||||||-|||||||||||||||||||||||||||||||-||||||||||||||-|||||||||----|||||||||||||--||||-|||-||||||||||||
+   correct: GGTTCCCGTTCCTTCGGCATCCTGCTGGCCTCGCGGCCCGTGTCACGTGAGCCCGTAGATTTTTTTTGGCCGTAGAGTTTTTCAAAAGTTTCTTCCTTCCACG
+The accuracy for this sequence is: 89.32038834951457%
+
+
+Basecalling signal 36 out of 200
+The alignment for signal 36 is:
+basecalled: GCAATAAGTTGGAGATGCTCAGCCGATCAGCTT-GCTCGGTGATTGAGTTTACTAGCGAATGCAGAGCATATGGCAATGCCGACTCGTGCGGTTCC
+            |||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: GCAATAAGTTGGAGATGCTCAGCCGATCAGCTTTGCTCGGTGATTGAGTTTACTAGCGAATGCAGAGCATATGGCAATGCCGACTCGTGCGGTTCC
+The accuracy for this sequence is: 98.95833333333334%
+
+
+Basecalling signal 37 out of 200
+The alignment for signal 37 is:
+basecalled: GGCGTGCTCGCGGGCCGAGCTGCTACATAAATG-CGACTCGGTAATCGCAACCATT-CAGTTCCTCTTCGCTGCAGTGGATGGCGTCTTGTCTCTCTCCC-
+            |||||||||||||||||||||||||||||||||-||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||-
+   correct: GGCGTGCTCGCGGGCCGAGCTGCTACATAAATGACGACTCGGTAATCGCAACCATTTCAGTTCCTCTTCGCTGCAGTGGATGGCGTCTTGTCTCTCTCCCC
+The accuracy for this sequence is: 97.02970297029702%
+
+
+Basecalling signal 38 out of 200
+The alignment for signal 38 is:
+basecalled: ATCAAGCCGAATCGTTGCACATCAACAAGATTCGTGGAGGAGAAGATTGACATCGTGGCGTCGTTCAACCTTAGAGTAGGCTGCGGTCACTGGACCTGAACG
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: ATCAAGCCGAATCGTTGCACATCAACAAGATTCGTGGAGGAGAAGATTGACATCGTGGCGTCGTTCAACCTTAGAGTAGGCTGCGGTCACTGGACCTGAACG
+The accuracy for this sequence is: 100.0%
+
+
+Basecalling signal 39 out of 200
+The alignment for signal 39 is:
+basecalled: ATCAGTCAGGTT-CAAGCTGAAGCCTGTCACCTGGCTGGTAAGGCC-GGCTTT-CTGGTCCAATAAATTAGTCCTCAGAGTGAGG-TGCGCAAA-TG
+            ||||||||||||-|||||||||||||||||||||||||||||||||-||||||-|||||||||||||||||||||||||||||||-||||||||-||
+   correct: ATCAGTCAGGTTTCAAGCTGAAGCCTGTCACCTGGCTGGTAAGGCCCGGCTTTTCTGGTCCAATAAATTAGTCCTCAGAGTGAGGGTGCGCAAAATG
+The accuracy for this sequence is: 94.84536082474226%
+
+
+Basecalling signal 40 out of 200
+The alignment for signal 40 is:
+basecalled: TGCATCCTCGGCGACTGAGG-CAACAAGGCACCGCAA-CGAAACGCCAAGCGGCGCTAGCGACTTCTTGATCATCTTGAACTCTGATTGAGAAGCGACCCG-
+            ||||||||||||||||||||-||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-
+   correct: TGCATCCTCGGCGACTGAGGGCAACAAGGCACCGCAAACGAAACGCCAAGCGGCGCTAGCGACTTCTTGATCATCTTGAACTCTGATTGAGAAGCGACCCGT
+The accuracy for this sequence is: 97.05882352941177%
+
+
+Basecalling signal 41 out of 200
+The alignment for signal 41 is:
+basecalled: TTCATCAGAATGCCTGTAAGTAGCTACAA-TGTTT-CACGGCCGCGCCAA-GCGGTGCACACTATAA-GCCAAGTTCTCCTCCGACGTATACG-AGATAA-
+            |||||||||||||||||||||||||||||-|||||-||||||||||||||-||||||||||||||||-|||||||||||||||||||||||||-||||||-
+   correct: TTCATCAGAATGCCTGTAAGTAGCTACAAATGTTTTCACGGCCGCGCCAAAGCGGTGCACACTATAAAGCCAAGTTCTCCTCCGACGTATACGTAGATAAA
+The accuracy for this sequence is: 94.05940594059405%
+
+
+Basecalling signal 42 out of 200
+The alignment for signal 42 is:
+basecalled: ATTCCATT-CAGTGGAACGAATAGATAAGACTTTCGTGGTTGTAAGAGTACCTGAATAGTCTTGTTAAGGGCC-GTAGCTTACTTT-CATTCGTAA
+            ||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||-|||||||||
+   correct: ATTCCATTTCAGTGGAACGAATAGATAAGACTTTCGTGGTTGTAAGAGTACCTGAATAGTCTTGTTAAGGGCCCGTAGCTTACTTTTCATTCGTAA
+The accuracy for this sequence is: 96.875%
+
+
+Basecalling signal 43 out of 200
+The alignment for signal 43 is:
+basecalled: ATAATGTTTGTCACTCCTTGTCGGACCC-ATAGTGAACGTTGTCTCGAGCCTT-AATCCTTAAA-GCCGTTCACTATTGTTAGACC-TT-CGGTCAGGATACA
+            ||||||||||||||||||||||||||||-||||||||||||||||||||||||-||||||||||-|||||||||||||||||||||-||-|||||||||||||
+   correct: ATAATGTTTGTCACTCCTTGTCGGACCCCATAGTGAACGTTGTCTCGAGCCTTTAATCCTTAAAAGCCGTTCACTATTGTTAGACCCTTTCGGTCAGGATACA
+The accuracy for this sequence is: 95.14563106796116%
+
+
+Basecalling signal 44 out of 200
+The alignment for signal 44 is:
+basecalled: CTATATTACCCGCTGATAGTGATCCTTAGCCTAATTACGGACAGTCGGTGTAACCAAGCTATTCACACCACAA-GACTCGTCCTT-GCACCCGCCGTAGTG-
+            |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||-|||||||||||||||-
+   correct: CTATATTACCCGCTGATAGTGATCCTTAGCCTAATTACGGACAGTCGGTGTAACCAAGCTATTCACACCACAAAGACTCGTCCTTTGCACCCGCCGTAGTGG
+The accuracy for this sequence is: 97.05882352941177%
+
+
+Basecalling signal 45 out of 200
+The alignment for signal 45 is:
+basecalled: ACGGCTGTGG-TATGGCCGACGGG-ATCCATTGTTACGACATGGTTAGAAAGGAGTCGCGGACACGAAGATGAGAAGTAATT-ACGCATCCGGTC
+            ||||||||||-|||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||
+   correct: ACGGCTGTGGGTATGGCCGACGGGGATCCATTGTTACGACATGGTTAGAAAGGAGTCGCGGACACGAAGATGAGAAGTAATTTACGCATCCGGTC
+The accuracy for this sequence is: 96.84210526315789%
+
+
+Basecalling signal 46 out of 200
+The alignment for signal 46 is:
+basecalled: GTTACGTTGGGTCGCAGCGTCACATTACGAATGAACCAATTGTTGGGTGTACTCGTATTT-ATTATCTGGTACATTGATCGTGGAGACCGAGCATTGCCGC
+            ||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||
+   correct: GTTACGTTGG-TCGCAGCGTCACATTACGAATGAACCAATTGTTGGGTGTACTCGTATTTTATTATCTGGTACATTGATCGTGGAGACCGAGCATTGCCGC
+The accuracy for this sequence is: 98.0%
+
+
+Basecalling signal 47 out of 200
+The alignment for signal 47 is:
+basecalled: GGCATAGTCAGGAATGCGG-CTCGTTAGATACGTTT-GTCCGGG-AGG-CTGTTACAGTAGTTCTACAGTGCGTT-GATT-GCAGCATCAATGTCGAATTCG-
+            |||||||||||||||||||-||||||||||||||||-|||||||-|||-||||||||||||||||||||||||||-||||-|||||||||||||||||||||-
+   correct: GGCATAGTCAGGAATGCGGGCTCGTTAGATACGTTTTGTCCGGGGAGGGCTGTTACAGTAGTTCTACAGTGCGTTTGATTTGCAGCATCAATGTCGAATTCGG
+The accuracy for this sequence is: 93.20388349514563%
+
+
+Basecalling signal 48 out of 200
+The alignment for signal 48 is:
+basecalled: GTCCACAGGTACAGCCAGCGCTGTAATCGGTGATTCGCCCTATTGGCGCCTCTCGCACATCATCCGCTTT-AGGCATGTATAATCCATT-GGTCCAG
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||-|||||||
+   correct: GTCCACAGGTACAGCCAGCGCTGTAATCGGTGATTCGCCCTATTGGCGCCTCTCGCACATCATCCGCTTTTAGGCATGTATAATCCATTTGGTCCAG
+The accuracy for this sequence is: 97.9381443298969%
+
+
+Basecalling signal 49 out of 200
+The alignment for signal 49 is:
+basecalled: GGTTACGTGCTGTCC-TCTGGTGCTACGAGGACCC-TACCGAGGAATAAGGCAGTATCAACCTATCTAGCTTGTGGTTATTGTT-CAGACGCGGACCTCG
+            |||||||||||||||-|||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||
+   correct: GGTTACGTGCTGTCCCTCTGGTGCTACGAGGACCCCTACCGAGGAATAAGGCAGTATCAACCTATCTAGCTTGTGGTTATTGTTTCAGACGCGGACCTCG
+The accuracy for this sequence is: 97.0%
+
+
+Basecalling signal 50 out of 200
+The alignment for signal 50 is:
+basecalled: CAGTCCACACGTTGGTCTTCGACCTTCCTACGCATAGATTACATTATATCTTACGATACCCC-ACTTAAGACGTACC-GTGGGG-TT-GGACTAAGACG
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||-||||||-||-|||||||||||
+   correct: CAGTCCACACGTTGGTCTTCGACCTTCCTACGCATAGATTACATTATATCTTACGATACCCCCACTTAAGACGTACCCGTGGGGGTTTGGACTAAGACG
+The accuracy for this sequence is: 95.95959595959596%
+
+
+Basecalling signal 51 out of 200
+The alignment for signal 51 is:
+basecalled: ACATACTTCGATAGTGCGAGCAATTAATTCGCCTTAACTACCTCCCGTGAA-GTTT-CATCCGCGGCCATCGACATAGCC-TGACTAGACCATGTTAGAC
+            |||||||||||||||||||||||||||||||||||||||||||||||||||-||||-|||||||||||||||||||||||-|||||||||||||||||||
+   correct: ACATACTTCGATAGTGCGAGCAATTAATTCGCCTTAACTACCTCCCGTGAAAGTTTTCATCCGCGGCCATCGACATAGCCCTGACTAGACCATGTTAGAC
+The accuracy for this sequence is: 97.0%
+
+
+Basecalling signal 52 out of 200
+The alignment for signal 52 is:
+basecalled: TGGACCTAAGCTTGTTCGCACCATACACAATTATTGATCTAGATCAGGCTCTAAGGCTAACCAGACCCC--AAA--CTCTGCTAACACGCCGTACTCTG
+            |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||--|||--|||||||||||||||||||||||
+   correct: TGGACCTAAGCTTGTTCGCACCATACACAATTATTGATCTAGATCAGGCTCTAAGGCTAACCAGACCCCCCAAAAACTCTGCTAACACGCCGTACTCTG
+The accuracy for this sequence is: 95.95959595959596%
+
+
+Basecalling signal 53 out of 200
+The alignment for signal 53 is:
+basecalled: CATGCATGACGCTGCCGGATGCTCGCGGATGATCTGTCTT-CGATTGTAATGTTGAAA--GGAGGTTAGTGCATATTCCGATTCGACAGGCGCACAT
+            ||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||--|||||||||||||||||||||||||||||||||||||
+   correct: CATGCATGACGCTGCCGGATGCTCGCGGATGATCTGTCTTTCGATTGTAATGTTGAAAAAGGAGGTTAGTGCATATTCCGATTCGACAGGCGCACAT
+The accuracy for this sequence is: 96.90721649484536%
+
+
+Basecalling signal 54 out of 200
+The alignment for signal 54 is:
+basecalled: CAA-GATTTAACCGATAGTGCACACAAGCTTGAGGT-GCC-AGG-TTTACGGATAACATCGGCAATCTAATTCATTCGCACCACTGCTT-AGAATGCG-
+            |||-||||||||||||||||||||||||||||||||-|||-|||-||||||||||||||||||||||||||||||||||||||||||||-||||||||-
+   correct: CAAAGATTTAACCGATAGTGCACACAAGCTTGAGGTCGCCCAGGGTTTACGGATAACATCGGCAATCTAATTCATTCGCACCACTGCTTTAGAATGCGT
+The accuracy for this sequence is: 93.93939393939394%
+
+
+Basecalling signal 55 out of 200
+The alignment for signal 55 is:
+basecalled: CAACCGCGTCC-TCGAACCATTAGTCTACTATCCTAGCTGATAGATCTCGATTCAGAAGGAACTAACGGCCTATTT-CCTCATCATAGTGTT-ATAGTC
+            |||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||-||||||
+   correct: CAACCGCGTCCCTCGAACCATTAGTCTACTATCCTAGCTGATAGATCTCGATTCAGAAGGAACTAACGGCCTATTTTCCTCATCATAGTGTTTATAGTC
+The accuracy for this sequence is: 96.96969696969697%
+
+
+Basecalling signal 56 out of 200
+The alignment for signal 56 is:
+basecalled: AGTAGGAAGG-ACGAGTATACTGTGCACTACTT-GTTGCTGATGGAACGTCGCCACGTGTCAAGTCC-TTAGCGACAAGAGGCATCAACATAACGCTTGGTCCAA
+            ||||||||||-||||||||||||||||||||||-|||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||
+   correct: AGTAGGAAGGGACGAGTATACTGTGCACTACTTTGTTGCTGATGGAACGTCGCCACGTGTCAAGTCCCTTAGCGACAAGAGGCATCAACATAACGCTTGGTCCAA
+The accuracy for this sequence is: 97.14285714285714%
+
+
+Basecalling signal 57 out of 200
+The alignment for signal 57 is:
+basecalled: ACGATGTAGATCTGACTTAGGGCGTTT-CC-TACCAACGTACTTCTT-GGCCTAACAAA-CTGG-ATAGTTGAGTACTACTAATCGGTACTACGCTA
+            |||||||||||||||||||||||||||-||-||||||||||||||||-|||||||||||-||||-||||||||||||||||||||||||||||||||
+   correct: ACGATGTAGATCTGACTTAGGGCGTTTTCCCTACCAACGTACTTCTTTGGCCTAACAAAACTGGGATAGTTGAGTACTACTAATCGGTACTACGCTA
+The accuracy for this sequence is: 94.84536082474226%
+
+
+Basecalling signal 58 out of 200
+The alignment for signal 58 is:
+basecalled: TTAAGGAGTAGACGAGGTCACTGAAGGCGCTGCGGACGTAGCGTGTTCCGAAGGTAGCGCGTAGCTCAGCGG-AGTTCACATTAAATGAAA--GAC
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||--|||
+   correct: TTAAGGAGTAGACGAGGTCACTGAAGGCGCTGCGGACGTAGCGTGTTCCGAAGGTAGCGCGTAGCTCAGCGGGAGTTCACATTAAATGAAAAAGAC
+The accuracy for this sequence is: 96.875%
+
+
+Basecalling signal 59 out of 200
+The alignment for signal 59 is:
+basecalled: CGGCGACTGGCCAGAAATGCCCC--TGGCAATGTGGAATAGTTGACCTAGGGGAGTTACACCTCGTGTCCAGTCCTATGGTGGCTCATCCACACA
+            |||||||||||||||||||||||--||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: CGGCGACTGGCCAGAAATGCCCCCCTGGCAATGTGGAATAGTTGACCTAGGGGAGTTACACCTCGTGTCCAGTCCTATGGTGGCTCATCCACACA
+The accuracy for this sequence is: 97.89473684210527%
+
+
+Basecalling signal 60 out of 200
+The alignment for signal 60 is:
+basecalled: AACTGACCTAGTTCTCACTCC-ATTCCTT-AA-GGCAACAGTCAGCTTGCTATTCTTACC-TCTCC-GAAGAATGGAAA-TCCGTGGCGGTTCATAATGCGACT
+            |||||||||||||||||||||-|||||||-||-|||||||||||||||||||||||||||-|||||-||||||||||||-||||||||||||||||||||||||
+   correct: AACTGACCTAGTTCTCACTCCCATTCCTTTAAAGGCAACAGTCAGCTTGCTATTCTTACCCTCTCCCGAAGAATGGAAAATCCGTGGCGGTTCATAATGCGACT
+The accuracy for this sequence is: 94.23076923076923%
+
+
+Basecalling signal 61 out of 200
+The alignment for signal 61 is:
+basecalled: CTCGACGTGCTGCTCTACTCCACGCATTAGTCGGG--TCGAGCACCAA-TT-CAACTCAAATGTCGATCTCGTTAATAATTCCCC--TGTGCCGGTTGACGCC
+            |||||||||||||||||||||||||||||||||||--|||||||||||-||-|||||||||||||||||||||||||||||||||--||||||||||||||||
+   correct: CTCGACGTGCTGCTCTACTCCACGCATTAGTCGGGGGTCGAGCACCAAATTTCAACTCAAATGTCGATCTCGTTAATAATTCCCCCCTGTGCCGGTTGACGCC
+The accuracy for this sequence is: 94.1747572815534%
+
+
+Basecalling signal 62 out of 200
+The alignment for signal 62 is:
+basecalled: TAGTACCCGCTGATATGTAAGTCAGGTATCTAA-TT-GCTTGTCTTACCGCGCTCGCATCGGAGACCC-ATTAACCTTAGCAGG-CTGACGCGGCTGTATTGG
+            |||||||||||||||||||||||||||||||||-||-|||||||||||||||||||||||||||||||-|||||||||||||||-||||||||||||||||||
+   correct: TAGTACCCGCTGATATGTAAGTCAGGTATCTAAATTTGCTTGTCTTACCGCGCTCGCATCGGAGACCCCATTAACCTTAGCAGGGCTGACGCGGCTGTATTGG
+The accuracy for this sequence is: 96.11650485436894%
+
+
+Basecalling signal 63 out of 200
+The alignment for signal 63 is:
+basecalled: GGATT-CGAGCGTTAAATTAGG-CAA-CAGAACCACAACAACGTTGCGTGACTAATGAGGCGACTAGGCATGGAGACGACGTTCCGAGACAACTGGACC-GG-CA
+            |||||-||||||||||||||||-|||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||-||
+   correct: GGATTTCGAGCGTTAAATTAGGGCAAACAGAACCACAACAACGTTGCGTGACTAATGAGGCGACTAGGCATGGAGACGACGTTCCGAGACAACTGGACCCGGGCA
+The accuracy for this sequence is: 95.23809523809523%
+
+
+Basecalling signal 64 out of 200
+The alignment for signal 64 is:
+basecalled: GGTCTCAGCAAGCACTCGACTACGGTCCC-TACGTGTGACGAGTCTAGGCCTACAAA--TTT-GTTGC-TCATAGAGCGCCGACTATAGGTTCTCGCCTCA
+            |||||||||||||||||||||||||||||-|||||||||||||||||||||||||||--|||-|||||-||||||||||||||||||||||||||||||||
+   correct: GGTCTCAGCAAGCACTCGACTACGGTCCCCTACGTGTGACGAGTCTAGGCCTACAAAAATTTTGTTGCCTCATAGAGCGCCGACTATAGGTTCTCGCCTCA
+The accuracy for this sequence is: 95.04950495049505%
+
+
+Basecalling signal 65 out of 200
+The alignment for signal 65 is:
+basecalled: CTGGTCCGGTAGGTT-AACTAGTTGATATCGG-ACATATAATGCCAGTACGTAATTACCTGACGCC-TTCGTCCAA-TAAGCGAGGATTT-GCGCCAGTGATCG
+            |||||||||||||||-||||||||||||||||-|||||||||||||||||||||||||||||||||-|||||||||-|||||||||||||-|||||||||||||
+   correct: CTGGTCCGGTAGGTTTAACTAGTTGATATCGGGACATATAATGCCAGTACGTAATTACCTGACGCCCTTCGTCCAAATAAGCGAGGATTTTGCGCCAGTGATCG
+The accuracy for this sequence is: 95.1923076923077%
+
+
+Basecalling signal 66 out of 200
+The alignment for signal 66 is:
+basecalled: TTACGCCGCC-ACAA-GGATGAGCACAGACGGTACC-ACCTCGTCCTGACTCGGAGAGAAAACACTTCCGTCTGGACTTGG-CGATATACCAGGTTACA
+            ||||||||||-||||-||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||
+   correct: TTACGCCGCCCACAAAGGATGAGCACAGACGGTACCCACCTCGTCCTGACTCGGAGAGAAAACACTTCCGTCTGGACTTGGGCGATATACCAGGTTACA
+The accuracy for this sequence is: 95.95959595959596%
+
+
+Basecalling signal 67 out of 200
+The alignment for signal 67 is:
+basecalled: AGGCTTGAA-GAGTGAGTTCAGATCAGCGAATGGAAAGGCAA-CTTTGATT-CTCGAATTTTAATTT-ACAATTTCAGACCATTGATGTAGCAGATG
+            |||||||||-|||||||||||||||||||||||-||||||||-||||||||-|||||||||||||||-|||||||||||||||||||||||||||||
+   correct: AGGCTTGAAAGAGTGAGTTCAGATCAGCGAATG-AAAGGCAAACTTTGATTTCTCGAATTTTAATTTTACAATTTCAGACCATTGATGTAGCAGATG
+The accuracy for this sequence is: 94.79166666666666%
+
+
+Basecalling signal 68 out of 200
+The alignment for signal 68 is:
+basecalled: AGAACTCGG-TACCAGCATTCAGCACGTATCAGGTCTTACCTTGAGAAAGAATTT-GACCTAATTGTGCGCAGCCATCGAAGTTGCTCGAGGCAGATGA
+            |||||||||-|||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||
+   correct: AGAACTCGGGTACCAGCATTCAGCACGTATCAGGTCTTACCTTGAGAAAGAATTTTGACCTAATTGTGCGCAGCCATCGAAGTTGCTCGAGGCAGATGA
+The accuracy for this sequence is: 97.97979797979798%
+
+
+Basecalling signal 69 out of 200
+The alignment for signal 69 is:
+basecalled: TAACTCATCGGG-AATCAGCCGCAAGATCGAGTGGTGCGATTCAATAGAGGTTT-AGAGG-TGTGCGCC-GTCTGAACACTACTACGGCCTGGCGTGTTCG
+            ||||||||||||-|||||||||||||||||||||||||||||||||||||||||-|||||-||||||||-|||||||||||||||||||||||||||||||
+   correct: TAACTCATCGGGGAATCAGCCGCAAGATCGAGTGGTGCGATTCAATAGAGGTTTTAGAGGGTGTGCGCCCGTCTGAACACTACTACGGCCTGGCGTGTTCG
+The accuracy for this sequence is: 96.03960396039604%
+
+
+Basecalling signal 70 out of 200
+The alignment for signal 70 is:
+basecalled: CTTACCTCACGTCTGAATAA-CC-GCGTTCATGCTGAATAAATT-GCAGCCC-GTGATAATAGGAAACCTCTTCGTAGAGGTCAA-GAGGCTCGTTGCGTCCACA-
+            ||||||||||||||||||||-||-||||||||||||||||||||-|||||||-||||||||||||||||||||||||||||||||-|||||||||||||||||||-
+   correct: CTTACCTCACGTCTGAATAAACCCGCGTTCATGCTGAATAAATTTGCAGCCCCGTGATAATAGGAAACCTCTTCGTAGAGGTCAAAGAGGCTCGTTGCGTCCACAC
+The accuracy for this sequence is: 94.33962264150944%
+
+
+Basecalling signal 71 out of 200
+The alignment for signal 71 is:
+basecalled: AATGCGGTCTACAGTCAATCTGACAGGATCCATCCAAGCC-GATGTGGCGGAAGGTATTGCATTCTGGCTACGCCATTACGCAACGGAACAAGAGTATGCTG
+            ||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: AATGCGGTCTACAGTCAATCTGACAGGATCCATCCAAGCCCGATGTGGCGGAAGGTATTGCATTCTGGCTACGCCATTACGCAACGGAACAAGAGTATGCTG
+The accuracy for this sequence is: 99.01960784313727%
+
+
+Basecalling signal 72 out of 200
+The alignment for signal 72 is:
+basecalled: ACGAGG-AGGCCGCACTCTACAAGCAGTACTCAAGTGTGAATGCACAGACTGGCAAGGGAGTATACAATCGATGGTTACCTTCCTCTGCCTGCCTT-GTT
+            ||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||
+   correct: ACGAGGGAGGCCGCACTCTACAAGCAGTACTCAAGTGTGAATGCACAGACTGGCAAGGGAGTATACAATCGATGGTTACCTTCCTCTGCCTGCCTTTGTT
+The accuracy for this sequence is: 98.0%
+
+
+Basecalling signal 73 out of 200
+The alignment for signal 73 is:
+basecalled: TT-GGTCTACACAACCCGGCC-GCGATCGATATTGAGGCAATATGGTACTT-CGGAGATGCTCTGTGAAGAATGCGCGCTCTTCGTAGTTACCAGCTACTTT
+            ||-||||||||||||||||||-|||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: TTTGGTCTACACAACCCGGCCCGCGATCGATATTGAGGCAATATGGTACTTTCGGAGATGCTCTGTGAAGAATGCGCGCTCTTCGTAGTTACCAGCTACTTT
+The accuracy for this sequence is: 97.05882352941177%
+
+
+Basecalling signal 74 out of 200
+The alignment for signal 74 is:
+basecalled: TCGGGTCGAGGG-CAACGAACGCC-GATGG-ATTTAGATATT--GGTTGGATTATACC-TAAAGATATTCGGCACGAGTACAATCTACTAGTTCTGAATT
+            ||||||||||||-|||||||||||-|||||-|||||||||||--||||||||||||||-|||||||||||||||||||||||||||||||||||||||||
+   correct: TCGGGTCGAGGGGCAACGAACGCCCGATGGGATTTAGATATTTTGGTTGGATTATACCCTAAAGATATTCGGCACGAGTACAATCTACTAGTTCTGAATT
+The accuracy for this sequence is: 94.0%
+
+
+Basecalling signal 75 out of 200
+The alignment for signal 75 is:
+basecalled: TGTGTCGTACAAGTGACAGACTCGCCC-ATAACGCTATAATGGCAACAAGCCCGGCACACACCCAGAATAGTCGGCCGCTGCGCCGAACTGACCGCCCGAGA
+            |||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: TGTGTCGTACAAGTGACAGACTCGCCCCATAACGCTATAATGGCAACAAGCCCGGCACACACCCAGAATAGTCGGCCGCTGCGCCGAACTGACCGCCCGAGA
+The accuracy for this sequence is: 99.01960784313727%
+
+
+Basecalling signal 76 out of 200
+The alignment for signal 76 is:
+basecalled: CGTGAAGATTCACACGTCGCAAATTTGTCTGGGCAGCTCTACC-GTTAGTTACCGGTACAGTATCCATCAAGCGCGCAGAAGTGCCTAATATTGGAGG
+            |||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: CGTGAAGATTCACACGTCGCAAATTTGTCTGGGCAGCTCTACCCGTTAGTTACCGGTACAGTATCCATCAAGCGCGCAGAAGTGCCTAATATTGGAGG
+The accuracy for this sequence is: 98.9795918367347%
+
+
+Basecalling signal 77 out of 200
+The alignment for signal 77 is:
+basecalled: ACGTGAGGCGG-CTTATAGACCCGCCATTCTCAGTGCCCGATTCCTGTTGCAGTGATCTCTTGAATCGGGAGTAA-GATTCCTTTGGAGG-CCGTTAGTG
+            |||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||-|||||||||
+   correct: ACGTGAGGCGGGCTTATAGACCCGCCATTCTCAGTGCCCGATTCCTGTTGCAGTGATCTCTTGAATCGGGAGTAAAGATTCCTTTGGAGGGCCGTTAGTG
+The accuracy for this sequence is: 97.0%
+
+
+Basecalling signal 78 out of 200
+The alignment for signal 78 is:
+basecalled: TACCTAACGCATTATTAAGATACAGCATCCGAATATCGATGATGCGCAGCACATGATCAGTACACGATCGACGCAA-GCGG-CCTAGTCCAACCGCGCGGTGGTG
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||-|||||||||||||||||||||||
+   correct: TACCTAACGCATTATTAAGATACAGCATCCGAATATCGATGATGCGCAGCACATGATCAGTACACGATCGACGCAAAGCGGGCCTAGTCCAACCGCGCGGTGGTG
+The accuracy for this sequence is: 98.09523809523809%
+
+
+Basecalling signal 79 out of 200
+The alignment for signal 79 is:
+basecalled: GTCTT-CTCGTGAGGTTCCAGGTTCTGATCGGCTCGCTTT-CGG-ATCGCTGCATCGCTCGGGAAGAGCTGTT-CC-TCGTTCTGG-TTGGGT-
+            |||||-||||||||||||||||||||||||||||||||||-|||-||||||||||||||||||||||||||||-||-|||||||||-||||||-
+   correct: GTCTTTCTCGTGAGGTTCCAGGTTCTGATCGGCTCGCTTTTCGGGATCGCTGCATCGCTCGGGAAGAGCTGTTTCCCTCGTTCTGGGTTGGGTT
+The accuracy for this sequence is: 92.5531914893617%
+
+
+Basecalling signal 80 out of 200
+The alignment for signal 80 is:
+basecalled: CCAGCGCAGAGCGG-CACCTT--CC-GTGAACGAGCTATTAACGACGGTTACTGGTCTCAGCTCTCTTCTGGAGGGAGTAAGCCGTTGTAGGTT-AGGATTT
+            ||||||||||||||-||||||--||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||
+   correct: CCAGCGCAGAGCGGGCACCTTTTCCCGTGAACGAGCTATTAACGACGGTTACTGGTCTCAGCTCTCTTCTGGAGGGAGTAAGCCGTTGTAGGTTTAGGATTT
+The accuracy for this sequence is: 95.09803921568627%
+
+
+Basecalling signal 81 out of 200
+The alignment for signal 81 is:
+basecalled: ATGAGGG-ACCAATTCAGCAGTTCTTCACTAGTTCGCTG-AAGGAAGCTTGTCTCGGCTTTT-GGCGATCCGAGACGG-CTCCTGGAGCCGCCGGTTCGCGTATGG
+            |||||||-|||||||||||||||||||||||||||||||-||||||||||||||||||||||-|||||||||||||||-|||||||||||||||||||||||||||
+   correct: ATGAGGGGACCAATTCAGCAGTTCTTCACTAGTTCGCTGTAAGGAAGCTTGTCTCGGCTTTTTGGCGATCCGAGACGGGCTCCTGGAGCCGCCGGTTCGCGTATGG
+The accuracy for this sequence is: 96.22641509433963%
+
+
+Basecalling signal 82 out of 200
+The alignment for signal 82 is:
+basecalled: CGAGTATTGGCAACC-GTGGCGAGTCAACTACGGTGCTGAAAA--CGG-CCAGTATATGGCTAATA-GACACATGTAGACAGTTGTCGTTCTCCGCTCT--
+            |||||||||||||||-|||||||||||||||||||||||||||--|||-|||||||||||||||||-||||||||||||||||||||||||||||||||--
+   correct: CGAGTATTGGCAACCCGTGGCGAGTCAACTACGGTGCTGAAAAAACGGGCCAGTATATGGCTAATATGACACATGTAGACAGTTGTCGTTCTCCGCTCTTT
+The accuracy for this sequence is: 93.06930693069306%
+
+
+Basecalling signal 83 out of 200
+The alignment for signal 83 is:
+basecalled: GCCCATGGATACC-GCTGGTATAAGATTATAAGGCCTATCAGACAGGTAATTAAGGG-TTCAGACGTCGG-TATAGGACGGGCATCGAGACG--
+            |||||||||||||-|||||||||||||||||||||||||||||||||||||||||||-||||||||||||-|||||||||||||||||||||--
+   correct: GCCCATGGATACCCGCTGGTATAAGATTATAAGGCCTATCAGACAGGTAATTAAGGGGTTCAGACGTCGGGTATAGGACGGGCATCGAGACGGG
+The accuracy for this sequence is: 94.68085106382979%
+
+
+Basecalling signal 84 out of 200
+The alignment for signal 84 is:
+basecalled: CTAGCCCAGTTT-ATTAGAGCAGTTT-CGTAAA--CGAACACTAGCCACGATTGCCACC-GTCGTACCAACGTACAGCTACGGTAGGTTT-ACAATAAA
+            ||||||||||||-|||||||||||||-||||||--||||||||||||||||||||||||-||||||||||||||||||||||||||||||-||||||||
+   correct: CTAGCCCAGTTTTATTAGAGCAGTTTTCGTAAAAACGAACACTAGCCACGATTGCCACCCGTCGTACCAACGTACAGCTACGGTAGGTTTTACAATAAA
+The accuracy for this sequence is: 93.93939393939394%
+
+
+Basecalling signal 85 out of 200
+The alignment for signal 85 is:
+basecalled: TAAGTGCTCTT-AGATGCGGTTAGGTGGCCAACAGTGTT-CTAA-CTGATACTTGGAACGTGAAGGAACTGATATGATTCGG-CGACCATTCC-GTGGTGCT
+            |||||||||||-|||||||||||||||||||||||||||-||||-||||||||||||-||||||||||||||||||||||||-||||||||||-||||||||
+   correct: TAAGTGCTCTTTAGATGCGGTTAGGTGGCCAACAGTGTTTCTAAACTGATACTTGGA-CGTGAAGGAACTGATATGATTCGGGCGACCATTCCCGTGGTGCT
+The accuracy for this sequence is: 94.05940594059405%
+
+
+Basecalling signal 86 out of 200
+The alignment for signal 86 is:
+basecalled: GTGTTAGACCATAACGCGCAACGGTGCTGTAA-CTATTTGGACCTCTGCG-GCAAGTACAATTGTAATGATGAAACAATTAGCGGATCCTGGCA-
+            ||||||||||||||||||||||||||||||||-|||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||-
+   correct: GTGTTAGACCATAACGCGCAACGGTGCTGTAAACTATTTGGACCTCTGCGCGCAAGTACAATTGTAATGATGAAACAATTAGCGGATCCTGGCAA
+The accuracy for this sequence is: 96.84210526315789%
+
+
+Basecalling signal 87 out of 200
+The alignment for signal 87 is:
+basecalled: TTGTTT--ACTATTGTGCTGATATATATAGCCAATAACACCGAGTCCTAGCGGAGAGTGGTGGATAGCCGG-CCGGAAGG-AATACATATCAGCTGGCG-
+            ||||||--|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||-||||||||||||||||||-
+   correct: TTGTTTTTACTATTGTGCTGATATATATAGCCAATAACACCGAGTCCTAGCGGAGAGTGGTGGATAGCCGGGCCGGAAGGGAATACATATCAGCTGGCGG
+The accuracy for this sequence is: 95.0%
+
+
+Basecalling signal 88 out of 200
+The alignment for signal 88 is:
+basecalled: GAACTGCCGGTTGAGGTCGACC-TTGGGTATGGAACACCAATCTGCAAA-GCCGGAACGCAAGATCACTTCTGGACGTTGCGTTGTT-GGTACTA-
+            ||||||||||||||||||||||-||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||-|||||||-
+   correct: GAACTGCCGGTTGAGGTCGACCCTTGGGTATGGAACACCAATCTGCAAAAGCCGGAACGCAAGATCACTTCTGGACGTTGCGTTGTTTGGTACTAA
+The accuracy for this sequence is: 95.83333333333334%
+
+
+Basecalling signal 89 out of 200
+The alignment for signal 89 is:
+basecalled: TTCGAA-TATGGTACATTAGTTCATGGG-ACGAGGGATCTCCTTACCCTGAAA-TTT-CCGTGGTGTGTTGCACTTGTGAGTTGTCGTCGCCGGA-
+            ||||||-|||||||||||||||||||||-||||||||||||||||||||||||-|||-|||||||||||||||||||||||||||||||||||||-
+   correct: TTCGAAATATGGTACATTAGTTCATGGGGACGAGGGATCTCCTTACCCTGAAAATTTTCCGTGGTGTGTTGCACTTGTGAGTTGTCGTCGCCGGAA
+The accuracy for this sequence is: 94.79166666666666%
+
+
+Basecalling signal 90 out of 200
+The alignment for signal 90 is:
+basecalled: GTTGTAATCTACAGCGAAGATCGGAGGCGATAGTGTAGGGTCTT-GCTGAAGG-CTTAGGCGTGGCTTCATAAGAAATTAGTAACGCATTCGCCGAAAA--
+            ||||||||||||||||||||||||||||||||||||||||||||-||||||||-|||||||||||||||||||||||||||||||||||||||||||||--
+   correct: GTTGTAATCTACAGCGAAGATCGGAGGCGATAGTGTAGGGTCTTTGCTGAAGGGCTTAGGCGTGGCTTCATAAGAAATTAGTAACGCATTCGCCGAAAAAA
+The accuracy for this sequence is: 96.03960396039604%
+
+
+Basecalling signal 91 out of 200
+The alignment for signal 91 is:
+basecalled: CGCGGTATTTGCGAGTTAGG-CCTGATTGCATATAACATCACCTGGG--TTAGAGTCATGTATGTACCTGTGCGTTAAA-TATCAACATACACC-GG
+            ||||||||||||||||||||-||||||||||||||||||||||||||--||||||||||||||||||||||||||||||-||||||||||||||-||
+   correct: CGCGGTATTTGCGAGTTAGGGCCTGATTGCATATAACATCACCTGGGGGTTAGAGTCATGTATGTACCTGTGCGTTAAAATATCAACATACACCCGG
+The accuracy for this sequence is: 94.84536082474226%
+
+
+Basecalling signal 92 out of 200
+The alignment for signal 92 is:
+basecalled: ACAACCGACTCC-AGTCACGGCCTGCGGACTTGGGACCTTT-CTGCATTAGGCTTCTAAA-TCCTCTGAA-CTTAGCCTCTAGCC-TCCGTGTACTT-AACG
+            ||||||||||||-||||||||||||||||||||||||||||-||||||||||||||||||-|||||||||-||||||||||||||-|||||||||||-||||
+   correct: ACAACCGACTCCCAGTCACGGCCTGCGGACTTGGGACCTTTTCTGCATTAGGCTTCTAAAATCCTCTGAAACTTAGCCTCTAGCCCTCCGTGTACTTTAACG
+The accuracy for this sequence is: 94.11764705882352%
+
+
+Basecalling signal 93 out of 200
+The alignment for signal 93 is:
+basecalled: GTAGTATGCGCTGTAATTCTTGTAGCC-GCGCCGCCGGTGCGG-CAGAGCC-TATATGTCTGAACCCGCACACGTACTT-AGCGGCGTCAAACTCCATGCTGACCTACTC
+            |||||||||||||||||||||||||||-|||||||||||||||-|||||||-|||||||||||||||||||||||||||-||||||||||||||||||||||||||||||
+   correct: GTAGTATGCGCTGTAATTCTTGTAGCCCGCGCCGCCGGTGCGGGCAGAGCCCTATATGTCTGAACCCGCACACGTACTTTAGCGGCGTCAAACTCCATGCTGACCTACTC
+The accuracy for this sequence is: 96.36363636363636%
+
+
+Basecalling signal 94 out of 200
+The alignment for signal 94 is:
+basecalled: CTCGG-CCGCC--GAATAACAACGTCCGGGTTGCGTACGCGGACCCGGCC-GCAGATGCACGCAGG-CACAGGG-AAGCATAGAGACGATTATTACGCCG
+            |||||-|||||--|||||||||||||||||||||||||||||||||||||-|||||||||||||||-|||||||-|||||||||||||||||||||||||
+   correct: CTCGGGCCGCCCCGAATAACAACGTCCGGGTTGCGTACGCGGACCCGGCCCGCAGATGCACGCAGGGCACAGGGGAAGCATAGAGACGATTATTACGCCG
+The accuracy for this sequence is: 94.0%
+
+
+Basecalling signal 95 out of 200
+The alignment for signal 95 is:
+basecalled: GAGATTTCCGGG-CACTTGGAGCACGAA-TATTGGACGCTCTTGAAACGGTACGTAATCGGCAATATTCGTACCGACCAGTGAGCTTGATAGTTGTATTGAAG
+            ||||||||||||-|||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: GAGATTTCCGGGGCACTTGGAGCACGAAATATTGGACGCTCTTGAAACGGTACGTAATCGGCAATATTCGTACCGACCAGTGAGCTTGATAGTTGTATTGAAG
+The accuracy for this sequence is: 98.05825242718447%
+
+
+Basecalling signal 96 out of 200
+The alignment for signal 96 is:
+basecalled: TATACATCAGAACAGTGTATTCTCCTCCAGACGTTCGCAGGCACCGCCTGTACTCTATCAGTGAGG-AAGACGGAGTCCAACATAGGTGCACTT-AC
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||-||
+   correct: TATACATCAGAACAGTGTATTCTCCTCCAGACGTTCGCAGGCACCGCCTGTACTCTATCAGTGAGGGAAGACGGAGTCCAACATAGGTGCACTTTAC
+The accuracy for this sequence is: 97.9381443298969%
+
+
+Basecalling signal 97 out of 200
+The alignment for signal 97 is:
+basecalled: GTATGGAGTTT-GTGCATT-CTGTTT-CTTGAGCCTATCCAGGAACCCTTGAAGATGGTTCTAACGTCAGTCATT-GACATCATGAA--CTAGCACCGCC-
+            |||||||||||-|||||||-||||||-||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||--|||||||||||-
+   correct: GTATGGAGTTTTGTGCATTTCTGTTTTCTTGAGCCTATCCAGGAACCCTTGAAGATGGTTCTAACGTCAGTCATTTGACATCATGAAAACTAGCACCGCCA
+The accuracy for this sequence is: 93.06930693069306%
+
+
+Basecalling signal 98 out of 200
+The alignment for signal 98 is:
+basecalled: CCGG-ATTGCTCGGAGCGGTTCCCAACTCGACTGAAGCGGACAA-CTATCGCGTACGATGGG--CAGTCCGGAATCCGACC-GCGATACAGTAACCAGGAGA
+            ||||-|||||||||||||||||||||||||||||||||||||||-|||||||||||||||||--|||||||||||||||||-||||||||||||||||||||
+   correct: CCGGGATTGCTCGGAGCGGTTCCCAACTCGACTGAAGCGGACAAACTATCGCGTACGATGGGGGCAGTCCGGAATCCGACCCGCGATACAGTAACCAGGAGA
+The accuracy for this sequence is: 95.09803921568627%
+
+
+Basecalling signal 99 out of 200
+The alignment for signal 99 is:
+basecalled: ACACGGAACGTCCCAATGACCGAT-TCTGTTGATGTTCACTTGTTGCGACGCTAAA--TACCGACCTCACGCGGGCGCACTTTACGGTCTGGTTGGAT
+            ||||||||||||||||||||||||-|||||||||||||||||||||||||||||||--||||||||||||||||||||||||||||||||||||||||
+   correct: ACACGGAACGTCCCAATGACCGATATCTGTTGATGTTCACTTGTTGCGACGCTAAAAATACCGACCTCACGCGGGCGCACTTTACGGTCTGGTTGGAT
+The accuracy for this sequence is: 96.93877551020408%
+
+
+Basecalling signal 100 out of 200
+The alignment for signal 100 is:
+basecalled: ACGGAATTGCAGTGACAGAACACACGGAGACGCGATAATACATA-TAGATTG-CAA-GCTTCAGACCCTT-GTCAAGTTGCGCGTTCCAAGTTCCACCC-TCCCAG
+            ||||||||||||||||||||||||||||||||||||||||||||-|||||||-|||-|||||||||||||-||||||||||||||||||||||||||||-||||||
+   correct: ACGGAATTGCAGTGACAGAACACACGGAGACGCGATAATACATAATAGATTGGCAAAGCTTCAGACCCTTTGTCAAGTTGCGCGTTCCAAGTTCCACCCCTCCCAG
+The accuracy for this sequence is: 95.28301886792453%
+
+
+Basecalling signal 101 out of 200
+The alignment for signal 101 is:
+basecalled: CATCCTGTCACCGCTTGCACCAGGTAATGTAGTTGGTCATTACGCGATGTCTCAATCTAACGACTCTCGCGCGTCATCGGATCGGTACGG-CGTAA
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||
+   correct: CATCCTGTCACCGCTTGCACCAGGTAATGTAGTTGGTCATTACGCGATGTCTCAATCTAACGACTCTCGCGCGTCATCGGATCGGTACGGGCGTAA
+The accuracy for this sequence is: 98.95833333333334%
+
+
+Basecalling signal 102 out of 200
+The alignment for signal 102 is:
+basecalled: CGTGCTCAA-TGCCAAGGCGTCGTGAACATGGG-CTATTGCCGCGTGTGTGAA-CACCGTTGTAGCCGTTCATACATGAA-CTACGCGG-TATTAA
+            |||||||||-|||||||||||||||||||||||-|||||||||||||||||||-||||||||||||||||||||||||||-||||||||-||||||
+   correct: CGTGCTCAAATGCCAAGGCGTCGTGAACATGGGGCTATTGCCGCGTGTGTGAAACACCGTTGTAGCCGTTCATACATGAAACTACGCGGGTATTAA
+The accuracy for this sequence is: 94.79166666666666%
+
+
+Basecalling signal 103 out of 200
+The alignment for signal 103 is:
+basecalled: TACCGTTCCTTTGCTAGATATCGTGAA-CCAGCGACGACCTCGGGCAGGATGGTTCACCGTACCTCC-TGAACCTGAGCCGTGTGATCATCTCCGTAA
+            |||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||
+   correct: TACCGTTCCTTTGCTAGATATCGTGAAACCAGCGACGACCTCGGGCAGGATGGTTCACCGTACCTCCCTGAACCTGAGCCGTGTGATCATCTCCGTAA
+The accuracy for this sequence is: 97.95918367346938%
+
+
+Basecalling signal 104 out of 200
+The alignment for signal 104 is:
+basecalled: CAAGTGACTAGGTTGTCCGTT-ACAACGATTTGTAGACGCACCGTGCCCGCAATGTGTGCAGGCCAA-CGACTTACCGTACACTAGGATCGGTGACGTCTTA
+            |||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||
+   correct: CAAGTGACTAGGTTGTCCGTTTACAACGATTTGTAGACGCACCGTGCCCGCAATGTGTGCAGGCCAAACGACTTACCGTACACTAGGATCGGTGACGTCTTA
+The accuracy for this sequence is: 98.0392156862745%
+
+
+Basecalling signal 105 out of 200
+The alignment for signal 105 is:
+basecalled: GCCGTCTCCATAGTT-GTAAGGTAAA-TATACGTACTATGCCCTGCTGGTACATCTACCC-ATATTCCGAGCTAGAAGGAGAGAAACCTGAA-CTGTTCAGCG
+            |||||||||||||||-||||||||||-|||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||-||||||||||
+   correct: GCCGTCTCCATAGTTTGTAAGGTAAAATATACGTACTATGCCCTGCTGGTACATCTACCCCATATTCCGAGCTAGAAGGAGAGAAACCTGAAACTGTTCAGCG
+The accuracy for this sequence is: 96.11650485436894%
+
+
+Basecalling signal 106 out of 200
+The alignment for signal 106 is:
+basecalled: TATATGGAAGCTATCGGACATATTATCCC-TTACAGTTAAACATAAA-CGGTGCGTTATTGTCC-TCTCTATATTGTCAGAACCTAGCAGGG-TGACC-
+            |||||||||||||||||||||||||||||-|||||||||||||||||-||||||||||||||||-|||||||||||||||||||||||||||-|||||-
+   correct: TATATGGAAGCTATCGGACATATTATCCCCTTACAGTTAAACATAAAACGGTGCGTTATTGTCCCTCTCTATATTGTCAGAACCTAGCAGGGGTGACCC
+The accuracy for this sequence is: 94.94949494949495%
+
+
+Basecalling signal 107 out of 200
+The alignment for signal 107 is:
+basecalled: CGGTGAGTAGCCGACTT-GTTTCTCTATAGAGGCTT-AACGCTATCAA-CACC-GATACGTGTAGGTAATCTCATACAGATGGCCATTTCTCTTAGCCGT
+            |||||||||||||||||-||||||||||||||||||-|||||||||||-||||-||||||||||||||||||||||||||||||||||||||||||||||
+   correct: CGGTGAGTAGCCGACTTTGTTTCTCTATAGAGGCTTTAACGCTATCAAACACCCGATACGTGTAGGTAATCTCATACAGATGGCCATTTCTCTTAGCCGT
+The accuracy for this sequence is: 96.0%
+
+
+Basecalling signal 108 out of 200
+The alignment for signal 108 is:
+basecalled: CCTGCTCC-AGTCC-TCGCC-GCATTCC-ACTGATAGCGTACTGCC--AAA-GGAGG-CAAGCGTGAGG-TGTTAA-GTCTGCC-GGAGCCATAGTTGCACAC-
+            ||||||||-|||||-|||||-|||||||-|||||||||||||||||--|||-|||||-|||||||||||-||||||-|||||||-||||||||||||||||||-
+   correct: CCTGCTCCCAGTCCCTCGCCCGCATTCCCACTGATAGCGTACTGCCCCAAAAGGAGGGCAAGCGTGAGGGTGTTAAAGTCTGCCCGGAGCCATAGTTGCACACT
+The accuracy for this sequence is: 88.46153846153845%
+
+
+Basecalling signal 109 out of 200
+The alignment for signal 109 is:
+basecalled: AGACTGATCAA-TAATGAACCCTTATCCC-AATACGAATGAATACTACTGTCTGCGG-CAGGTCGGTCACGAGCAGAGCCTCTACTGCGGTAA-CTCTA-
+            |||||||||||-|||||||||||||||||-|||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||-|||||-
+   correct: AGACTGATCAAATAATGAACCCTTATCCCCAATACGAATGAATACTACTGTCTGCGGGCAGGTCGGTCACGAGCAGAGCCTCTACTGCGGTAAACTCTAT
+The accuracy for this sequence is: 95.0%
+
+
+Basecalling signal 110 out of 200
+The alignment for signal 110 is:
+basecalled: ATCAAGGCTCCCGTGTCGGGTAGGCATACGGCATAATCGTGACATGCACGG-TGCCTTT-CGCCTTCAGCACGAAGTCCACCTTT-GACTGCTTGTAA
+            |||||||||||||||||||||||||||||||||||-|||||||||||||||-|||||||-|||||||||||||||||||||||||-||||||||||||
+   correct: ATCAAGGCTCCCGTGTCGGGTAGGCATACGGCATA-TCGTGACATGCACGGGTGCCTTTTCGCCTTCAGCACGAAGTCCACCTTTTGACTGCTTGTAA
+The accuracy for this sequence is: 95.87628865979381%
+
+
+Basecalling signal 111 out of 200
+The alignment for signal 111 is:
+basecalled: ATTATCAACTGTAACATCGATCACAA-TAGTTAGCTACCC-GGACCTTACCTCGCTCTAAGGGG-CACACGCGATACGCGATGCC-AATACGTACAGT
+            ||||||||||||||||||||||||||-|||||||||||||-|||||||||||||||||||||||-||||||||||||||||||||-||||||||||||
+   correct: ATTATCAACTGTAACATCGATCACAAATAGTTAGCTACCCCGGACCTTACCTCGCTCTAAGGGGGCACACGCGATACGCGATGCCCAATACGTACAGT
+The accuracy for this sequence is: 95.91836734693877%
+
+
+Basecalling signal 112 out of 200
+The alignment for signal 112 is:
+basecalled: GAGCCAGATTGCACGCATTGCGTCATCTTCAGGAAGGG-CTTGTGTTAACTAATCGGCACCGAGGACCGGCTACGATATAATGATAAGTAGCTTTCAT
+            ||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: GAGCCAGATTGCACGCATTGCGTCATCTTCAGGAAGGGGCTTGTGTTAACTAATCGGCACCGAGGACCGGCTACGATATAATGATAAGTAGCTTTCAT
+The accuracy for this sequence is: 98.9795918367347%
+
+
+Basecalling signal 113 out of 200
+The alignment for signal 113 is:
+basecalled: GGTCGGTAAA-GCACTGGGACTGTGCCAGCATTGATCGAA-TAATCGGCCGGG-CTCTTGTTT-CTCTAGGTTATT-ATTCCC-GTCC-AACAGGCC
+            ||||||||||-|||||||||||||||||||||||||||||-||||||||||||-|||||||||-||||||||||||-||||||-||||-||||||||
+   correct: GGTCGGTAAAAGCACTGGGACTGTGCCAGCATTGATCGAAATAATCGGCCGGGGCTCTTGTTTTCTCTAGGTTATTTATTCCCCGTCCCAACAGGCC
+The accuracy for this sequence is: 92.78350515463917%
+
+
+Basecalling signal 114 out of 200
+The alignment for signal 114 is:
+basecalled: TGGATCTAGGCCACCGCACCCAGACCTCTTCGCACCTGCTTT-CATGAGTGTGTTTGG-CTGTGAGGTATGTATTGTGTAATT-CAGGATGACAGCA-
+            ||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||-||||||||||||||||||||||||-|||||||||||||-
+   correct: TGGATCTAGGCCACCGCACCCAGACCTCTTCGCACCTGCTTTTCATGAGTGTGTTTGGGCTGTGAGGTATGTATTGTGTAATTTCAGGATGACAGCAA
+The accuracy for this sequence is: 95.91836734693877%
+
+
+Basecalling signal 115 out of 200
+The alignment for signal 115 is:
+basecalled: TCGTTT-CACTCC-GTATGTACGCAGTTACAAGTT-AAA-CACTTCACTTATGACGTGTGAGTAGTAGGTACTCGTTAGTAAAA----GTACGCTCCCTA-
+            ||||||-||||||-|||||||||||||||||||||-|||-||||||||||||||||||||||||||||||||||||||||||||----||||||||||||-
+   correct: TCGTTTTCACTCCCGTATGTACGCAGTTACAAGTTTAAAACACTTCACTTATGACGTGTGAGTAGTAGGTACTCGTTAGTAAAAAAAAGTACGCTCCCTAA
+The accuracy for this sequence is: 91.0891089108911%
+
+
+Basecalling signal 116 out of 200
+The alignment for signal 116 is:
+basecalled: CTTATTATGACTCGCACTCAGTCTTCCGACGGTTAGGTAGACAACAGGAGAATCCATCCGTGCAAGCCGTCCGATTCTGTGGACAACCTCGGCATAATGGCC-
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-
+   correct: CTTATTATGACTCGCACTCAGTCTTCCGACGGTTAGGTAGACAACAGGAGAATCCATCCGTGCAAGCCGTCCGATTCTGTGGACAACCTCGGCATAATGGCCT
+The accuracy for this sequence is: 99.02912621359224%
+
+
+Basecalling signal 117 out of 200
+The alignment for signal 117 is:
+basecalled: ATCGACAACTCGGCGG-CAAA-TATTCGACTTGGATCTGAAGG-CCGTCTACGTTACATTCATCACATTCGCCGTCAGGTGAGTCTTT-CCAGCTCCTCG
+            ||||||||||||||||-||||-|||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||-|||||||||||
+   correct: ATCGACAACTCGGCGGGCAAAATATTCGACTTGGATCTGAAGGGCCGTCTACGTTACATTCATCACATTCGCCGTCAGGTGAGTCTTTTCCAGCTCCTCG
+The accuracy for this sequence is: 96.0%
+
+
+Basecalling signal 118 out of 200
+The alignment for signal 118 is:
+basecalled: GATTACCGGTCCTCGATATTATAATTGGTGACC-TACTCGTGTGCATGTACAAGCATTCTCTTAGTGCCC-GTACGACGTCCAGAGAGTCATTCGCTA
+            |||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||
+   correct: GATTACCGGTCCTCGATATTATAATTGGTGACCCTACTCGTGTGCATGTACAAGCATTCTCTTAGTGCCCCGTACGACGTCCAGAGAGTCATTCGCTA
+The accuracy for this sequence is: 97.95918367346938%
+
+
+Basecalling signal 119 out of 200
+The alignment for signal 119 is:
+basecalled: GATGTATACATGTACGCGCAGATGTACTTATGGTTCCAGTTGAGAGCTCCTGCTACCTATT-ATGGCC-AGCCGGTAA-CGGCGCAA-GCCTC
+            |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||-|||||||||-||||||||-|||||
+   correct: GATGTATACATGTACGCGCAGATGTACTTATGGTTCCAGTTGAGAGCTCCTGCTACCTATTTATGGCCCAGCCGGTAAACGGCGCAAAGCCTC
+The accuracy for this sequence is: 95.6989247311828%
+
+
+Basecalling signal 120 out of 200
+The alignment for signal 120 is:
+basecalled: CGTTAGG-TTCCGGTTTCAGTACCGAAGAGGTGCC-ATGCATTATCTACTGTCAGGATGG-AGTCGTGAGCCTTT-CAATCGTAGACCTCTTAAGTGCATC
+            |||||||-|||||||||||||||||||||||||||-||||||||||||||||||||||||-||||||||||||||-|||||||||||||||||||||||||
+   correct: CGTTAGGGTTCCGGTTTCAGTACCGAAGAGGTGCCCATGCATTATCTACTGTCAGGATGGGAGTCGTGAGCCTTTTCAATCGTAGACCTCTTAAGTGCATC
+The accuracy for this sequence is: 96.03960396039604%
+
+
+Basecalling signal 121 out of 200
+The alignment for signal 121 is:
+basecalled: CGTGATGG-CGATAGGTT-ACCGTTTTGTCAACTATACACTTAAATGTCAAATAATGACCAGGTTCGATCAGGCGGTGACGAACCTCGACTTGACA
+            ||||||||-|||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: CGTGATGGGCGATAGGTTTACCGTTTTGTCAACTATACACTTAAATGTCAAATAATGACCAGGTTCGATCAGGCGGTGACGAACCTCGACTTGACA
+The accuracy for this sequence is: 97.91666666666666%
+
+
+Basecalling signal 122 out of 200
+The alignment for signal 122 is:
+basecalled: CAATCTAACC--AACCACACC-TTATGACGCCACTA-ATCCGATATGCC-TGTGAGACACGCTGATGAAA-TACCAATAAGCACATTCCGACG-GTTAGCCACCT
+            ||||||||||--|||||||||-||||||||||||||-||||||||||||-||||||||||||||||||||-||||||||||||||||||||||-|||||||||||
+   correct: CAATCTAACCCCAACCACACCCTTATGACGCCACTACATCCGATATGCCCTGTGAGACACGCTGATGAAAATACCAATAAGCACATTCCGACGAGTTAGCCACCT
+The accuracy for this sequence is: 93.33333333333333%
+
+
+Basecalling signal 123 out of 200
+The alignment for signal 123 is:
+basecalled: CGTGATACTGCACAATT--CGTGTATAAGGTCCGCTTTACTGG-AACATAATTCC-TGATTTAAGCGGACTCCGCTGAGCC-GAGCTGG-ACTTT
+            |||||||||||||||||--||||||||||||||||||||||||-|||||||||||-|||||||||||||||||||||||||-|||||||-|||||
+   correct: CGTGATACTGCACAATTTTCGTGTATAAGGTCCGCTTTACTGGGAACATAATTCCCTGATTTAAGCGGACTCCGCTGAGCCCGAGCTGGGACTTT
+The accuracy for this sequence is: 93.6842105263158%
+
+
+Basecalling signal 124 out of 200
+The alignment for signal 124 is:
+basecalled: GTATGCTTATTAAA-GGCAGTCGCCTGACCGTCGCGACGATAACGAGACGGGCTTTAATGTAGCAACGTCC-GGCCCC-ACAAACTCAATAA-AGGC
+            ||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||-|||||||||||||-||||
+   correct: GTATGCTTATTAAAAGGCAGTCGCCTGACCGTCGCGACGATAACGAGACGGGCTTTAATGTAGCAACGTCCCGGCCCCCACAAACTCAATAAGAGGC
+The accuracy for this sequence is: 95.87628865979381%
+
+
+Basecalling signal 125 out of 200
+The alignment for signal 125 is:
+basecalled: TGCAGGGTGCGATATCTCCGTACACAGGTCC-TGGATAGACCTTCTGACGAACATGTTTCGCCGCCGTAATCACGTAACTGGACTTAGTGACACCTAT
+            |||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: TGCAGGGTGCGATATCTCCGTACACAGGTCCCTGGATAGACCTTCTGACGAACATGTTTCGCCGCCGTAATCACGTAACTGGACTTAGTGACACCTAT
+The accuracy for this sequence is: 98.9795918367347%
+
+
+Basecalling signal 126 out of 200
+The alignment for signal 126 is:
+basecalled: TTACTTCCCTGTAGGCTTCGTTACCTAGTAGCTTT-ATTCGTGGACACTGGCGCATGGAGTGGGCTTAA-CCGTAGACTAGATTCGTGCCAAGCGTAA-TAGT
+            |||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||-||||
+   correct: TTACTTCCCTGTAGGCTTCGTTACCTAGTAGCTTTTATTCGTGGACACTGGCGCATGGAGTGGGCTTAAACCGTAGACTAGATTCGTGCCAAGCGTAAATAGT
+The accuracy for this sequence is: 97.0873786407767%
+
+
+Basecalling signal 127 out of 200
+The alignment for signal 127 is:
+basecalled: AACAGGCTCGCACGCATAAGTGCAACTACAATGTCATACTCATGGCCAGTTTGCAGAAAA-TGTT-ATAATTGTCAGGG-TGGTGATTGAGCAG
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||-|||||||||||||-||||||||||||||
+   correct: AACAGGCTCGCACGCATAAGTGCAACTACAATGTCATACTCATGGCCAGTTTGCAGAAAAATGTTTATAATTGTCAGGGGTGGTGATTGAGCAG
+The accuracy for this sequence is: 96.80851063829788%
+
+
+Basecalling signal 128 out of 200
+The alignment for signal 128 is:
+basecalled: TCTTCGGTGCGGTTTCAATCGTCGAATGTTATT-CGGCGCTCCGCGTCAGCTGAGATGATTGCGTTCACCCACGCC-GAGCTGTT-GGGCTCTGG-ACTGC
+            |||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||-||||||||-|||||||||-|||||
+   correct: TCTTCGGTGCGGTTTCAATCGTCGAATGTTATTTCGGCGCTCCGCGTCAGCTGAGATGATTGCGTTCACCCACGCCCGAGCTGTTTGGGCTCTGGGACTGC
+The accuracy for this sequence is: 96.03960396039604%
+
+
+Basecalling signal 129 out of 200
+The alignment for signal 129 is:
+basecalled: ACATGGTTCACAAGAAGAGGGTTCCGGAAGG-ATCCCACTATACAATTTT-GCCGGCGAAAGGGCGCCGAGTCATATAGG-AGCCCATT-AGTTGCACG
+            |||||||||||||||||||||||||||||||-||||||||||||||||||-|||||||||||||||||||||||||||||-||||||||-|||||||||
+   correct: ACATGGTTCACAAGAAGAGGGTTCCGGAAGGGATCCCACTATACAATTTTTGCCGGCGAAAGGGCGCCGAGTCATATAGGGAGCCCATTGAGTTGCACG
+The accuracy for this sequence is: 95.95959595959596%
+
+
+Basecalling signal 130 out of 200
+The alignment for signal 130 is:
+basecalled: GGCGGCCAACCAGATACTGTGAACGTAGTGAGTAATGAACACTTCAACCAGGATTATT-CAGACCACGCGCACTAGTGGTACACGCTCAGTGTTGAATTCGCTG
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||
+   correct: GGCGGCCAACCAGATACTGTGAACGTAGTGAGTAATGAACACTTCAACCAGGATTATTTCAGACCACGCGCACTAGTGGTACACGCTCAGTGTTGAATTCGCTG
+The accuracy for this sequence is: 99.03846153846155%
+
+
+Basecalling signal 131 out of 200
+The alignment for signal 131 is:
+basecalled: GGGAGGAAAGCTTAGTCCGAACCTTAACTTAATTGGCACTACTCGTGATGCAGAAGAGCCAAATCAGGCGCGTGGTGGAATAGAAATATGTCGAGGTG
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: GGGAGGAAAGCTTAGTCCGAACCTTAACTTAATTGGCACTACTCGTGATGCAGAAGAGCCAAATCAGGCGCGTGGTGGAATAGAAATATGTCGAGGTG
+The accuracy for this sequence is: 100.0%
+
+
+Basecalling signal 132 out of 200
+The alignment for signal 132 is:
+basecalled: CC-TGGAACCTATACACTCTATGCATGCCGGG-CCATT-CGTTGGCTGGG-TCATTACTCGCGCTTGAGTTACATTATGCTTCCGTGCCAGCACTTCTA
+            ||-|||||||||||||||||||||||||||||-|||||-|||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: CCCTGGAACCTATACACTCTATGCATGCCGGGGCCATTTCGTTGGCTGGGGTCATTACTCGCGCTTGAGTTACATTATGCTTCCGTGCCAGCACTTCTA
+The accuracy for this sequence is: 95.95959595959596%
+
+
+Basecalling signal 133 out of 200
+The alignment for signal 133 is:
+basecalled: GCTACAGTTTGCCAGTTCCAGCTTCTGGTGATCATGCTGTCTT-AATT-AAA-GAACGG-CATCTATTTCCAA-GACACCTTGAATACGAGGCCC-AATTT-ACT
+            |||||||||||||||||||||||||||||||||||||||||||-||||-|||-||||||-|||||||||||||-|||||||||||||||||||||-|||||-|||
+   correct: GCTACAGTTTGCCAGTTCCAGCTTCTGGTGATCATGCTGTCTTTAATTTAAAAGAACGGACATCTATTTCCAAAGACACCTTGAATACGAGGCCCCAATTTTACT
+The accuracy for this sequence is: 93.33333333333333%
+
+
+Basecalling signal 134 out of 200
+The alignment for signal 134 is:
+basecalled: GCGAA-TGG-ATGGTGCACGCGAAATTACGATTAGAATAACACACAGGAAAGTGGAACTAAGAATTGTGGCCTTAAGTATTTCGTATAGATAGGTTGCCGAAGT
+            |||||-|||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: GCGAAATGGGATGGTGCACGCGAAATTACGATTAGAATAACACACAGGAAAGTGGAACTAAGAATTGTGGCCTTAAGTATTTCGTATAGATAGGTTGCCGAAGT
+The accuracy for this sequence is: 98.07692307692307%
+
+
+Basecalling signal 135 out of 200
+The alignment for signal 135 is:
+basecalled: TTGCGTAACC-TCTAAGTCCACTT-GTGACGACGCAGTACTCCATGTTAGG-AA-CTGG--CACAGGCCCTT-GACGAACAACTATTTT-ACTCAACAC--
+            ||||||||||-|||||||||||||-||||||||||||||||||||||||||-||-||||--|||||||||||-||||||||||||||||-|||||||||--
+   correct: TTGCGTAACCCTCTAAGTCCACTTTGTGACGACGCAGTACTCCATGTTAGGGAAACTGGGGCACAGGCCCTTTGACGAACAACTATTTTTACTCAACACCC
+The accuracy for this sequence is: 90.0990099009901%
+
+
+Basecalling signal 136 out of 200
+The alignment for signal 136 is:
+basecalled: ACGTTT-CATCTTT--AGTCAGGACCATTAGTGCGG-AGTCACCGCCGAAGG-CC-GCTACCTCCTGTCCCC--GCAGGACACGCAAAGGTTAAGGCTCACT
+            ||||||-|||||||--||||||||||||||||||||-|||||||||||||||-||-||||||||||||||||--||||||||||||||||||||||||||||
+   correct: ACGTTTTCATCTTTTTAGTCAGGACCATTAGTGCGGGAGTCACCGCCGAAGGGCCCGCTACCTCCTGTCCCCCCGCAGGACACGCAAAGGTTAAGGCTCACT
+The accuracy for this sequence is: 92.15686274509804%
+
+
+Basecalling signal 137 out of 200
+The alignment for signal 137 is:
+basecalled: TTT-CGAGGACCGGAATGCTAAAGACAGTCGCTAAGACAGATTCTCTGTCCTCTATCCTAGGCTCTAATACTCGGTCGTAATCAACCTGCTTCCGTTCTGC
+            |||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: TTTTCGAGGACCGGAATGCTAAAGACAGTCGCTAAGACAGATTCTCTGTCCTCTATCCTAGGCTCTAATACTCGGTCGTAATCAACCTGCTTCCGTTCTGC
+The accuracy for this sequence is: 99.00990099009901%
+
+
+Basecalling signal 138 out of 200
+The alignment for signal 138 is:
+basecalled: TCTCACGGTTCGCATCAA-CAAA-CACCCTTTGGCGTAAGACACTACCTTATGGTGCCTTGTGAAGTGCTGGTCGTATCCTGTCGCGCTCGCTCCGCTT-GGCGT
+            ||||||||||||||||||-||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||
+   correct: TCTCACGGTTCGCATCAAACAAAACACCCTTTGGCGTAAGACACTACCTTATGGTGCCTTGTGAAGTGCTGGTCGTATCCTGTCGCGCTCGCTCCGCTTTGGCGT
+The accuracy for this sequence is: 97.14285714285714%
+
+
+Basecalling signal 139 out of 200
+The alignment for signal 139 is:
+basecalled: TAGGG--TACTAGTTCTCACACATCTCTCCCTT-CGCCATCTAATCGAATACGATTAACACTTATCCATGCGCGCGCTATTCCGAGATGCAGCTGCCTGCTGAT
+            |||||--||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: TAGGGGGTACTAGTTCTCACACATCTCTCCCTTTCGCCATCTAATCGAATACGATTAACACTTATCCATGCGCGCGCTATTCCGAGATGCAGCTGCCTGCTGAT
+The accuracy for this sequence is: 97.11538461538461%
+
+
+Basecalling signal 140 out of 200
+The alignment for signal 140 is:
+basecalled: AGACTGGCTCGTACGGG-CGTT-GCTCAACGTCAGACATCCC-AGACTATT-GAAA-CGTCTAATCAAGCATACAACC-TGTGTGCTAACAAGACACAAGAA-C
+            |||||||||||||||||-||||-|||||||||||||||||||-||||||||-||||-|||||||||||||||||||||-|||||||||||||||||||||||-|
+   correct: AGACTGGCTCGTACGGGGCGTTTGCTCAACGTCAGACATCCCCAGACTATTTGAAAACGTCTAATCAAGCATACAACCCTGTGTGCTAACAAGACACAAGAAAC
+The accuracy for this sequence is: 93.26923076923077%
+
+
+Basecalling signal 141 out of 200
+The alignment for signal 141 is:
+basecalled: TTATACACGGTCGGGG--TCCGTGTTATCCGAACGGTGTATTGATTCGTGCCATAAGCTGATCTACGGCGAACCCTCCCGGATAAGGGACTGACA
+            ||||||||||||||||--|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: TTATACACGGTCGGGGGGTCCGTGTTATCCGAACGGTGTATTGATTCGTGCCATAAGCTGATCTACGGCGAACCCTCCCGGATAAGGGACTGACA
+The accuracy for this sequence is: 97.89473684210527%
+
+
+Basecalling signal 142 out of 200
+The alignment for signal 142 is:
+basecalled: AGCGCCGCACGTGTATTTGGCCATTGTGATCATTGG-CCAACCC-AGAAGCGACGCCTATCCC-TAGACTGAACAGTAGTGTCACTACACTGAGAATCCC--G-
+            ||||||||||||||||||||||||||||||||||||-|||||||-||||||||||||||||||-||||||||||||||||||||||||||||||||||||--|-
+   correct: AGCGCCGCACGTGTATTTGGCCATTGTGATCATTGGGCCAACCCCAGAAGCGACGCCTATCCCCTAGACTGAACAGTAGTGTCACTACACTGAGAATCCCCCGG
+The accuracy for this sequence is: 94.23076923076923%
+
+
+Basecalling signal 143 out of 200
+The alignment for signal 143 is:
+basecalled: CATAGTCTAGTTGCTATT-CCC--AA-GCCTGCGTGTGATGATGAGAACTTCAGCCTATT-CAAGATGGAGGACGAACCTCTGGCGGAACATCTGCCGGGA
+            ||||||||||||||||||-|||--||-|||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||
+   correct: CATAGTCTAGTTGCTATTTCCCCCAAAGCCTGCGTGTGATGATGAGAACTTCAGCCTATTTCAAGATGGAGGACGAACCTCTGGCGGAACATCTGCCGGGA
+The accuracy for this sequence is: 95.04950495049505%
+
+
+Basecalling signal 144 out of 200
+The alignment for signal 144 is:
+basecalled: CCTTAGCCTCTTT-AATAATGCCGG-ATACAGCGCGAGAACGTGTCCTT-GACACAACACC-ATTTGCAGGAATACATAGACAGAGCATAGGAAGCCAGA
+            |||||||||||||-|||||||||||-|||||||||||||||||||||||-|||||||||||-||||||||||||||||||||||||||||||||||||||
+   correct: CCTTAGCCTCTTTTAATAATGCCGGGATACAGCGCGAGAACGTGTCCTTTGACACAACACCCATTTGCAGGAATACATAGACAGAGCATAGGAAGCCAGA
+The accuracy for this sequence is: 96.0%
+
+
+Basecalling signal 145 out of 200
+The alignment for signal 145 is:
+basecalled: CCC-TTAA-CCTTATGGG-AAGAGATGCCAACGACGTGATCGGG-TCCTAGAGTCATT-CCACGCACTTGCCGCTAACGCAGTTGGACATTCACG--
+            |||-||||-|||||||||-|||||||||||||||||||||||||-|||||||||||||-||||||||||||||||||||||||||||||||||||--
+   correct: CCCCTTAAACCTTATGGGGAAGAGATGCCAACGACGTGATCGGGGTCCTAGAGTCATTTCCACGCACTTGCCGCTAACGCAGTTGGACATTCACGGG
+The accuracy for this sequence is: 92.78350515463917%
+
+
+Basecalling signal 146 out of 200
+The alignment for signal 146 is:
+basecalled: TGACAATCTACGACTGTACATTCGTACGCAGACCGGAA-GGAACAGACTGTGGTGG-CATTACCTTTT-AGTTAACTGATACATTAGGTTCCGAGCTCC-GG
+            ||||||||||||||||||||||||||||||||||||||-|||||||||||||||||-|||||||||||-||||||||||||||||||||||||||||||-||
+   correct: TGACAATCTACGACTGTACATTCGTACGCAGACCGGAAAGGAACAGACTGTGGTGGGCATTACCTTTTTAGTTAACTGATACATTAGGTTCCGAGCTCCCGG
+The accuracy for this sequence is: 96.07843137254902%
+
+
+Basecalling signal 147 out of 200
+The alignment for signal 147 is:
+basecalled: GATGGGTAGGACGGGAA-TGCCGGTCATTGATGCTGTATTATAA-GTCTAGATGATTCCCGGGTTT-AGGCTAAGGCC-TTAGTGCTGGG-CAGCT--
+            |||||||||||||||||-||||||||||||||||||||||||||-|||||||||||||||||||||-|||||||||||-|||||||||||-|||||--
+   correct: GATGGGTAGGACGGGAAATGCCGGTCATTGATGCTGTATTATAAAGTCTAGATGATTCCCGGGTTTTAGGCTAAGGCCCTTAGTGCTGGGGCAGCTTT
+The accuracy for this sequence is: 92.85714285714286%
+
+
+Basecalling signal 148 out of 200
+The alignment for signal 148 is:
+basecalled: TATTGAA-TATCTTCACTGTAATACCTGGCCGAGAAGAATATGCTGTAAGTAAGCTTCGGCGATTCTCAGGACAA-TATAGTAACCGGCACACTTGGCGACA
+            |||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||
+   correct: TATTGAAATATCTTCACTGTAATACCTGGCCGAGAAGAATATGCTGTAAGTAAGCTTCGGCGATTCTCAGGACAAATATAGTAACCGGCACACTTGGCGACA
+The accuracy for this sequence is: 98.0392156862745%
+
+
+Basecalling signal 149 out of 200
+The alignment for signal 149 is:
+basecalled: ATAAGACTCATCTGTCAT-TTGGCTGGTTACGCCAAGGTCCAACTAAGTCGTATGGCTAGATACGGGCCATAAAGAAATCTGTAGATACGTCATT-ATGG-
+            ||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||-
+   correct: ATAAGACTCATCTGTCATATTGGCTGGTTACGCCAAGGTCCAACTAAGTCGTATGGCTAGATACGGGCCATAAAGAAATCTGTAGATACGTCATTTATGGG
+The accuracy for this sequence is: 97.02970297029702%
+
+
+Basecalling signal 150 out of 200
+The alignment for signal 150 is:
+basecalled: GGGAGCTATCACCAGGTCGTCTGTCGCTAGCCAATATTAATTTGTAGTAATATTGGATGGCGTATCGACAA-CTGATTTGTCGCTACGCTGGCAAGATCT
+            |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||
+   correct: GGGAGCTATCACCAGGTCGTCTGTCGCTAGCCAATATTAATTTGTAGTAATATTGGATGGCGTATCGACAAACTGATTTGTCGCTACGCTGGCAAGATCT
+The accuracy for this sequence is: 99.0%
+
+
+Basecalling signal 151 out of 200
+The alignment for signal 151 is:
+basecalled: GGGG--ACGATGCTTACCATAACCACTACCAGTTCATACAGTA-ATGACGAGCGACAGAGCGCAGCGCGGCGAAGCCTGTTGG-CCTCAAGCCTGTTGAGA
+            ||||--|||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||-|||||||||||||||||
+   correct: GGGGGGACGATGCTTACCATAACCACTACCAGTTCATACAGTAGATGACGAGCGACAGAGCGCAGCGCGGCGAAGCCTGTTGGGCCTCAAGCCTGTTGAGA
+The accuracy for this sequence is: 96.03960396039604%
+
+
+Basecalling signal 152 out of 200
+The alignment for signal 152 is:
+basecalled: ACTGAA-GTCGAACACCGCCGCAGAACAACAATCGTAGAGAGATAGCTTAGG-CCATGGACGACTTATGCCAGG-CATAACAAGTGTCGACAA-TATGA
+            ||||||-|||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||-||||||||||||||||||-|||||
+   correct: ACTGAAAGTCGAACACCGCCGCAGAACAACAATCGTAGAGAGATAGCTTAGGGCCATGGACGACTTATGCCAGGTCATAACAAGTGTCGACAAATATGA
+The accuracy for this sequence is: 95.95959595959596%
+
+
+Basecalling signal 153 out of 200
+The alignment for signal 153 is:
+basecalled: CTGG-TGGTATCTTAA-TGCGGAAACAACAAGATTTCGCGCCGACTTACGCTATCTAAGACCC-TACGTGGAACGCTCCTCAGAAGCTTCCGACCCGTCC-G-
+            ||||-|||||||||||-||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||-|-
+   correct: CTGGGTGGTATCTTAAATGCGGAAACAACAAGATTTCGCGCCGACTTACGCTATCTAAGACCCCTACGTGGAACGCTCCTCAGAAGCTTCCGACCCGTCCCGG
+The accuracy for this sequence is: 95.14563106796116%
+
+
+Basecalling signal 154 out of 200
+The alignment for signal 154 is:
+basecalled: AGGTTTCGCTCGTGACGTCGCAA-TTGATCAA-TACGG--CAGAATTGGTACGACGCTTCCGGTCAAGGCGTACCGGAACTAACTATTATTCGATATT-CGCTTT
+            |||||||||||||||||||||||-||||||||-|||||--||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||
+   correct: AGGTTTCGCTCGTGACGTCGCAAATTGATCAAATACGGGGCAGAATTGGTACGACGCTTCCGGTCAAGGCGTACCGGAACTAACTATTATTCGATATTTCGCTTT
+The accuracy for this sequence is: 95.23809523809523%
+
+
+Basecalling signal 155 out of 200
+The alignment for signal 155 is:
+basecalled: GTTCGCGCTGAGATGGATGCGCTAAGCTTT--AATCGCATGGACAGAA-CTGAGG-CCACTTGATGTTCTGTCTGATTT-GCGCTGG-CACTAGTCAGGA
+            ||||||||||||||||||||||||||||||--||||||||||||||||-||||||-|||||||||||||||||||||||-|||||||-||||||||||||
+   correct: GTTCGCGCTGAGATGGATGCGCTAAGCTTTTTAATCGCATGGACAGAAACTGAGGGCCACTTGATGTTCTGTCTGATTTTGCGCTGGGCACTAGTCAGGA
+The accuracy for this sequence is: 94.0%
+
+
+Basecalling signal 156 out of 200
+The alignment for signal 156 is:
+basecalled: ACAAGG-CCC-AACCGCTGTCAGTGACTTAGGTACATT-CAACGTCTAGCTACACCATCCCC--AGCCACGGG-TCATGATCCGTTATAACGACCGACCGCTCA-
+            ||||||-|||-|||||||||||||||||||||||||||-|||||||||||||||||||||||--|||||||||-||||||||||||||||||||||||||||||-
+   correct: ACAAGGGCCCCAACCGCTGTCAGTGACTTAGGTACATTTCAACGTCTAGCTACACCATCCCCCCAGCCACGGGGTCATGATCCGTTATAACGACCGACCGCTCAT
+The accuracy for this sequence is: 93.33333333333333%
+
+
+Basecalling signal 157 out of 200
+The alignment for signal 157 is:
+basecalled: TACTCTGCGAA-CTAGACCAAGCCC-AGCAAGTGGAA-GGACGCGAAGATGCTCTGACTTGTGTCGTTGCAGCAACTCTCTAAGTCGAGTATTCAGGAT-
+            |||||||||||-|||||||||||||-|||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-
+   correct: TACTCTGCGAAACTAGACCAAGCCCCAGCAAGTGGAAAGGACGCGAAGATGCTCTGACTTGTGTCGTTGCAGCAACTCTCTAAGTCGAGTATTCAGGATT
+The accuracy for this sequence is: 96.0%
+
+
+Basecalling signal 158 out of 200
+The alignment for signal 158 is:
+basecalled: GAACCGCCATCGTATGCAA-CC-TT-CAGTAAGATTCCTTCACGTACC-AGATGTAGCTAGAGCTCCACTTGCATCCTCAATAACGGCTAGCCACACGTCTTC
+            |||||||||||||||||||-||-||-||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: GAACCGCCATCGTATGCAAACCCTTTCAGTAAGATTCCTTCACGTACCCAGATGTAGCTAGAGCTCCACTTGCATCCTCAATAACGGCTAGCCACACGTCTTC
+The accuracy for this sequence is: 96.11650485436894%
+
+
+Basecalling signal 159 out of 200
+The alignment for signal 159 is:
+basecalled: GCGGCGGTGCATTCAGAATGGAGAGCATCAGAGCCGTGCGTGAA-CTAATGGCATTAGGATCCGGTCTCAATCCC-TATTCGG-CGG-TCAGAGCGACTTAAT
+            ||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||-|||||||-|||-|||||||||||||||
+   correct: GCGGCGGTGCATTCAGAATGGAGAGCATCAGAGCCGTGCGTGAAACTAATGGCATTAGGATCCGGTCTCAATCCCCTATTCGGGCGGGTCAGAGCGACTTAAT
+The accuracy for this sequence is: 96.11650485436894%
+
+
+Basecalling signal 160 out of 200
+The alignment for signal 160 is:
+basecalled: TAA-TACCGCACGCAACGACGTCGGATCAATTGTT-CTCATGG-ATCAAA-GAACTTGATATTGAAGGATACCTCGCACGGATGGAATCGGACTGATT-CTGCG
+            |||-|||||||||||||||||||||||||||||||-|||||||-||||||-|||||||||||||||||||||||||||||||||||||||||||||||-|||||
+   correct: TAAATACCGCACGCAACGACGTCGGATCAATTGTTTCTCATGGGATCAAAAGAACTTGATATTGAAGGATACCTCGCACGGATGGAATCGGACTGATTTCTGCG
+The accuracy for this sequence is: 95.1923076923077%
+
+
+Basecalling signal 161 out of 200
+The alignment for signal 161 is:
+basecalled: GAGCTACAGCTTCGCAGATATTGTAACGAGGTTGAACTT-GCTGAATGTGAAACTTCGGCCGCTCGCTCTTT-AGTCGTCACATCGGCCAAA-GGAGA--
+            |||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||-|||||||||||||||||||-|||||--
+   correct: GAGCTACAGCTTCGCAGATATTGTAACGAGGTTGAACTTTGCTGAATGTGAAACTTCGGCCGCTCGCTCTTTTAGTCGTCACATCGGCCAAAAGGAGAAA
+The accuracy for this sequence is: 95.0%
+
+
+Basecalling signal 162 out of 200
+The alignment for signal 162 is:
+basecalled: AGG-CTAGCGCCTGTCAAGCTGATGATTGATGGTGACCACAGGAGCGTGGCTGTCTCAGGTTATCGGG-ATCGCGGATAGAATGTCCAGTTGAGACGAGACT
+            |||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||
+   correct: AGGGCTAGCGCCTGTCAAGCTGATGATTGATGGTGACCACAGGAGCGTGGCTGTCTCAGGTTATCGGGGATCGCGGATAGAATGTCCAGTTGAGACGAGACT
+The accuracy for this sequence is: 98.0392156862745%
+
+
+Basecalling signal 163 out of 200
+The alignment for signal 163 is:
+basecalled: TAGACTGATCCC--GCCGGATCTTCCACATCAC-TGGCGCTACTCGATAGGTTTCGG-TCCGTGATGTAA-CGCCGCACTGTATGAGCC-ATGAGGCGAGTAT
+            ||||||||||||--|||||||||||||||||||-|||||||||||||||||||||||-||||||||||||-||||||||||||||||||-|||||||||||||
+   correct: TAGACTGATCCCCCGCCGGATCTTCCACATCACGTGGCGCTACTCGATAGGTTTCGGGTCCGTGATGTAAACGCCGCACTGTATGAGCCCATGAGGCGAGTAT
+The accuracy for this sequence is: 94.1747572815534%
+
+
+Basecalling signal 164 out of 200
+The alignment for signal 164 is:
+basecalled: CACC-T-AG-CAGTTGGG--TCC-GAGTTAGTGGGTTGTAACCTAATCCTAGATATATTTACACGTAGAAA-GCTCTACCATCTCGTGTCC-AGG-AGTGGGA
+            ||||-|-||-||||||||--|||-|||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||-|||-|||||||
+   correct: CACCCTTAGGCAGTTGGGGGTCCCGAGTTAGTGGGTTGTAACCTAATCCTAGATATATTTACACGTAGAAAAGCTCTACCATCTCGTGTCCCAGGGAGTGGGA
+The accuracy for this sequence is: 91.2621359223301%
+
+
+Basecalling signal 165 out of 200
+The alignment for signal 165 is:
+basecalled: TCCAAA---CC-TGG-TTATCCAGGG-AATGAAACGCCGAACAGGTCGACATATTCAGATCTTCGGCGTGTCAGCGCGACACCATGACTGACTACAGGTCT
+            ||||||---||-|||-||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: TCCAAAAAACCCTGGGTTATCCAGGGGAATGAAACGCCGAACAGGTCGACATATTCAGATCTTCGGCGTGTCAGCGCGACACCATGACTGACTACAGGTCT
+The accuracy for this sequence is: 94.05940594059405%
+
+
+Basecalling signal 166 out of 200
+The alignment for signal 166 is:
+basecalled: GGG-TATGGCAG-TTAA-TAGAGAACGCCAACTTCATTCGCGTT-GGCCATATTATCTATGACATT-CCTAGACACGGTTCGTCGG-TAAGG-TCTTAGGC
+            |||-||||||||-||||-||||||||||||||||||||||||||-|||||||||||||||||||||-|||||||||||||||||||-|||||-||||||||
+   correct: GGGGTATGGCAGATTAAATAGAGAACGCCAACTTCATTCGCGTTTGGCCATATTATCTATGACATTTCCTAGACACGGTTCGTCGGGTAAGGGTCTTAGGC
+The accuracy for this sequence is: 93.06930693069306%
+
+
+Basecalling signal 167 out of 200
+The alignment for signal 167 is:
+basecalled: ATGCTGCCGGTTGAGTGGCGGACATTAACAGCCTACCCCAGGTTAA-GACAGAGTGTT-GATCTCGTGTGGTAACCTCGTTGCCAGGTTCGGATTCGG-C
+            ||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||-|||||||||||||||||||||||||||||||||||||||-|
+   correct: ATGCTGCCGGTTGAGTGGCGGACATTAACAGCCTACCCCAGGTTAAAGACAGAGTGTTTGATCTCGTGTGGTAACCTCGTTGCCAGGTTCGGATTCGGAC
+The accuracy for this sequence is: 97.0%
+
+
+Basecalling signal 168 out of 200
+The alignment for signal 168 is:
+basecalled: TGTACGCATTTAAACCGTATGGTCATGCTGTAGGCTCTCACAGTCACGACTAAACCTGCGGGATCACGCCATTATTAGCGTTATT-ACTCGAGGTCCTTA
+            |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||
+   correct: TGTACGCATTTAAACCGTATGGTCATGCTGTAGGCTCTCACAGTCACGACTAAACCTGCGGGATCACGCCATTATTAGCGTTATTTACTCGAGGTCCTTA
+The accuracy for this sequence is: 99.0%
+
+
+Basecalling signal 169 out of 200
+The alignment for signal 169 is:
+basecalled: AGTCGCGG-TCCACACTT-GACACTTT-CGAAGGTATTGCACCTACCGGATACACAGCATCGTGGTTGCCGAGCTCTCCACTGGACATGGCCATTGTCCTG
+            ||||||||-|||||||||-||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: AGTCGCGGGTCCACACTTTGACACTTTTCGAAGGTATTGCACCTACCGGATACACAGCATCGTGGTTGCCGAGCTCTCCACTGGACATGGCCATTGTCCTG
+The accuracy for this sequence is: 97.02970297029702%
+
+
+Basecalling signal 170 out of 200
+The alignment for signal 170 is:
+basecalled: GTGTTCCGG-ATGTGAACGGCGGCGTCTCCTCTCCAGGCTAA-GACATGCCTTTCTAGTTACCTGAGACAATCTTATCAGAACACTCCGTGGCTCTCCACGA
+            |||||||||-||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: GTGTTCCGGGATGTGAACGGCGGCGTCTCCTCTCCAGGCTAAAGACATGCCTTTCTAGTTACCTGAGACAATCTTATCAGAACACTCCGTGGCTCTCCACGA
+The accuracy for this sequence is: 98.0392156862745%
+
+
+Basecalling signal 171 out of 200
+The alignment for signal 171 is:
+basecalled: GGCGGTTGTTGCATCGCGCC-GATAAGTCTTAGTCCTCGTGTCAGTGCTTACGTGGACTCATCGATCGTTACACGAAGCAGCTCAACAGCGTAACTGCTT
+            ||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: GGCGGTTGTTGCATCGCGCCCGATAAGTCTTAGTCCTCGTGTCAGTGCTTACGTGGACTCATCGATCGTTACACGAAGCAGCTCAACAGCGTAACTGCTT
+The accuracy for this sequence is: 99.0%
+
+
+Basecalling signal 172 out of 200
+The alignment for signal 172 is:
+basecalled: CTGTGTAAGGTTCAAA-GA-GTCACTCATGTTTT-GTCCGGCGGG--TTAAACTACCTCAAACCGACAACAGGG-AAAGTGG-CATTCGTTT-CTGG-CCGGTTAC
+            ||||||||||||||||-||-||||||||||||||-||||||||||--|||||||||||||||||||||||||||-|||||||-|||||||||-||||-||||||||
+   correct: CTGTGTAAGGTTCAAAAGAAGTCACTCATGTTTTTGTCCGGCGGGGGTTAAACTACCTCAAACCGACAACAGGGGAAAGTGGGCATTCGTTTTCTGGGCCGGTTAC
+The accuracy for this sequence is: 91.50943396226415%
+
+
+Basecalling signal 173 out of 200
+The alignment for signal 173 is:
+basecalled: GCATGCCATGTAGCGCCGCCGG-CCC-GACATTAGATGCGACGACAACTGCCTTGAACATTCGTATGTAGCCTTCTCAGTTGTTTGATATTGTAGCTTGC
+            ||||||||||||||||||||||-|||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: GCATGCCATGTAGCGCCGCCGGGCCCCGACATTAGATGCGACGACAACTGCCTTGAACATTCGTATGTAGCCTTCTCAGTTGTTTGATATTGTAGCTTGC
+The accuracy for this sequence is: 98.0%
+
+
+Basecalling signal 174 out of 200
+The alignment for signal 174 is:
+basecalled: TACATTT-CGGCTCTATAATTAGAAAA--GGATGGCAATT-AAA-CAGCACAGGCAATCATGCTGTCTTATACTATTAA-CATGGTCAT-AGAACAGTCGCTG-
+            |||||||-|||||||||||||||||||--|||||||||||-|||-||||||||||||||||||||||||||||||||||-|||||||||-|||||||||||||-
+   correct: TACATTTTCGGCTCTATAATTAGAAAAAAGGATGGCAATTTAAAACAGCACAGGCAATCATGCTGTCTTATACTATTAAACATGGTCATCAGAACAGTCGCTGG
+The accuracy for this sequence is: 92.3076923076923%
+
+
+Basecalling signal 175 out of 200
+The alignment for signal 175 is:
+basecalled: ATTCGTAGCTCTGGACCG-CTTATGCTACGTACTATGGCC-TACGCACAGCCGGTCCGCGAGTAACTCGTCGGAGCGTAAGTTCAGCGACCGGCCGGCGCCA
+            ||||||||||||||||||-|||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: ATTCGTAGCTCTGGACCGGCTTATGCTACGTACTATGGCCCTACGCACAGCCGGTCCGCGAGTAACTCGTCGGAGCGTAAGTTCAGCGACCGGCCGGCGCCA
+The accuracy for this sequence is: 98.0392156862745%
+
+
+Basecalling signal 176 out of 200
+The alignment for signal 176 is:
+basecalled: ACTCCACGTCACTGTAAGCTCCTCATTTT-AGGG-CCGTGACTACTTATCTCGAACAAGTGACTCATATTCAACTCCTGCGTTATTTGCCACCGTCT
+            |||||||||||||||||||||||||||||-||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: ACTCCACGTCACTGTAAGCTCCTCATTTTTAGGGGCCGTGACTACTTATCTCGAACAAGTGACTCATATTCAACTCCTGCGTTATTTGCCACCGTCT
+The accuracy for this sequence is: 97.9381443298969%
+
+
+Basecalling signal 177 out of 200
+The alignment for signal 177 is:
+basecalled: GGTTGTTACATATCCATGCTCAATGTGCGAAATCCG-TGATCGCCCTTCGCAGATGTATGCGAAGCATGCGGG-AACCTGGCGATGTT-CAACCT
+            ||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||-||||||||||||||-||||||
+   correct: GGTTGTTACATATCCATGCTCAATGTGCGAAATCCGGTGATCGCCCTTCGCAGATGTATGCGAAGCATGCGGGGAACCTGGCGATGTTTCAACCT
+The accuracy for this sequence is: 96.84210526315789%
+
+
+Basecalling signal 178 out of 200
+The alignment for signal 178 is:
+basecalled: GCC-TCATTCCTGCGAATTCACTACCGTACTGGCGGTCGAAGCC-GTGAAGACCATATATTGGCCCAA-TAGAAA-TAATCCCCATCGAGGG-TAGG-AGACCA
+            |||-||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||-||||||-||||||||||||||||-||||-||||||
+   correct: GCCCTCATTCCTGCGAATTCACTACCGTACTGGCGGTCGAAGCCCGTGAAGACCATATATTGGCCCAAATAGAAAATAATCCCCATCGAGGGGTAGGGAGACCA
+The accuracy for this sequence is: 94.23076923076923%
+
+
+Basecalling signal 179 out of 200
+The alignment for signal 179 is:
+basecalled: GACAAGCCATGTCGCTCTGTCCTCGACGTTAAA-CATCGCGTACTGGGTACTGATGTTT-ACCGACACTCAAGG-CTTCC-GGCTAATATTT-AGCGACTCTAAGGGC
+            |||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||-||||||||||||||-|||||-|||||||||||-|||||||||||||||
+   correct: GACAAGCCATGTCGCTCTGTCCTCGACGTTAAAACATCGCGTACTGGGTACTGATGTTTTACCGACACTCAAGGGCTTCCCGGCTAATATTTTAGCGACTCTAAGGGC
+The accuracy for this sequence is: 95.37037037037037%
+
+
+Basecalling signal 180 out of 200
+The alignment for signal 180 is:
+basecalled: TAGTAAGAAGCAGACGGCCTAGGATTCTATCGTGG-ACGTGTTGACTGAAGTGCATCCTGTATTT-GCATGCGCGATAATTCCCGTGAGCGCATATCC
+            |||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||
+   correct: TAGTAAGAAGCAGACGGCCTAGGATTCTATCGTGGGACGTGTTGACTGAAGTGCATCCTGTATTTTGCATGCGCGATAATTCCCGTGAGCGCATATCC
+The accuracy for this sequence is: 97.95918367346938%
+
+
+Basecalling signal 181 out of 200
+The alignment for signal 181 is:
+basecalled: CTCACGG-TCGCGTGCCGCCTGGAGACGAAA-CCAACC-TTAACACAGTGAACGGAGAGTACTGAAGCATACGAAA-CTGGTACTAAGAA-CACCAGCG-
+            |||||||-|||||||||||||||||||||||-||||||-|||||||||||||||||||||||||||||||||||||-|||||||||||||-||||||||-
+   correct: CTCACGGGTCGCGTGCCGCCTGGAGACGAAAACCAACCCTTAACACAGTGAACGGAGAGTACTGAAGCATACGAAAACTGGTACTAAGAAACACCAGCGG
+The accuracy for this sequence is: 94.0%
+
+
+Basecalling signal 182 out of 200
+The alignment for signal 182 is:
+basecalled: GGAATTATTGAACGG-GCCGGTTCCACGAACC-TGTGTACC-GGTTTGTTAGGCC-ATCTGACACACGCTCAGAGTTCCGGAGGTGTGGAGTGCTGAACCGGGATAC
+            |||||||||||||||-||||||||||||||||-||||||||-|||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: GGAATTATTGAACGGTGCCGGTTCCACGAACCCTGTGTACCCGGTTTGTTAGGCCCATCTGACACACGCTCAGAGTTCCGGAGGTGTGGAGTGCTGAACCGGGATAC
+The accuracy for this sequence is: 96.26168224299066%
+
+
+Basecalling signal 183 out of 200
+The alignment for signal 183 is:
+basecalled: TTCTCAGGCTACATTGCGAGCTATACCGAAGCGCCC-GTATT-ATCAAGTATCGCTAGCACACAA-GTCGCAGCCGCC-GCATGGTTAAGGCAATT-AA
+            ||||||||||||||||||||||||||||||||||||-|||||-||||||||||||||||||||||-||||||||||||-|||||||||||||||||-||
+   correct: TTCTCAGGCTACATTGCGAGCTATACCGAAGCGCCCCGTATTTATCAAGTATCGCTAGCACACAAAGTCGCAGCCGCCCGCATGGTTAAGGCAATTTAA
+The accuracy for this sequence is: 94.94949494949495%
+
+
+Basecalling signal 184 out of 200
+The alignment for signal 184 is:
+basecalled: CCTATATGTCCATGTAGCATCGAAA-CGCGTGTGCGCAAGCTACTGTCTGCTCAACCTATCAAGGATGCACCAGATTCGCGGAAGGCCCC-AGACGACC-GC
+            |||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||-||
+   correct: CCTATATGTCCATGTAGCATCGAAAACGCGTGTGCGCAAGCTACTGTCTGCTCAACCTATCAAGGATGCACCAGATTCGCGGAAGGCCCCCAGACGACCCGC
+The accuracy for this sequence is: 97.05882352941177%
+
+
+Basecalling signal 185 out of 200
+The alignment for signal 185 is:
+basecalled: ATGGG-CCAGTTGAGTAATCTACGAGCACAGTAGTAGGAAGTCGATGAACGGCGTTGTCTGACGAGAGAATGGAGCTATTCTTAGATTAGCTCCAT
+            |||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: ATGGGGCCAGTTGAGTAATCTACGAGCACAGTAGTAGGAAGTCGATGAACGGCGTTGTCTGACGAGAGAATGGAGCTATTCTTAGATTAGCTCCAT
+The accuracy for this sequence is: 98.95833333333334%
+
+
+Basecalling signal 186 out of 200
+The alignment for signal 186 is:
+basecalled: TT-CAATTGGAGTGAAACATTAGATTCGCCTATCTCGCAGCAAGCGACGCGCATTGTAACGCTGGCCGCC-GAGATGGATAAGTT-GGACCGTGCGTT-AAGAGAC
+            ||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||-||||||||||||-|||||||
+   correct: TTTCAATTGGAGTGAAACATTAGATTCGCCTATCTCGCAGCAAGCGACGCGCATTGTAACGCTGGCCGCCCGAGATGGATAAGTTTGGACCGTGCGTTTAAGAGAC
+The accuracy for this sequence is: 96.22641509433963%
+
+
+Basecalling signal 187 out of 200
+The alignment for signal 187 is:
+basecalled: AGCAA-TCGACACGTCACTTGCGCCGAAGTTAGCCTGG-TCGGTTGAGAACCAGATCAATACC-TTT-GGGACATCACATAA-GAAGACATCC--T
+            |||||-||||||||||||||||||||||||||||||||-||||||||||||||||||||||||-|||-||||||||||||||-||||||||||--|
+   correct: AGCAAATCGACACGTCACTTGCGCCGAAGTTAGCCTGGGTCGGTTGAGAACCAGATCAATACCCTTTTGGGACATCACATAAAGAAGACATCCCCT
+The accuracy for this sequence is: 92.70833333333334%
+
+
+Basecalling signal 188 out of 200
+The alignment for signal 188 is:
+basecalled: GAGCTGATTGCTCACACGGGATGACGCGCTGGACGCCGGCGATTCCCGTATCCGATATCGTCAGTTT-AGG-AGTGGAGTTCGCTGTCGAATCGCGATC
+            |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||-|||||||||||||||||||||||||||
+   correct: GAGCTGATTGCTCACACGGGATGACGCGCTGGACGCCGGCGATTCCCGTATCCGATATCGTCAGTTTTAGGGAGTGGAGTTCGCTGTCGAATCGCGATC
+The accuracy for this sequence is: 97.97979797979798%
+
+
+Basecalling signal 189 out of 200
+The alignment for signal 189 is:
+basecalled: GAGTGTGTTT----GGACGGTCCGCTCTTCGCCC-TCGGATACGTGTGTGTATTCCTCACGTGTCCTAGGTTGTCCTAGTATACCGGACATACGAAGGACAAG
+            ||||||||||----||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: GAGTGTGTTTTTTTGGACGGTCCGCTCTTCGCCCCTCGGATACGTGTGTGTATTCCTCACGTGTCCTAGGTTGTCCTAGTATACCGGACATACGAAGGACAAG
+The accuracy for this sequence is: 95.14563106796116%
+
+
+Basecalling signal 190 out of 200
+The alignment for signal 190 is:
+basecalled: GATCATCATGCAAGCATGACTTGATATAATTCTGGACTTATGTGCTGACACGCGTACCTCAGAATGATACATGGCC-GACTCAACACGTT-GCC-GCTGAG
+            |||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||-|||-||||||
+   correct: GATCATCATGCAAGCATGACT-GATATAATTCTGGACTTATGTGCTGACACGCGTACCTCAGAATGATACATGGCCCGACTCAACACGTTTGCCCGCTGAG
+The accuracy for this sequence is: 96.0%
+
+
+Basecalling signal 191 out of 200
+The alignment for signal 191 is:
+basecalled: AACTTCAGGATAGGAGCCAAACACACCCGAACATCCTTCTCAGCATGGCCTT-CTCTCAATCAATTGGTTGAATCTACACTAAGTTCCAGGTTATG
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||
+   correct: AACTTCAGGATAGGAGCCAAACACACCCGAACATCCTTCTCAGCATGGCCTTTCTCTCAATCAATTGGTTGAATCTACACTAAGTTCCAGGTTATG
+The accuracy for this sequence is: 98.95833333333334%
+
+
+Basecalling signal 192 out of 200
+The alignment for signal 192 is:
+basecalled: TCTGAGTGAACGTCTCAATAGTTCGACTCAAGGGAAATTT-GCCACTGTATAATAATGTACC-GCCAGATGGCTGCGGACCGCGCACC-ATCGAGACCAT
+            ||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||-|||||||||||||||||||||||||-|||||||||||
+   correct: TCTGAGTGAACGTCTCAATAGTTCGACTCAAGGGAAATTTTGCCACTGTATAATAATGTACCCGCCAGATGGCTGCGGACCGCGCACCCATCGAGACCAT
+The accuracy for this sequence is: 97.0%
+
+
+Basecalling signal 193 out of 200
+The alignment for signal 193 is:
+basecalled: GTGTCGCTTATGACGGTGCCTTCCAGGAGATGTGCTCAACTATTGTAACGGTTCTCTGTAA-TGCGATCTAGAGGTAA-CAGCCATGG-CGTTACCTAACGT
+            |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||-|||||||||-|||||||||||||
+   correct: GTGTCGCTTATGACGGTGCCTTCCAGGAGATGTGCTCAACTATTGTAACGGTTCTCTGTAAATGCGATCTAGAGGTAAACAGCCATGGGCGTTACCTAACGT
+The accuracy for this sequence is: 97.05882352941177%
+
+
+Basecalling signal 194 out of 200
+The alignment for signal 194 is:
+basecalled: CC-GTAAATCACCATCTGCAGAATCTCGAGGCAGAAGGCATTCTGGGTGCCCGAAGCTAAGGTTATTCATAGCTATTGATACCGACGACACTGCGGCC-G
+            ||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|
+   correct: CCCGTAAATCACCATCTGCAGAATCTCGAGGCAGAAGGCATTCTGGGTGCCCGAAGCTAAGGTTATTCATAGCTATTGATACCGACGACACTGCGGCCCG
+The accuracy for this sequence is: 98.0%
+
+
+Basecalling signal 195 out of 200
+The alignment for signal 195 is:
+basecalled: AGCGATCGTTTGCTTCC-GAGCC-TAATAAGCGATTATGTCTCTCAGACGCATACCGCGTGCCTTT-GCATGATAGTGTACAACC-GGCAGGTCAAT
+            |||||||||||||||||-|||||-||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||-|||||||||||
+   correct: AGCGATCGTTTGCTTCCCGAGCCCTAATAAGCGATTATGTCTCTCAGACGCATACCGCGTGCCTTTTGCATGATAGTGTACAACCCGGCAGGTCAAT
+The accuracy for this sequence is: 95.87628865979381%
+
+
+Basecalling signal 196 out of 200
+The alignment for signal 196 is:
+basecalled: AGGGTGGAGAATAACGAATGAA-GCCGTCGATTGTT-CCTGAGGTTTAGCCAGCATATACGCTATGTACATT-CCATGGAAGATTGGTATTTCTTT--C
+            ||||||||||||||||||||||-|||||||||||||-|||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||--|
+   correct: AGGGTGGAGAATAACGAATGAAAGCCGTCGATTGTTTCCTGAGGTTTAGCCAGCATATACGCTATGTACATTTCCATGGAAGATTGGTATTTCTTTTTC
+The accuracy for this sequence is: 94.94949494949495%
+
+
+Basecalling signal 197 out of 200
+The alignment for signal 197 is:
+basecalled: TCCAGACACGAACTGAAGGACTGGAGCTTCGAACTTGCGTCGGTCGAGATGTATGCTATTTAATCAGGCACACGACTATTAGATGAGTCCGCAATCGT
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: TCCAGACACGAACTGAAGGACTGGAGCTTCGAACTTGCGTCGGTCGAGATGTATGCTATTTAATCAGGCACACGACTATTAGATGAGTCCGCAATCGT
+The accuracy for this sequence is: 100.0%
+
+
+Basecalling signal 198 out of 200
+The alignment for signal 198 is:
+basecalled: GTTGATCTCCTATACGTGG-CTCGG-ATTGAACTAGACTACCTCGGTTACCC-TCCCAATAATGTATACAATAACC-TCTCGTCTTCACGACCAAGAGCT
+            |||||||||||||||||||-|||||-||||||||||||||||||||||||||-|||||||||||||||||||||||-|||||||||||||||||||||||
+   correct: GTTGATCTCCTATACGTGGGCTCGGGATTGAACTAGACTACCTCGGTTACCCCTCCCAATAATGTATACAATAACCCTCTCGTCTTCACGACCAAGAGCT
+The accuracy for this sequence is: 96.0%
+
+
+Basecalling signal 199 out of 200
+The alignment for signal 199 is:
+basecalled: CGTCGTGGCAGAAACTTTCTT-CGCTGAGATACACTACGGTAACTTCTCTAA-TCCATCTAA-G-CCTATATTCACCTAAGGTCCACATGCTAAATGGG-
+            |||||||||||||||||||||-||||||||||||||||||||||||||||||-|||||||||-|-||||||||||||||||||||||||||||||||||-
+   correct: CGTCGTGGCAGAAACTTTCTTTCGCTGAGATACACTACGGTAACTTCTCTAAATCCATCTAAAGGCCTATATTCACCTAAGGTCCACATGCTAAATGGGG
+The accuracy for this sequence is: 95.0%
+
+
+Basecalling signal 200 out of 200
+The alignment for signal 200 is:
+basecalled: GATT-GTTT-AACTTGCACACC-GGTGGTCCTAACTTATCACGGTTCCTGTCACGGTAAAGCTTCTACTGCGACCAGCTCGATATCCGCGACTTAGCTGT
+            ||||-||||-||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: GATTTGTTTTAACTTGCACACCCGGTGGTCCTAACTTATCACGGTTCCTGTCACGGTAAAGCTTCTACTGCGACCAGCTCGATATCCGCGACTTAGCTGT
+The accuracy for this sequence is: 97.0%
+
+
+Finished basecalling 200 signals
+The average accuracy of the basecaller is: 95.98872015787889%</code></pre>
+  <p class="blog-post_paragraph">
+    So based on the 200 raw signals, the accuacy of this basecaller is 95.9%.
+    And now that I have an easy method to basecall and measure the accuracy at
+    all signals, I can quickly tweak some of the parameters to see if I can
+    improve it any further.
+  </p>
+  <p class="blog-post_paragraph">For example:</p>
+  <pre
+    class="line-numbers"
+  > <code class="language-python">basecall_all(signals, kmer_table, sequencing, movement_cutoff = 0.03, homopolymer_cutoff = 17, detailed=False)</code></pre>
+  <pre
+    class="output"
+  ><code class="language-output">Finished basecalling 200 signals
+The average accuracy of the basecaller is: 96.63414334298976%</code></pre>
+  <p class="blog-post_paragraph">
+    I found that changing the homopolymer cutoff to be 17 timepoints provided
+    the most result in finding homopolymers in the signal, and I was able to
+    improve the basecaller accuracy to 96.6%
+  </p>
+  <p class="blog-post_paragraph">
+    The last thing to do is just to simply format everything into a command line
+    executable, and then this basecaller is complete.
+  </p>
+  <pre
+    class="line-numbers"
+  > <code class="language-python"># Import the required modules
+import numpy as np
+import json
+import edlib
+import argparse
+import sys
+
+# Take in all the arguments and set up the help text
+parser = argparse.ArgumentParser(description='Nanopore signal basecaller')
+parser.add_argument("-s", "--signals", help = "File with nanopore signals")
+parser.add_argument("-k", "--kmers", help = "File with k-mer signatures")
+parser.add_argument("-c", "--correct", help = "File with the correct sequences")
+parser.add_argument("-q", "--quiet", action = "store_false", help = "Hide the alignments from the output")
+
+args = parser.parse_args()
+
+# Extract the command line arguments
+try:
+  signals_file = args.signals
+  kmer_table_file = args.kmers
+  sequences_file = args.correct
+  detailed_bool = args.quiet
+except:
+  # Exit if the arguments are not provided
+  print("Please provide all arguments")
+  sys.exit(1)
+  
+# Load the data from the files
+with open(signals_file) as f:
+  signals = json.load(f)
+
+with open(kmer_table_file) as f2:
+  kmer_table = json.load(f2)
+
+with open(sequences_file) as f3:
+  sequences = json.load(f3)
+
+# Define the Signal class
+class Signal:
+
+  def __init__(self, signal_index):
+    self.signal_index = signal_index
+    self.signal = np.row_stack(signals[signal_index]) 
+    self.correct_seq = sequences[signal_index]
+
+  def __str__(self) -> str:
+    nl = "\n" 
+    return f"Signals array: {nl}{self.signal} {nl} {nl}Correct sequence: {nl}{self.correct_seq}"
+
+  def __repr__(self) -> str:
+    nl = "\n"
+    return f"Signal index: {nl}{self.signal_index} {nl} {nl}Signals array (numpy array): {self.signal.__repr__()} {nl} {nl}Correct sequence: {nl}{self.correct_seq} "
+
+
+def smooth_data(signal):
+  # Subtract the first element from the second, the second from the third, and so on. Get the absolute value of the result
+  smoothed_signal = np.abs(np.array(signal.signal[0:len(signal.signal) - 1]) - np.array(signal.signal[1:len(signal.signal)]))
+
+  # Return the smoothed signal
+  return smoothed_signal
+
+
+def get_movement_timepoints(signal, cutoff):
+  # Checks each timepoint and assigns it boolean value if value is greater than the cutoff 
+  timepoints_bool = signal.smoothed_signal > cutoff
+
+  # Grab the indicies of the timepoints where the value was greater than the cutoff
+  dna_movement_timepoints = np.array([i for i, x in enumerate(timepoints_bool) if x])
+
+  # Insert a timepoint 0 at the beginning of the array to represent the inital DNA that was present
+  dna_movement_timepoints = np.insert(dna_movement_timepoints, 0, 0)
+
+  # Output the timepoints
+  return dna_movement_timepoints
+
+
+def get_capture_timepoints(signal, cutoff):
+  # Reinitialize the list to store the timepoints where the DNA was captured
+  dna_capture_timepoints = list()
+
+  # Loop through each timepoint and calculate the mean of the signal values between each timepoint
+  for i in range(0,len(signal.movement_timepoints)-1):
+    
+    """Modify the miniminum and maximum values to make the capture range a bit shorter
+    Add a little less buffer to the very start to capture more of the initial capture event""" 
+    minimum_buffer = 2
+    maximum_buffer = 0
+    minimum = signal.movement_timepoints[i] + 1 if i == 0 else signal.movement_timepoints[i] + minimum_buffer
+    maximum = signal.movement_timepoints[(i+1)] - maximum_buffer
+    
+    # Append the range of timepoints to the list of capture timepoints
+    dna_capture_timepoints.append(list(range(minimum,maximum)))
+    
+  # Return the list of timepoints
+  return dna_capture_timepoints
+
+
+def adjust_capture_timepoints(capture_timepoints, homopolymer_cutoff):
+  # Make a copy of the capture timepoints to not modify the original argument
+  capture_ranges = capture_timepoints.copy()
+
+  # Loop through each capture range
+  for i, capture_range in enumerate(capture_ranges):
+  
+    # If the capture range is long enough to be a suspected homopolymer
+    if len(capture_range) >= homopolymer_cutoff:
+      # Split the capture range in half
+      split_point = int(len(capture_range) / 2)
+      capture_ranges[i] = capture_range[:split_point]
+
+      # Add the second half of the capture range to the next index in the list
+      # If this range is also a suspected homopolymer, it will be split in the next iteration
+      capture_ranges.insert(i+1, capture_range[split_point:])
+    
+  # Remove any empty lists that may have been created by the splitting
+  capture_ranges = [x for x in capture_ranges if x != []]
+  
+  # Return the updated capture ranges
+  return capture_ranges
+
+
+def get_mean(signal, capture_ranges):    
+  # Get the minimum and maximum timepoints for the capture range 
+  minimum = capture_ranges[0]
+  maximum = capture_ranges[-1]
+  
+  # If the minimum and maximum are different, take the mean of the signal between those timepoints
+  if minimum != maximum:
+    signal_means = np.mean(signal.signal[minimum:maximum])
+    
+  # If the minimum and maximum are the same, the mean is just the signal at that timepoint
+  elif minimum == maximum:
+    signal_means = signal.signal[minimum]
+    
+  # Return the mean signal value
+  return signal_means
+
+
+def get_capture_means (signal, capture_ranges):
+  # Initialize a list to store the mean signal values
+  dna_capture_means = list()
+
+  # Loop through each capture range and calculate the mean of the signal values between each timepoint
+  for i in capture_ranges:
+    dna_capture_means.append(get_mean(signal, i))
+  
+  # Return the list of mean signal values
+  return dna_capture_means
+
+
+def euclidian_distance(x,y):
+  dist = np.sqrt(np.square((x - y)))
+  return dist
+
+
+def basecall(signal, capture_ranges, kmer_table):
+  # Get the mean signal value for the capture range
+  capture_mean = get_mean(signal, capture_ranges)
+  
+  # Initialize an empty list to store the euclidian distances between the capture mean and each dinucleotide signature
+  euc_distances = list()
+  
+  # Loop through each dinucleotide signature and calculate the euclidian distance between the capture mean and the signature
+  for dinuc, signature in kmer_table.items():
+    euc_distances.append((dinuc, euclidian_distance(capture_mean, signature)))
+    
+  # Get the minimum euclidian distance
+  min_dist = np.min([x[1] for x in euc_distances])
+  
+  # Make a basecall
+  dinuccall = [x[0] for x in euc_distances if x[1] == min_dist][0]
+  
+  # Return the basecall
+  return dinuccall
+
+
+def basecall_signal(signal, capture_ranges, kmer_table):
+  # Initialize a list to store the basecalls
+  basecalls = []
+
+  # Loop through each capture range and basecall each capture range
+  for cap_range in capture_ranges:
+    basecalls.append(basecall(signal, cap_range, kmer_table))
+  
+  # Return the list of basecalls
+  return basecalls
+
+
+def collapse_seq(basecalls: "list") -> "str":
+  """Collapse a list of basecalls into a single string"""
+  
+  # Initialize an empty string to store the final sequence
+  final_seq = ""
+  
+  # Loop through each dinucleotide in the list of basecalls
+  for i, v in enumerate(basecalls):
+
+    # If it's the first basecall, add both bases to the final sequence
+    if i == 0:
+      final_seq += v
+      continue
+
+    # Otherwise, add the second base to the final sequence
+    final_seq += v[-1]
+
+  # Return the final sequence
+  return final_seq
+
+
+def align(basecalled_seq: "str", correct_seq: "str") -> "dict":
+  """Align two sequences using edlib"""
+  
+  # Perform the alignment
+  align_result = edlib.align(basecalled_seq, correct_seq, task='path')
+  
+  # Format the alignment result
+  nice_alignment = edlib.getNiceAlignment(align_result, basecalled_seq, correct_seq)
+  
+  # Return the alignment result
+  # print(align_result)
+  return align_result, nice_alignment
+
+
+def measure_accuracy (alignment: "dict", correct_seq: "str") -> "float":
+  acc = (1 - alignment['editDistance'] / len(correct_seq)) * 100  
+  return acc
+
+
+# Putting it all together
+def basecall_all(
+  signals: "list", 
+  kmer_signatures: "dict", 
+  correct_seqs: "list", 
+  movement_cutoff: "float" = 0.03, 
+  homopolymer_cutoff: "int" = 20,
+  detailed: "bool" = True) -> "list":
+  
+  # Initialize a list to store the accuracies of each signal
+  accuracies = []
+  
+  # Loop through each signal in the list of signals
+  for i, v in enumerate(signals):
+    
+    # Instantiate a new signal object
+    current_signal = Signal(i)
+    
+    # Smooth the signal
+    smoothed_signal = smooth_data(current_signal)
+
+    # Set the smoothed signal as an attribute of the signal object
+    setattr(current_signal, "smoothed_signal", smoothed_signal)
+    
+    # Get the timepoints where the DNA moves through the pore
+    dna_movement_timepoints = get_movement_timepoints(current_signal, movement_cutoff)
+    
+    # Set the DNA capture timepoints as an attribute of the signal object
+    setattr(current_signal, "movement_timepoints", dna_movement_timepoints)
+    
+    # Get the timepoints where the DNA is captured in the pore
+    dna_capture_timepoints = get_capture_timepoints(current_signal, movement_cutoff)
+
+    # Adjust the DNA movement timepoints to account for homopolymers
+    dna_capture_timepoints = adjust_capture_timepoints(dna_capture_timepoints, homopolymer_cutoff)
+    
+    # Set the DNA capture timepoints as an attribute of the signal object
+    setattr(current_signal, "capture_timepoints", dna_capture_timepoints)
+    
+    # Basecall the signal
+    basecalls_list = basecall_signal(current_signal, current_signal.capture_timepoints, kmer_signatures)
+    
+    # Collapse the basecalls into a single sequence
+    final_sequence = collapse_seq(basecalls_list)
+    
+    # Set the basecalled sequence as an attribute of the signal object
+    setattr(current_signal, "basecalled_seq", final_sequence)
+    
+    # Align the basecalled sequence to the correct sequence
+    alignment, nice_alignment = align(current_signal.basecalled_seq, current_signal.correct_seq)
+    
+    # Calculate the accuracy of the basecaller
+    accuracy = measure_accuracy(alignment, current_signal.correct_seq)
+    accuracies.append(accuracy)
+    
+    # Print out the alignment
+    if detailed:
+      print(f"Basecalling signal {i+1} out of {len(signals)}")
+      print(f"The alignment for signal {i + 1} is:")
+      print("basecalled: " + nice_alignment['query_aligned'])
+      print("            " + nice_alignment['matched_aligned'])
+      print("   correct: " + nice_alignment['target_aligned'])
+      print(f"The accuracy for this sequence is: {accuracy}%")
+      print("\n")
+      
+  # Determine the average accuracy of the basecaller
+  basecaller_accuracy = sum(accuracies) / len(accuracies) if len(accuracies) > 0 else 0
+  print(f"Finished basecalling {len(signals)} signals")
+  print(f"The average accuracy of the basecaller is: {basecaller_accuracy}%")
+  
+
+# Main function entry point
+if __name__ == "__main__":
+  basecall_all(signals, kmer_table, sequences, movement_cutoff = 0.03, homopolymer_cutoff = 17, detailed=detailed_bool)</code></pre>
+  <p class="blog-post_paragraph">
+    Now this can be run from the command line as:
+  </p>
+  <pre
+    class="command-line"
+    data-user=""
+    data-host=""
+    style="padding-top: 2.2em"
+  > <code class="language-commandline">python3 basecaller.py -s signals.json -k kmer_table.json -c sequences.json -q</code></pre>
+  <pre
+    class="output"
+  ><code class="language-output">Finished basecalling 200 signals
+The average accuracy of the basecaller is: 96.63414334298976%</code></pre>
+  <p class="blog-post_paragraph">
+    So to summarize I was able to build a nanopore sequencing basecaller that
+    was 96.6% accurate on average. Obviously in the real world this basecaller
+    wouldn't be good enough to be used for any purpose. Most basecallers
+    nowadays are built on sophisticated deep learning models. However this
+    excercise does provide a good way to gain intuition into what is going on at
+    the molecular level and helps you think more critically about the results of
+    your sequencing methods. Doing this excerise has provided me with a
+    comprehensive understanding of nanopore sequencing at the molecular level,
+    and a much better understanding of what the machine learning models are
+    looking at when they're trying to improve the basecalling accuracy. Nanopore
+    sequencing has the potential to revolutionize various fields of science and
+    have a profound impact on the future in many ways, and I hope to see the day
+    where basecalling accuracy is no longer an issue.
+  </p>
 </div>
