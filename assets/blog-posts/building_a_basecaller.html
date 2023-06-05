@@ -25,7 +25,7 @@
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/basecaller_blog_post/nanopore_sequencing.gif"
+      src="assets/img/blog_posts/basecaller_blog_post/nanopore_sequencing.gif"
       alt="Nanopore Sequencing"
     />
   </div>
@@ -52,7 +52,7 @@
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/basecaller_blog_post/nanopore_basecalling.gif"
+      src="assets/img/blog_posts/basecaller_blog_post/nanopore_basecalling.gif"
       alt="DNA Basecaller"
     />
   </div>
@@ -345,15 +345,15 @@ CCTTACCAGTTTCATAATAAATAAGGTTCCCACATGCTACCTGTCCGGGCGACCGTAGGGCGAATACCGCGCTGCACGTG
   <pre class="line-numbers"><code class="language-python"># Plot the signal
 plt.plot(signal_1.signal);
 # Add the axis labels
-plt.xlabel('Time point');
-plt.ylabel('Signal');</code></pre>
+plt.xlabel('Time ($\it{µ}$s)');
+plt.ylabel('Current (nA)');</code></pre>
   <pre
     class="output-img no-code"
   ><code class="language-output">&nbsp;</code></pre>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/basecaller_blog_post/nanopore_signal.png"
+      src="assets/img/blog_posts/basecaller_blog_post/nanopore_signal.png"
       alt="signal_graph_with_dinucleotide_labels"
     />
   </div>
@@ -372,16 +372,17 @@ plt.ylabel('Signal');</code></pre>
   ><code class="language-python"># Plot the data from the first 100 timepoints 
 plot_range = 100
 plt.plot(signal_1.signal[0:100]);
-plt.xlabel('Time point');
-plt.ylabel('Signal');</code></pre>
+# Add the axis labels
+plt.xlabel('Time ($\it{µ}$s)');
+plt.ylabel('Current (nA)');</code></pre>
   <pre
     class="output-img no-code"
   ><code class="language-output">&nbsp;</code></pre>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/basecaller_blog_post/nanopore_signal_zoomed.png"
-      alt="signal_graph_with_dinucleotide_labels"
+      src="assets/img/blog_posts/basecaller_blog_post/nanopore_signal_zoomed.png"
+      alt="signal graph zoomed to the first 100 time points"
     />
   </div>
   <p class="blog-post_paragraph">
@@ -528,15 +529,15 @@ signal_1.smoothed_signal</code></pre>
 plt.plot(signal_1.signal[0:plot_range]);
 plt.plot(signal_1.smoothed_signal[0:plot_range]);
 # Add the axis labels
-plt.xlabel('Time point');
-plt.ylabel('Signal');</code></pre>
+plt.xlabel('Time ($\it{µ}$s)');
+plt.ylabel('Current (nA)');</code></pre>
   <pre
     class="output-img no-code"
   ><code class="language-output">&nbsp;</code></pre>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/basecaller_blog_post/nanopore_signal_and_smoothed_signal.png"
+      src="assets/img/blog_posts/basecaller_blog_post/nanopore_signal_and_smoothed_signal.png"
       alt="signal_graph_with_smooth_signal_overlayed"
     />
   </div>
@@ -558,7 +559,7 @@ plt.hist(signal_1.smoothed_signal, bins = 100, range=[0,0.1]);</code></pre>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/basecaller_blog_post/histogram.png"
+      src="assets/img/blog_posts/basecaller_blog_post/histogram.png"
       alt="histogram of smooth signal"
     />
   </div>
@@ -595,7 +596,7 @@ plt.text(0.069, 60, 'Any signal change in this area \nrepresents a change in \nb
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/basecaller_blog_post/histogram_w_cutoff.png"
+      src="assets/img/blog_posts/basecaller_blog_post/histogram_w_cutoff.png"
       alt="histogram of smooth signal with cutoff line"
     />
   </div>
@@ -610,8 +611,8 @@ plt.text(0.069, 60, 'Any signal change in this area \nrepresents a change in \nb
 plt.plot(signal_1.signal[0:plot_range]);
 plt.plot(signal_1.smoothed_signal[0:plot_range]);
 # Add the axis labels
-plt.xlabel('Time point');
-plt.ylabel('Signal');
+plt.xlabel('Time ($\it{µ}$s)');
+plt.ylabel('Current (nA)');
 # Add the cutoff line
 plt.axhline(y = cutoff, color = 'red');
 # Limit the y-axis to just below 1
@@ -626,7 +627,7 @@ plt.text(82, 0.2, f'Signal deltas \n(orange lines) \nin this area \n (exceeding 
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/basecaller_blog_post/nanopore_signal_w_cutoff.png"
+      src="assets/img/blog_posts/basecaller_blog_post/nanopore_signal_w_cutoff.png"
       alt="signal graph with cutoff line"
     />
   </div>
@@ -672,8 +673,8 @@ plt.plot(signal_1.signal[0:100]);
 # Limit the x-axis to the first 100 timepoints
 plt.xlim(right=100)
 # Add axis labels
-plt.xlabel('Time point');
-plt.ylabel('Signal');
+plt.xlabel('Time ($\it{µ}$s)');
+plt.ylabel('Current (nA)');
 
 # Highlight the locations where DNA movement was detected
 for i in dna_movement_timepoints:
@@ -685,7 +686,7 @@ for i in dna_movement_timepoints:
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/basecaller_blog_post/signals_highlighted_thresholds_only.png"
+      src="assets/img/blog_posts/basecaller_blog_post/signals_highlighted_thresholds_only.png"
       alt="signal graph with threshold regions highlighted"
     />
   </div>
@@ -751,27 +752,32 @@ print(f"The DNA was captured at the following timepoints: {dna_capture_timepoint
   </p>
   <pre
     class="line-numbers"
-  ><code class="language-python">plt.plot(signal_1.signal[0:100]);
-# Limit the x-axis to the first 100 timepoints
-plt.xlim(right=100)
-# Add axis labels
-plt.xlabel('Time point');
-plt.ylabel('Signal');
+  ><code class="language-python">def plot_capture_ranges(capture_timepoints):
+  # Plot the signal 
+  plt.plot(signal_1.signal[0:100]);
+  # Limit the x-axis to the first 100 timepoints
+  plt.xlim(right=100)
+  # Add axis labels
+  plt.xlabel('Time ($\it{µ}$s)');
+  plt.ylabel('Current (nA)');
 
-for i,v in enumerate(dna_capture_timepoints):
   # Highlight ranges where the DNA was captured
-  plt.axvspan(xmin=v[0], xmax=v[-1], color='green', alpha=0.1);
-  
-  # Highlight the locations where DNA movement was detected
-  if i > 0 and i in dna_movement_timepoints :
-    plt.axvspan(xmin=i, xmax=i+1, color='red', alpha=0.3);</code></pre>
+  for i,v in enumerate(capture_timepoints):
+    plt.axvspan(xmin=v[0], xmax=v[-1], color='green', alpha=0.1);
+    
+    # Highlight the locations where DNA movement was detected
+    if i > 0 and i in dna_movement_timepoints :
+      plt.axvspan(xmin=i, xmax=i+1, color='red', alpha=0.3);
+
+# Plot the capture ranges
+plot_capture_ranges(dna_capture_timepoints)</code></pre>
   <pre
     class="output-img no-code"
   ><code class="language-output">&nbsp;</code></pre>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/basecaller_blog_post/signals_highlighted_w_overlaps.png"
+      src="assets/img/blog_posts/basecaller_blog_post/signals_highlighted_w_overlaps.png"
       alt="signal graph with capture regions highlighted but with overlapping capture regions and threshold regions"
     />
   </div>
@@ -831,12 +837,16 @@ print(f"The DNA was captured at the following timepoints: {dna_capture_timepoint
     class="output"
   ><code class="language-output">The DNA was captured at the following timepoints: [[1, 2, 3, 4], [7, 8, 9, 10, 11], [14, 15, 16, 17, 18, 19, 20], [23, 24, 25, 26, 27, 28, 29], [32, 33, 34, 35, 36, 37, 38], [41, 42, 43, 44], [47, 48, 49, 50, 51, 52], [55, 56, 57], [60, 61, 62], [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92], [95, 96, 97, 98, 99, 100], [103, 104, 105], [108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120], [123, 124, 125, 126, 127, 128], [131, 132, 133, 134, 135], [138, 139, 140, 141, 142, 143, 144, 145], [148, 149, 150, 151, 152, 153, 154, 155, 156], [159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172], [175, 176, 177, 178, 179, 180, 181, 182, 183, 184], [187, 188, 189, 190, 191, 192, 193, 194, 195, 196], [199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213], [216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228], [231, 232, 233, 234], [237, 238, 239, 240, 241, 242, 243], [246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259], [262, 263, 264, 265, 266, 267, 268, 269, 270, 271], [274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294, 295, 296, 297], [300, 301, 302, 303, 304, 305], [308, 309, 310, 311, 312, 313, 314, 315, 316, 317], [320, 321, 322, 323, 324, 325, 326], [329, 330, 331, 332, 333, 334, 335], [338, 339, 340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350], [353, 354, 355, 356, 357, 358], [361, 362, 363, 364, 365, 366, 367, 368, 369, 370, 371, 372], [375, 376, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387], [390, 391, 392, 393], [396, 397, 398, 399, 400, 401, 402, 403, 404, 405, 406, 407, 408, 409], [412, 413, 414, 415, 416, 417, 418, 419, 420, 421], [424, 425, 426, 427, 428, 429, 430, 431, 432, 433, 434, 435], [438, 439, 440, 441, 442, 443, 444, 445], [448, 449, 450, 451], [454, 455, 456, 457, 458, 459, 460, 461, 462], [465, 466, 467, 468, 469, 470, 471, 472, 473, 474, 475], [478, 479, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 490, 491, 492, 493, 494, 495, 496, 497, 498], [501, 502], [505], [508, 509, 510, 511, 512], [515, 516, 517, 518, 519, 520, 521, 522, 523], [526, 527, 528, 529, 530, 531, 532, 533, 534], [537, 538, 539, 540, 541], [544, 545, 546, 547, 548], [551, 552, 553, 554, 555], [558, 559, 560, 561, 562, 563, 564, 565, 566], [569, 570, 571, 572, 573, 574, 575, 576], [579, 580, 581, 582, 583, 584, 585, 586, 587], [590, 591, 592, 593, 594, 595, 596, 597, 598], [601, 602, 603, 604, 605, 606, 607, 608], [611, 612, 613, 614, 615, 616, 617, 618, 619, 620], [623, 624], [627, 628, 629, 630, 631, 632, 633, 634, 635], [638, 639, 640, 641, 642, 643, 644, 645, 646, 647, 648], [651, 652, 653, 654, 655], [658, 659, 660, 661, 662, 663], [666, 667, 668, 669, 670, 671, 672, 673, 674, 675], [678, 679, 680, 681, 682, 683, 684, 685, 686, 687, 688, 689, 690, 691, 692], [695, 696, 697, 698, 699, 700, 701, 702, 703, 704, 705, 706, 707], [710, 711, 712, 713, 714, 715, 716], [719, 720, 721, 722, 723, 724, 725, 726, 727], [730, 731, 732, 733], [736, 737, 738, 739], [742, 743, 744, 745, 746, 747, 748, 749, 750, 751, 752], [755, 756, 757, 758], [761, 762, 763, 764], [767, 768, 769, 770, 771, 772, 773, 774], [777, 778, 779, 780, 781, 782, 783, 784, 785, 786, 787], [790, 791, 792, 793, 794, 795, 796, 797], [800, 801, 802, 803, 804, 805, 806], [809, 810, 811, 812, 813, 814], [817, 818, 819, 820, 821, 822, 823, 824, 825], [828, 829, 830, 831, 832, 833, 834, 835, 836, 837, 838], [841, 842, 843, 844, 845, 846, 847, 848, 849], [852, 853, 854, 855, 856, 857, 858, 859, 860], [863, 864, 865, 866, 867, 868], [871, 872, 873, 874, 875, 876, 877, 878, 879, 880, 881, 882], [885, 886, 887, 888, 889, 890, 891, 892, 893, 894], [897, 898, 899, 900, 901, 902, 903], [906, 907, 908, 909, 910, 911, 912], [915, 916, 917, 918, 919, 920, 921, 922, 923], [926, 927, 928, 929, 930], [933, 934, 935, 936, 937, 938], [941, 942, 943, 944, 945, 946, 947, 948, 949, 950], [953, 954, 955, 956, 957, 958, 959, 960], [963, 964, 965, 966, 967, 968, 969, 970, 971], [974, 975, 976, 977, 978, 979, 980, 981], [984, 985, 986, 987, 988, 989, 990, 991, 992]]</code></pre>
   <pre
+    class="line-numbers"
+  ><code class="language-python"># Plot this again to visualize the changes
+plot_capture_ranges(dna_capture_timepoints)</code></pre>
+  <pre
     class="output-img no-code"
   ><code class="language-output">&nbsp;</code></pre>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/basecaller_blog_post/signals_highlighted.png"
+      src="assets/img/blog_posts/basecaller_blog_post/signals_highlighted.png"
       alt="signal graph with capture regions highlighted containing no overlaps"
     />
   </div>
@@ -860,7 +870,7 @@ print(f"The DNA was captured at the following timepoints: {dna_capture_timepoint
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/basecaller_blog_post/signal_highlights.gif"
+      src="assets/img/blog_posts/basecaller_blog_post/signal_highlights.gif"
       alt="comparison of full capture ranges and shortened capture ranges"
     />
   </div>
@@ -994,8 +1004,8 @@ def visualize_basecalls(signal, capture_ranges, basecalls):
     axs[plot_num].plot(signal_1.signal[0:100])
     axs[plot_num].set_xlim(right=100)
     axs[plot_num].set_ylim(top=1)
-    axs[plot_num].set_xlabel('Time point')
-    axs[plot_num].set_ylabel('Signal')
+    axs[plot_num].set_xlabel('Time ($\it{µ}$s)')
+    axs[plot_num].set_ylabel('Current (nA)')
     
     # Loop through each capture range and plot the corresponding label
     for i, v in enumerate(dna_capture_timepoints):
@@ -1030,7 +1040,7 @@ visualize_basecalls(signal_1, dna_capture_timepoints, basecalls)</code></pre>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/basecaller_blog_post/signals_with_dinucleotide_labels.png"
+      src="assets/img/blog_posts/basecaller_blog_post/signals_with_dinucleotide_labels.png"
       alt="signal graph with dinucleotide labels"
     />
   </div>
@@ -1191,7 +1201,7 @@ plt.hist(capture_ranges_lengths, bins=25, range=[0,30]);</code></pre>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/basecaller_blog_post/capture_length_histogram.png"
+      src="assets/img/blog_posts/basecaller_blog_post/capture_length_histogram.png"
       alt="histogram of capture range lengths"
     />
   </div>
@@ -1228,7 +1238,7 @@ plt.text(26,
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/basecaller_blog_post/capture_length_histogram_w_cutoff.png"
+      src="assets/img/blog_posts/basecaller_blog_post/capture_length_histogram_w_cutoff.png"
       alt="histogram of capture range lengths with homopolymer cutoff"
     />
   </div>
@@ -1278,7 +1288,7 @@ dna_capture_timepoints = adjust_capture_timepoints(dna_capture_timepoints, homop
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/basecaller_blog_post/signals_with_dinucleotide_labels_homopolymers_fixed.png"
+      src="assets/img/blog_posts/basecaller_blog_post/signals_with_dinucleotide_labels_homopolymers_fixed.png"
       alt="signal graph with dinucleotide labels and homopolymers fixed"
     />
   </div>
