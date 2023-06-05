@@ -1120,6 +1120,10 @@ div > p.blog-post-title {
   position: relative;
 }
 
+.publication h3.publication-item {
+  color: #18d26e;
+}
+
 .publication .publication-item h4 {
   line-height: 18px;
   font-size: 18px;
