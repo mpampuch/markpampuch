@@ -1315,9 +1315,8 @@ print(f"The accuracy of the basecaller is: {accuracy}%")</code></pre>
   <pre
     class="output"
   ><code class="language-output">basecalled: CCTTACCAGTTTCATAATAA-TAAGGTTCCCACATGCTACCTGTCCGGGCGACCGTAGG-CGAATACCGCGCTGCACGTGCCTCGCTACTTGTACACATGT
-    ||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||
-correct: CCTTACCAGTTTCATAATAAATAAGGTTCCCACATGCTACCTGTCCGGGCGACCGTAGGGCGAATACCGCGCTGCACGTGCCTCGCTACTTGTACACATGT
-
+            ||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||
+   correct: CCTTACCAGTTTCATAATAAATAAGGTTCCCACATGCTACCTGTCCGGGCGACCGTAGGGCGAATACCGCGCTGCACGTGCCTCGCTACTTGTACACATGT
 
 The accuracy of the basecaller is: 98.01980198019803%</code></pre>
   <p class="blog-post_paragraph">
@@ -1386,11 +1385,10 @@ def basecall_all(
     # Print out the alignment
     if detailed:
       print(f"Basecalling signal {i+1} out of {len(signals)}")
-      print(f"The alignment for signal {i + 1} is:")
+      print(f"The accuracy for for signal {i + 1} is: {accuracy}%")
       print("basecalled: " + nice_alignment['query_aligned'])
       print("            " + nice_alignment['matched_aligned'])
       print("   correct: " + nice_alignment['target_aligned'])
-      print(f"The accuracy for this sequence is: {accuracy}%")
       print("\n")
       
   # Determine the average accuracy of the basecaller
@@ -1403,1603 +1401,1403 @@ basecall_all(signals, kmer_table, sequencing, movement_cutoff = 0.03, homopolyme
   <pre
     class="output"
   ><code class="language-output">Basecalling signal 1 out of 200
-The alignment for signal 1 is:
+The accuracy for for signal 1 is: 98.01980198019803%
 basecalled: CCTTACCAGTTTCATAATAA-TAAGGTTCCCACATGCTACCTGTCCGGGCGACCGTAGG-CGAATACCGCGCTGCACGTGCCTCGCTACTTGTACACATGT
             ||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||
    correct: CCTTACCAGTTTCATAATAAATAAGGTTCCCACATGCTACCTGTCCGGGCGACCGTAGGGCGAATACCGCGCTGCACGTGCCTCGCTACTTGTACACATGT
-The accuracy for this sequence is: 98.01980198019803%
 
 
 Basecalling signal 2 out of 200
-The alignment for signal 2 is:
+The accuracy for for signal 2 is: 98.0392156862745%
 basecalled: TGACCGTTTGCAGGCATTGCTTGGATCCATATAGCGCACAA-TAGTCGCGAGTATGGTTGGTGATCAAA-GACCTGTAGATGTTATACTGTCAGCCCATATG
             |||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||
    correct: TGACCGTTTGCAGGCATTGCTTGGATCCATATAGCGCACAAATAGTCGCGAGTATGGTTGGTGATCAAAAGACCTGTAGATGTTATACTGTCAGCCCATATG
-The accuracy for this sequence is: 98.0392156862745%
 
 
 Basecalling signal 3 out of 200
-The alignment for signal 3 is:
+The accuracy for for signal 3 is: 97.11538461538461%
 basecalled: AGCGCTCGGCTAAA-CTAGCCTGGCCATCGTTGTCATAA-CCTATCCCGGCGTCCGCTTAGCGTACTGAAGGTGTTCGTAATGTCTCC-TCGGCCAGCGCGTCG
             ||||||||||||||-||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||
    correct: AGCGCTCGGCTAAAACTAGCCTGGCCATCGTTGTCATAAACCTATCCCGGCGTCCGCTTAGCGTACTGAAGGTGTTCGTAATGTCTCCCTCGGCCAGCGCGTCG
-The accuracy for this sequence is: 97.11538461538461%
 
 
 Basecalling signal 4 out of 200
-The alignment for signal 4 is:
+The accuracy for for signal 4 is: 96.11650485436894%
 basecalled: GCCCGTAGAAA--CAGGTTGAGGACAATAGCAGTTACGAATACAATTATCGATCCGGTGGTGAA-GACGTCATCGCACCTCCAACACACC-ATGAGAGAACGG
             |||||||||||--|||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||-||||||||||||
    correct: GCCCGTAGAAAAACAGGTTGAGGACAATAGCAGTTACGAATACAATTATCGATCCGGTGGTGAAAGACGTCATCGCACCTCCAACACACCCATGAGAGAACGG
-The accuracy for this sequence is: 96.11650485436894%
 
 
 Basecalling signal 5 out of 200
-The alignment for signal 5 is:
+The accuracy for for signal 5 is: 96.0%
 basecalled: GACACGAAGACTTCAGGCGTGCAGATGCGAA-CGCGCAGTCGCACC-ATATATACACGATTGCTCT-AGGCCGCATGGTTACCTCCAGTTTCAA-GCATA
             |||||||||||||||||||||||||||||||-||||||||||||||-|||||||||||||||||||-|||||||||||||||||||||||||||-|||||
    correct: GACACGAAGACTTCAGGCGTGCAGATGCGAAACGCGCAGTCGCACCGATATATACACGATTGCTCTCAGGCCGCATGGTTACCTCCAGTTTCAAAGCATA
-The accuracy for this sequence is: 96.0%
 
 
 Basecalling signal 6 out of 200
-The alignment for signal 6 is:
+The accuracy for for signal 6 is: 98.01980198019803%
 basecalled: CAACTATCATGCAGTATTGTCACGCGTTGCCTGCCTTGACTAGCGGCTATTATATGATGATGCGATCGTT-AGGCCAGCTCCCATT-CGATACGCACTAAC
             ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||-||||||||||||||
    correct: CAACTATCATGCAGTATTGTCACGCGTTGCCTGCCTTGACTAGCGGCTATTATATGATGATGCGATCGTTTAGGCCAGCTCCCATTTCGATACGCACTAAC
-The accuracy for this sequence is: 98.01980198019803%
 
 
 Basecalling signal 7 out of 200
-The alignment for signal 7 is:
+The accuracy for for signal 7 is: 96.11650485436894%
 basecalled: AGGCTGGTGAG-GTACTCGTCGCTTCCAATAATAATCGATACAAGCTATCCAGTGTATCCCATGAACCACGTACC-TTCGCGGCCGACAA-TCGTATCCCGA-
             |||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||-|||||||||||-
    correct: AGGCTGGTGAGAGTACTCGTCGCTTCCAATAATAATCGATACAAGCTATCCAGTGTATCCCATGAACCACGTACCCTTCGCGGCCGACAAATCGTATCCCGAC
-The accuracy for this sequence is: 96.11650485436894%
 
 
 Basecalling signal 8 out of 200
-The alignment for signal 8 is:
+The accuracy for for signal 8 is: 92.38095238095238%
 basecalled: GCTGG-CTATTT-CCAGACCACATGAATCGGTT-CTGCGGCTGG-T-TTCAGTTGGCACGTCCTTTGGG--TCC-AGGCACGTGCATCGGCCACAGGCACACGGC
             |||||-||||||-||||||||||||||||||||-||||||||||-|-||||||||||||||||||||||--|||-||||||||||||||||||||||||||||||
    correct: GCTGGGCTATTTTCCAGACCACATGAATCGGTTTCTGCGGCTGGGTCTTCAGTTGGCACGTCCTTTGGGGGTCCCAGGCACGTGCATCGGCCACAGGCACACGGC
-The accuracy for this sequence is: 92.38095238095238%
 
 
 Basecalling signal 9 out of 200
-The alignment for signal 9 is:
+The accuracy for for signal 9 is: 96.07843137254902%
 basecalled: AGTTCTCTCCGATTGGCTGACAGTAACAAGCCGGGTGGACCCGGGAGGTTTT--GTAACTGTTAGCTAGAATGCGCTCAATAGCACC-ACACTT-ATCTTGA
             ||||||||||||||||||||||||||||||||||||||||||||||||||||--|||||||||||||||||||||||||||||||||-||||||-|||||||
    correct: AGTTCTCTCCGATTGGCTGACAGTAACAAGCCGGGTGGACCCGGGAGGTTTTTTGTAACTGTTAGCTAGAATGCGCTCAATAGCACCCACACTTTATCTTGA
-The accuracy for this sequence is: 96.07843137254902%
 
 
 Basecalling signal 10 out of 200
-The alignment for signal 10 is:
+The accuracy for for signal 10 is: 95.28301886792453%
 basecalled: GCGAA-CC-GATACAAA-CAGCATACACGCAGTAGATACTATTGGTCCGGAAAA--TGTCACTCCAGTAATGACTTAGTCCAGTCCAGGTGTGCCTGGGTCTAGAA
             |||||-||-||||||||-||||||||||||||||||||||||||||||||||||--||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: GCGAAACCCGATACAAAACAGCATACACGCAGTAGATACTATTGGTCCGGAAAAAATGTCACTCCAGTAATGACTTAGTCCAGTCCAGGTGTGCCTGGGTCTAGAA
-The accuracy for this sequence is: 95.28301886792453%
 
 
 Basecalling signal 11 out of 200
-The alignment for signal 11 is:
+The accuracy for for signal 11 is: 99.0%
 basecalled: TAGATTAATT-GCTTAAGGAACACTCGGTTGGCGCCTGTAACTTGAACAGGCCTTAGAGCCACCGATATGGATGCTTGTAGTAGCCACACCTGTAAGCTG
             ||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: TAGATTAATTTGCTTAAGGAACACTCGGTTGGCGCCTGTAACTTGAACAGGCCTTAGAGCCACCGATATGGATGCTTGTAGTAGCCACACCTGTAAGCTG
-The accuracy for this sequence is: 99.0%
 
 
 Basecalling signal 12 out of 200
-The alignment for signal 12 is:
+The accuracy for for signal 12 is: 97.02970297029702%
 basecalled: GGCGAGAAGACGGTAATAAGCGAGTGTTCCCACGGGCTT-GG-ATGCTTGTCTCAAGTCTTTCC-GACAGCATTAAGTCTAAGCGCATAAGACCGCTGATC
             |||||||||||||||||||||||||||||||||||||||-||-|||||||||||||||||||||-||||||||||||||||||||||||||||||||||||
    correct: GGCGAGAAGACGGTAATAAGCGAGTGTTCCCACGGGCTTTGGGATGCTTGTCTCAAGTCTTTCCCGACAGCATTAAGTCTAAGCGCATAAGACCGCTGATC
-The accuracy for this sequence is: 97.02970297029702%
 
 
 Basecalling signal 13 out of 200
-The alignment for signal 13 is:
+The accuracy for for signal 13 is: 96.19047619047619%
 basecalled: CTGCATTGCGGCTCGTGATACGTAATGCGTTACGCAA-TACTTCAGTCAGTGTCTAGACGTCCAAGTTT-CTT-AGAGCC-GCCGTGGCCTGGCGGTAATATAAA
             |||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||-|||-||||||-||||||||||||||||||||||||
    correct: CTGCATTGCGGCTCGTGATACGTAATGCGTTACGCAAATACTTCAGTCAGTGTCTAGACGTCCAAGTTTTCTTTAGAGCCCGCCGTGGCCTGGCGGTAATATAAA
-The accuracy for this sequence is: 96.19047619047619%
 
 
 Basecalling signal 14 out of 200
-The alignment for signal 14 is:
+The accuracy for for signal 14 is: 91.83673469387756%
 basecalled: ATGG-TGCCAGCGACCGATGAGAAGACATGAACCGGGG--TCCTT-GGTTACCGAGCTTCAACCACGG-AA-TGCTAATGGG-AGGCAGAGTTACAT-
             ||||-|||||||||||||||||||||||||||||||||--|||||-||||||||||||||||||||||-||-||||||||||-||||||||||||||-
    correct: ATGGGTGCCAGCGACCGATGAGAAGACATGAACCGGGGGGTCCTTTGGTTACCGAGCTTCAACCACGGGAAATGCTAATGGGGAGGCAGAGTTACATC
-The accuracy for this sequence is: 91.83673469387756%
 
 
 Basecalling signal 15 out of 200
-The alignment for signal 15 is:
+The accuracy for for signal 15 is: 97.05882352941177%
 basecalled: AAGCGGCGTAACTCTCTGGGCAGTGGTATTCTACTCGACTACTCCTTAAGCGCC-ATGCTGACAATGTGCGGACGTGGCCACTTATTAA-GATGGCTGG-AG
             ||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||-|||||||||-||
    correct: AAGCGGCGTAACTCTCTGGGCAGTGGTATTCTACTCGACTACTCCTTAAGCGCCCATGCTGACAATGTGCGGACGTGGCCACTTATTAAAGATGGCTGGGAG
-The accuracy for this sequence is: 97.05882352941177%
 
 
 Basecalling signal 16 out of 200
-The alignment for signal 16 is:
+The accuracy for for signal 16 is: 96.11650485436894%
 basecalled: CTGA-TGACGGATAAGGTGCAGAGGACACATGTAGGACTAATAGAAA-GAACTCGGCAA-GTCTCCACCAACGCCTCGGCGCGAATCACTAATAGACC-TTTT
             ||||-||||||||||||||||||||||||||||||||||||||||||-|||||||||||-||||||||||||||||||||||||||||||||||||||-||||
    correct: CTGAATGACGGATAAGGTGCAGAGGACACATGTAGGACTAATAGAAAAGAACTCGGCAAAGTCTCCACCAACGCCTCGGCGCGAATCACTAATAGACCCTTTT
-The accuracy for this sequence is: 96.11650485436894%
 
 
 Basecalling signal 17 out of 200
-The alignment for signal 17 is:
+The accuracy for for signal 17 is: 96.15384615384616%
 basecalled: GGATTGCCACAGGAA-CATCTAACGAGACCTACTGGTTACGTTAG-AGTCATGCGCACC-ATCTTGAGATATGCGAACGTAAGCCGTTACGTCG-CTAGCCGTC
             |||||||||||||||-|||||||||||||||||||||||||||||-|||||||||||||-||||||||||||||||||||||||||||||||||-|||||||||
    correct: GGATTGCCACAGGAAACATCTAACGAGACCTACTGGTTACGTTAGTAGTCATGCGCACCCATCTTGAGATATGCGAACGTAAGCCGTTACGTCGGCTAGCCGTC
-The accuracy for this sequence is: 96.15384615384616%
 
 
 Basecalling signal 18 out of 200
-The alignment for signal 18 is:
+The accuracy for for signal 18 is: 96.0%
 basecalled: TCACCTCC-TGAGGTGTGACTACTAATCTCCCGCCGG-AGTCCACTACTGGTAA-TTATCACAGCTAGCACTGTTTGGCATAGTAAGCACCGTCAATT-C
             ||||||||-||||||||||||||||||||||||||||-||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||-|
    correct: TCACCTCCCTGAGGTGTGACTACTAATCTCCCGCCGGGAGTCCACTACTGGTAAATTATCACAGCTAGCACTGTTTGGCATAGTAAGCACCGTCAATTTC
-The accuracy for this sequence is: 96.0%
 
 
 Basecalling signal 19 out of 200
-The alignment for signal 19 is:
+The accuracy for for signal 19 is: 94.73684210526316%
 basecalled: AACATGTGGC-GCCCACGGTTAGTCCGCGCCACCCAATT-AGAGTCAATAATTATTCCAGGTAAAGAA-CAACACAGCTCTTT-GACTTGGCTCAA
             ||||||||||-||||||||||||||||||||||||||||-||||||||||||||||||||||||-|||-||||||||||||||-||||||||||||
    correct: AACATGTGGCTGCCCACGGTTAGTCCGCGCCACCCAATTTAGAGTCAATAATTATTCCAGGTAA-GAAACAACACAGCTCTTTTGACTTGGCTCAA
-The accuracy for this sequence is: 94.73684210526316%
 
 
 Basecalling signal 20 out of 200
-The alignment for signal 20 is:
+The accuracy for for signal 20 is: 92.78350515463917%
 basecalled: CGTAATAATTATACGAAA-CTTCCC-GTCTGTTCGCAATGAGGG-TATCGTTGG-TACTTCC-TACTCGAACCTCTTATCGGGCCACC-ACGCAGTCC
             ||||||||||||||||||-||||||-||||||||||||||||||-|||||||||-|||||||-|||||||||||||||||||-|||||-|||||||||
    correct: CGTAATAATTATACGAAAACTTCCCCGTCTGTTCGCAATGAGGGGTATCGTTGGGTACTTCCCTACTCGAACCTCTTATCGG-CCACCCACGCAGTCC
-The accuracy for this sequence is: 92.78350515463917%
 
 
 Basecalling signal 21 out of 200
-The alignment for signal 21 is:
+The accuracy for for signal 21 is: 96.93877551020408%
 basecalled: CCAAACCC-GTAAAGAGATCACGAGACACGGCAGGCCGCAGACCTATGTACGGCGGCATT-ATAGCCATAGGACCC-GTAGGAGATAGCACGTTAGCT
             ||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||-|||||||||||||||||||||
    correct: CCAAACCCCGTAAAGAGATCACGAGACACGGCAGGCCGCAGACCTATGTACGGCGGCATTTATAGCCATAGGACCCCGTAGGAGATAGCACGTTAGCT
-The accuracy for this sequence is: 96.93877551020408%
 
 
 Basecalling signal 22 out of 200
-The alignment for signal 22 is:
+The accuracy for for signal 22 is: 96.15384615384616%
 basecalled: CACGATTT-GGCACTGCCGCCGATTAACCTATCTTG-GGTTTACAATGAGTCTAGTTAACGGCTGTTGAATGAACC-GTGTAATCAACATAA-CGGCTGTCTAA
             ||||||||-|||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||-|||||||||||||||-|||||||||||
    correct: CACGATTTTGGCACTGCCGCCGATTAACCTATCTTGCGGTTTACAATGAGTCTAGTTAACGGCTGTTGAATGAACCCGTGTAATCAACATAAACGGCTGTCTAA
-The accuracy for this sequence is: 96.15384615384616%
 
 
 Basecalling signal 23 out of 200
-The alignment for signal 23 is:
+The accuracy for for signal 23 is: 95.28301886792453%
 basecalled: GGCTTTCCGTCGGTCAAGATTT-GCTGTTGAA-GGAT-AGGTCTTGAATCGAACCCTTAGTTGTGAATAACGAATGACTAG-TCCATTGCAATT-CTTGTATTGCT
             ||||||||||||||||||||||-|||||||||-||||-|||||||||||||||||||||||||||||||||||||||||||-||||||||||||-|||||||||||
    correct: GGCTTTCCGTCGGTCAAGATTTTGCTGTTGAAAGGATGAGGTCTTGAATCGAACCCTTAGTTGTGAATAACGAATGACTAGATCCATTGCAATTTCTTGTATTGCT
-The accuracy for this sequence is: 95.28301886792453%
 
 
 Basecalling signal 24 out of 200
-The alignment for signal 24 is:
+The accuracy for for signal 24 is: 93.13725490196079%
 basecalled: TT-ACCTTATCGAATAGTTTATAGAA-TTCGCTCGTTGAGTTCACGGTGGACAGTGTGCGTCC-GG-CGACGCGCTTGGTAATAGTAATCCACCCC-AGA--
             ||-|||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||-||-|||||||||||||||||||||||||||||-|||--
    correct: TTTACCTTATCGAATAGTTTATAGAAATTCGCTCGTTGAGTTCACGGTGGACAGTGTGCGTCCCGGGCGACGCGCTTGGTAATAGTAATCCACCCCCAGAAA
-The accuracy for this sequence is: 93.13725490196079%
 
 
 Basecalling signal 25 out of 200
-The alignment for signal 25 is:
+The accuracy for for signal 25 is: 97.02970297029702%
 basecalled: GGGTGCCAAAGCCTGTTCAAGCCGGGTCGTT-ATATAGGTCCGAGATTGTAGATGAATTATTAAGGTCATT-CGAAGCAGAGTCTAGAGG-AGCAATGCCT
             |||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||-||||||||||||||||||-||||||||||
    correct: GGGTGCCAAAGCCTGTTCAAGCCGGGTCGTTTATATAGGTCCGAGATTGTAGATGAATTATTAAGGTCATTTCGAAGCAGAGTCTAGAGGGAGCAATGCCT
-The accuracy for this sequence is: 97.02970297029702%
 
 
 Basecalling signal 26 out of 200
-The alignment for signal 26 is:
+The accuracy for for signal 26 is: 100.0%
 basecalled: ATAGGCATGGAGTGAGGGACTGAAGTTGGCGAGTCTTCGGAATTAGAGTCACGGTCTCCAAGGATTACGCCGCAGTATTGTGCCGGCTGGTAGCTGTCGAT
             |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: ATAGGCATGGAGTGAGGGACTGAAGTTGGCGAGTCTTCGGAATTAGAGTCACGGTCTCCAAGGATTACGCCGCAGTATTGTGCCGGCTGGTAGCTGTCGAT
-The accuracy for this sequence is: 100.0%
 
 
 Basecalling signal 27 out of 200
-The alignment for signal 27 is:
+The accuracy for for signal 27 is: 94.0%
 basecalled: TTGGG-CGAGATGTAGAACATTCGAAGCC-TG-CAGGTCCGGTTAAGTTAAGGTCGGGTACTCAACCTTT-CAATTGAGAAGG-CC-AGATAGCTCTGAG
             |||||-|||||||||||||||||||||||-||-|||||||||||||||||||||||||||||||||||||-||||||||||||-||-|||||||||||||
    correct: TTGGGGCGAGATGTAGAACATTCGAAGCCCTGGCAGGTCCGGTTAAGTTAAGGTCGGGTACTCAACCTTTTCAATTGAGAAGGGCCCAGATAGCTCTGAG
-The accuracy for this sequence is: 94.0%
 
 
 Basecalling signal 28 out of 200
-The alignment for signal 28 is:
+The accuracy for for signal 28 is: 96.3302752293578%
 basecalled: GTCTGCTTCTGTATGAAGTCCGCTCCGGG-TCGGTCCGAAACC-GCTTCAGCATGTTTGTTT-GCGGCTCATCCAAGTCGG-CCGGCTCGCTTACACTCGCACTGGCCA
             |||||||||||||||||||||||||||||-|||||||||||||-||||||||||||||||||-||||||||||||||||||-|||||||||||||||||||||||||||
    correct: GTCTGCTTCTGTATGAAGTCCGCTCCGGGGTCGGTCCGAAACCCGCTTCAGCATGTTTGTTTTGCGGCTCATCCAAGTCGGGCCGGCTCGCTTACACTCGCACTGGCCA
-The accuracy for this sequence is: 96.3302752293578%
 
 
 Basecalling signal 29 out of 200
-The alignment for signal 29 is:
+The accuracy for for signal 29 is: 96.93877551020408%
 basecalled: GTGCAAGCTGTAGTAGGACGTCGTCATGTGTCTGGAGAAGATGTCTAA-CATCTGAAA-TACGCTGTAGTCGTGGAGAGCC-TTTGCACATTAATAGA
             ||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||-||||||||||||||||||||||-||||||||||||||||
    correct: GTGCAAGCTGTAGTAGGACGTCGTCATGTGTCTGGAGAAGATGTCTAAACATCTGAAAATACGCTGTAGTCGTGGAGAGCCCTTTGCACATTAATAGA
-The accuracy for this sequence is: 96.93877551020408%
 
 
 Basecalling signal 30 out of 200
-The alignment for signal 30 is:
+The accuracy for for signal 30 is: 99.00990099009901%
 basecalled: ATACTCGATAG-CGCGATCACACGTGCACGTGGGTAGTTAACTATATACCCGCGTCGAGGAGTGGTCGCAATATGATACCTCGCTCTCATGTGCGTCTTCT
             |||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: ATACTCGATAGACGCGATCACACGTGCACGTGGGTAGTTAACTATATACCCGCGTCGAGGAGTGGTCGCAATATGATACCTCGCTCTCATGTGCGTCTTCT
-The accuracy for this sequence is: 99.00990099009901%
 
 
 Basecalling signal 31 out of 200
-The alignment for signal 31 is:
+The accuracy for for signal 31 is: 95.0%
 basecalled: TGGG-TGGACACTGG-AATT-GACCATTACCACGATACCATAGTGTCACGGACTGCCTAGCGGCCCAGACCC-AA-GTGTTAAGTGGGCATATGTCGAGC
             ||||-||||||||||-||||-|||||||||||||||||||||||||||||||||||||||||||||||||||-||-||||||||||||||||||||||||
    correct: TGGGGTGGACACTGGGAATTTGACCATTACCACGATACCATAGTGTCACGGACTGCCTAGCGGCCCAGACCCCAAAGTGTTAAGTGGGCATATGTCGAGC
-The accuracy for this sequence is: 95.0%
 
 
 Basecalling signal 32 out of 200
-The alignment for signal 32 is:
+The accuracy for for signal 32 is: 95.14563106796116%
 basecalled: TACTACGAATCCCAACTGTCGAA-TAAGCTGCT--CC-GAGTGCCGATAGCAGCTCATTGTTCCTCATGAGAGGTATTACTCAGTGCTGAACCTATGAAATA-
             |||||||||||||||||||||||-|||||||||--||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-
    correct: TACTACGAATCCCAACTGTCGAAATAAGCTGCTTTCCCGAGTGCCGATAGCAGCTCATTGTTCCTCATGAGAGGTATTACTCAGTGCTGAACCTATGAAATAA
-The accuracy for this sequence is: 95.14563106796116%
 
 
 Basecalling signal 33 out of 200
-The alignment for signal 33 is:
+The accuracy for for signal 33 is: 97.16981132075472%
 basecalled: AAGGTAGAAACTTCGGATAGGCTATT-CTCATTACGGCTTGCACGATGCAGATGCATACGGTCCTGCCAGTACAGCCC-ACCTTGAACTAATGTAATTGCCGCAT-
             ||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||-
    correct: AAGGTAGAAACTTCGGATAGGCTATTTCTCATTACGGCTTGCACGATGCAGATGCATACGGTCCTGCCAGTACAGCCCCACCTTGAACTAATGTAATTGCCGCATA
-The accuracy for this sequence is: 97.16981132075472%
 
 
 Basecalling signal 34 out of 200
-The alignment for signal 34 is:
+The accuracy for for signal 34 is: 99.00990099009901%
 basecalled: GATTCATTCATGCACATAGTGACCACCGGCCTAACCTCGGCACTGATGTGAGGTGTCGCGAGACCAAGTTGATATACC-AGCTCACTACGCTGTCATAGTG
             ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||
    correct: GATTCATTCATGCACATAGTGACCACCGGCCTAACCTCGGCACTGATGTGAGGTGTCGCGAGACCAAGTTGATATACCCAGCTCACTACGCTGTCATAGTG
-The accuracy for this sequence is: 99.00990099009901%
 
 
 Basecalling signal 35 out of 200
-The alignment for signal 35 is:
+The accuracy for for signal 35 is: 89.32038834951457%
 basecalled: GGTTCC-GTTCCTTCGGCATCCTGCTGGCCTCGCGGCC-GTGTCACGTGAGCC-GTAGATTTT----GGCCGTAGAGTTT--CAAA-GTT-CTTCCTTCCACG
             ||||||-|||||||||||||||||||||||||||||||-||||||||||||||-|||||||||----|||||||||||||--||||-|||-||||||||||||
    correct: GGTTCCCGTTCCTTCGGCATCCTGCTGGCCTCGCGGCCCGTGTCACGTGAGCCCGTAGATTTTTTTTGGCCGTAGAGTTTTTCAAAAGTTTCTTCCTTCCACG
-The accuracy for this sequence is: 89.32038834951457%
 
 
 Basecalling signal 36 out of 200
-The alignment for signal 36 is:
+The accuracy for for signal 36 is: 98.95833333333334%
 basecalled: GCAATAAGTTGGAGATGCTCAGCCGATCAGCTT-GCTCGGTGATTGAGTTTACTAGCGAATGCAGAGCATATGGCAATGCCGACTCGTGCGGTTCC
             |||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: GCAATAAGTTGGAGATGCTCAGCCGATCAGCTTTGCTCGGTGATTGAGTTTACTAGCGAATGCAGAGCATATGGCAATGCCGACTCGTGCGGTTCC
-The accuracy for this sequence is: 98.95833333333334%
 
 
 Basecalling signal 37 out of 200
-The alignment for signal 37 is:
+The accuracy for for signal 37 is: 97.02970297029702%
 basecalled: GGCGTGCTCGCGGGCCGAGCTGCTACATAAATG-CGACTCGGTAATCGCAACCATT-CAGTTCCTCTTCGCTGCAGTGGATGGCGTCTTGTCTCTCTCCC-
             |||||||||||||||||||||||||||||||||-||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||-
    correct: GGCGTGCTCGCGGGCCGAGCTGCTACATAAATGACGACTCGGTAATCGCAACCATTTCAGTTCCTCTTCGCTGCAGTGGATGGCGTCTTGTCTCTCTCCCC
-The accuracy for this sequence is: 97.02970297029702%
 
 
 Basecalling signal 38 out of 200
-The alignment for signal 38 is:
+The accuracy for for signal 38 is: 100.0%
 basecalled: ATCAAGCCGAATCGTTGCACATCAACAAGATTCGTGGAGGAGAAGATTGACATCGTGGCGTCGTTCAACCTTAGAGTAGGCTGCGGTCACTGGACCTGAACG
             ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: ATCAAGCCGAATCGTTGCACATCAACAAGATTCGTGGAGGAGAAGATTGACATCGTGGCGTCGTTCAACCTTAGAGTAGGCTGCGGTCACTGGACCTGAACG
-The accuracy for this sequence is: 100.0%
 
 
 Basecalling signal 39 out of 200
-The alignment for signal 39 is:
+The accuracy for for signal 39 is: 94.84536082474226%
 basecalled: ATCAGTCAGGTT-CAAGCTGAAGCCTGTCACCTGGCTGGTAAGGCC-GGCTTT-CTGGTCCAATAAATTAGTCCTCAGAGTGAGG-TGCGCAAA-TG
             ||||||||||||-|||||||||||||||||||||||||||||||||-||||||-|||||||||||||||||||||||||||||||-||||||||-||
    correct: ATCAGTCAGGTTTCAAGCTGAAGCCTGTCACCTGGCTGGTAAGGCCCGGCTTTTCTGGTCCAATAAATTAGTCCTCAGAGTGAGGGTGCGCAAAATG
-The accuracy for this sequence is: 94.84536082474226%
 
 
 Basecalling signal 40 out of 200
-The alignment for signal 40 is:
+The accuracy for for signal 40 is: 97.05882352941177%
 basecalled: TGCATCCTCGGCGACTGAGG-CAACAAGGCACCGCAA-CGAAACGCCAAGCGGCGCTAGCGACTTCTTGATCATCTTGAACTCTGATTGAGAAGCGACCCG-
             ||||||||||||||||||||-||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-
    correct: TGCATCCTCGGCGACTGAGGGCAACAAGGCACCGCAAACGAAACGCCAAGCGGCGCTAGCGACTTCTTGATCATCTTGAACTCTGATTGAGAAGCGACCCGT
-The accuracy for this sequence is: 97.05882352941177%
 
 
 Basecalling signal 41 out of 200
-The alignment for signal 41 is:
+The accuracy for for signal 41 is: 94.05940594059405%
 basecalled: TTCATCAGAATGCCTGTAAGTAGCTACAA-TGTTT-CACGGCCGCGCCAA-GCGGTGCACACTATAA-GCCAAGTTCTCCTCCGACGTATACG-AGATAA-
             |||||||||||||||||||||||||||||-|||||-||||||||||||||-||||||||||||||||-|||||||||||||||||||||||||-||||||-
    correct: TTCATCAGAATGCCTGTAAGTAGCTACAAATGTTTTCACGGCCGCGCCAAAGCGGTGCACACTATAAAGCCAAGTTCTCCTCCGACGTATACGTAGATAAA
-The accuracy for this sequence is: 94.05940594059405%
 
 
 Basecalling signal 42 out of 200
-The alignment for signal 42 is:
+The accuracy for for signal 42 is: 96.875%
 basecalled: ATTCCATT-CAGTGGAACGAATAGATAAGACTTTCGTGGTTGTAAGAGTACCTGAATAGTCTTGTTAAGGGCC-GTAGCTTACTTT-CATTCGTAA
             ||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||-|||||||||
    correct: ATTCCATTTCAGTGGAACGAATAGATAAGACTTTCGTGGTTGTAAGAGTACCTGAATAGTCTTGTTAAGGGCCCGTAGCTTACTTTTCATTCGTAA
-The accuracy for this sequence is: 96.875%
 
 
 Basecalling signal 43 out of 200
-The alignment for signal 43 is:
+The accuracy for for signal 43 is: 95.14563106796116%
 basecalled: ATAATGTTTGTCACTCCTTGTCGGACCC-ATAGTGAACGTTGTCTCGAGCCTT-AATCCTTAAA-GCCGTTCACTATTGTTAGACC-TT-CGGTCAGGATACA
             ||||||||||||||||||||||||||||-||||||||||||||||||||||||-||||||||||-|||||||||||||||||||||-||-|||||||||||||
    correct: ATAATGTTTGTCACTCCTTGTCGGACCCCATAGTGAACGTTGTCTCGAGCCTTTAATCCTTAAAAGCCGTTCACTATTGTTAGACCCTTTCGGTCAGGATACA
-The accuracy for this sequence is: 95.14563106796116%
 
 
 Basecalling signal 44 out of 200
-The alignment for signal 44 is:
+The accuracy for for signal 44 is: 97.05882352941177%
 basecalled: CTATATTACCCGCTGATAGTGATCCTTAGCCTAATTACGGACAGTCGGTGTAACCAAGCTATTCACACCACAA-GACTCGTCCTT-GCACCCGCCGTAGTG-
             |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||-|||||||||||||||-
    correct: CTATATTACCCGCTGATAGTGATCCTTAGCCTAATTACGGACAGTCGGTGTAACCAAGCTATTCACACCACAAAGACTCGTCCTTTGCACCCGCCGTAGTGG
-The accuracy for this sequence is: 97.05882352941177%
 
 
 Basecalling signal 45 out of 200
-The alignment for signal 45 is:
+The accuracy for for signal 45 is: 96.84210526315789%
 basecalled: ACGGCTGTGG-TATGGCCGACGGG-ATCCATTGTTACGACATGGTTAGAAAGGAGTCGCGGACACGAAGATGAGAAGTAATT-ACGCATCCGGTC
             ||||||||||-|||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||
    correct: ACGGCTGTGGGTATGGCCGACGGGGATCCATTGTTACGACATGGTTAGAAAGGAGTCGCGGACACGAAGATGAGAAGTAATTTACGCATCCGGTC
-The accuracy for this sequence is: 96.84210526315789%
 
 
 Basecalling signal 46 out of 200
-The alignment for signal 46 is:
+The accuracy for for signal 46 is: 98.0%
 basecalled: GTTACGTTGGGTCGCAGCGTCACATTACGAATGAACCAATTGTTGGGTGTACTCGTATTT-ATTATCTGGTACATTGATCGTGGAGACCGAGCATTGCCGC
             ||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||
    correct: GTTACGTTGG-TCGCAGCGTCACATTACGAATGAACCAATTGTTGGGTGTACTCGTATTTTATTATCTGGTACATTGATCGTGGAGACCGAGCATTGCCGC
-The accuracy for this sequence is: 98.0%
 
 
 Basecalling signal 47 out of 200
-The alignment for signal 47 is:
+The accuracy for for signal 47 is: 93.20388349514563%
 basecalled: GGCATAGTCAGGAATGCGG-CTCGTTAGATACGTTT-GTCCGGG-AGG-CTGTTACAGTAGTTCTACAGTGCGTT-GATT-GCAGCATCAATGTCGAATTCG-
             |||||||||||||||||||-||||||||||||||||-|||||||-|||-||||||||||||||||||||||||||-||||-|||||||||||||||||||||-
    correct: GGCATAGTCAGGAATGCGGGCTCGTTAGATACGTTTTGTCCGGGGAGGGCTGTTACAGTAGTTCTACAGTGCGTTTGATTTGCAGCATCAATGTCGAATTCGG
-The accuracy for this sequence is: 93.20388349514563%
 
 
 Basecalling signal 48 out of 200
-The alignment for signal 48 is:
+The accuracy for for signal 48 is: 97.9381443298969%
 basecalled: GTCCACAGGTACAGCCAGCGCTGTAATCGGTGATTCGCCCTATTGGCGCCTCTCGCACATCATCCGCTTT-AGGCATGTATAATCCATT-GGTCCAG
             ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||-|||||||
    correct: GTCCACAGGTACAGCCAGCGCTGTAATCGGTGATTCGCCCTATTGGCGCCTCTCGCACATCATCCGCTTTTAGGCATGTATAATCCATTTGGTCCAG
-The accuracy for this sequence is: 97.9381443298969%
 
 
 Basecalling signal 49 out of 200
-The alignment for signal 49 is:
+The accuracy for for signal 49 is: 97.0%
 basecalled: GGTTACGTGCTGTCC-TCTGGTGCTACGAGGACCC-TACCGAGGAATAAGGCAGTATCAACCTATCTAGCTTGTGGTTATTGTT-CAGACGCGGACCTCG
             |||||||||||||||-|||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||
    correct: GGTTACGTGCTGTCCCTCTGGTGCTACGAGGACCCCTACCGAGGAATAAGGCAGTATCAACCTATCTAGCTTGTGGTTATTGTTTCAGACGCGGACCTCG
-The accuracy for this sequence is: 97.0%
 
 
 Basecalling signal 50 out of 200
-The alignment for signal 50 is:
+The accuracy for for signal 50 is: 95.95959595959596%
 basecalled: CAGTCCACACGTTGGTCTTCGACCTTCCTACGCATAGATTACATTATATCTTACGATACCCC-ACTTAAGACGTACC-GTGGGG-TT-GGACTAAGACG
             ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||-||||||-||-|||||||||||
    correct: CAGTCCACACGTTGGTCTTCGACCTTCCTACGCATAGATTACATTATATCTTACGATACCCCCACTTAAGACGTACCCGTGGGGGTTTGGACTAAGACG
-The accuracy for this sequence is: 95.95959595959596%
 
 
 Basecalling signal 51 out of 200
-The alignment for signal 51 is:
+The accuracy for for signal 51 is: 97.0%
 basecalled: ACATACTTCGATAGTGCGAGCAATTAATTCGCCTTAACTACCTCCCGTGAA-GTTT-CATCCGCGGCCATCGACATAGCC-TGACTAGACCATGTTAGAC
             |||||||||||||||||||||||||||||||||||||||||||||||||||-||||-|||||||||||||||||||||||-|||||||||||||||||||
    correct: ACATACTTCGATAGTGCGAGCAATTAATTCGCCTTAACTACCTCCCGTGAAAGTTTTCATCCGCGGCCATCGACATAGCCCTGACTAGACCATGTTAGAC
-The accuracy for this sequence is: 97.0%
 
 
 Basecalling signal 52 out of 200
-The alignment for signal 52 is:
+The accuracy for for signal 52 is: 95.95959595959596%
 basecalled: TGGACCTAAGCTTGTTCGCACCATACACAATTATTGATCTAGATCAGGCTCTAAGGCTAACCAGACCCC--AAA--CTCTGCTAACACGCCGTACTCTG
             |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||--|||--|||||||||||||||||||||||
    correct: TGGACCTAAGCTTGTTCGCACCATACACAATTATTGATCTAGATCAGGCTCTAAGGCTAACCAGACCCCCCAAAAACTCTGCTAACACGCCGTACTCTG
-The accuracy for this sequence is: 95.95959595959596%
 
 
 Basecalling signal 53 out of 200
-The alignment for signal 53 is:
+The accuracy for for signal 53 is: 96.90721649484536%
 basecalled: CATGCATGACGCTGCCGGATGCTCGCGGATGATCTGTCTT-CGATTGTAATGTTGAAA--GGAGGTTAGTGCATATTCCGATTCGACAGGCGCACAT
             ||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||--|||||||||||||||||||||||||||||||||||||
    correct: CATGCATGACGCTGCCGGATGCTCGCGGATGATCTGTCTTTCGATTGTAATGTTGAAAAAGGAGGTTAGTGCATATTCCGATTCGACAGGCGCACAT
-The accuracy for this sequence is: 96.90721649484536%
 
 
 Basecalling signal 54 out of 200
-The alignment for signal 54 is:
+The accuracy for for signal 54 is: 93.93939393939394%
 basecalled: CAA-GATTTAACCGATAGTGCACACAAGCTTGAGGT-GCC-AGG-TTTACGGATAACATCGGCAATCTAATTCATTCGCACCACTGCTT-AGAATGCG-
             |||-||||||||||||||||||||||||||||||||-|||-|||-||||||||||||||||||||||||||||||||||||||||||||-||||||||-
    correct: CAAAGATTTAACCGATAGTGCACACAAGCTTGAGGTCGCCCAGGGTTTACGGATAACATCGGCAATCTAATTCATTCGCACCACTGCTTTAGAATGCGT
-The accuracy for this sequence is: 93.93939393939394%
 
 
 Basecalling signal 55 out of 200
-The alignment for signal 55 is:
+The accuracy for for signal 55 is: 96.96969696969697%
 basecalled: CAACCGCGTCC-TCGAACCATTAGTCTACTATCCTAGCTGATAGATCTCGATTCAGAAGGAACTAACGGCCTATTT-CCTCATCATAGTGTT-ATAGTC
             |||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||-||||||
    correct: CAACCGCGTCCCTCGAACCATTAGTCTACTATCCTAGCTGATAGATCTCGATTCAGAAGGAACTAACGGCCTATTTTCCTCATCATAGTGTTTATAGTC
-The accuracy for this sequence is: 96.96969696969697%
 
 
 Basecalling signal 56 out of 200
-The alignment for signal 56 is:
+The accuracy for for signal 56 is: 97.14285714285714%
 basecalled: AGTAGGAAGG-ACGAGTATACTGTGCACTACTT-GTTGCTGATGGAACGTCGCCACGTGTCAAGTCC-TTAGCGACAAGAGGCATCAACATAACGCTTGGTCCAA
             ||||||||||-||||||||||||||||||||||-|||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||
    correct: AGTAGGAAGGGACGAGTATACTGTGCACTACTTTGTTGCTGATGGAACGTCGCCACGTGTCAAGTCCCTTAGCGACAAGAGGCATCAACATAACGCTTGGTCCAA
-The accuracy for this sequence is: 97.14285714285714%
 
 
 Basecalling signal 57 out of 200
-The alignment for signal 57 is:
+The accuracy for for signal 57 is: 94.84536082474226%
 basecalled: ACGATGTAGATCTGACTTAGGGCGTTT-CC-TACCAACGTACTTCTT-GGCCTAACAAA-CTGG-ATAGTTGAGTACTACTAATCGGTACTACGCTA
             |||||||||||||||||||||||||||-||-||||||||||||||||-|||||||||||-||||-||||||||||||||||||||||||||||||||
    correct: ACGATGTAGATCTGACTTAGGGCGTTTTCCCTACCAACGTACTTCTTTGGCCTAACAAAACTGGGATAGTTGAGTACTACTAATCGGTACTACGCTA
-The accuracy for this sequence is: 94.84536082474226%
 
 
 Basecalling signal 58 out of 200
-The alignment for signal 58 is:
+The accuracy for for signal 58 is: 96.875%
 basecalled: TTAAGGAGTAGACGAGGTCACTGAAGGCGCTGCGGACGTAGCGTGTTCCGAAGGTAGCGCGTAGCTCAGCGG-AGTTCACATTAAATGAAA--GAC
             ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||--|||
    correct: TTAAGGAGTAGACGAGGTCACTGAAGGCGCTGCGGACGTAGCGTGTTCCGAAGGTAGCGCGTAGCTCAGCGGGAGTTCACATTAAATGAAAAAGAC
-The accuracy for this sequence is: 96.875%
 
 
 Basecalling signal 59 out of 200
-The alignment for signal 59 is:
+The accuracy for for signal 59 is: 97.89473684210527%
 basecalled: CGGCGACTGGCCAGAAATGCCCC--TGGCAATGTGGAATAGTTGACCTAGGGGAGTTACACCTCGTGTCCAGTCCTATGGTGGCTCATCCACACA
             |||||||||||||||||||||||--||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: CGGCGACTGGCCAGAAATGCCCCCCTGGCAATGTGGAATAGTTGACCTAGGGGAGTTACACCTCGTGTCCAGTCCTATGGTGGCTCATCCACACA
-The accuracy for this sequence is: 97.89473684210527%
 
 
 Basecalling signal 60 out of 200
-The alignment for signal 60 is:
+The accuracy for for signal 60 is: 94.23076923076923%
 basecalled: AACTGACCTAGTTCTCACTCC-ATTCCTT-AA-GGCAACAGTCAGCTTGCTATTCTTACC-TCTCC-GAAGAATGGAAA-TCCGTGGCGGTTCATAATGCGACT
             |||||||||||||||||||||-|||||||-||-|||||||||||||||||||||||||||-|||||-||||||||||||-||||||||||||||||||||||||
    correct: AACTGACCTAGTTCTCACTCCCATTCCTTTAAAGGCAACAGTCAGCTTGCTATTCTTACCCTCTCCCGAAGAATGGAAAATCCGTGGCGGTTCATAATGCGACT
-The accuracy for this sequence is: 94.23076923076923%
 
 
 Basecalling signal 61 out of 200
-The alignment for signal 61 is:
+The accuracy for for signal 61 is: 94.1747572815534%
 basecalled: CTCGACGTGCTGCTCTACTCCACGCATTAGTCGGG--TCGAGCACCAA-TT-CAACTCAAATGTCGATCTCGTTAATAATTCCCC--TGTGCCGGTTGACGCC
             |||||||||||||||||||||||||||||||||||--|||||||||||-||-|||||||||||||||||||||||||||||||||--||||||||||||||||
    correct: CTCGACGTGCTGCTCTACTCCACGCATTAGTCGGGGGTCGAGCACCAAATTTCAACTCAAATGTCGATCTCGTTAATAATTCCCCCCTGTGCCGGTTGACGCC
-The accuracy for this sequence is: 94.1747572815534%
 
 
 Basecalling signal 62 out of 200
-The alignment for signal 62 is:
+The accuracy for for signal 62 is: 96.11650485436894%
 basecalled: TAGTACCCGCTGATATGTAAGTCAGGTATCTAA-TT-GCTTGTCTTACCGCGCTCGCATCGGAGACCC-ATTAACCTTAGCAGG-CTGACGCGGCTGTATTGG
             |||||||||||||||||||||||||||||||||-||-|||||||||||||||||||||||||||||||-|||||||||||||||-||||||||||||||||||
    correct: TAGTACCCGCTGATATGTAAGTCAGGTATCTAAATTTGCTTGTCTTACCGCGCTCGCATCGGAGACCCCATTAACCTTAGCAGGGCTGACGCGGCTGTATTGG
-The accuracy for this sequence is: 96.11650485436894%
 
 
 Basecalling signal 63 out of 200
-The alignment for signal 63 is:
+The accuracy for for signal 63 is: 95.23809523809523%
 basecalled: GGATT-CGAGCGTTAAATTAGG-CAA-CAGAACCACAACAACGTTGCGTGACTAATGAGGCGACTAGGCATGGAGACGACGTTCCGAGACAACTGGACC-GG-CA
             |||||-||||||||||||||||-|||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||-||
    correct: GGATTTCGAGCGTTAAATTAGGGCAAACAGAACCACAACAACGTTGCGTGACTAATGAGGCGACTAGGCATGGAGACGACGTTCCGAGACAACTGGACCCGGGCA
-The accuracy for this sequence is: 95.23809523809523%
 
 
 Basecalling signal 64 out of 200
-The alignment for signal 64 is:
+The accuracy for for signal 64 is: 95.04950495049505%
 basecalled: GGTCTCAGCAAGCACTCGACTACGGTCCC-TACGTGTGACGAGTCTAGGCCTACAAA--TTT-GTTGC-TCATAGAGCGCCGACTATAGGTTCTCGCCTCA
             |||||||||||||||||||||||||||||-|||||||||||||||||||||||||||--|||-|||||-||||||||||||||||||||||||||||||||
    correct: GGTCTCAGCAAGCACTCGACTACGGTCCCCTACGTGTGACGAGTCTAGGCCTACAAAAATTTTGTTGCCTCATAGAGCGCCGACTATAGGTTCTCGCCTCA
-The accuracy for this sequence is: 95.04950495049505%
 
 
 Basecalling signal 65 out of 200
-The alignment for signal 65 is:
+The accuracy for for signal 65 is: 95.1923076923077%
 basecalled: CTGGTCCGGTAGGTT-AACTAGTTGATATCGG-ACATATAATGCCAGTACGTAATTACCTGACGCC-TTCGTCCAA-TAAGCGAGGATTT-GCGCCAGTGATCG
             |||||||||||||||-||||||||||||||||-|||||||||||||||||||||||||||||||||-|||||||||-|||||||||||||-|||||||||||||
    correct: CTGGTCCGGTAGGTTTAACTAGTTGATATCGGGACATATAATGCCAGTACGTAATTACCTGACGCCCTTCGTCCAAATAAGCGAGGATTTTGCGCCAGTGATCG
-The accuracy for this sequence is: 95.1923076923077%
 
 
 Basecalling signal 66 out of 200
-The alignment for signal 66 is:
+The accuracy for for signal 66 is: 95.95959595959596%
 basecalled: TTACGCCGCC-ACAA-GGATGAGCACAGACGGTACC-ACCTCGTCCTGACTCGGAGAGAAAACACTTCCGTCTGGACTTGG-CGATATACCAGGTTACA
             ||||||||||-||||-||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||
    correct: TTACGCCGCCCACAAAGGATGAGCACAGACGGTACCCACCTCGTCCTGACTCGGAGAGAAAACACTTCCGTCTGGACTTGGGCGATATACCAGGTTACA
-The accuracy for this sequence is: 95.95959595959596%
 
 
 Basecalling signal 67 out of 200
-The alignment for signal 67 is:
+The accuracy for for signal 67 is: 94.79166666666666%
 basecalled: AGGCTTGAA-GAGTGAGTTCAGATCAGCGAATGGAAAGGCAA-CTTTGATT-CTCGAATTTTAATTT-ACAATTTCAGACCATTGATGTAGCAGATG
             |||||||||-|||||||||||||||||||||||-||||||||-||||||||-|||||||||||||||-|||||||||||||||||||||||||||||
    correct: AGGCTTGAAAGAGTGAGTTCAGATCAGCGAATG-AAAGGCAAACTTTGATTTCTCGAATTTTAATTTTACAATTTCAGACCATTGATGTAGCAGATG
-The accuracy for this sequence is: 94.79166666666666%
 
 
 Basecalling signal 68 out of 200
-The alignment for signal 68 is:
+The accuracy for for signal 68 is: 97.97979797979798%
 basecalled: AGAACTCGG-TACCAGCATTCAGCACGTATCAGGTCTTACCTTGAGAAAGAATTT-GACCTAATTGTGCGCAGCCATCGAAGTTGCTCGAGGCAGATGA
             |||||||||-|||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||
    correct: AGAACTCGGGTACCAGCATTCAGCACGTATCAGGTCTTACCTTGAGAAAGAATTTTGACCTAATTGTGCGCAGCCATCGAAGTTGCTCGAGGCAGATGA
-The accuracy for this sequence is: 97.97979797979798%
 
 
 Basecalling signal 69 out of 200
-The alignment for signal 69 is:
+The accuracy for for signal 69 is: 96.03960396039604%
 basecalled: TAACTCATCGGG-AATCAGCCGCAAGATCGAGTGGTGCGATTCAATAGAGGTTT-AGAGG-TGTGCGCC-GTCTGAACACTACTACGGCCTGGCGTGTTCG
             ||||||||||||-|||||||||||||||||||||||||||||||||||||||||-|||||-||||||||-|||||||||||||||||||||||||||||||
    correct: TAACTCATCGGGGAATCAGCCGCAAGATCGAGTGGTGCGATTCAATAGAGGTTTTAGAGGGTGTGCGCCCGTCTGAACACTACTACGGCCTGGCGTGTTCG
-The accuracy for this sequence is: 96.03960396039604%
 
 
 Basecalling signal 70 out of 200
-The alignment for signal 70 is:
+The accuracy for for signal 70 is: 94.33962264150944%
 basecalled: CTTACCTCACGTCTGAATAA-CC-GCGTTCATGCTGAATAAATT-GCAGCCC-GTGATAATAGGAAACCTCTTCGTAGAGGTCAA-GAGGCTCGTTGCGTCCACA-
             ||||||||||||||||||||-||-||||||||||||||||||||-|||||||-||||||||||||||||||||||||||||||||-|||||||||||||||||||-
    correct: CTTACCTCACGTCTGAATAAACCCGCGTTCATGCTGAATAAATTTGCAGCCCCGTGATAATAGGAAACCTCTTCGTAGAGGTCAAAGAGGCTCGTTGCGTCCACAC
-The accuracy for this sequence is: 94.33962264150944%
 
 
 Basecalling signal 71 out of 200
-The alignment for signal 71 is:
+The accuracy for for signal 71 is: 99.01960784313727%
 basecalled: AATGCGGTCTACAGTCAATCTGACAGGATCCATCCAAGCC-GATGTGGCGGAAGGTATTGCATTCTGGCTACGCCATTACGCAACGGAACAAGAGTATGCTG
             ||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: AATGCGGTCTACAGTCAATCTGACAGGATCCATCCAAGCCCGATGTGGCGGAAGGTATTGCATTCTGGCTACGCCATTACGCAACGGAACAAGAGTATGCTG
-The accuracy for this sequence is: 99.01960784313727%
 
 
 Basecalling signal 72 out of 200
-The alignment for signal 72 is:
+The accuracy for for signal 72 is: 98.0%
 basecalled: ACGAGG-AGGCCGCACTCTACAAGCAGTACTCAAGTGTGAATGCACAGACTGGCAAGGGAGTATACAATCGATGGTTACCTTCCTCTGCCTGCCTT-GTT
             ||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||
    correct: ACGAGGGAGGCCGCACTCTACAAGCAGTACTCAAGTGTGAATGCACAGACTGGCAAGGGAGTATACAATCGATGGTTACCTTCCTCTGCCTGCCTTTGTT
-The accuracy for this sequence is: 98.0%
 
 
 Basecalling signal 73 out of 200
-The alignment for signal 73 is:
+The accuracy for for signal 73 is: 97.05882352941177%
 basecalled: TT-GGTCTACACAACCCGGCC-GCGATCGATATTGAGGCAATATGGTACTT-CGGAGATGCTCTGTGAAGAATGCGCGCTCTTCGTAGTTACCAGCTACTTT
             ||-||||||||||||||||||-|||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: TTTGGTCTACACAACCCGGCCCGCGATCGATATTGAGGCAATATGGTACTTTCGGAGATGCTCTGTGAAGAATGCGCGCTCTTCGTAGTTACCAGCTACTTT
-The accuracy for this sequence is: 97.05882352941177%
 
 
 Basecalling signal 74 out of 200
-The alignment for signal 74 is:
+The accuracy for for signal 74 is: 94.0%
 basecalled: TCGGGTCGAGGG-CAACGAACGCC-GATGG-ATTTAGATATT--GGTTGGATTATACC-TAAAGATATTCGGCACGAGTACAATCTACTAGTTCTGAATT
             ||||||||||||-|||||||||||-|||||-|||||||||||--||||||||||||||-|||||||||||||||||||||||||||||||||||||||||
    correct: TCGGGTCGAGGGGCAACGAACGCCCGATGGGATTTAGATATTTTGGTTGGATTATACCCTAAAGATATTCGGCACGAGTACAATCTACTAGTTCTGAATT
-The accuracy for this sequence is: 94.0%
 
 
 Basecalling signal 75 out of 200
-The alignment for signal 75 is:
+The accuracy for for signal 75 is: 99.01960784313727%
 basecalled: TGTGTCGTACAAGTGACAGACTCGCCC-ATAACGCTATAATGGCAACAAGCCCGGCACACACCCAGAATAGTCGGCCGCTGCGCCGAACTGACCGCCCGAGA
             |||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: TGTGTCGTACAAGTGACAGACTCGCCCCATAACGCTATAATGGCAACAAGCCCGGCACACACCCAGAATAGTCGGCCGCTGCGCCGAACTGACCGCCCGAGA
-The accuracy for this sequence is: 99.01960784313727%
 
 
 Basecalling signal 76 out of 200
-The alignment for signal 76 is:
+The accuracy for for signal 76 is: 98.9795918367347%
 basecalled: CGTGAAGATTCACACGTCGCAAATTTGTCTGGGCAGCTCTACC-GTTAGTTACCGGTACAGTATCCATCAAGCGCGCAGAAGTGCCTAATATTGGAGG
             |||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: CGTGAAGATTCACACGTCGCAAATTTGTCTGGGCAGCTCTACCCGTTAGTTACCGGTACAGTATCCATCAAGCGCGCAGAAGTGCCTAATATTGGAGG
-The accuracy for this sequence is: 98.9795918367347%
 
 
 Basecalling signal 77 out of 200
-The alignment for signal 77 is:
+The accuracy for for signal 77 is: 97.0%
 basecalled: ACGTGAGGCGG-CTTATAGACCCGCCATTCTCAGTGCCCGATTCCTGTTGCAGTGATCTCTTGAATCGGGAGTAA-GATTCCTTTGGAGG-CCGTTAGTG
             |||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||-|||||||||
    correct: ACGTGAGGCGGGCTTATAGACCCGCCATTCTCAGTGCCCGATTCCTGTTGCAGTGATCTCTTGAATCGGGAGTAAAGATTCCTTTGGAGGGCCGTTAGTG
-The accuracy for this sequence is: 97.0%
 
 
 Basecalling signal 78 out of 200
-The alignment for signal 78 is:
+The accuracy for for signal 78 is: 98.09523809523809%
 basecalled: TACCTAACGCATTATTAAGATACAGCATCCGAATATCGATGATGCGCAGCACATGATCAGTACACGATCGACGCAA-GCGG-CCTAGTCCAACCGCGCGGTGGTG
             ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||-|||||||||||||||||||||||
    correct: TACCTAACGCATTATTAAGATACAGCATCCGAATATCGATGATGCGCAGCACATGATCAGTACACGATCGACGCAAAGCGGGCCTAGTCCAACCGCGCGGTGGTG
-The accuracy for this sequence is: 98.09523809523809%
 
 
 Basecalling signal 79 out of 200
-The alignment for signal 79 is:
+The accuracy for for signal 79 is: 92.5531914893617%
 basecalled: GTCTT-CTCGTGAGGTTCCAGGTTCTGATCGGCTCGCTTT-CGG-ATCGCTGCATCGCTCGGGAAGAGCTGTT-CC-TCGTTCTGG-TTGGGT-
             |||||-||||||||||||||||||||||||||||||||||-|||-||||||||||||||||||||||||||||-||-|||||||||-||||||-
    correct: GTCTTTCTCGTGAGGTTCCAGGTTCTGATCGGCTCGCTTTTCGGGATCGCTGCATCGCTCGGGAAGAGCTGTTTCCCTCGTTCTGGGTTGGGTT
-The accuracy for this sequence is: 92.5531914893617%
 
 
 Basecalling signal 80 out of 200
-The alignment for signal 80 is:
+The accuracy for for signal 80 is: 95.09803921568627%
 basecalled: CCAGCGCAGAGCGG-CACCTT--CC-GTGAACGAGCTATTAACGACGGTTACTGGTCTCAGCTCTCTTCTGGAGGGAGTAAGCCGTTGTAGGTT-AGGATTT
             ||||||||||||||-||||||--||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||
    correct: CCAGCGCAGAGCGGGCACCTTTTCCCGTGAACGAGCTATTAACGACGGTTACTGGTCTCAGCTCTCTTCTGGAGGGAGTAAGCCGTTGTAGGTTTAGGATTT
-The accuracy for this sequence is: 95.09803921568627%
 
 
 Basecalling signal 81 out of 200
-The alignment for signal 81 is:
+The accuracy for for signal 81 is: 96.22641509433963%
 basecalled: ATGAGGG-ACCAATTCAGCAGTTCTTCACTAGTTCGCTG-AAGGAAGCTTGTCTCGGCTTTT-GGCGATCCGAGACGG-CTCCTGGAGCCGCCGGTTCGCGTATGG
             |||||||-|||||||||||||||||||||||||||||||-||||||||||||||||||||||-|||||||||||||||-|||||||||||||||||||||||||||
    correct: ATGAGGGGACCAATTCAGCAGTTCTTCACTAGTTCGCTGTAAGGAAGCTTGTCTCGGCTTTTTGGCGATCCGAGACGGGCTCCTGGAGCCGCCGGTTCGCGTATGG
-The accuracy for this sequence is: 96.22641509433963%
 
 
 Basecalling signal 82 out of 200
-The alignment for signal 82 is:
+The accuracy for for signal 82 is: 93.06930693069306%
 basecalled: CGAGTATTGGCAACC-GTGGCGAGTCAACTACGGTGCTGAAAA--CGG-CCAGTATATGGCTAATA-GACACATGTAGACAGTTGTCGTTCTCCGCTCT--
             |||||||||||||||-|||||||||||||||||||||||||||--|||-|||||||||||||||||-||||||||||||||||||||||||||||||||--
    correct: CGAGTATTGGCAACCCGTGGCGAGTCAACTACGGTGCTGAAAAAACGGGCCAGTATATGGCTAATATGACACATGTAGACAGTTGTCGTTCTCCGCTCTTT
-The accuracy for this sequence is: 93.06930693069306%
 
 
 Basecalling signal 83 out of 200
-The alignment for signal 83 is:
+The accuracy for for signal 83 is: 94.68085106382979%
 basecalled: GCCCATGGATACC-GCTGGTATAAGATTATAAGGCCTATCAGACAGGTAATTAAGGG-TTCAGACGTCGG-TATAGGACGGGCATCGAGACG--
             |||||||||||||-|||||||||||||||||||||||||||||||||||||||||||-||||||||||||-|||||||||||||||||||||--
    correct: GCCCATGGATACCCGCTGGTATAAGATTATAAGGCCTATCAGACAGGTAATTAAGGGGTTCAGACGTCGGGTATAGGACGGGCATCGAGACGGG
-The accuracy for this sequence is: 94.68085106382979%
 
 
 Basecalling signal 84 out of 200
-The alignment for signal 84 is:
+The accuracy for for signal 84 is: 93.93939393939394%
 basecalled: CTAGCCCAGTTT-ATTAGAGCAGTTT-CGTAAA--CGAACACTAGCCACGATTGCCACC-GTCGTACCAACGTACAGCTACGGTAGGTTT-ACAATAAA
             ||||||||||||-|||||||||||||-||||||--||||||||||||||||||||||||-||||||||||||||||||||||||||||||-||||||||
    correct: CTAGCCCAGTTTTATTAGAGCAGTTTTCGTAAAAACGAACACTAGCCACGATTGCCACCCGTCGTACCAACGTACAGCTACGGTAGGTTTTACAATAAA
-The accuracy for this sequence is: 93.93939393939394%
 
 
 Basecalling signal 85 out of 200
-The alignment for signal 85 is:
+The accuracy for for signal 85 is: 94.05940594059405%
 basecalled: TAAGTGCTCTT-AGATGCGGTTAGGTGGCCAACAGTGTT-CTAA-CTGATACTTGGAACGTGAAGGAACTGATATGATTCGG-CGACCATTCC-GTGGTGCT
             |||||||||||-|||||||||||||||||||||||||||-||||-||||||||||||-||||||||||||||||||||||||-||||||||||-||||||||
    correct: TAAGTGCTCTTTAGATGCGGTTAGGTGGCCAACAGTGTTTCTAAACTGATACTTGGA-CGTGAAGGAACTGATATGATTCGGGCGACCATTCCCGTGGTGCT
-The accuracy for this sequence is: 94.05940594059405%
 
 
 Basecalling signal 86 out of 200
-The alignment for signal 86 is:
+The accuracy for for signal 86 is: 96.84210526315789%
 basecalled: GTGTTAGACCATAACGCGCAACGGTGCTGTAA-CTATTTGGACCTCTGCG-GCAAGTACAATTGTAATGATGAAACAATTAGCGGATCCTGGCA-
             ||||||||||||||||||||||||||||||||-|||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||-
    correct: GTGTTAGACCATAACGCGCAACGGTGCTGTAAACTATTTGGACCTCTGCGCGCAAGTACAATTGTAATGATGAAACAATTAGCGGATCCTGGCAA
-The accuracy for this sequence is: 96.84210526315789%
 
 
 Basecalling signal 87 out of 200
-The alignment for signal 87 is:
+The accuracy for for signal 87 is: 95.0%
 basecalled: TTGTTT--ACTATTGTGCTGATATATATAGCCAATAACACCGAGTCCTAGCGGAGAGTGGTGGATAGCCGG-CCGGAAGG-AATACATATCAGCTGGCG-
             ||||||--|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||-||||||||||||||||||-
    correct: TTGTTTTTACTATTGTGCTGATATATATAGCCAATAACACCGAGTCCTAGCGGAGAGTGGTGGATAGCCGGGCCGGAAGGGAATACATATCAGCTGGCGG
-The accuracy for this sequence is: 95.0%
 
 
 Basecalling signal 88 out of 200
-The alignment for signal 88 is:
+The accuracy for for signal 88 is: 95.83333333333334%
 basecalled: GAACTGCCGGTTGAGGTCGACC-TTGGGTATGGAACACCAATCTGCAAA-GCCGGAACGCAAGATCACTTCTGGACGTTGCGTTGTT-GGTACTA-
             ||||||||||||||||||||||-||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||-|||||||-
    correct: GAACTGCCGGTTGAGGTCGACCCTTGGGTATGGAACACCAATCTGCAAAAGCCGGAACGCAAGATCACTTCTGGACGTTGCGTTGTTTGGTACTAA
-The accuracy for this sequence is: 95.83333333333334%
 
 
 Basecalling signal 89 out of 200
-The alignment for signal 89 is:
+The accuracy for for signal 89 is: 94.79166666666666%
 basecalled: TTCGAA-TATGGTACATTAGTTCATGGG-ACGAGGGATCTCCTTACCCTGAAA-TTT-CCGTGGTGTGTTGCACTTGTGAGTTGTCGTCGCCGGA-
             ||||||-|||||||||||||||||||||-||||||||||||||||||||||||-|||-|||||||||||||||||||||||||||||||||||||-
    correct: TTCGAAATATGGTACATTAGTTCATGGGGACGAGGGATCTCCTTACCCTGAAAATTTTCCGTGGTGTGTTGCACTTGTGAGTTGTCGTCGCCGGAA
-The accuracy for this sequence is: 94.79166666666666%
 
 
 Basecalling signal 90 out of 200
-The alignment for signal 90 is:
+The accuracy for for signal 90 is: 96.03960396039604%
 basecalled: GTTGTAATCTACAGCGAAGATCGGAGGCGATAGTGTAGGGTCTT-GCTGAAGG-CTTAGGCGTGGCTTCATAAGAAATTAGTAACGCATTCGCCGAAAA--
             ||||||||||||||||||||||||||||||||||||||||||||-||||||||-|||||||||||||||||||||||||||||||||||||||||||||--
    correct: GTTGTAATCTACAGCGAAGATCGGAGGCGATAGTGTAGGGTCTTTGCTGAAGGGCTTAGGCGTGGCTTCATAAGAAATTAGTAACGCATTCGCCGAAAAAA
-The accuracy for this sequence is: 96.03960396039604%
 
 
 Basecalling signal 91 out of 200
-The alignment for signal 91 is:
+The accuracy for for signal 91 is: 94.84536082474226%
 basecalled: CGCGGTATTTGCGAGTTAGG-CCTGATTGCATATAACATCACCTGGG--TTAGAGTCATGTATGTACCTGTGCGTTAAA-TATCAACATACACC-GG
             ||||||||||||||||||||-||||||||||||||||||||||||||--||||||||||||||||||||||||||||||-||||||||||||||-||
    correct: CGCGGTATTTGCGAGTTAGGGCCTGATTGCATATAACATCACCTGGGGGTTAGAGTCATGTATGTACCTGTGCGTTAAAATATCAACATACACCCGG
-The accuracy for this sequence is: 94.84536082474226%
 
 
 Basecalling signal 92 out of 200
-The alignment for signal 92 is:
+The accuracy for for signal 92 is: 94.11764705882352%
 basecalled: ACAACCGACTCC-AGTCACGGCCTGCGGACTTGGGACCTTT-CTGCATTAGGCTTCTAAA-TCCTCTGAA-CTTAGCCTCTAGCC-TCCGTGTACTT-AACG
             ||||||||||||-||||||||||||||||||||||||||||-||||||||||||||||||-|||||||||-||||||||||||||-|||||||||||-||||
    correct: ACAACCGACTCCCAGTCACGGCCTGCGGACTTGGGACCTTTTCTGCATTAGGCTTCTAAAATCCTCTGAAACTTAGCCTCTAGCCCTCCGTGTACTTTAACG
-The accuracy for this sequence is: 94.11764705882352%
 
 
 Basecalling signal 93 out of 200
-The alignment for signal 93 is:
+The accuracy for for signal 93 is: 96.36363636363636%
 basecalled: GTAGTATGCGCTGTAATTCTTGTAGCC-GCGCCGCCGGTGCGG-CAGAGCC-TATATGTCTGAACCCGCACACGTACTT-AGCGGCGTCAAACTCCATGCTGACCTACTC
             |||||||||||||||||||||||||||-|||||||||||||||-|||||||-|||||||||||||||||||||||||||-||||||||||||||||||||||||||||||
    correct: GTAGTATGCGCTGTAATTCTTGTAGCCCGCGCCGCCGGTGCGGGCAGAGCCCTATATGTCTGAACCCGCACACGTACTTTAGCGGCGTCAAACTCCATGCTGACCTACTC
-The accuracy for this sequence is: 96.36363636363636%
 
 
 Basecalling signal 94 out of 200
-The alignment for signal 94 is:
+The accuracy for for signal 94 is: 94.0%
 basecalled: CTCGG-CCGCC--GAATAACAACGTCCGGGTTGCGTACGCGGACCCGGCC-GCAGATGCACGCAGG-CACAGGG-AAGCATAGAGACGATTATTACGCCG
             |||||-|||||--|||||||||||||||||||||||||||||||||||||-|||||||||||||||-|||||||-|||||||||||||||||||||||||
    correct: CTCGGGCCGCCCCGAATAACAACGTCCGGGTTGCGTACGCGGACCCGGCCCGCAGATGCACGCAGGGCACAGGGGAAGCATAGAGACGATTATTACGCCG
-The accuracy for this sequence is: 94.0%
 
 
 Basecalling signal 95 out of 200
-The alignment for signal 95 is:
+The accuracy for for signal 95 is: 98.05825242718447%
 basecalled: GAGATTTCCGGG-CACTTGGAGCACGAA-TATTGGACGCTCTTGAAACGGTACGTAATCGGCAATATTCGTACCGACCAGTGAGCTTGATAGTTGTATTGAAG
             ||||||||||||-|||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: GAGATTTCCGGGGCACTTGGAGCACGAAATATTGGACGCTCTTGAAACGGTACGTAATCGGCAATATTCGTACCGACCAGTGAGCTTGATAGTTGTATTGAAG
-The accuracy for this sequence is: 98.05825242718447%
 
 
 Basecalling signal 96 out of 200
-The alignment for signal 96 is:
+The accuracy for for signal 96 is: 97.9381443298969%
 basecalled: TATACATCAGAACAGTGTATTCTCCTCCAGACGTTCGCAGGCACCGCCTGTACTCTATCAGTGAGG-AAGACGGAGTCCAACATAGGTGCACTT-AC
             ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||-||
    correct: TATACATCAGAACAGTGTATTCTCCTCCAGACGTTCGCAGGCACCGCCTGTACTCTATCAGTGAGGGAAGACGGAGTCCAACATAGGTGCACTTTAC
-The accuracy for this sequence is: 97.9381443298969%
 
 
 Basecalling signal 97 out of 200
-The alignment for signal 97 is:
+The accuracy for for signal 97 is: 93.06930693069306%
 basecalled: GTATGGAGTTT-GTGCATT-CTGTTT-CTTGAGCCTATCCAGGAACCCTTGAAGATGGTTCTAACGTCAGTCATT-GACATCATGAA--CTAGCACCGCC-
             |||||||||||-|||||||-||||||-||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||--|||||||||||-
    correct: GTATGGAGTTTTGTGCATTTCTGTTTTCTTGAGCCTATCCAGGAACCCTTGAAGATGGTTCTAACGTCAGTCATTTGACATCATGAAAACTAGCACCGCCA
-The accuracy for this sequence is: 93.06930693069306%
 
 
 Basecalling signal 98 out of 200
-The alignment for signal 98 is:
+The accuracy for for signal 98 is: 95.09803921568627%
 basecalled: CCGG-ATTGCTCGGAGCGGTTCCCAACTCGACTGAAGCGGACAA-CTATCGCGTACGATGGG--CAGTCCGGAATCCGACC-GCGATACAGTAACCAGGAGA
             ||||-|||||||||||||||||||||||||||||||||||||||-|||||||||||||||||--|||||||||||||||||-||||||||||||||||||||
    correct: CCGGGATTGCTCGGAGCGGTTCCCAACTCGACTGAAGCGGACAAACTATCGCGTACGATGGGGGCAGTCCGGAATCCGACCCGCGATACAGTAACCAGGAGA
-The accuracy for this sequence is: 95.09803921568627%
 
 
 Basecalling signal 99 out of 200
-The alignment for signal 99 is:
+The accuracy for for signal 99 is: 96.93877551020408%
 basecalled: ACACGGAACGTCCCAATGACCGAT-TCTGTTGATGTTCACTTGTTGCGACGCTAAA--TACCGACCTCACGCGGGCGCACTTTACGGTCTGGTTGGAT
             ||||||||||||||||||||||||-|||||||||||||||||||||||||||||||--||||||||||||||||||||||||||||||||||||||||
    correct: ACACGGAACGTCCCAATGACCGATATCTGTTGATGTTCACTTGTTGCGACGCTAAAAATACCGACCTCACGCGGGCGCACTTTACGGTCTGGTTGGAT
-The accuracy for this sequence is: 96.93877551020408%
 
 
 Basecalling signal 100 out of 200
-The alignment for signal 100 is:
+The accuracy for for signal 100 is: 95.28301886792453%
 basecalled: ACGGAATTGCAGTGACAGAACACACGGAGACGCGATAATACATA-TAGATTG-CAA-GCTTCAGACCCTT-GTCAAGTTGCGCGTTCCAAGTTCCACCC-TCCCAG
             ||||||||||||||||||||||||||||||||||||||||||||-|||||||-|||-|||||||||||||-||||||||||||||||||||||||||||-||||||
    correct: ACGGAATTGCAGTGACAGAACACACGGAGACGCGATAATACATAATAGATTGGCAAAGCTTCAGACCCTTTGTCAAGTTGCGCGTTCCAAGTTCCACCCCTCCCAG
-The accuracy for this sequence is: 95.28301886792453%
 
 
 Basecalling signal 101 out of 200
-The alignment for signal 101 is:
+The accuracy for for signal 101 is: 98.95833333333334%
 basecalled: CATCCTGTCACCGCTTGCACCAGGTAATGTAGTTGGTCATTACGCGATGTCTCAATCTAACGACTCTCGCGCGTCATCGGATCGGTACGG-CGTAA
             ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||
    correct: CATCCTGTCACCGCTTGCACCAGGTAATGTAGTTGGTCATTACGCGATGTCTCAATCTAACGACTCTCGCGCGTCATCGGATCGGTACGGGCGTAA
-The accuracy for this sequence is: 98.95833333333334%
 
 
 Basecalling signal 102 out of 200
-The alignment for signal 102 is:
+The accuracy for for signal 102 is: 94.79166666666666%
 basecalled: CGTGCTCAA-TGCCAAGGCGTCGTGAACATGGG-CTATTGCCGCGTGTGTGAA-CACCGTTGTAGCCGTTCATACATGAA-CTACGCGG-TATTAA
             |||||||||-|||||||||||||||||||||||-|||||||||||||||||||-||||||||||||||||||||||||||-||||||||-||||||
    correct: CGTGCTCAAATGCCAAGGCGTCGTGAACATGGGGCTATTGCCGCGTGTGTGAAACACCGTTGTAGCCGTTCATACATGAAACTACGCGGGTATTAA
-The accuracy for this sequence is: 94.79166666666666%
 
 
 Basecalling signal 103 out of 200
-The alignment for signal 103 is:
+The accuracy for for signal 103 is: 97.95918367346938%
 basecalled: TACCGTTCCTTTGCTAGATATCGTGAA-CCAGCGACGACCTCGGGCAGGATGGTTCACCGTACCTCC-TGAACCTGAGCCGTGTGATCATCTCCGTAA
             |||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||
    correct: TACCGTTCCTTTGCTAGATATCGTGAAACCAGCGACGACCTCGGGCAGGATGGTTCACCGTACCTCCCTGAACCTGAGCCGTGTGATCATCTCCGTAA
-The accuracy for this sequence is: 97.95918367346938%
 
 
 Basecalling signal 104 out of 200
-The alignment for signal 104 is:
+The accuracy for for signal 104 is: 98.0392156862745%
 basecalled: CAAGTGACTAGGTTGTCCGTT-ACAACGATTTGTAGACGCACCGTGCCCGCAATGTGTGCAGGCCAA-CGACTTACCGTACACTAGGATCGGTGACGTCTTA
             |||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||
    correct: CAAGTGACTAGGTTGTCCGTTTACAACGATTTGTAGACGCACCGTGCCCGCAATGTGTGCAGGCCAAACGACTTACCGTACACTAGGATCGGTGACGTCTTA
-The accuracy for this sequence is: 98.0392156862745%
 
 
 Basecalling signal 105 out of 200
-The alignment for signal 105 is:
+The accuracy for for signal 105 is: 96.11650485436894%
 basecalled: GCCGTCTCCATAGTT-GTAAGGTAAA-TATACGTACTATGCCCTGCTGGTACATCTACCC-ATATTCCGAGCTAGAAGGAGAGAAACCTGAA-CTGTTCAGCG
             |||||||||||||||-||||||||||-|||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||-||||||||||
    correct: GCCGTCTCCATAGTTTGTAAGGTAAAATATACGTACTATGCCCTGCTGGTACATCTACCCCATATTCCGAGCTAGAAGGAGAGAAACCTGAAACTGTTCAGCG
-The accuracy for this sequence is: 96.11650485436894%
 
 
 Basecalling signal 106 out of 200
-The alignment for signal 106 is:
+The accuracy for for signal 106 is: 94.94949494949495%
 basecalled: TATATGGAAGCTATCGGACATATTATCCC-TTACAGTTAAACATAAA-CGGTGCGTTATTGTCC-TCTCTATATTGTCAGAACCTAGCAGGG-TGACC-
             |||||||||||||||||||||||||||||-|||||||||||||||||-||||||||||||||||-|||||||||||||||||||||||||||-|||||-
    correct: TATATGGAAGCTATCGGACATATTATCCCCTTACAGTTAAACATAAAACGGTGCGTTATTGTCCCTCTCTATATTGTCAGAACCTAGCAGGGGTGACCC
-The accuracy for this sequence is: 94.94949494949495%
 
 
 Basecalling signal 107 out of 200
-The alignment for signal 107 is:
+The accuracy for for signal 107 is: 96.0%
 basecalled: CGGTGAGTAGCCGACTT-GTTTCTCTATAGAGGCTT-AACGCTATCAA-CACC-GATACGTGTAGGTAATCTCATACAGATGGCCATTTCTCTTAGCCGT
             |||||||||||||||||-||||||||||||||||||-|||||||||||-||||-||||||||||||||||||||||||||||||||||||||||||||||
    correct: CGGTGAGTAGCCGACTTTGTTTCTCTATAGAGGCTTTAACGCTATCAAACACCCGATACGTGTAGGTAATCTCATACAGATGGCCATTTCTCTTAGCCGT
-The accuracy for this sequence is: 96.0%
 
 
 Basecalling signal 108 out of 200
-The alignment for signal 108 is:
+The accuracy for for signal 108 is: 88.46153846153845%
 basecalled: CCTGCTCC-AGTCC-TCGCC-GCATTCC-ACTGATAGCGTACTGCC--AAA-GGAGG-CAAGCGTGAGG-TGTTAA-GTCTGCC-GGAGCCATAGTTGCACAC-
             ||||||||-|||||-|||||-|||||||-|||||||||||||||||--|||-|||||-|||||||||||-||||||-|||||||-||||||||||||||||||-
    correct: CCTGCTCCCAGTCCCTCGCCCGCATTCCCACTGATAGCGTACTGCCCCAAAAGGAGGGCAAGCGTGAGGGTGTTAAAGTCTGCCCGGAGCCATAGTTGCACACT
-The accuracy for this sequence is: 88.46153846153845%
 
 
 Basecalling signal 109 out of 200
-The alignment for signal 109 is:
+The accuracy for for signal 109 is: 95.0%
 basecalled: AGACTGATCAA-TAATGAACCCTTATCCC-AATACGAATGAATACTACTGTCTGCGG-CAGGTCGGTCACGAGCAGAGCCTCTACTGCGGTAA-CTCTA-
             |||||||||||-|||||||||||||||||-|||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||-|||||-
    correct: AGACTGATCAAATAATGAACCCTTATCCCCAATACGAATGAATACTACTGTCTGCGGGCAGGTCGGTCACGAGCAGAGCCTCTACTGCGGTAAACTCTAT
-The accuracy for this sequence is: 95.0%
 
 
 Basecalling signal 110 out of 200
-The alignment for signal 110 is:
+The accuracy for for signal 110 is: 95.87628865979381%
 basecalled: ATCAAGGCTCCCGTGTCGGGTAGGCATACGGCATAATCGTGACATGCACGG-TGCCTTT-CGCCTTCAGCACGAAGTCCACCTTT-GACTGCTTGTAA
             |||||||||||||||||||||||||||||||||||-|||||||||||||||-|||||||-|||||||||||||||||||||||||-||||||||||||
    correct: ATCAAGGCTCCCGTGTCGGGTAGGCATACGGCATA-TCGTGACATGCACGGGTGCCTTTTCGCCTTCAGCACGAAGTCCACCTTTTGACTGCTTGTAA
-The accuracy for this sequence is: 95.87628865979381%
 
 
 Basecalling signal 111 out of 200
-The alignment for signal 111 is:
+The accuracy for for signal 111 is: 95.91836734693877%
 basecalled: ATTATCAACTGTAACATCGATCACAA-TAGTTAGCTACCC-GGACCTTACCTCGCTCTAAGGGG-CACACGCGATACGCGATGCC-AATACGTACAGT
             ||||||||||||||||||||||||||-|||||||||||||-|||||||||||||||||||||||-||||||||||||||||||||-||||||||||||
    correct: ATTATCAACTGTAACATCGATCACAAATAGTTAGCTACCCCGGACCTTACCTCGCTCTAAGGGGGCACACGCGATACGCGATGCCCAATACGTACAGT
-The accuracy for this sequence is: 95.91836734693877%
 
 
 Basecalling signal 112 out of 200
-The alignment for signal 112 is:
+The accuracy for for signal 112 is: 98.9795918367347%
 basecalled: GAGCCAGATTGCACGCATTGCGTCATCTTCAGGAAGGG-CTTGTGTTAACTAATCGGCACCGAGGACCGGCTACGATATAATGATAAGTAGCTTTCAT
             ||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: GAGCCAGATTGCACGCATTGCGTCATCTTCAGGAAGGGGCTTGTGTTAACTAATCGGCACCGAGGACCGGCTACGATATAATGATAAGTAGCTTTCAT
-The accuracy for this sequence is: 98.9795918367347%
 
 
 Basecalling signal 113 out of 200
-The alignment for signal 113 is:
+The accuracy for for signal 113 is: 92.78350515463917%
 basecalled: GGTCGGTAAA-GCACTGGGACTGTGCCAGCATTGATCGAA-TAATCGGCCGGG-CTCTTGTTT-CTCTAGGTTATT-ATTCCC-GTCC-AACAGGCC
             ||||||||||-|||||||||||||||||||||||||||||-||||||||||||-|||||||||-||||||||||||-||||||-||||-||||||||
    correct: GGTCGGTAAAAGCACTGGGACTGTGCCAGCATTGATCGAAATAATCGGCCGGGGCTCTTGTTTTCTCTAGGTTATTTATTCCCCGTCCCAACAGGCC
-The accuracy for this sequence is: 92.78350515463917%
 
 
 Basecalling signal 114 out of 200
-The alignment for signal 114 is:
+The accuracy for for signal 114 is: 95.91836734693877%
 basecalled: TGGATCTAGGCCACCGCACCCAGACCTCTTCGCACCTGCTTT-CATGAGTGTGTTTGG-CTGTGAGGTATGTATTGTGTAATT-CAGGATGACAGCA-
             ||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||-||||||||||||||||||||||||-|||||||||||||-
    correct: TGGATCTAGGCCACCGCACCCAGACCTCTTCGCACCTGCTTTTCATGAGTGTGTTTGGGCTGTGAGGTATGTATTGTGTAATTTCAGGATGACAGCAA
-The accuracy for this sequence is: 95.91836734693877%
 
 
 Basecalling signal 115 out of 200
-The alignment for signal 115 is:
+The accuracy for for signal 115 is: 91.0891089108911%
 basecalled: TCGTTT-CACTCC-GTATGTACGCAGTTACAAGTT-AAA-CACTTCACTTATGACGTGTGAGTAGTAGGTACTCGTTAGTAAAA----GTACGCTCCCTA-
             ||||||-||||||-|||||||||||||||||||||-|||-||||||||||||||||||||||||||||||||||||||||||||----||||||||||||-
    correct: TCGTTTTCACTCCCGTATGTACGCAGTTACAAGTTTAAAACACTTCACTTATGACGTGTGAGTAGTAGGTACTCGTTAGTAAAAAAAAGTACGCTCCCTAA
-The accuracy for this sequence is: 91.0891089108911%
 
 
 Basecalling signal 116 out of 200
-The alignment for signal 116 is:
+The accuracy for for signal 116 is: 99.02912621359224%
 basecalled: CTTATTATGACTCGCACTCAGTCTTCCGACGGTTAGGTAGACAACAGGAGAATCCATCCGTGCAAGCCGTCCGATTCTGTGGACAACCTCGGCATAATGGCC-
             ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-
    correct: CTTATTATGACTCGCACTCAGTCTTCCGACGGTTAGGTAGACAACAGGAGAATCCATCCGTGCAAGCCGTCCGATTCTGTGGACAACCTCGGCATAATGGCCT
-The accuracy for this sequence is: 99.02912621359224%
 
 
 Basecalling signal 117 out of 200
-The alignment for signal 117 is:
+The accuracy for for signal 117 is: 96.0%
 basecalled: ATCGACAACTCGGCGG-CAAA-TATTCGACTTGGATCTGAAGG-CCGTCTACGTTACATTCATCACATTCGCCGTCAGGTGAGTCTTT-CCAGCTCCTCG
             ||||||||||||||||-||||-|||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||-|||||||||||
    correct: ATCGACAACTCGGCGGGCAAAATATTCGACTTGGATCTGAAGGGCCGTCTACGTTACATTCATCACATTCGCCGTCAGGTGAGTCTTTTCCAGCTCCTCG
-The accuracy for this sequence is: 96.0%
 
 
 Basecalling signal 118 out of 200
-The alignment for signal 118 is:
+The accuracy for for signal 118 is: 97.95918367346938%
 basecalled: GATTACCGGTCCTCGATATTATAATTGGTGACC-TACTCGTGTGCATGTACAAGCATTCTCTTAGTGCCC-GTACGACGTCCAGAGAGTCATTCGCTA
             |||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||
    correct: GATTACCGGTCCTCGATATTATAATTGGTGACCCTACTCGTGTGCATGTACAAGCATTCTCTTAGTGCCCCGTACGACGTCCAGAGAGTCATTCGCTA
-The accuracy for this sequence is: 97.95918367346938%
 
 
 Basecalling signal 119 out of 200
-The alignment for signal 119 is:
+The accuracy for for signal 119 is: 95.6989247311828%
 basecalled: GATGTATACATGTACGCGCAGATGTACTTATGGTTCCAGTTGAGAGCTCCTGCTACCTATT-ATGGCC-AGCCGGTAA-CGGCGCAA-GCCTC
             |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||-|||||||||-||||||||-|||||
    correct: GATGTATACATGTACGCGCAGATGTACTTATGGTTCCAGTTGAGAGCTCCTGCTACCTATTTATGGCCCAGCCGGTAAACGGCGCAAAGCCTC
-The accuracy for this sequence is: 95.6989247311828%
 
 
 Basecalling signal 120 out of 200
-The alignment for signal 120 is:
+The accuracy for for signal 120 is: 96.03960396039604%
 basecalled: CGTTAGG-TTCCGGTTTCAGTACCGAAGAGGTGCC-ATGCATTATCTACTGTCAGGATGG-AGTCGTGAGCCTTT-CAATCGTAGACCTCTTAAGTGCATC
             |||||||-|||||||||||||||||||||||||||-||||||||||||||||||||||||-||||||||||||||-|||||||||||||||||||||||||
    correct: CGTTAGGGTTCCGGTTTCAGTACCGAAGAGGTGCCCATGCATTATCTACTGTCAGGATGGGAGTCGTGAGCCTTTTCAATCGTAGACCTCTTAAGTGCATC
-The accuracy for this sequence is: 96.03960396039604%
 
 
 Basecalling signal 121 out of 200
-The alignment for signal 121 is:
+The accuracy for for signal 121 is: 97.91666666666666%
 basecalled: CGTGATGG-CGATAGGTT-ACCGTTTTGTCAACTATACACTTAAATGTCAAATAATGACCAGGTTCGATCAGGCGGTGACGAACCTCGACTTGACA
             ||||||||-|||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: CGTGATGGGCGATAGGTTTACCGTTTTGTCAACTATACACTTAAATGTCAAATAATGACCAGGTTCGATCAGGCGGTGACGAACCTCGACTTGACA
-The accuracy for this sequence is: 97.91666666666666%
 
 
 Basecalling signal 122 out of 200
-The alignment for signal 122 is:
+The accuracy for for signal 122 is: 93.33333333333333%
 basecalled: CAATCTAACC--AACCACACC-TTATGACGCCACTA-ATCCGATATGCC-TGTGAGACACGCTGATGAAA-TACCAATAAGCACATTCCGACG-GTTAGCCACCT
             ||||||||||--|||||||||-||||||||||||||-||||||||||||-||||||||||||||||||||-||||||||||||||||||||||-|||||||||||
    correct: CAATCTAACCCCAACCACACCCTTATGACGCCACTACATCCGATATGCCCTGTGAGACACGCTGATGAAAATACCAATAAGCACATTCCGACGAGTTAGCCACCT
-The accuracy for this sequence is: 93.33333333333333%
 
 
 Basecalling signal 123 out of 200
-The alignment for signal 123 is:
+The accuracy for for signal 123 is: 93.6842105263158%
 basecalled: CGTGATACTGCACAATT--CGTGTATAAGGTCCGCTTTACTGG-AACATAATTCC-TGATTTAAGCGGACTCCGCTGAGCC-GAGCTGG-ACTTT
             |||||||||||||||||--||||||||||||||||||||||||-|||||||||||-|||||||||||||||||||||||||-|||||||-|||||
    correct: CGTGATACTGCACAATTTTCGTGTATAAGGTCCGCTTTACTGGGAACATAATTCCCTGATTTAAGCGGACTCCGCTGAGCCCGAGCTGGGACTTT
-The accuracy for this sequence is: 93.6842105263158%
 
 
 Basecalling signal 124 out of 200
-The alignment for signal 124 is:
+The accuracy for for signal 124 is: 95.87628865979381%
 basecalled: GTATGCTTATTAAA-GGCAGTCGCCTGACCGTCGCGACGATAACGAGACGGGCTTTAATGTAGCAACGTCC-GGCCCC-ACAAACTCAATAA-AGGC
             ||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||-|||||||||||||-||||
    correct: GTATGCTTATTAAAAGGCAGTCGCCTGACCGTCGCGACGATAACGAGACGGGCTTTAATGTAGCAACGTCCCGGCCCCCACAAACTCAATAAGAGGC
-The accuracy for this sequence is: 95.87628865979381%
 
 
 Basecalling signal 125 out of 200
-The alignment for signal 125 is:
+The accuracy for for signal 125 is: 98.9795918367347%
 basecalled: TGCAGGGTGCGATATCTCCGTACACAGGTCC-TGGATAGACCTTCTGACGAACATGTTTCGCCGCCGTAATCACGTAACTGGACTTAGTGACACCTAT
             |||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: TGCAGGGTGCGATATCTCCGTACACAGGTCCCTGGATAGACCTTCTGACGAACATGTTTCGCCGCCGTAATCACGTAACTGGACTTAGTGACACCTAT
-The accuracy for this sequence is: 98.9795918367347%
 
 
 Basecalling signal 126 out of 200
-The alignment for signal 126 is:
+The accuracy for for signal 126 is: 97.0873786407767%
 basecalled: TTACTTCCCTGTAGGCTTCGTTACCTAGTAGCTTT-ATTCGTGGACACTGGCGCATGGAGTGGGCTTAA-CCGTAGACTAGATTCGTGCCAAGCGTAA-TAGT
             |||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||-||||
    correct: TTACTTCCCTGTAGGCTTCGTTACCTAGTAGCTTTTATTCGTGGACACTGGCGCATGGAGTGGGCTTAAACCGTAGACTAGATTCGTGCCAAGCGTAAATAGT
-The accuracy for this sequence is: 97.0873786407767%
 
 
 Basecalling signal 127 out of 200
-The alignment for signal 127 is:
+The accuracy for for signal 127 is: 96.80851063829788%
 basecalled: AACAGGCTCGCACGCATAAGTGCAACTACAATGTCATACTCATGGCCAGTTTGCAGAAAA-TGTT-ATAATTGTCAGGG-TGGTGATTGAGCAG
             ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||-|||||||||||||-||||||||||||||
    correct: AACAGGCTCGCACGCATAAGTGCAACTACAATGTCATACTCATGGCCAGTTTGCAGAAAAATGTTTATAATTGTCAGGGGTGGTGATTGAGCAG
-The accuracy for this sequence is: 96.80851063829788%
 
 
 Basecalling signal 128 out of 200
-The alignment for signal 128 is:
+The accuracy for for signal 128 is: 96.03960396039604%
 basecalled: TCTTCGGTGCGGTTTCAATCGTCGAATGTTATT-CGGCGCTCCGCGTCAGCTGAGATGATTGCGTTCACCCACGCC-GAGCTGTT-GGGCTCTGG-ACTGC
             |||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||-||||||||-|||||||||-|||||
    correct: TCTTCGGTGCGGTTTCAATCGTCGAATGTTATTTCGGCGCTCCGCGTCAGCTGAGATGATTGCGTTCACCCACGCCCGAGCTGTTTGGGCTCTGGGACTGC
-The accuracy for this sequence is: 96.03960396039604%
 
 
 Basecalling signal 129 out of 200
-The alignment for signal 129 is:
+The accuracy for for signal 129 is: 95.95959595959596%
 basecalled: ACATGGTTCACAAGAAGAGGGTTCCGGAAGG-ATCCCACTATACAATTTT-GCCGGCGAAAGGGCGCCGAGTCATATAGG-AGCCCATT-AGTTGCACG
             |||||||||||||||||||||||||||||||-||||||||||||||||||-|||||||||||||||||||||||||||||-||||||||-|||||||||
    correct: ACATGGTTCACAAGAAGAGGGTTCCGGAAGGGATCCCACTATACAATTTTTGCCGGCGAAAGGGCGCCGAGTCATATAGGGAGCCCATTGAGTTGCACG
-The accuracy for this sequence is: 95.95959595959596%
 
 
 Basecalling signal 130 out of 200
-The alignment for signal 130 is:
+The accuracy for for signal 130 is: 99.03846153846155%
 basecalled: GGCGGCCAACCAGATACTGTGAACGTAGTGAGTAATGAACACTTCAACCAGGATTATT-CAGACCACGCGCACTAGTGGTACACGCTCAGTGTTGAATTCGCTG
             ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||
    correct: GGCGGCCAACCAGATACTGTGAACGTAGTGAGTAATGAACACTTCAACCAGGATTATTTCAGACCACGCGCACTAGTGGTACACGCTCAGTGTTGAATTCGCTG
-The accuracy for this sequence is: 99.03846153846155%
 
 
 Basecalling signal 131 out of 200
-The alignment for signal 131 is:
+The accuracy for for signal 131 is: 100.0%
 basecalled: GGGAGGAAAGCTTAGTCCGAACCTTAACTTAATTGGCACTACTCGTGATGCAGAAGAGCCAAATCAGGCGCGTGGTGGAATAGAAATATGTCGAGGTG
             ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: GGGAGGAAAGCTTAGTCCGAACCTTAACTTAATTGGCACTACTCGTGATGCAGAAGAGCCAAATCAGGCGCGTGGTGGAATAGAAATATGTCGAGGTG
-The accuracy for this sequence is: 100.0%
 
 
 Basecalling signal 132 out of 200
-The alignment for signal 132 is:
+The accuracy for for signal 132 is: 95.95959595959596%
 basecalled: CC-TGGAACCTATACACTCTATGCATGCCGGG-CCATT-CGTTGGCTGGG-TCATTACTCGCGCTTGAGTTACATTATGCTTCCGTGCCAGCACTTCTA
             ||-|||||||||||||||||||||||||||||-|||||-|||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||
    correct: CCCTGGAACCTATACACTCTATGCATGCCGGGGCCATTTCGTTGGCTGGGGTCATTACTCGCGCTTGAGTTACATTATGCTTCCGTGCCAGCACTTCTA
-The accuracy for this sequence is: 95.95959595959596%
 
 
 Basecalling signal 133 out of 200
-The alignment for signal 133 is:
+The accuracy for for signal 133 is: 93.33333333333333%
 basecalled: GCTACAGTTTGCCAGTTCCAGCTTCTGGTGATCATGCTGTCTT-AATT-AAA-GAACGG-CATCTATTTCCAA-GACACCTTGAATACGAGGCCC-AATTT-ACT
             |||||||||||||||||||||||||||||||||||||||||||-||||-|||-||||||-|||||||||||||-|||||||||||||||||||||-|||||-|||
    correct: GCTACAGTTTGCCAGTTCCAGCTTCTGGTGATCATGCTGTCTTTAATTTAAAAGAACGGACATCTATTTCCAAAGACACCTTGAATACGAGGCCCCAATTTTACT
-The accuracy for this sequence is: 93.33333333333333%
 
 
 Basecalling signal 134 out of 200
-The alignment for signal 134 is:
+The accuracy for for signal 134 is: 98.07692307692307%
 basecalled: GCGAA-TGG-ATGGTGCACGCGAAATTACGATTAGAATAACACACAGGAAAGTGGAACTAAGAATTGTGGCCTTAAGTATTTCGTATAGATAGGTTGCCGAAGT
             |||||-|||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: GCGAAATGGGATGGTGCACGCGAAATTACGATTAGAATAACACACAGGAAAGTGGAACTAAGAATTGTGGCCTTAAGTATTTCGTATAGATAGGTTGCCGAAGT
-The accuracy for this sequence is: 98.07692307692307%
 
 
 Basecalling signal 135 out of 200
-The alignment for signal 135 is:
+The accuracy for for signal 135 is: 90.0990099009901%
 basecalled: TTGCGTAACC-TCTAAGTCCACTT-GTGACGACGCAGTACTCCATGTTAGG-AA-CTGG--CACAGGCCCTT-GACGAACAACTATTTT-ACTCAACAC--
             ||||||||||-|||||||||||||-||||||||||||||||||||||||||-||-||||--|||||||||||-||||||||||||||||-|||||||||--
    correct: TTGCGTAACCCTCTAAGTCCACTTTGTGACGACGCAGTACTCCATGTTAGGGAAACTGGGGCACAGGCCCTTTGACGAACAACTATTTTTACTCAACACCC
-The accuracy for this sequence is: 90.0990099009901%
 
 
 Basecalling signal 136 out of 200
-The alignment for signal 136 is:
+The accuracy for for signal 136 is: 92.15686274509804%
 basecalled: ACGTTT-CATCTTT--AGTCAGGACCATTAGTGCGG-AGTCACCGCCGAAGG-CC-GCTACCTCCTGTCCCC--GCAGGACACGCAAAGGTTAAGGCTCACT
             ||||||-|||||||--||||||||||||||||||||-|||||||||||||||-||-||||||||||||||||--||||||||||||||||||||||||||||
    correct: ACGTTTTCATCTTTTTAGTCAGGACCATTAGTGCGGGAGTCACCGCCGAAGGGCCCGCTACCTCCTGTCCCCCCGCAGGACACGCAAAGGTTAAGGCTCACT
-The accuracy for this sequence is: 92.15686274509804%
 
 
 Basecalling signal 137 out of 200
-The alignment for signal 137 is:
+The accuracy for for signal 137 is: 99.00990099009901%
 basecalled: TTT-CGAGGACCGGAATGCTAAAGACAGTCGCTAAGACAGATTCTCTGTCCTCTATCCTAGGCTCTAATACTCGGTCGTAATCAACCTGCTTCCGTTCTGC
             |||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: TTTTCGAGGACCGGAATGCTAAAGACAGTCGCTAAGACAGATTCTCTGTCCTCTATCCTAGGCTCTAATACTCGGTCGTAATCAACCTGCTTCCGTTCTGC
-The accuracy for this sequence is: 99.00990099009901%
 
 
 Basecalling signal 138 out of 200
-The alignment for signal 138 is:
+The accuracy for for signal 138 is: 97.14285714285714%
 basecalled: TCTCACGGTTCGCATCAA-CAAA-CACCCTTTGGCGTAAGACACTACCTTATGGTGCCTTGTGAAGTGCTGGTCGTATCCTGTCGCGCTCGCTCCGCTT-GGCGT
             ||||||||||||||||||-||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||
    correct: TCTCACGGTTCGCATCAAACAAAACACCCTTTGGCGTAAGACACTACCTTATGGTGCCTTGTGAAGTGCTGGTCGTATCCTGTCGCGCTCGCTCCGCTTTGGCGT
-The accuracy for this sequence is: 97.14285714285714%
 
 
 Basecalling signal 139 out of 200
-The alignment for signal 139 is:
+The accuracy for for signal 139 is: 97.11538461538461%
 basecalled: TAGGG--TACTAGTTCTCACACATCTCTCCCTT-CGCCATCTAATCGAATACGATTAACACTTATCCATGCGCGCGCTATTCCGAGATGCAGCTGCCTGCTGAT
             |||||--||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: TAGGGGGTACTAGTTCTCACACATCTCTCCCTTTCGCCATCTAATCGAATACGATTAACACTTATCCATGCGCGCGCTATTCCGAGATGCAGCTGCCTGCTGAT
-The accuracy for this sequence is: 97.11538461538461%
 
 
 Basecalling signal 140 out of 200
-The alignment for signal 140 is:
+The accuracy for for signal 140 is: 93.26923076923077%
 basecalled: AGACTGGCTCGTACGGG-CGTT-GCTCAACGTCAGACATCCC-AGACTATT-GAAA-CGTCTAATCAAGCATACAACC-TGTGTGCTAACAAGACACAAGAA-C
             |||||||||||||||||-||||-|||||||||||||||||||-||||||||-||||-|||||||||||||||||||||-|||||||||||||||||||||||-|
    correct: AGACTGGCTCGTACGGGGCGTTTGCTCAACGTCAGACATCCCCAGACTATTTGAAAACGTCTAATCAAGCATACAACCCTGTGTGCTAACAAGACACAAGAAAC
-The accuracy for this sequence is: 93.26923076923077%
 
 
 Basecalling signal 141 out of 200
-The alignment for signal 141 is:
+The accuracy for for signal 141 is: 97.89473684210527%
 basecalled: TTATACACGGTCGGGG--TCCGTGTTATCCGAACGGTGTATTGATTCGTGCCATAAGCTGATCTACGGCGAACCCTCCCGGATAAGGGACTGACA
             ||||||||||||||||--|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: TTATACACGGTCGGGGGGTCCGTGTTATCCGAACGGTGTATTGATTCGTGCCATAAGCTGATCTACGGCGAACCCTCCCGGATAAGGGACTGACA
-The accuracy for this sequence is: 97.89473684210527%
 
 
 Basecalling signal 142 out of 200
-The alignment for signal 142 is:
+The accuracy for for signal 142 is: 94.23076923076923%
 basecalled: AGCGCCGCACGTGTATTTGGCCATTGTGATCATTGG-CCAACCC-AGAAGCGACGCCTATCCC-TAGACTGAACAGTAGTGTCACTACACTGAGAATCCC--G-
             ||||||||||||||||||||||||||||||||||||-|||||||-||||||||||||||||||-||||||||||||||||||||||||||||||||||||--|-
    correct: AGCGCCGCACGTGTATTTGGCCATTGTGATCATTGGGCCAACCCCAGAAGCGACGCCTATCCCCTAGACTGAACAGTAGTGTCACTACACTGAGAATCCCCCGG
-The accuracy for this sequence is: 94.23076923076923%
 
 
 Basecalling signal 143 out of 200
-The alignment for signal 143 is:
+The accuracy for for signal 143 is: 95.04950495049505%
 basecalled: CATAGTCTAGTTGCTATT-CCC--AA-GCCTGCGTGTGATGATGAGAACTTCAGCCTATT-CAAGATGGAGGACGAACCTCTGGCGGAACATCTGCCGGGA
             ||||||||||||||||||-|||--||-|||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||
    correct: CATAGTCTAGTTGCTATTTCCCCCAAAGCCTGCGTGTGATGATGAGAACTTCAGCCTATTTCAAGATGGAGGACGAACCTCTGGCGGAACATCTGCCGGGA
-The accuracy for this sequence is: 95.04950495049505%
 
 
 Basecalling signal 144 out of 200
-The alignment for signal 144 is:
+The accuracy for for signal 144 is: 96.0%
 basecalled: CCTTAGCCTCTTT-AATAATGCCGG-ATACAGCGCGAGAACGTGTCCTT-GACACAACACC-ATTTGCAGGAATACATAGACAGAGCATAGGAAGCCAGA
             |||||||||||||-|||||||||||-|||||||||||||||||||||||-|||||||||||-||||||||||||||||||||||||||||||||||||||
    correct: CCTTAGCCTCTTTTAATAATGCCGGGATACAGCGCGAGAACGTGTCCTTTGACACAACACCCATTTGCAGGAATACATAGACAGAGCATAGGAAGCCAGA
-The accuracy for this sequence is: 96.0%
 
 
 Basecalling signal 145 out of 200
-The alignment for signal 145 is:
+The accuracy for for signal 145 is: 92.78350515463917%
 basecalled: CCC-TTAA-CCTTATGGG-AAGAGATGCCAACGACGTGATCGGG-TCCTAGAGTCATT-CCACGCACTTGCCGCTAACGCAGTTGGACATTCACG--
             |||-||||-|||||||||-|||||||||||||||||||||||||-|||||||||||||-||||||||||||||||||||||||||||||||||||--
    correct: CCCCTTAAACCTTATGGGGAAGAGATGCCAACGACGTGATCGGGGTCCTAGAGTCATTTCCACGCACTTGCCGCTAACGCAGTTGGACATTCACGGG
-The accuracy for this sequence is: 92.78350515463917%
 
 
 Basecalling signal 146 out of 200
-The alignment for signal 146 is:
+The accuracy for for signal 146 is: 96.07843137254902%
 basecalled: TGACAATCTACGACTGTACATTCGTACGCAGACCGGAA-GGAACAGACTGTGGTGG-CATTACCTTTT-AGTTAACTGATACATTAGGTTCCGAGCTCC-GG
             ||||||||||||||||||||||||||||||||||||||-|||||||||||||||||-|||||||||||-||||||||||||||||||||||||||||||-||
    correct: TGACAATCTACGACTGTACATTCGTACGCAGACCGGAAAGGAACAGACTGTGGTGGGCATTACCTTTTTAGTTAACTGATACATTAGGTTCCGAGCTCCCGG
-The accuracy for this sequence is: 96.07843137254902%
 
 
 Basecalling signal 147 out of 200
-The alignment for signal 147 is:
+The accuracy for for signal 147 is: 92.85714285714286%
 basecalled: GATGGGTAGGACGGGAA-TGCCGGTCATTGATGCTGTATTATAA-GTCTAGATGATTCCCGGGTTT-AGGCTAAGGCC-TTAGTGCTGGG-CAGCT--
             |||||||||||||||||-||||||||||||||||||||||||||-|||||||||||||||||||||-|||||||||||-|||||||||||-|||||--
    correct: GATGGGTAGGACGGGAAATGCCGGTCATTGATGCTGTATTATAAAGTCTAGATGATTCCCGGGTTTTAGGCTAAGGCCCTTAGTGCTGGGGCAGCTTT
-The accuracy for this sequence is: 92.85714285714286%
 
 
 Basecalling signal 148 out of 200
-The alignment for signal 148 is:
+The accuracy for for signal 148 is: 98.0392156862745%
 basecalled: TATTGAA-TATCTTCACTGTAATACCTGGCCGAGAAGAATATGCTGTAAGTAAGCTTCGGCGATTCTCAGGACAA-TATAGTAACCGGCACACTTGGCGACA
             |||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||
    correct: TATTGAAATATCTTCACTGTAATACCTGGCCGAGAAGAATATGCTGTAAGTAAGCTTCGGCGATTCTCAGGACAAATATAGTAACCGGCACACTTGGCGACA
-The accuracy for this sequence is: 98.0392156862745%
 
 
 Basecalling signal 149 out of 200
-The alignment for signal 149 is:
+The accuracy for for signal 149 is: 97.02970297029702%
 basecalled: ATAAGACTCATCTGTCAT-TTGGCTGGTTACGCCAAGGTCCAACTAAGTCGTATGGCTAGATACGGGCCATAAAGAAATCTGTAGATACGTCATT-ATGG-
             ||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||-
    correct: ATAAGACTCATCTGTCATATTGGCTGGTTACGCCAAGGTCCAACTAAGTCGTATGGCTAGATACGGGCCATAAAGAAATCTGTAGATACGTCATTTATGGG
-The accuracy for this sequence is: 97.02970297029702%
 
 
 Basecalling signal 150 out of 200
-The alignment for signal 150 is:
+The accuracy for for signal 150 is: 99.0%
 basecalled: GGGAGCTATCACCAGGTCGTCTGTCGCTAGCCAATATTAATTTGTAGTAATATTGGATGGCGTATCGACAA-CTGATTTGTCGCTACGCTGGCAAGATCT
             |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||
    correct: GGGAGCTATCACCAGGTCGTCTGTCGCTAGCCAATATTAATTTGTAGTAATATTGGATGGCGTATCGACAAACTGATTTGTCGCTACGCTGGCAAGATCT
-The accuracy for this sequence is: 99.0%
 
 
 Basecalling signal 151 out of 200
-The alignment for signal 151 is:
+The accuracy for for signal 151 is: 96.03960396039604%
 basecalled: GGGG--ACGATGCTTACCATAACCACTACCAGTTCATACAGTA-ATGACGAGCGACAGAGCGCAGCGCGGCGAAGCCTGTTGG-CCTCAAGCCTGTTGAGA
             ||||--|||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||-|||||||||||||||||
    correct: GGGGGGACGATGCTTACCATAACCACTACCAGTTCATACAGTAGATGACGAGCGACAGAGCGCAGCGCGGCGAAGCCTGTTGGGCCTCAAGCCTGTTGAGA
-The accuracy for this sequence is: 96.03960396039604%
 
 
 Basecalling signal 152 out of 200
-The alignment for signal 152 is:
+The accuracy for for signal 152 is: 95.95959595959596%
 basecalled: ACTGAA-GTCGAACACCGCCGCAGAACAACAATCGTAGAGAGATAGCTTAGG-CCATGGACGACTTATGCCAGG-CATAACAAGTGTCGACAA-TATGA
             ||||||-|||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||-||||||||||||||||||-|||||
    correct: ACTGAAAGTCGAACACCGCCGCAGAACAACAATCGTAGAGAGATAGCTTAGGGCCATGGACGACTTATGCCAGGTCATAACAAGTGTCGACAAATATGA
-The accuracy for this sequence is: 95.95959595959596%
 
 
 Basecalling signal 153 out of 200
-The alignment for signal 153 is:
+The accuracy for for signal 153 is: 95.14563106796116%
 basecalled: CTGG-TGGTATCTTAA-TGCGGAAACAACAAGATTTCGCGCCGACTTACGCTATCTAAGACCC-TACGTGGAACGCTCCTCAGAAGCTTCCGACCCGTCC-G-
             ||||-|||||||||||-||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||-|-
    correct: CTGGGTGGTATCTTAAATGCGGAAACAACAAGATTTCGCGCCGACTTACGCTATCTAAGACCCCTACGTGGAACGCTCCTCAGAAGCTTCCGACCCGTCCCGG
-The accuracy for this sequence is: 95.14563106796116%
 
 
 Basecalling signal 154 out of 200
-The alignment for signal 154 is:
+The accuracy for for signal 154 is: 95.23809523809523%
 basecalled: AGGTTTCGCTCGTGACGTCGCAA-TTGATCAA-TACGG--CAGAATTGGTACGACGCTTCCGGTCAAGGCGTACCGGAACTAACTATTATTCGATATT-CGCTTT
             |||||||||||||||||||||||-||||||||-|||||--||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||
    correct: AGGTTTCGCTCGTGACGTCGCAAATTGATCAAATACGGGGCAGAATTGGTACGACGCTTCCGGTCAAGGCGTACCGGAACTAACTATTATTCGATATTTCGCTTT
-The accuracy for this sequence is: 95.23809523809523%
 
 
 Basecalling signal 155 out of 200
-The alignment for signal 155 is:
+The accuracy for for signal 155 is: 94.0%
 basecalled: GTTCGCGCTGAGATGGATGCGCTAAGCTTT--AATCGCATGGACAGAA-CTGAGG-CCACTTGATGTTCTGTCTGATTT-GCGCTGG-CACTAGTCAGGA
             ||||||||||||||||||||||||||||||--||||||||||||||||-||||||-|||||||||||||||||||||||-|||||||-||||||||||||
    correct: GTTCGCGCTGAGATGGATGCGCTAAGCTTTTTAATCGCATGGACAGAAACTGAGGGCCACTTGATGTTCTGTCTGATTTTGCGCTGGGCACTAGTCAGGA
-The accuracy for this sequence is: 94.0%
 
 
 Basecalling signal 156 out of 200
-The alignment for signal 156 is:
+The accuracy for for signal 156 is: 93.33333333333333%
 basecalled: ACAAGG-CCC-AACCGCTGTCAGTGACTTAGGTACATT-CAACGTCTAGCTACACCATCCCC--AGCCACGGG-TCATGATCCGTTATAACGACCGACCGCTCA-
             ||||||-|||-|||||||||||||||||||||||||||-|||||||||||||||||||||||--|||||||||-||||||||||||||||||||||||||||||-
    correct: ACAAGGGCCCCAACCGCTGTCAGTGACTTAGGTACATTTCAACGTCTAGCTACACCATCCCCCCAGCCACGGGGTCATGATCCGTTATAACGACCGACCGCTCAT
-The accuracy for this sequence is: 93.33333333333333%
 
 
 Basecalling signal 157 out of 200
-The alignment for signal 157 is:
+The accuracy for for signal 157 is: 96.0%
 basecalled: TACTCTGCGAA-CTAGACCAAGCCC-AGCAAGTGGAA-GGACGCGAAGATGCTCTGACTTGTGTCGTTGCAGCAACTCTCTAAGTCGAGTATTCAGGAT-
             |||||||||||-|||||||||||||-|||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-
    correct: TACTCTGCGAAACTAGACCAAGCCCCAGCAAGTGGAAAGGACGCGAAGATGCTCTGACTTGTGTCGTTGCAGCAACTCTCTAAGTCGAGTATTCAGGATT
-The accuracy for this sequence is: 96.0%
 
 
 Basecalling signal 158 out of 200
-The alignment for signal 158 is:
+The accuracy for for signal 158 is: 96.11650485436894%
 basecalled: GAACCGCCATCGTATGCAA-CC-TT-CAGTAAGATTCCTTCACGTACC-AGATGTAGCTAGAGCTCCACTTGCATCCTCAATAACGGCTAGCCACACGTCTTC
             |||||||||||||||||||-||-||-||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: GAACCGCCATCGTATGCAAACCCTTTCAGTAAGATTCCTTCACGTACCCAGATGTAGCTAGAGCTCCACTTGCATCCTCAATAACGGCTAGCCACACGTCTTC
-The accuracy for this sequence is: 96.11650485436894%
 
 
 Basecalling signal 159 out of 200
-The alignment for signal 159 is:
+The accuracy for for signal 159 is: 96.11650485436894%
 basecalled: GCGGCGGTGCATTCAGAATGGAGAGCATCAGAGCCGTGCGTGAA-CTAATGGCATTAGGATCCGGTCTCAATCCC-TATTCGG-CGG-TCAGAGCGACTTAAT
             ||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||-|||||||-|||-|||||||||||||||
    correct: GCGGCGGTGCATTCAGAATGGAGAGCATCAGAGCCGTGCGTGAAACTAATGGCATTAGGATCCGGTCTCAATCCCCTATTCGGGCGGGTCAGAGCGACTTAAT
-The accuracy for this sequence is: 96.11650485436894%
 
 
 Basecalling signal 160 out of 200
-The alignment for signal 160 is:
+The accuracy for for signal 160 is: 95.1923076923077%
 basecalled: TAA-TACCGCACGCAACGACGTCGGATCAATTGTT-CTCATGG-ATCAAA-GAACTTGATATTGAAGGATACCTCGCACGGATGGAATCGGACTGATT-CTGCG
             |||-|||||||||||||||||||||||||||||||-|||||||-||||||-|||||||||||||||||||||||||||||||||||||||||||||||-|||||
    correct: TAAATACCGCACGCAACGACGTCGGATCAATTGTTTCTCATGGGATCAAAAGAACTTGATATTGAAGGATACCTCGCACGGATGGAATCGGACTGATTTCTGCG
-The accuracy for this sequence is: 95.1923076923077%
 
 
 Basecalling signal 161 out of 200
-The alignment for signal 161 is:
+The accuracy for for signal 161 is: 95.0%
 basecalled: GAGCTACAGCTTCGCAGATATTGTAACGAGGTTGAACTT-GCTGAATGTGAAACTTCGGCCGCTCGCTCTTT-AGTCGTCACATCGGCCAAA-GGAGA--
             |||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||-|||||||||||||||||||-|||||--
    correct: GAGCTACAGCTTCGCAGATATTGTAACGAGGTTGAACTTTGCTGAATGTGAAACTTCGGCCGCTCGCTCTTTTAGTCGTCACATCGGCCAAAAGGAGAAA
-The accuracy for this sequence is: 95.0%
 
 
 Basecalling signal 162 out of 200
-The alignment for signal 162 is:
+The accuracy for for signal 162 is: 98.0392156862745%
 basecalled: AGG-CTAGCGCCTGTCAAGCTGATGATTGATGGTGACCACAGGAGCGTGGCTGTCTCAGGTTATCGGG-ATCGCGGATAGAATGTCCAGTTGAGACGAGACT
             |||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||
    correct: AGGGCTAGCGCCTGTCAAGCTGATGATTGATGGTGACCACAGGAGCGTGGCTGTCTCAGGTTATCGGGGATCGCGGATAGAATGTCCAGTTGAGACGAGACT
-The accuracy for this sequence is: 98.0392156862745%
 
 
 Basecalling signal 163 out of 200
-The alignment for signal 163 is:
+The accuracy for for signal 163 is: 94.1747572815534%
 basecalled: TAGACTGATCCC--GCCGGATCTTCCACATCAC-TGGCGCTACTCGATAGGTTTCGG-TCCGTGATGTAA-CGCCGCACTGTATGAGCC-ATGAGGCGAGTAT
             ||||||||||||--|||||||||||||||||||-|||||||||||||||||||||||-||||||||||||-||||||||||||||||||-|||||||||||||
    correct: TAGACTGATCCCCCGCCGGATCTTCCACATCACGTGGCGCTACTCGATAGGTTTCGGGTCCGTGATGTAAACGCCGCACTGTATGAGCCCATGAGGCGAGTAT
-The accuracy for this sequence is: 94.1747572815534%
 
 
 Basecalling signal 164 out of 200
-The alignment for signal 164 is:
+The accuracy for for signal 164 is: 91.2621359223301%
 basecalled: CACC-T-AG-CAGTTGGG--TCC-GAGTTAGTGGGTTGTAACCTAATCCTAGATATATTTACACGTAGAAA-GCTCTACCATCTCGTGTCC-AGG-AGTGGGA
             ||||-|-||-||||||||--|||-|||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||-|||-|||||||
    correct: CACCCTTAGGCAGTTGGGGGTCCCGAGTTAGTGGGTTGTAACCTAATCCTAGATATATTTACACGTAGAAAAGCTCTACCATCTCGTGTCCCAGGGAGTGGGA
-The accuracy for this sequence is: 91.2621359223301%
 
 
 Basecalling signal 165 out of 200
-The alignment for signal 165 is:
+The accuracy for for signal 165 is: 94.05940594059405%
 basecalled: TCCAAA---CC-TGG-TTATCCAGGG-AATGAAACGCCGAACAGGTCGACATATTCAGATCTTCGGCGTGTCAGCGCGACACCATGACTGACTACAGGTCT
             ||||||---||-|||-||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: TCCAAAAAACCCTGGGTTATCCAGGGGAATGAAACGCCGAACAGGTCGACATATTCAGATCTTCGGCGTGTCAGCGCGACACCATGACTGACTACAGGTCT
-The accuracy for this sequence is: 94.05940594059405%
 
 
 Basecalling signal 166 out of 200
-The alignment for signal 166 is:
+The accuracy for for signal 166 is: 93.06930693069306%
 basecalled: GGG-TATGGCAG-TTAA-TAGAGAACGCCAACTTCATTCGCGTT-GGCCATATTATCTATGACATT-CCTAGACACGGTTCGTCGG-TAAGG-TCTTAGGC
             |||-||||||||-||||-||||||||||||||||||||||||||-|||||||||||||||||||||-|||||||||||||||||||-|||||-||||||||
    correct: GGGGTATGGCAGATTAAATAGAGAACGCCAACTTCATTCGCGTTTGGCCATATTATCTATGACATTTCCTAGACACGGTTCGTCGGGTAAGGGTCTTAGGC
-The accuracy for this sequence is: 93.06930693069306%
 
 
 Basecalling signal 167 out of 200
-The alignment for signal 167 is:
+The accuracy for for signal 167 is: 97.0%
 basecalled: ATGCTGCCGGTTGAGTGGCGGACATTAACAGCCTACCCCAGGTTAA-GACAGAGTGTT-GATCTCGTGTGGTAACCTCGTTGCCAGGTTCGGATTCGG-C
             ||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||-|||||||||||||||||||||||||||||||||||||||-|
    correct: ATGCTGCCGGTTGAGTGGCGGACATTAACAGCCTACCCCAGGTTAAAGACAGAGTGTTTGATCTCGTGTGGTAACCTCGTTGCCAGGTTCGGATTCGGAC
-The accuracy for this sequence is: 97.0%
 
 
 Basecalling signal 168 out of 200
-The alignment for signal 168 is:
+The accuracy for for signal 168 is: 99.0%
 basecalled: TGTACGCATTTAAACCGTATGGTCATGCTGTAGGCTCTCACAGTCACGACTAAACCTGCGGGATCACGCCATTATTAGCGTTATT-ACTCGAGGTCCTTA
             |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||
    correct: TGTACGCATTTAAACCGTATGGTCATGCTGTAGGCTCTCACAGTCACGACTAAACCTGCGGGATCACGCCATTATTAGCGTTATTTACTCGAGGTCCTTA
-The accuracy for this sequence is: 99.0%
 
 
 Basecalling signal 169 out of 200
-The alignment for signal 169 is:
+The accuracy for for signal 169 is: 97.02970297029702%
 basecalled: AGTCGCGG-TCCACACTT-GACACTTT-CGAAGGTATTGCACCTACCGGATACACAGCATCGTGGTTGCCGAGCTCTCCACTGGACATGGCCATTGTCCTG
             ||||||||-|||||||||-||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: AGTCGCGGGTCCACACTTTGACACTTTTCGAAGGTATTGCACCTACCGGATACACAGCATCGTGGTTGCCGAGCTCTCCACTGGACATGGCCATTGTCCTG
-The accuracy for this sequence is: 97.02970297029702%
 
 
 Basecalling signal 170 out of 200
-The alignment for signal 170 is:
+The accuracy for for signal 170 is: 98.0392156862745%
 basecalled: GTGTTCCGG-ATGTGAACGGCGGCGTCTCCTCTCCAGGCTAA-GACATGCCTTTCTAGTTACCTGAGACAATCTTATCAGAACACTCCGTGGCTCTCCACGA
             |||||||||-||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: GTGTTCCGGGATGTGAACGGCGGCGTCTCCTCTCCAGGCTAAAGACATGCCTTTCTAGTTACCTGAGACAATCTTATCAGAACACTCCGTGGCTCTCCACGA
-The accuracy for this sequence is: 98.0392156862745%
 
 
 Basecalling signal 171 out of 200
-The alignment for signal 171 is:
+The accuracy for for signal 171 is: 99.0%
 basecalled: GGCGGTTGTTGCATCGCGCC-GATAAGTCTTAGTCCTCGTGTCAGTGCTTACGTGGACTCATCGATCGTTACACGAAGCAGCTCAACAGCGTAACTGCTT
             ||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: GGCGGTTGTTGCATCGCGCCCGATAAGTCTTAGTCCTCGTGTCAGTGCTTACGTGGACTCATCGATCGTTACACGAAGCAGCTCAACAGCGTAACTGCTT
-The accuracy for this sequence is: 99.0%
 
 
 Basecalling signal 172 out of 200
-The alignment for signal 172 is:
+The accuracy for for signal 172 is: 91.50943396226415%
 basecalled: CTGTGTAAGGTTCAAA-GA-GTCACTCATGTTTT-GTCCGGCGGG--TTAAACTACCTCAAACCGACAACAGGG-AAAGTGG-CATTCGTTT-CTGG-CCGGTTAC
             ||||||||||||||||-||-||||||||||||||-||||||||||--|||||||||||||||||||||||||||-|||||||-|||||||||-||||-||||||||
    correct: CTGTGTAAGGTTCAAAAGAAGTCACTCATGTTTTTGTCCGGCGGGGGTTAAACTACCTCAAACCGACAACAGGGGAAAGTGGGCATTCGTTTTCTGGGCCGGTTAC
-The accuracy for this sequence is: 91.50943396226415%
 
 
 Basecalling signal 173 out of 200
-The alignment for signal 173 is:
+The accuracy for for signal 173 is: 98.0%
 basecalled: GCATGCCATGTAGCGCCGCCGG-CCC-GACATTAGATGCGACGACAACTGCCTTGAACATTCGTATGTAGCCTTCTCAGTTGTTTGATATTGTAGCTTGC
             ||||||||||||||||||||||-|||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: GCATGCCATGTAGCGCCGCCGGGCCCCGACATTAGATGCGACGACAACTGCCTTGAACATTCGTATGTAGCCTTCTCAGTTGTTTGATATTGTAGCTTGC
-The accuracy for this sequence is: 98.0%
 
 
 Basecalling signal 174 out of 200
-The alignment for signal 174 is:
+The accuracy for for signal 174 is: 92.3076923076923%
 basecalled: TACATTT-CGGCTCTATAATTAGAAAA--GGATGGCAATT-AAA-CAGCACAGGCAATCATGCTGTCTTATACTATTAA-CATGGTCAT-AGAACAGTCGCTG-
             |||||||-|||||||||||||||||||--|||||||||||-|||-||||||||||||||||||||||||||||||||||-|||||||||-|||||||||||||-
    correct: TACATTTTCGGCTCTATAATTAGAAAAAAGGATGGCAATTTAAAACAGCACAGGCAATCATGCTGTCTTATACTATTAAACATGGTCATCAGAACAGTCGCTGG
-The accuracy for this sequence is: 92.3076923076923%
 
 
 Basecalling signal 175 out of 200
-The alignment for signal 175 is:
+The accuracy for for signal 175 is: 98.0392156862745%
 basecalled: ATTCGTAGCTCTGGACCG-CTTATGCTACGTACTATGGCC-TACGCACAGCCGGTCCGCGAGTAACTCGTCGGAGCGTAAGTTCAGCGACCGGCCGGCGCCA
             ||||||||||||||||||-|||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: ATTCGTAGCTCTGGACCGGCTTATGCTACGTACTATGGCCCTACGCACAGCCGGTCCGCGAGTAACTCGTCGGAGCGTAAGTTCAGCGACCGGCCGGCGCCA
-The accuracy for this sequence is: 98.0392156862745%
 
 
 Basecalling signal 176 out of 200
-The alignment for signal 176 is:
+The accuracy for for signal 176 is: 97.9381443298969%
 basecalled: ACTCCACGTCACTGTAAGCTCCTCATTTT-AGGG-CCGTGACTACTTATCTCGAACAAGTGACTCATATTCAACTCCTGCGTTATTTGCCACCGTCT
             |||||||||||||||||||||||||||||-||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: ACTCCACGTCACTGTAAGCTCCTCATTTTTAGGGGCCGTGACTACTTATCTCGAACAAGTGACTCATATTCAACTCCTGCGTTATTTGCCACCGTCT
-The accuracy for this sequence is: 97.9381443298969%
 
 
 Basecalling signal 177 out of 200
-The alignment for signal 177 is:
+The accuracy for for signal 177 is: 96.84210526315789%
 basecalled: GGTTGTTACATATCCATGCTCAATGTGCGAAATCCG-TGATCGCCCTTCGCAGATGTATGCGAAGCATGCGGG-AACCTGGCGATGTT-CAACCT
             ||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||-||||||||||||||-||||||
    correct: GGTTGTTACATATCCATGCTCAATGTGCGAAATCCGGTGATCGCCCTTCGCAGATGTATGCGAAGCATGCGGGGAACCTGGCGATGTTTCAACCT
-The accuracy for this sequence is: 96.84210526315789%
 
 
 Basecalling signal 178 out of 200
-The alignment for signal 178 is:
+The accuracy for for signal 178 is: 94.23076923076923%
 basecalled: GCC-TCATTCCTGCGAATTCACTACCGTACTGGCGGTCGAAGCC-GTGAAGACCATATATTGGCCCAA-TAGAAA-TAATCCCCATCGAGGG-TAGG-AGACCA
             |||-||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||-||||||-||||||||||||||||-||||-||||||
    correct: GCCCTCATTCCTGCGAATTCACTACCGTACTGGCGGTCGAAGCCCGTGAAGACCATATATTGGCCCAAATAGAAAATAATCCCCATCGAGGGGTAGGGAGACCA
-The accuracy for this sequence is: 94.23076923076923%
 
 
 Basecalling signal 179 out of 200
-The alignment for signal 179 is:
+The accuracy for for signal 179 is: 95.37037037037037%
 basecalled: GACAAGCCATGTCGCTCTGTCCTCGACGTTAAA-CATCGCGTACTGGGTACTGATGTTT-ACCGACACTCAAGG-CTTCC-GGCTAATATTT-AGCGACTCTAAGGGC
             |||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||-||||||||||||||-|||||-|||||||||||-|||||||||||||||
    correct: GACAAGCCATGTCGCTCTGTCCTCGACGTTAAAACATCGCGTACTGGGTACTGATGTTTTACCGACACTCAAGGGCTTCCCGGCTAATATTTTAGCGACTCTAAGGGC
-The accuracy for this sequence is: 95.37037037037037%
 
 
 Basecalling signal 180 out of 200
-The alignment for signal 180 is:
+The accuracy for for signal 180 is: 97.95918367346938%
 basecalled: TAGTAAGAAGCAGACGGCCTAGGATTCTATCGTGG-ACGTGTTGACTGAAGTGCATCCTGTATTT-GCATGCGCGATAATTCCCGTGAGCGCATATCC
             |||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||
    correct: TAGTAAGAAGCAGACGGCCTAGGATTCTATCGTGGGACGTGTTGACTGAAGTGCATCCTGTATTTTGCATGCGCGATAATTCCCGTGAGCGCATATCC
-The accuracy for this sequence is: 97.95918367346938%
 
 
 Basecalling signal 181 out of 200
-The alignment for signal 181 is:
+The accuracy for for signal 181 is: 94.0%
 basecalled: CTCACGG-TCGCGTGCCGCCTGGAGACGAAA-CCAACC-TTAACACAGTGAACGGAGAGTACTGAAGCATACGAAA-CTGGTACTAAGAA-CACCAGCG-
             |||||||-|||||||||||||||||||||||-||||||-|||||||||||||||||||||||||||||||||||||-|||||||||||||-||||||||-
    correct: CTCACGGGTCGCGTGCCGCCTGGAGACGAAAACCAACCCTTAACACAGTGAACGGAGAGTACTGAAGCATACGAAAACTGGTACTAAGAAACACCAGCGG
-The accuracy for this sequence is: 94.0%
 
 
 Basecalling signal 182 out of 200
-The alignment for signal 182 is:
+The accuracy for for signal 182 is: 96.26168224299066%
 basecalled: GGAATTATTGAACGG-GCCGGTTCCACGAACC-TGTGTACC-GGTTTGTTAGGCC-ATCTGACACACGCTCAGAGTTCCGGAGGTGTGGAGTGCTGAACCGGGATAC
             |||||||||||||||-||||||||||||||||-||||||||-|||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: GGAATTATTGAACGGTGCCGGTTCCACGAACCCTGTGTACCCGGTTTGTTAGGCCCATCTGACACACGCTCAGAGTTCCGGAGGTGTGGAGTGCTGAACCGGGATAC
-The accuracy for this sequence is: 96.26168224299066%
 
 
 Basecalling signal 183 out of 200
-The alignment for signal 183 is:
+The accuracy for for signal 183 is: 94.94949494949495%
 basecalled: TTCTCAGGCTACATTGCGAGCTATACCGAAGCGCCC-GTATT-ATCAAGTATCGCTAGCACACAA-GTCGCAGCCGCC-GCATGGTTAAGGCAATT-AA
             ||||||||||||||||||||||||||||||||||||-|||||-||||||||||||||||||||||-||||||||||||-|||||||||||||||||-||
    correct: TTCTCAGGCTACATTGCGAGCTATACCGAAGCGCCCCGTATTTATCAAGTATCGCTAGCACACAAAGTCGCAGCCGCCCGCATGGTTAAGGCAATTTAA
-The accuracy for this sequence is: 94.94949494949495%
 
 
 Basecalling signal 184 out of 200
-The alignment for signal 184 is:
+The accuracy for for signal 184 is: 97.05882352941177%
 basecalled: CCTATATGTCCATGTAGCATCGAAA-CGCGTGTGCGCAAGCTACTGTCTGCTCAACCTATCAAGGATGCACCAGATTCGCGGAAGGCCCC-AGACGACC-GC
             |||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||-||
    correct: CCTATATGTCCATGTAGCATCGAAAACGCGTGTGCGCAAGCTACTGTCTGCTCAACCTATCAAGGATGCACCAGATTCGCGGAAGGCCCCCAGACGACCCGC
-The accuracy for this sequence is: 97.05882352941177%
 
 
 Basecalling signal 185 out of 200
-The alignment for signal 185 is:
+The accuracy for for signal 185 is: 98.95833333333334%
 basecalled: ATGGG-CCAGTTGAGTAATCTACGAGCACAGTAGTAGGAAGTCGATGAACGGCGTTGTCTGACGAGAGAATGGAGCTATTCTTAGATTAGCTCCAT
             |||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: ATGGGGCCAGTTGAGTAATCTACGAGCACAGTAGTAGGAAGTCGATGAACGGCGTTGTCTGACGAGAGAATGGAGCTATTCTTAGATTAGCTCCAT
-The accuracy for this sequence is: 98.95833333333334%
 
 
 Basecalling signal 186 out of 200
-The alignment for signal 186 is:
+The accuracy for for signal 186 is: 96.22641509433963%
 basecalled: TT-CAATTGGAGTGAAACATTAGATTCGCCTATCTCGCAGCAAGCGACGCGCATTGTAACGCTGGCCGCC-GAGATGGATAAGTT-GGACCGTGCGTT-AAGAGAC
             ||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||-||||||||||||-|||||||
    correct: TTTCAATTGGAGTGAAACATTAGATTCGCCTATCTCGCAGCAAGCGACGCGCATTGTAACGCTGGCCGCCCGAGATGGATAAGTTTGGACCGTGCGTTTAAGAGAC
-The accuracy for this sequence is: 96.22641509433963%
 
 
 Basecalling signal 187 out of 200
-The alignment for signal 187 is:
+The accuracy for for signal 187 is: 92.70833333333334%
 basecalled: AGCAA-TCGACACGTCACTTGCGCCGAAGTTAGCCTGG-TCGGTTGAGAACCAGATCAATACC-TTT-GGGACATCACATAA-GAAGACATCC--T
             |||||-||||||||||||||||||||||||||||||||-||||||||||||||||||||||||-|||-||||||||||||||-||||||||||--|
    correct: AGCAAATCGACACGTCACTTGCGCCGAAGTTAGCCTGGGTCGGTTGAGAACCAGATCAATACCCTTTTGGGACATCACATAAAGAAGACATCCCCT
-The accuracy for this sequence is: 92.70833333333334%
 
 
 Basecalling signal 188 out of 200
-The alignment for signal 188 is:
+The accuracy for for signal 188 is: 97.97979797979798%
 basecalled: GAGCTGATTGCTCACACGGGATGACGCGCTGGACGCCGGCGATTCCCGTATCCGATATCGTCAGTTT-AGG-AGTGGAGTTCGCTGTCGAATCGCGATC
             |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||-|||||||||||||||||||||||||||
    correct: GAGCTGATTGCTCACACGGGATGACGCGCTGGACGCCGGCGATTCCCGTATCCGATATCGTCAGTTTTAGGGAGTGGAGTTCGCTGTCGAATCGCGATC
-The accuracy for this sequence is: 97.97979797979798%
 
 
 Basecalling signal 189 out of 200
-The alignment for signal 189 is:
+The accuracy for for signal 189 is: 95.14563106796116%
 basecalled: GAGTGTGTTT----GGACGGTCCGCTCTTCGCCC-TCGGATACGTGTGTGTATTCCTCACGTGTCCTAGGTTGTCCTAGTATACCGGACATACGAAGGACAAG
             ||||||||||----||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: GAGTGTGTTTTTTTGGACGGTCCGCTCTTCGCCCCTCGGATACGTGTGTGTATTCCTCACGTGTCCTAGGTTGTCCTAGTATACCGGACATACGAAGGACAAG
-The accuracy for this sequence is: 95.14563106796116%
 
 
 Basecalling signal 190 out of 200
-The alignment for signal 190 is:
+The accuracy for for signal 190 is: 96.0%
 basecalled: GATCATCATGCAAGCATGACTTGATATAATTCTGGACTTATGTGCTGACACGCGTACCTCAGAATGATACATGGCC-GACTCAACACGTT-GCC-GCTGAG
             |||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||-|||-||||||
    correct: GATCATCATGCAAGCATGACT-GATATAATTCTGGACTTATGTGCTGACACGCGTACCTCAGAATGATACATGGCCCGACTCAACACGTTTGCCCGCTGAG
-The accuracy for this sequence is: 96.0%
 
 
 Basecalling signal 191 out of 200
-The alignment for signal 191 is:
+The accuracy for for signal 191 is: 98.95833333333334%
 basecalled: AACTTCAGGATAGGAGCCAAACACACCCGAACATCCTTCTCAGCATGGCCTT-CTCTCAATCAATTGGTTGAATCTACACTAAGTTCCAGGTTATG
             ||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||
    correct: AACTTCAGGATAGGAGCCAAACACACCCGAACATCCTTCTCAGCATGGCCTTTCTCTCAATCAATTGGTTGAATCTACACTAAGTTCCAGGTTATG
-The accuracy for this sequence is: 98.95833333333334%
 
 
 Basecalling signal 192 out of 200
-The alignment for signal 192 is:
+The accuracy for for signal 192 is: 97.0%
 basecalled: TCTGAGTGAACGTCTCAATAGTTCGACTCAAGGGAAATTT-GCCACTGTATAATAATGTACC-GCCAGATGGCTGCGGACCGCGCACC-ATCGAGACCAT
             ||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||-|||||||||||||||||||||||||-|||||||||||
    correct: TCTGAGTGAACGTCTCAATAGTTCGACTCAAGGGAAATTTTGCCACTGTATAATAATGTACCCGCCAGATGGCTGCGGACCGCGCACCCATCGAGACCAT
-The accuracy for this sequence is: 97.0%
 
 
 Basecalling signal 193 out of 200
-The alignment for signal 193 is:
+The accuracy for for signal 193 is: 97.05882352941177%
 basecalled: GTGTCGCTTATGACGGTGCCTTCCAGGAGATGTGCTCAACTATTGTAACGGTTCTCTGTAA-TGCGATCTAGAGGTAA-CAGCCATGG-CGTTACCTAACGT
             |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||-|||||||||-|||||||||||||
    correct: GTGTCGCTTATGACGGTGCCTTCCAGGAGATGTGCTCAACTATTGTAACGGTTCTCTGTAAATGCGATCTAGAGGTAAACAGCCATGGGCGTTACCTAACGT
-The accuracy for this sequence is: 97.05882352941177%
 
 
 Basecalling signal 194 out of 200
-The alignment for signal 194 is:
+The accuracy for for signal 194 is: 98.0%
 basecalled: CC-GTAAATCACCATCTGCAGAATCTCGAGGCAGAAGGCATTCTGGGTGCCCGAAGCTAAGGTTATTCATAGCTATTGATACCGACGACACTGCGGCC-G
             ||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|
    correct: CCCGTAAATCACCATCTGCAGAATCTCGAGGCAGAAGGCATTCTGGGTGCCCGAAGCTAAGGTTATTCATAGCTATTGATACCGACGACACTGCGGCCCG
-The accuracy for this sequence is: 98.0%
 
 
 Basecalling signal 195 out of 200
-The alignment for signal 195 is:
+The accuracy for for signal 195 is: 95.87628865979381%
 basecalled: AGCGATCGTTTGCTTCC-GAGCC-TAATAAGCGATTATGTCTCTCAGACGCATACCGCGTGCCTTT-GCATGATAGTGTACAACC-GGCAGGTCAAT
             |||||||||||||||||-|||||-||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||-|||||||||||
    correct: AGCGATCGTTTGCTTCCCGAGCCCTAATAAGCGATTATGTCTCTCAGACGCATACCGCGTGCCTTTTGCATGATAGTGTACAACCCGGCAGGTCAAT
-The accuracy for this sequence is: 95.87628865979381%
 
 
 Basecalling signal 196 out of 200
-The alignment for signal 196 is:
+The accuracy for for signal 196 is: 94.94949494949495%
 basecalled: AGGGTGGAGAATAACGAATGAA-GCCGTCGATTGTT-CCTGAGGTTTAGCCAGCATATACGCTATGTACATT-CCATGGAAGATTGGTATTTCTTT--C
             ||||||||||||||||||||||-|||||||||||||-|||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||--|
    correct: AGGGTGGAGAATAACGAATGAAAGCCGTCGATTGTTTCCTGAGGTTTAGCCAGCATATACGCTATGTACATTTCCATGGAAGATTGGTATTTCTTTTTC
-The accuracy for this sequence is: 94.94949494949495%
 
 
 Basecalling signal 197 out of 200
-The alignment for signal 197 is:
+The accuracy for for signal 197 is: 100.0%
 basecalled: TCCAGACACGAACTGAAGGACTGGAGCTTCGAACTTGCGTCGGTCGAGATGTATGCTATTTAATCAGGCACACGACTATTAGATGAGTCCGCAATCGT
             ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: TCCAGACACGAACTGAAGGACTGGAGCTTCGAACTTGCGTCGGTCGAGATGTATGCTATTTAATCAGGCACACGACTATTAGATGAGTCCGCAATCGT
-The accuracy for this sequence is: 100.0%
 
 
 Basecalling signal 198 out of 200
-The alignment for signal 198 is:
+The accuracy for for signal 198 is: 96.0%
 basecalled: GTTGATCTCCTATACGTGG-CTCGG-ATTGAACTAGACTACCTCGGTTACCC-TCCCAATAATGTATACAATAACC-TCTCGTCTTCACGACCAAGAGCT
             |||||||||||||||||||-|||||-||||||||||||||||||||||||||-|||||||||||||||||||||||-|||||||||||||||||||||||
    correct: GTTGATCTCCTATACGTGGGCTCGGGATTGAACTAGACTACCTCGGTTACCCCTCCCAATAATGTATACAATAACCCTCTCGTCTTCACGACCAAGAGCT
-The accuracy for this sequence is: 96.0%
 
 
 Basecalling signal 199 out of 200
-The alignment for signal 199 is:
+The accuracy for for signal 199 is: 95.0%
 basecalled: CGTCGTGGCAGAAACTTTCTT-CGCTGAGATACACTACGGTAACTTCTCTAA-TCCATCTAA-G-CCTATATTCACCTAAGGTCCACATGCTAAATGGG-
             |||||||||||||||||||||-||||||||||||||||||||||||||||||-|||||||||-|-||||||||||||||||||||||||||||||||||-
    correct: CGTCGTGGCAGAAACTTTCTTTCGCTGAGATACACTACGGTAACTTCTCTAAATCCATCTAAAGGCCTATATTCACCTAAGGTCCACATGCTAAATGGGG
-The accuracy for this sequence is: 95.0%
 
 
 Basecalling signal 200 out of 200
-The alignment for signal 200 is:
+The accuracy for for signal 200 is: 97.0%
 basecalled: GATT-GTTT-AACTTGCACACC-GGTGGTCCTAACTTATCACGGTTCCTGTCACGGTAAAGCTTCTACTGCGACCAGCTCGATATCCGCGACTTAGCTGT
             ||||-||||-||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
    correct: GATTTGTTTTAACTTGCACACCCGGTGGTCCTAACTTATCACGGTTCCTGTCACGGTAAAGCTTCTACTGCGACCAGCTCGATATCCGCGACTTAGCTGT
-The accuracy for this sequence is: 97.0%
 
 
 Finished basecalling 200 signals
@@ -3011,12 +2809,1417 @@ The average accuracy of the basecaller is: 95.98872015787889%</code></pre>
     improve it any further.
   </p>
   <p class="blog-post_paragraph">For example:</p>
+  <pre class="line-numbers"><code class="language-python">basecall_all(
+    signals, 
+    kmer_table, 
+    sequencing, 
+    movement_cutoff = 0.03, 
+    homopolymer_cutoff = 17, 
+    detailed=True,
+    )</code></pre>
   <pre
-    class="line-numbers"
-  ><code class="language-python">basecall_all(signals, kmer_table, sequencing, movement_cutoff = 0.03, homopolymer_cutoff = 17, detailed=False)</code></pre>
-  <pre
-    class="output no-lang-display"
-  ><code class="language-output">Finished basecalling 200 signals
+    class="output"
+  ><code class="language-output">Basecalling signal 1 out of 200
+The accuracy for for signal 1 is: 98.01980198019803%
+basecalled: CCTTACCAGTTTCATAATAA-TAAGGTTCCCACATGCTACCTGTCCGGGCGACCGTAGG-CGAATACCGCGCTGCACGTGCCTCGCTACTTGTACACATGT
+            ||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||
+   correct: CCTTACCAGTTTCATAATAAATAAGGTTCCCACATGCTACCTGTCCGGGCGACCGTAGGGCGAATACCGCGCTGCACGTGCCTCGCTACTTGTACACATGT
+
+
+Basecalling signal 2 out of 200
+The accuracy for for signal 2 is: 97.05882352941177%
+basecalled: TGACCGTTTGCAGGCATTGCTTGGATCCATATAGCGCACAA-TAGTCGCGAGTATGGTTGGTGATCAAA-GACCTGTAGATGTTATTACTGTCAGCCCATATG
+            |||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||-||||||||||||||||-||||||||||||||||
+   correct: TGACCGTTTGCAGGCATTGCTTGGATCCATATAGCGCACAAATAGTCGCGAGTATGGTTGGTGATCAAAAGACCTGTAGATGTTAT-ACTGTCAGCCCATATG
+
+
+Basecalling signal 3 out of 200
+The accuracy for for signal 3 is: 96.15384615384616%
+basecalled: AGCGCTCGGCTAAA-CTAGCCTGGCCATCGTTGTCATAA-CCTATCCCGGCGTCCGCTTAGCGTACTGAAGGTGTTCGTAATGTCTCC-TCGGGCCAGCGCGTCG
+            ||||||||||||||-||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||-||||-|||||||||||
+   correct: AGCGCTCGGCTAAAACTAGCCTGGCCATCGTTGTCATAAACCTATCCCGGCGTCCGCTTAGCGTACTGAAGGTGTTCGTAATGTCTCCCTCGG-CCAGCGCGTCG
+
+
+Basecalling signal 4 out of 200
+The accuracy for for signal 4 is: 96.11650485436894%
+basecalled: GCCCGTAGAAA--CAGGTTGAGGACAATAGCAGTTACGAATACAATTATCGATCCGGTGGTGAA-GACGTCATCGCACCTCCAACACACC-ATGAGAGAACGG
+            |||||||||||--|||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||-||||||||||||
+   correct: GCCCGTAGAAAAACAGGTTGAGGACAATAGCAGTTACGAATACAATTATCGATCCGGTGGTGAAAGACGTCATCGCACCTCCAACACACCCATGAGAGAACGG
+
+
+Basecalling signal 5 out of 200
+The accuracy for for signal 5 is: 98.0%
+basecalled: GACACGAAGACTTCAGGCGTGCAGATGCGAAACGCGCAGTCGCACC-ATATATACACGATTGCTCT-AGGCCGCATGGTTACCTCCAGTTTCAAAGCATA
+            ||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||-|||||||||||||||||||||||||||||||||
+   correct: GACACGAAGACTTCAGGCGTGCAGATGCGAAACGCGCAGTCGCACCGATATATACACGATTGCTCTCAGGCCGCATGGTTACCTCCAGTTTCAAAGCATA
+
+
+Basecalling signal 6 out of 200
+The accuracy for for signal 6 is: 100.0%
+basecalled: CAACTATCATGCAGTATTGTCACGCGTTGCCTGCCTTGACTAGCGGCTATTATATGATGATGCGATCGTTTAGGCCAGCTCCCATTTCGATACGCACTAAC
+            |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: CAACTATCATGCAGTATTGTCACGCGTTGCCTGCCTTGACTAGCGGCTATTATATGATGATGCGATCGTTTAGGCCAGCTCCCATTTCGATACGCACTAAC
+
+
+Basecalling signal 7 out of 200
+The accuracy for for signal 7 is: 96.11650485436894%
+basecalled: AGGCTGGTGAG-GTACTCGTCGCTTCCAATAATAATCGATACAAGCTATCCAGTGTATCCCATGAACCACGTACC-TTCGCGGCCGACAA-TCGTATCCCGA-
+            |||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||-|||||||||||-
+   correct: AGGCTGGTGAGAGTACTCGTCGCTTCCAATAATAATCGATACAAGCTATCCAGTGTATCCCATGAACCACGTACCCTTCGCGGCCGACAAATCGTATCCCGAC
+
+
+Basecalling signal 8 out of 200
+The accuracy for for signal 8 is: 94.28571428571428%
+basecalled: GCTGG-CTATTT-CCAGACCACATGAATCGGTTTCTGCGGCTGGGT-TTCAGTTGGCACGTCCTTTGGG--TCC-AGGCACGTGCATCGGCCACAGGCACACGGC
+            |||||-||||||-|||||||||||||||||||||||||||||||||-||||||||||||||||||||||--|||-||||||||||||||||||||||||||||||
+   correct: GCTGGGCTATTTTCCAGACCACATGAATCGGTTTCTGCGGCTGGGTCTTCAGTTGGCACGTCCTTTGGGGGTCCCAGGCACGTGCATCGGCCACAGGCACACGGC
+
+
+Basecalling signal 9 out of 200
+The accuracy for for signal 9 is: 95.09803921568627%
+basecalled: AGTTCTCTCCGATTGGCTGACAGTAACAAGCCGGGTGGACCCGGGGAGGTTTT--GTAACTGTTAGCTAGAATTGCGCTCAATAGCACC-ACACTTTATCTTGA
+            |||||||||||||||||||||||||||||||||||||||||||||-|||||||--||||||||||||||||||-|||||||||||||||-||||||||||||||
+   correct: AGTTCTCTCCGATTGGCTGACAGTAACAAGCCGGGTGGACCCGGG-AGGTTTTTTGTAACTGTTAGCTAGAAT-GCGCTCAATAGCACCCACACTTTATCTTGA
+
+
+Basecalling signal 10 out of 200
+The accuracy for for signal 10 is: 96.22641509433963%
+basecalled: GCGAA-CC-GATACAAAACAGCATACACGCAGTAGATACTATTGGTCCGGAAAA--TGTCACTCCAGTAATGACTTAGTCCAGTCCAGGTGTGCCTGGGTCTAGAA
+            |||||-||-|||||||||||||||||||||||||||||||||||||||||||||--||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: GCGAAACCCGATACAAAACAGCATACACGCAGTAGATACTATTGGTCCGGAAAAAATGTCACTCCAGTAATGACTTAGTCCAGTCCAGGTGTGCCTGGGTCTAGAA
+
+
+Basecalling signal 11 out of 200
+The accuracy for for signal 11 is: 98.0%
+basecalled: TAGATTAATT-GCTTAAGGAACACTCGGTTGGCGCCTGTAACTTGAACAGGCCTTAGAGCCACCGATATGGATGCTTGTTAGTAGCCACACCTGTAAGCTG
+            ||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||
+   correct: TAGATTAATTTGCTTAAGGAACACTCGGTTGGCGCCTGTAACTTGAACAGGCCTTAGAGCCACCGATATGGATGCTTGT-AGTAGCCACACCTGTAAGCTG
+
+
+Basecalling signal 12 out of 200
+The accuracy for for signal 12 is: 97.02970297029702%
+basecalled: GGCGAGAAGACGGTAATAAGCGAGTGTTCCCACGGGCTT-GG-ATGCTTGTCTCAAGTCTTTCCCGACAGCATTTAAGTCTAAGCGCATAAGACCGCTGATC
+            |||||||||||||||||||||||||||||||||||||||-||-|||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||
+   correct: GGCGAGAAGACGGTAATAAGCGAGTGTTCCCACGGGCTTTGGGATGCTTGTCTCAAGTCTTTCCCGACAGCATT-AAGTCTAAGCGCATAAGACCGCTGATC
+
+
+Basecalling signal 13 out of 200
+The accuracy for for signal 13 is: 97.14285714285714%
+basecalled: CTGCATTGCGGCTCGTGATACGTAATGCGTTACGCAA-TACTTCAGTCAGTGTCTAGACGTCCAAGTTT-CTT-AGAGCCCGCCGTGGCCTGGCGGTAATATAAA
+            |||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||-|||-|||||||||||||||||||||||||||||||
+   correct: CTGCATTGCGGCTCGTGATACGTAATGCGTTACGCAAATACTTCAGTCAGTGTCTAGACGTCCAAGTTTTCTTTAGAGCCCGCCGTGGCCTGGCGGTAATATAAA
+
+
+Basecalling signal 14 out of 200
+The accuracy for for signal 14 is: 94.89795918367348%
+basecalled: ATGGGTGCCAGCGACCGATGAGAAGACATGAACCGGGG--TCCTTTGGTTACCGAGCTTCAACCACGG-AAATGCTAATGGG-AGGCAGAGTTACAT-
+            ||||||||||||||||||||||||||||||||||||||--||||||||||||||||||||||||||||-|||||||||||||-||||||||||||||-
+   correct: ATGGGTGCCAGCGACCGATGAGAAGACATGAACCGGGGGGTCCTTTGGTTACCGAGCTTCAACCACGGGAAATGCTAATGGGGAGGCAGAGTTACATC
+
+
+Basecalling signal 15 out of 200
+The accuracy for for signal 15 is: 100.0%
+basecalled: AAGCGGCGTAACTCTCTGGGCAGTGGTATTCTACTCGACTACTCCTTAAGCGCCCATGCTGACAATGTGCGGACGTGGCCACTTATTAAAGATGGCTGGGAG
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: AAGCGGCGTAACTCTCTGGGCAGTGGTATTCTACTCGACTACTCCTTAAGCGCCCATGCTGACAATGTGCGGACGTGGCCACTTATTAAAGATGGCTGGGAG
+
+
+Basecalling signal 16 out of 200
+The accuracy for for signal 16 is: 97.0873786407767%
+basecalled: CTGA-TGACGGATAAGGTGCAGAGGACACATGTAGGACTAATAGAAA-GAACTCGGCAA-GTCTCCACCAACGCCTCGGCGCGAATCACTAATAGACCCTTTT
+            ||||-||||||||||||||||||||||||||||||||||||||||||-|||||||||||-|||||||||||||||||||||||||||||||||||||||||||
+   correct: CTGAATGACGGATAAGGTGCAGAGGACACATGTAGGACTAATAGAAAAGAACTCGGCAAAGTCTCCACCAACGCCTCGGCGCGAATCACTAATAGACCCTTTT
+
+
+Basecalling signal 17 out of 200
+The accuracy for for signal 17 is: 97.11538461538461%
+basecalled: GGATTGCCACAGGAAACATCTAACGAGACCTACTGGTTACGTTAG-AGTCATGCGCACC-ATCTTGAGATATGCGAACGTAAGCCGTTACGTCG-CTAGCCGTC
+            |||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||-||||||||||||||||||||||||||||||||||-|||||||||
+   correct: GGATTGCCACAGGAAACATCTAACGAGACCTACTGGTTACGTTAGTAGTCATGCGCACCCATCTTGAGATATGCGAACGTAAGCCGTTACGTCGGCTAGCCGTC
+
+
+Basecalling signal 18 out of 200
+The accuracy for for signal 18 is: 97.0%
+basecalled: TCACCTCC-TGAGGTGTGACTACTAATCTCCCGCCGG-AGTCCACTACTGGTAA-TTATCACAGCTAGCACTGTTTGGCATAGTAAGCACCGTCAATTTC
+            ||||||||-||||||||||||||||||||||||||||-||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||
+   correct: TCACCTCCCTGAGGTGTGACTACTAATCTCCCGCCGGGAGTCCACTACTGGTAAATTATCACAGCTAGCACTGTTTGGCATAGTAAGCACCGTCAATTTC
+
+
+Basecalling signal 19 out of 200
+The accuracy for for signal 19 is: 97.89473684210527%
+basecalled: AACATGTGGC-GCCCACGGTTAGTCCGCGCCACCCAATTTAGAGTCAATAATTATTCCAGGTAAAGAAACAACACAGCTCTTTTGACTTGGCTCAA
+            ||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||
+   correct: AACATGTGGCTGCCCACGGTTAGTCCGCGCCACCCAATTTAGAGTCAATAATTATTCCAGGTAA-GAAACAACACAGCTCTTTTGACTTGGCTCAA
+
+
+Basecalling signal 20 out of 200
+The accuracy for for signal 20 is: 93.81443298969072%
+basecalled: CGTAATAATTATACGAAA-CTTCCCCGTCTGTTCGCAATGAGGGGGTATCGTTGG-TACTTCC-TACTCGAACCTCTTATCGGGCCACCCACGGCAGTCC
+            ||||||||||||||||||-||||||||||||||||||||||||||-|||||||||-|||||||-|||||||||||||||||||-|||||||||-||||||
+   correct: CGTAATAATTATACGAAAACTTCCCCGTCTGTTCGCAATGAGGGG-TATCGTTGGGTACTTCCCTACTCGAACCTCTTATCGG-CCACCCACG-CAGTCC
+
+
+Basecalling signal 21 out of 200
+The accuracy for for signal 21 is: 95.91836734693877%
+basecalled: CCAAACCC-GTAAAGAGATCACGAAGACACGGCAGGCCGCAGACCTATGTACGGCGGCATT-ATAGCCATAGGACCC-GTAGGAGATAGCACGTTAGCT
+            ||||||||-|||||||||||||||-||||||||||||||||||||||||||||||||||||-|||||||||||||||-|||||||||||||||||||||
+   correct: CCAAACCCCGTAAAGAGATCACGA-GACACGGCAGGCCGCAGACCTATGTACGGCGGCATTTATAGCCATAGGACCCCGTAGGAGATAGCACGTTAGCT
+
+
+Basecalling signal 22 out of 200
+The accuracy for for signal 22 is: 96.15384615384616%
+basecalled: CACGATTT-GGCACTGCCGCCGATTAACCTATCTTG-GGTTTACAATGAGTCTAGTTAACGGCTGTTGAATGAACC-GTGTAATCAACATAAACGGCTGGTCTAA
+            ||||||||-|||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||-|||||
+   correct: CACGATTTTGGCACTGCCGCCGATTAACCTATCTTGCGGTTTACAATGAGTCTAGTTAACGGCTGTTGAATGAACCCGTGTAATCAACATAAACGGCTG-TCTAA
+
+
+Basecalling signal 23 out of 200
+The accuracy for for signal 23 is: 96.22641509433963%
+basecalled: GGCTTTCCGTCGGTCAAGATTTTGCTGTTGAA-GGAT-AGGTCTTGAATCGAACCCTTAGTTGTGAATAACGAATGACTAG-TCCATTGCAATT-CTTGTATTGCT
+            ||||||||||||||||||||||||||||||||-||||-|||||||||||||||||||||||||||||||||||||||||||-||||||||||||-|||||||||||
+   correct: GGCTTTCCGTCGGTCAAGATTTTGCTGTTGAAAGGATGAGGTCTTGAATCGAACCCTTAGTTGTGAATAACGAATGACTAGATCCATTGCAATTTCTTGTATTGCT
+
+
+Basecalling signal 24 out of 200
+The accuracy for for signal 24 is: 93.13725490196079%
+basecalled: TT-ACCTTATCGAATAGTTTATAGAA-TTCGCTCGTTGAGTTCACGGTGGACAGTGTGCGTCC-GG-CGACGCGCTTGGTAATAGTAATCCACCCC-AGA--
+            ||-|||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||-||-|||||||||||||||||||||||||||||-|||--
+   correct: TTTACCTTATCGAATAGTTTATAGAAATTCGCTCGTTGAGTTCACGGTGGACAGTGTGCGTCCCGGGCGACGCGCTTGGTAATAGTAATCCACCCCCAGAAA
+
+
+Basecalling signal 25 out of 200
+The accuracy for for signal 25 is: 97.02970297029702%
+basecalled: GGGTGCCAAAGCCTGTTCAAGCCGGGTCGTT-ATATAGGTCCGAGATTGTAGATGAATTATTAAGGTCATT-CGAAGCAGAGTCTAGAGGGAGCAATGCCTT
+            |||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||-
+   correct: GGGTGCCAAAGCCTGTTCAAGCCGGGTCGTTTATATAGGTCCGAGATTGTAGATGAATTATTAAGGTCATTTCGAAGCAGAGTCTAGAGGGAGCAATGCCT-
+
+
+Basecalling signal 26 out of 200
+The accuracy for for signal 26 is: 100.0%
+basecalled: ATAGGCATGGAGTGAGGGACTGAAGTTGGCGAGTCTTCGGAATTAGAGTCACGGTCTCCAAGGATTACGCCGCAGTATTGTGCCGGCTGGTAGCTGTCGAT
+            |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: ATAGGCATGGAGTGAGGGACTGAAGTTGGCGAGTCTTCGGAATTAGAGTCACGGTCTCCAAGGATTACGCCGCAGTATTGTGCCGGCTGGTAGCTGTCGAT
+
+
+Basecalling signal 27 out of 200
+The accuracy for for signal 27 is: 95.0%
+basecalled: TTGGG-CGAGATGTAGAACATTCGAAGCC-TGGCAGGTCCGGTTAAGTTAAGGTCGGGTACTCAACCTTT-CAATTGAGAAGGGCC-AGGATAGCTCTGAG
+            |||||-|||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||-|||||||||||||||-||-|||||||||||
+   correct: TTGGGGCGAGATGTAGAACATTCGAAGCCCTGGCAGGTCCGGTTAAGTTAAGGTCGGGTACTCAACCTTTTCAATTGAGAAGGGCCCAG-ATAGCTCTGAG
+
+
+Basecalling signal 28 out of 200
+The accuracy for for signal 28 is: 97.24770642201834%
+basecalled: GTCTGCTTCTGTATGAAGTCCGCTCCGGGGTCGGTCCGAAACC-GCTTCAGCATGTTTGTTT-GCGGCTCATCCAAGTCGG-CCGGCTCGCTTACACTCGCACTGGCCA
+            |||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||-||||||||||||||||||-|||||||||||||||||||||||||||
+   correct: GTCTGCTTCTGTATGAAGTCCGCTCCGGGGTCGGTCCGAAACCCGCTTCAGCATGTTTGTTTTGCGGCTCATCCAAGTCGGGCCGGCTCGCTTACACTCGCACTGGCCA
+
+
+Basecalling signal 29 out of 200
+The accuracy for for signal 29 is: 96.93877551020408%
+basecalled: GTGCAAGCTGTAGGTAGGACGTCGTCATGTGTCTGGAGAAGATGTCTAA-CATCTGAAA-TACGCTGTAGTCGTGGAGAGCCCTTTGCACATTAATAGA
+            |||||||||||||-|||||||||||||||||||||||||||||||||||-|||||||||-|||||||||||||||||||||||||||||||||||||||
+   correct: GTGCAAGCTGTAG-TAGGACGTCGTCATGTGTCTGGAGAAGATGTCTAAACATCTGAAAATACGCTGTAGTCGTGGAGAGCCCTTTGCACATTAATAGA
+
+
+Basecalling signal 30 out of 200
+The accuracy for for signal 30 is: 99.00990099009901%
+basecalled: ATACTCGATAG-CGCGATCACACGTGCACGTGGGTAGTTAACTATATACCCGCGTCGAGGAGTGGTCGCAATATGATACCTCGCTCTCATGTGCGTCTTCT
+            |||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: ATACTCGATAGACGCGATCACACGTGCACGTGGGTAGTTAACTATATACCCGCGTCGAGGAGTGGTCGCAATATGATACCTCGCTCTCATGTGCGTCTTCT
+
+
+Basecalling signal 31 out of 200
+The accuracy for for signal 31 is: 94.0%
+basecalled: TGGG-TGGACACTGG-AATT-GACCATTACCACGATACCATAGTGTCACGGACTGCCTAGCGGCCCAGACCC-AA-GTGTTAAAGTGGGCATATGTCGAGC
+            ||||-||||||||||-||||-|||||||||||||||||||||||||||||||||||||||||||||||||||-||-|||||||-|||||||||||||||||
+   correct: TGGGGTGGACACTGGGAATTTGACCATTACCACGATACCATAGTGTCACGGACTGCCTAGCGGCCCAGACCCCAAAGTGTTAA-GTGGGCATATGTCGAGC
+
+
+Basecalling signal 32 out of 200
+The accuracy for for signal 32 is: 96.11650485436894%
+basecalled: TACTACGAATCCCAACTGTCGAAATAAGCTGCT--CC-GAGTGCCGATAGCAGCTCATTGTTCCTCATGAGAGGTATTACTCAGTGCTGAACCTATGAAATA-
+            |||||||||||||||||||||||||||||||||--||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-
+   correct: TACTACGAATCCCAACTGTCGAAATAAGCTGCTTTCCCGAGTGCCGATAGCAGCTCATTGTTCCTCATGAGAGGTATTACTCAGTGCTGAACCTATGAAATAA
+
+
+Basecalling signal 33 out of 200
+The accuracy for for signal 33 is: 97.16981132075472%
+basecalled: AAGGTAGAAACTTCGGATAGGCTATT-CTCATTACGGCTTGCACGATGCAGATGCATACGGTCCTGCCAGTACAGCCC-ACCTTGAACTAATGTAATTGCCGCAT-
+            ||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||-
+   correct: AAGGTAGAAACTTCGGATAGGCTATTTCTCATTACGGCTTGCACGATGCAGATGCATACGGTCCTGCCAGTACAGCCCCACCTTGAACTAATGTAATTGCCGCATA
+
+
+Basecalling signal 34 out of 200
+The accuracy for for signal 34 is: 98.01980198019803%
+basecalled: GATTCATTCATGCACATAGTGACCACCGGCCTAACCTCGGCACTGATGTGAGGTGTCGCGAGACCAAGTTGATATACC-AGCTCACCTACGCTGTCATAGTG
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||-|||||||||||||||
+   correct: GATTCATTCATGCACATAGTGACCACCGGCCTAACCTCGGCACTGATGTGAGGTGTCGCGAGACCAAGTTGATATACCCAGCTCAC-TACGCTGTCATAGTG
+
+
+Basecalling signal 35 out of 200
+The accuracy for for signal 35 is: 89.32038834951457%
+basecalled: GGTTCC-GTTCCTTCGGCATCCTGCTGGCCTCGGCGGCC-GTGTCACGTGAGCC-GTAGATTTTT---GGCCGTAGAGTTT--CAAA-GTT-CTTCCTTCCACG
+            ||||||-||||||||||||||||||||||||||-|||||-||||||||||||||-||||||||||---|||||||||||||--||||-|||-||||||||||||
+   correct: GGTTCCCGTTCCTTCGGCATCCTGCTGGCCTCG-CGGCCCGTGTCACGTGAGCCCGTAGATTTTTTTTGGCCGTAGAGTTTTTCAAAAGTTTCTTCCTTCCACG
+
+
+Basecalling signal 36 out of 200
+The accuracy for for signal 36 is: 96.875%
+basecalled: GCAATAAGTTGGAGATGCTCAGCCGATCAGCTT-GCTCGGTGATTTGAGTTTACTAGCGAATGCAGAGCATATGGCAATGCCGACCTCGTGCGGTTCC
+            |||||||||||||||||||||||||||||||||-|||||||||||-|||||||||||||||||||||||||||||||||||||||-||||||||||||
+   correct: GCAATAAGTTGGAGATGCTCAGCCGATCAGCTTTGCTCGGTGATT-GAGTTTACTAGCGAATGCAGAGCATATGGCAATGCCGAC-TCGTGCGGTTCC
+
+
+Basecalling signal 37 out of 200
+The accuracy for for signal 37 is: 96.03960396039604%
+basecalled: GGCGTGCTCGCGGGCCGAGCTGCTACATAAATG-CGACTCGGTAATCGCAACCATT-CAGTTCCTCTTCGCTGCAGTGGATGGCGTCTTGTCTCTTCTCCC-
+            |||||||||||||||||||||||||||||||||-||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||-|||||-
+   correct: GGCGTGCTCGCGGGCCGAGCTGCTACATAAATGACGACTCGGTAATCGCAACCATTTCAGTTCCTCTTCGCTGCAGTGGATGGCGTCTTGTCTCT-CTCCCC
+
+
+Basecalling signal 38 out of 200
+The accuracy for for signal 38 is: 100.0%
+basecalled: ATCAAGCCGAATCGTTGCACATCAACAAGATTCGTGGAGGAGAAGATTGACATCGTGGCGTCGTTCAACCTTAGAGTAGGCTGCGGTCACTGGACCTGAACG
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: ATCAAGCCGAATCGTTGCACATCAACAAGATTCGTGGAGGAGAAGATTGACATCGTGGCGTCGTTCAACCTTAGAGTAGGCTGCGGTCACTGGACCTGAACG
+
+
+Basecalling signal 39 out of 200
+The accuracy for for signal 39 is: 96.90721649484536%
+basecalled: ATCAGTCAGGTTTCAAGCTGAAGCCTGTCACCTGGCTGGGTAAGGCC-GGCTTT-CTGGTCCAATAAATTAGTCCTCAGAGTGAGGGTGCGCAAAATG
+            |||||||||||||||||||||||||||||||||||||||-|||||||-||||||-|||||||||||||||||||||||||||||||||||||||||||
+   correct: ATCAGTCAGGTTTCAAGCTGAAGCCTGTCACCTGGCTGG-TAAGGCCCGGCTTTTCTGGTCCAATAAATTAGTCCTCAGAGTGAGGGTGCGCAAAATG
+
+
+Basecalling signal 40 out of 200
+The accuracy for for signal 40 is: 97.05882352941177%
+basecalled: TGCATCCTCGGCGACTGAGG-CAACAAGGCACCGCAA-CGAAACGCCAAGCGGCGCTAGCGACTTCTTGATCATCTTGAACTCTGATTGAGAAGCGACCCG-
+            ||||||||||||||||||||-||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-
+   correct: TGCATCCTCGGCGACTGAGGGCAACAAGGCACCGCAAACGAAACGCCAAGCGGCGCTAGCGACTTCTTGATCATCTTGAACTCTGATTGAGAAGCGACCCGT
+
+
+Basecalling signal 41 out of 200
+The accuracy for for signal 41 is: 95.04950495049505%
+basecalled: TTCATCAAGAATGCCTGTAAGTAGCTACAA-TGTTT-CACGGCCGCGCCAA-GCGGTGCACACTATAAAGCCAAGTTCTCCTCCGACGTATACG-AGATAAA
+            |||||||-||||||||||||||||||||||-|||||-||||||||||||||-||||||||||||||||||||||||||||||||||||||||||-|||||||
+   correct: TTCATCA-GAATGCCTGTAAGTAGCTACAAATGTTTTCACGGCCGCGCCAAAGCGGTGCACACTATAAAGCCAAGTTCTCCTCCGACGTATACGTAGATAAA
+
+
+Basecalling signal 42 out of 200
+The accuracy for for signal 42 is: 95.83333333333334%
+basecalled: ATTCCATT-CAGTGGAACGAATAGATAAGACTTTCGTGGTTGTAAGAGTACCTGAATAGTCTTGTTTAAGGGCC-GTAGCTTACTTT-CATTCGTAA
+            ||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||-||||||||||||-|||||||||
+   correct: ATTCCATTTCAGTGGAACGAATAGATAAGACTTTCGTGGTTGTAAGAGTACCTGAATAGTCTTGTT-AAGGGCCCGTAGCTTACTTTTCATTCGTAA
+
+
+Basecalling signal 43 out of 200
+The accuracy for for signal 43 is: 97.0873786407767%
+basecalled: ATAATGTTTGTCACTCCTTGTCGGACCC-ATAGTGAACGTTGTCTCGAGCCTTTAATCCTTAAA-GCCGTTCACTATTGTTAGACC-TTTCGGTCAGGATACA
+            ||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||-|||||||||||||||||||||-||||||||||||||||
+   correct: ATAATGTTTGTCACTCCTTGTCGGACCCCATAGTGAACGTTGTCTCGAGCCTTTAATCCTTAAAAGCCGTTCACTATTGTTAGACCCTTTCGGTCAGGATACA
+
+
+Basecalling signal 44 out of 200
+The accuracy for for signal 44 is: 98.0392156862745%
+basecalled: CTATATTACCCGCTGATAGTGATCCTTAGCCTAATTACGGACAGTCGGTGTAACCAAGCTATTCACACCACAAAGACTCGTCCTT-GCACCCGCCGTAGTG-
+            |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||-
+   correct: CTATATTACCCGCTGATAGTGATCCTTAGCCTAATTACGGACAGTCGGTGTAACCAAGCTATTCACACCACAAAGACTCGTCCTTTGCACCCGCCGTAGTGG
+
+
+Basecalling signal 45 out of 200
+The accuracy for for signal 45 is: 94.73684210526316%
+basecalled: ACGGCCTGTGG-TATGGCCGACGGGGATTCCATTGTTACGACATGGTTTAGAAAGGAGTCGCGGACACGAAGATGAGAAGTAATT-ACGCATCCGGTC
+            |||||-|||||-||||||||||||||||-|||||||||||||||||||-||||||||||||||||||||||||||||||||||||-||||||||||||
+   correct: ACGGC-TGTGGGTATGGCCGACGGGGAT-CCATTGTTACGACATGGTT-AGAAAGGAGTCGCGGACACGAAGATGAGAAGTAATTTACGCATCCGGTC
+
+
+Basecalling signal 46 out of 200
+The accuracy for for signal 46 is: 97.0%
+basecalled: GTTACGTTGGGTCGGCAGCGTCACATTACGAATGAACCAATTGTTGGGTGTACTCGTATTT-ATTATCTGGTACATTGATCGTGGAGACCGAGCATTGCCGC
+            ||||||||||-|||-||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||
+   correct: GTTACGTTGG-TCG-CAGCGTCACATTACGAATGAACCAATTGTTGGGTGTACTCGTATTTTATTATCTGGTACATTGATCGTGGAGACCGAGCATTGCCGC
+
+
+Basecalling signal 47 out of 200
+The accuracy for for signal 47 is: 95.14563106796116%
+basecalled: GGCATAGTCAGGAATGCGG-CTCGTTAGATACGTTTTGTCCGGG-AGGGCTGTTACAGTAGTTCTACAGTGCGTTTGATT-GCAGCATCAATGTCGAAATTCG-
+            |||||||||||||||||||-||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||-|||||||||||||||||-||||-
+   correct: GGCATAGTCAGGAATGCGGGCTCGTTAGATACGTTTTGTCCGGGGAGGGCTGTTACAGTAGTTCTACAGTGCGTTTGATTTGCAGCATCAATGTCGAA-TTCGG
+
+
+Basecalling signal 48 out of 200
+The accuracy for for signal 48 is: 97.9381443298969%
+basecalled: GTCCACAGGTACAGCCAGCGCTGTAATCGGTGATTCGCCCTATTGGCGCCTCTCGCACATCATCCGCTTT-AGGCATGTATAAATCCATTTGGTCCAG
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||-||||||||||||||
+   correct: GTCCACAGGTACAGCCAGCGCTGTAATCGGTGATTCGCCCTATTGGCGCCTCTCGCACATCATCCGCTTTTAGGCATGTATAA-TCCATTTGGTCCAG
+
+
+Basecalling signal 49 out of 200
+The accuracy for for signal 49 is: 97.0%
+basecalled: GGTTACGTGCTGTCC-TCTGGTGCTACGAGGACCC-TACCGAGGAATAAGGCAGTATCAACCTATCTAGCTTGTGGTTATTGTT-CAGACGCGGACCTCG
+            |||||||||||||||-|||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||
+   correct: GGTTACGTGCTGTCCCTCTGGTGCTACGAGGACCCCTACCGAGGAATAAGGCAGTATCAACCTATCTAGCTTGTGGTTATTGTTTCAGACGCGGACCTCG
+
+
+Basecalling signal 50 out of 200
+The accuracy for for signal 50 is: 95.95959595959596%
+basecalled: CAGTCCACACGTTGGTCTTCGACCTTCCTACGCATAGATTACATTATATCTTACGATACCCC-ACTTAAGACGTACC-GTGGGG-TT-GGACTAAGACG
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||-||||||-||-|||||||||||
+   correct: CAGTCCACACGTTGGTCTTCGACCTTCCTACGCATAGATTACATTATATCTTACGATACCCCCACTTAAGACGTACCCGTGGGGGTTTGGACTAAGACG
+
+
+Basecalling signal 51 out of 200
+The accuracy for for signal 51 is: 97.0%
+basecalled: ACATACTTCGATAGTGCGAGCAATTAATTCGCCTTAACTACCTCCCGTGAA-GTTT-CATCCGCGGCCATCGACATAGCC-TGACTAGACCATGTTAGAC
+            |||||||||||||||||||||||||||||||||||||||||||||||||||-||||-|||||||||||||||||||||||-|||||||||||||||||||
+   correct: ACATACTTCGATAGTGCGAGCAATTAATTCGCCTTAACTACCTCCCGTGAAAGTTTTCATCCGCGGCCATCGACATAGCCCTGACTAGACCATGTTAGAC
+
+
+Basecalling signal 52 out of 200
+The accuracy for for signal 52 is: 96.96969696969697%
+basecalled: TGGACCTAAGCTTGTTCGCACCATACACAATTATTGATCTAGATCAGGCTCTAAGGCTAACCAGACCCC--AAAA-CTCTGCTAACACGCCGTACTCTG
+            |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||--||||-|||||||||||||||||||||||
+   correct: TGGACCTAAGCTTGTTCGCACCATACACAATTATTGATCTAGATCAGGCTCTAAGGCTAACCAGACCCCCCAAAAACTCTGCTAACACGCCGTACTCTG
+
+
+Basecalling signal 53 out of 200
+The accuracy for for signal 53 is: 97.9381443298969%
+basecalled: CATGCATGACGCTGCCGGATGCTCGCGGATGATCTGTCTTTCGATTGTAATGTTGAAA--GGAGGTTAGTGCATATTCCGATTCGACAGGCGCACAT
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||--|||||||||||||||||||||||||||||||||||||
+   correct: CATGCATGACGCTGCCGGATGCTCGCGGATGATCTGTCTTTCGATTGTAATGTTGAAAAAGGAGGTTAGTGCATATTCCGATTCGACAGGCGCACAT
+
+
+Basecalling signal 54 out of 200
+The accuracy for for signal 54 is: 96.96969696969697%
+basecalled: CAAAGATTTAACCGATAGTGCACACAAGCTTGAGGTTGCCCAGG-TTTACGGATAACATCGGCAATCTAATTCATTCGCACCACTGCTTTAGAATGCG-
+            ||||||||||||||||||||||||||||||||||||.|||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||-
+   correct: CAAAGATTTAACCGATAGTGCACACAAGCTTGAGGTCGCCCAGGGTTTACGGATAACATCGGCAATCTAATTCATTCGCACCACTGCTTTAGAATGCGT
+
+
+Basecalling signal 55 out of 200
+The accuracy for for signal 55 is: 97.97979797979798%
+basecalled: CAACCGCGTCCCTCGAACCATTAGTCTACTATCCCTAGCTGATAGATCTCGATTCAGAAGGAACTAACGGCCTATTTTCCTCATCATAGTGTT-ATAGTC
+            ||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||
+   correct: CAACCGCGTCCCTCGAACCATTAGTCTACTATCC-TAGCTGATAGATCTCGATTCAGAAGGAACTAACGGCCTATTTTCCTCATCATAGTGTTTATAGTC
+
+
+Basecalling signal 56 out of 200
+The accuracy for for signal 56 is: 98.09523809523809%
+basecalled: AGTAGGAAGGGACGAGTATACTGTGCACTACTTTGTTGCTGATGGAACGTCGCCACGTGTCAAGTCC-TTAGCGACAAGAGGCATCAAACATAACGCTTGGTCCAA
+            |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||-|||||||||||||||||
+   correct: AGTAGGAAGGGACGAGTATACTGTGCACTACTTTGTTGCTGATGGAACGTCGCCACGTGTCAAGTCCCTTAGCGACAAGAGGCATCAA-CATAACGCTTGGTCCAA
+
+
+Basecalling signal 57 out of 200
+The accuracy for for signal 57 is: 92.78350515463917%
+basecalled: ACGGATGTAGATCTGACCTTAGGGCGTTT-CC-TACCAACGTACTTCTTTGGCCTAACAAA-CTGG-ATAGTTGAGTACTACTAATCGGTACCTACGCTA
+            |||-|||||||||||||-|||||||||||-||-||||||||||||||||||||||||||||-||||-|||||||||||||||||||||||||-|||||||
+   correct: ACG-ATGTAGATCTGAC-TTAGGGCGTTTTCCCTACCAACGTACTTCTTTGGCCTAACAAAACTGGGATAGTTGAGTACTACTAATCGGTAC-TACGCTA
+
+
+Basecalling signal 58 out of 200
+The accuracy for for signal 58 is: 95.83333333333334%
+basecalled: TTAAGGAGTAGACGAGGTCACTGAAGGCGCTGCGGACGTAGCGTGTTTCCGAAGGTAGCGCGGTAGCTCAGCGGGAGTTCACATTAAATGAAA--GAC
+            |||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||-||||||||||||||||||||||||||||||--|||
+   correct: TTAAGGAGTAGACGAGGTCACTGAAGGCGCTGCGGACGTAGCGTGTT-CCGAAGGTAGCGCG-TAGCTCAGCGGGAGTTCACATTAAATGAAAAAGAC
+
+
+Basecalling signal 59 out of 200
+The accuracy for for signal 59 is: 96.84210526315789%
+basecalled: CGGCGACTGGCCAGAAATGCCCC--TGGCAATGTGGAATAGTTGACCTAGGGGAGTTACACCCTCGTGTCCAGTCCTATGGTGGCTCATCCACACA
+            |||||||||||||||||||||||--|||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||
+   correct: CGGCGACTGGCCAGAAATGCCCCCCTGGCAATGTGGAATAGTTGACCTAGGGGAGTTACACC-TCGTGTCCAGTCCTATGGTGGCTCATCCACACA
+
+
+Basecalling signal 60 out of 200
+The accuracy for for signal 60 is: 96.15384615384616%
+basecalled: AACTGACCTAGTTCTCACTCC-ATTCCTTTAA-GGCAACAGTCAGCTTGCTATTCTTACCCTCTCC-GAAGAATGGAAAATCCGTGGCGGGTTCATAATGCGACT
+            |||||||||||||||||||||-||||||||||-|||||||||||||||||||||||||||||||||-|||||||||||||||||||||||-||||||||||||||
+   correct: AACTGACCTAGTTCTCACTCCCATTCCTTTAAAGGCAACAGTCAGCTTGCTATTCTTACCCTCTCCCGAAGAATGGAAAATCCGTGGCGG-TTCATAATGCGACT
+
+
+Basecalling signal 61 out of 200
+The accuracy for for signal 61 is: 94.1747572815534%
+basecalled: CTCGACGTGCTGCTCTACTCCACGCATTAGTCGGGG-TCGAGCACCAA-TT-CAACTCAAATGTCGATCCTCGTTAATAATTCCCC--TGTGCCGGTTGACGCC
+            ||||||||||||||||||||||||||||||||||||-|||||||||||-||-|||||||||||||||||-||||||||||||||||--||||||||||||||||
+   correct: CTCGACGTGCTGCTCTACTCCACGCATTAGTCGGGGGTCGAGCACCAAATTTCAACTCAAATGTCGATC-TCGTTAATAATTCCCCCCTGTGCCGGTTGACGCC
+
+
+Basecalling signal 62 out of 200
+The accuracy for for signal 62 is: 95.14563106796116%
+basecalled: TAGTACCCGCTGATATGTAAGGTCAGGTATCTAA-TTTGCTTGTCTTACCGCGCTCGCATCGGAGACCC-ATTAACCTTAGCAGG-CTGACGCGGGCTGTATTGG
+            |||||||||||||||||||||-||||||||||||-||||||||||||||||||||||||||||||||||-|||||||||||||||-|||||||||-|||||||||
+   correct: TAGTACCCGCTGATATGTAAG-TCAGGTATCTAAATTTGCTTGTCTTACCGCGCTCGCATCGGAGACCCCATTAACCTTAGCAGGGCTGACGCGG-CTGTATTGG
+
+
+Basecalling signal 63 out of 200
+The accuracy for for signal 63 is: 96.19047619047619%
+basecalled: GGATT-CGAGCGTTAAATTAGG-CAAACAGAACCACAACAACGTTGCGTGACTAATGAGGCGACTAGGCATGGAGACGACGTTCCGAGACAACTGGACC-GGGCCA
+            |||||-||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||-|
+   correct: GGATTTCGAGCGTTAAATTAGGGCAAACAGAACCACAACAACGTTGCGTGACTAATGAGGCGACTAGGCATGGAGACGACGTTCCGAGACAACTGGACCCGGGC-A
+
+
+Basecalling signal 64 out of 200
+The accuracy for for signal 64 is: 96.03960396039604%
+basecalled: GGTCTCAGCAAGCACTCGACTACGGTCCCCTACGTGTGACGAGTCTAGGCCTACAAAA-TTT-GTTGC-TCATAGAGCGCCGACTATAGGTTCTTCGCCTCA
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||-|||||-|||||||||||||||||||||||||-|||||||
+   correct: GGTCTCAGCAAGCACTCGACTACGGTCCCCTACGTGTGACGAGTCTAGGCCTACAAAAATTTTGTTGCCTCATAGAGCGCCGACTATAGGTTCT-CGCCTCA
+
+
+Basecalling signal 65 out of 200
+The accuracy for for signal 65 is: 97.11538461538461%
+basecalled: CTGGTCCGGTAGGTTTAACTAGTTGATATCGG-ACATATAATGCCAGTACGTAATTACCTGACGCC-TTCGTCCAAATAAGCGAGGATTT-GCGCCAGTGATCG
+            ||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||-|||||||||||||||||||||||-|||||||||||||
+   correct: CTGGTCCGGTAGGTTTAACTAGTTGATATCGGGACATATAATGCCAGTACGTAATTACCTGACGCCCTTCGTCCAAATAAGCGAGGATTTTGCGCCAGTGATCG
+
+
+Basecalling signal 66 out of 200
+The accuracy for for signal 66 is: 95.95959595959596%
+basecalled: TTACGCCGCCCACAAAGGATGAGCACAAGACGGTACC-ACCTCGTCCTGACTCGGAGAGAAAACACTTCCGTCTGGACTTGG-CGATATACCCAGGTTACA
+            |||||||||||||||||||||||||||-|||||||||-||||||||||||||||||||||||||||||||||||||||||||-|||||||||-||||||||
+   correct: TTACGCCGCCCACAAAGGATGAGCACA-GACGGTACCCACCTCGTCCTGACTCGGAGAGAAAACACTTCCGTCTGGACTTGGGCGATATACC-AGGTTACA
+
+
+Basecalling signal 67 out of 200
+The accuracy for for signal 67 is: 95.83333333333334%
+basecalled: AGGCTTGAA-GAGTGAGTTCAGATCAGCGAATGGAAAGGCAAACTTTGATT-CTCGAATTTTAATTT-ACAATTTCAGACCATTGATGTAGCAGATG
+            |||||||||-|||||||||||||||||||||||-|||||||||||||||||-|||||||||||||||-|||||||||||||||||||||||||||||
+   correct: AGGCTTGAAAGAGTGAGTTCAGATCAGCGAATG-AAAGGCAAACTTTGATTTCTCGAATTTTAATTTTACAATTTCAGACCATTGATGTAGCAGATG
+
+
+Basecalling signal 68 out of 200
+The accuracy for for signal 68 is: 98.98989898989899%
+basecalled: AGAACTCGG-TACCAGCATTCAGCACGTATCAGGTCTTACCTTGAGAAAGAATTTTGACCTAATTGTGCGCAGCCATCGAAGTTGCTCGAGGCAGATGA
+            |||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: AGAACTCGGGTACCAGCATTCAGCACGTATCAGGTCTTACCTTGAGAAAGAATTTTGACCTAATTGTGCGCAGCCATCGAAGTTGCTCGAGGCAGATGA
+
+
+Basecalling signal 69 out of 200
+The accuracy for for signal 69 is: 97.02970297029702%
+basecalled: TAACTCATCGGG-AATCAGCCGCAAGATCGAGTGGTGCGATTCAATAGAGGTTT-AGAGGGTGTGCGCC-GTCTGAACACTACTACGGCCTGGCGTGTTCG
+            ||||||||||||-|||||||||||||||||||||||||||||||||||||||||-||||||||||||||-|||||||||||||||||||||||||||||||
+   correct: TAACTCATCGGGGAATCAGCCGCAAGATCGAGTGGTGCGATTCAATAGAGGTTTTAGAGGGTGTGCGCCCGTCTGAACACTACTACGGCCTGGCGTGTTCG
+
+
+Basecalling signal 70 out of 200
+The accuracy for for signal 70 is: 96.22641509433963%
+basecalled: CTTACCTCACGTCTGAATTAACCCGCGTTCATGCTGAATAAATTTGCAGCCC-GTGATAATAGGAAACCTCTTCGTAGAGGTCAA-GAGGCTCGTTGCGTCCACA-
+            ||||||||||||||||||.|||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||-|||||||||||||||||||-
+   correct: CTTACCTCACGTCTGAATAAACCCGCGTTCATGCTGAATAAATTTGCAGCCCCGTGATAATAGGAAACCTCTTCGTAGAGGTCAAAGAGGCTCGTTGCGTCCACAC
+
+
+Basecalling signal 71 out of 200
+The accuracy for for signal 71 is: 100.0%
+basecalled: AATGCGGTCTACAGTCAATCTGACAGGATCCATCCAAGCCCGATGTGGCGGAAGGTATTGCATTCTGGCTACGCCATTACGCAACGGAACAAGAGTATGCTG
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: AATGCGGTCTACAGTCAATCTGACAGGATCCATCCAAGCCCGATGTGGCGGAAGGTATTGCATTCTGGCTACGCCATTACGCAACGGAACAAGAGTATGCTG
+
+
+Basecalling signal 72 out of 200
+The accuracy for for signal 72 is: 98.0%
+basecalled: ACGAGG-AGGCCGCACTCTACAAGCAGTACTCAAGTGTGAAATGCACAGACTGGCAAGGGAGTATACAATCGATGGTTACCTTCCTCTGCCTGCCTTTGTT
+            ||||||-||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: ACGAGGGAGGCCGCACTCTACAAGCAGTACTCAAGTGTGAA-TGCACAGACTGGCAAGGGAGTATACAATCGATGGTTACCTTCCTCTGCCTGCCTTTGTT
+
+
+Basecalling signal 73 out of 200
+The accuracy for for signal 73 is: 97.05882352941177%
+basecalled: TT-GGTCTACACAACCCGGCC-GCGATCGATATTGAGGGCAATATGGTACTTTCGGAGATGCTCTGTGAAGAATGCGCGCTCTTCGTAGTTACCAGCTACTTT
+            ||-||||||||||||||||||-||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: TTTGGTCTACACAACCCGGCCCGCGATCGATATTGAGG-CAATATGGTACTTTCGGAGATGCTCTGTGAAGAATGCGCGCTCTTCGTAGTTACCAGCTACTTT
+
+
+Basecalling signal 74 out of 200
+The accuracy for for signal 74 is: 97.0%
+basecalled: TCGGGTCGAGGGGCAACGAACGCC-GATGGGATTTAGATATT--GGTTGGATTATACCCTAAAGATATTCGGCACGAGTACAATCTACTAGTTCTGAATT
+            ||||||||||||||||||||||||-|||||||||||||||||--||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: TCGGGTCGAGGGGCAACGAACGCCCGATGGGATTTAGATATTTTGGTTGGATTATACCCTAAAGATATTCGGCACGAGTACAATCTACTAGTTCTGAATT
+
+
+Basecalling signal 75 out of 200
+The accuracy for for signal 75 is: 98.0392156862745%
+basecalled: TGTGTCGTACAAGTGACAGACTCGCCC-ATAACGCTATAATGGCAACAAGCCCGGCACACACCCAGAAATAGTCGGCCGCTGCGCCGAACTGACCGCCCGAGA
+            |||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||
+   correct: TGTGTCGTACAAGTGACAGACTCGCCCCATAACGCTATAATGGCAACAAGCCCGGCACACACCCAGAA-TAGTCGGCCGCTGCGCCGAACTGACCGCCCGAGA
+
+
+Basecalling signal 76 out of 200
+The accuracy for for signal 76 is: 98.9795918367347%
+basecalled: CGTGAAGATTCACACGTCGCAAATTTGTCTGGGCAGCTCTACC-GTTAGTTACCGGTACAGTATCCATCAAGCGCGCAGAAGTGCCTAATATTGGAGG
+            |||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: CGTGAAGATTCACACGTCGCAAATTTGTCTGGGCAGCTCTACCCGTTAGTTACCGGTACAGTATCCATCAAGCGCGCAGAAGTGCCTAATATTGGAGG
+
+
+Basecalling signal 77 out of 200
+The accuracy for for signal 77 is: 98.0%
+basecalled: ACGTGAGGCGGGCTTATAGACCCGCCATTCTCAGTGCCCGATTCCTGTTGCAGTGATCTCTTGAATCGGGAGTAA-GATTCCTTTGGAGG-CCGTTAGTG
+            |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||-|||||||||
+   correct: ACGTGAGGCGGGCTTATAGACCCGCCATTCTCAGTGCCCGATTCCTGTTGCAGTGATCTCTTGAATCGGGAGTAAAGATTCCTTTGGAGGGCCGTTAGTG
+
+
+Basecalling signal 78 out of 200
+The accuracy for for signal 78 is: 99.04761904761905%
+basecalled: TACCTAACGCATTATTAAGATACAGCATCCGAATATCGATGATGCGCAGCACATGATCAGTACACGATCGACGCAA-GCGGGCCTAGTCCAACCGCGCGGTGGTG
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||
+   correct: TACCTAACGCATTATTAAGATACAGCATCCGAATATCGATGATGCGCAGCACATGATCAGTACACGATCGACGCAAAGCGGGCCTAGTCCAACCGCGCGGTGGTG
+
+
+Basecalling signal 79 out of 200
+The accuracy for for signal 79 is: 94.68085106382979%
+basecalled: GTCTT-CTCGTGAGGTTCCAGGTTCTGAATCGGCTCGCTTTTCGG-ATCGCTGCATCGCTCGGGAAGAGCTGGTTTCCCTCGTTCTGGGTTGGGT-
+            |||||-||||||||||||||||||||||-||||||||||||||||-||||||||||||||||||||||||||-||||||||||||||||||||||-
+   correct: GTCTTTCTCGTGAGGTTCCAGGTTCTGA-TCGGCTCGCTTTTCGGGATCGCTGCATCGCTCGGGAAGAGCTG-TTTCCCTCGTTCTGGGTTGGGTT
+
+
+Basecalling signal 80 out of 200
+The accuracy for for signal 80 is: 95.09803921568627%
+basecalled: CCAGCGCAGAGCGG-CACCTT--CC-GTGAACGAGCTATTAACGACGGTTACTGGTCTCAGCTCTCTTCTGGAGGGAGTAAGCCGTTGTAGGTT-AGGATTT
+            ||||||||||||||-||||||--||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||
+   correct: CCAGCGCAGAGCGGGCACCTTTTCCCGTGAACGAGCTATTAACGACGGTTACTGGTCTCAGCTCTCTTCTGGAGGGAGTAAGCCGTTGTAGGTTTAGGATTT
+
+
+Basecalling signal 81 out of 200
+The accuracy for for signal 81 is: 94.33962264150944%
+basecalled: ATGAGGG-ACCAATTCAGCAGTTCTTCACTAGTTCGCTG-AAGGAAGCTTGTTCTCGGGCTTTT-GGCGATCCGAGACGG-CTCCTGGAGCCGCCGGTTCGCGTATGG
+            |||||||-|||||||||||||||||||||||||||||||-||||||||||||-|||||-|||||-|||||||||||||||-|||||||||||||||||||||||||||
+   correct: ATGAGGGGACCAATTCAGCAGTTCTTCACTAGTTCGCTGTAAGGAAGCTTGT-CTCGG-CTTTTTGGCGATCCGAGACGGGCTCCTGGAGCCGCCGGTTCGCGTATGG
+
+
+Basecalling signal 82 out of 200
+The accuracy for for signal 82 is: 94.05940594059405%
+basecalled: CGAGTATTGGCAACCCGTGGCGAGTCAACTACGGTGCTGAAAA--CGG-CCAGTATATGGCTAATA-GACACATGTAGACAGTTGTCGTTCTCCGCTCT--
+            |||||||||||||||||||||||||||||||||||||||||||--|||-|||||||||||||||||-||||||||||||||||||||||||||||||||--
+   correct: CGAGTATTGGCAACCCGTGGCGAGTCAACTACGGTGCTGAAAAAACGGGCCAGTATATGGCTAATATGACACATGTAGACAGTTGTCGTTCTCCGCTCTTT
+
+
+Basecalling signal 83 out of 200
+The accuracy for for signal 83 is: 94.68085106382979%
+basecalled: GCCCATGGATACC-GCTGGTATAAGATTATAAGGCCTATCAGACAGGTAATTAAGGGGTTCAGACGTCGG-TATAGGACGGGGCATCGAGACG--
+            |||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||-||||||||||--
+   correct: GCCCATGGATACCCGCTGGTATAAGATTATAAGGCCTATCAGACAGGTAATTAAGGGGTTCAGACGTCGGGTATAGGACGGG-CATCGAGACGGG
+
+
+Basecalling signal 84 out of 200
+The accuracy for for signal 84 is: 95.95959595959596%
+basecalled: CTAGCCCAGTTT-ATTAGAGCAGTTT-CGTAAAA-CGAACACTAGCCACGATTGCCACCCGTCGTACCAACGTACAGCTACGGTAGGTTT-ACAATAAA
+            ||||||||||||-|||||||||||||-|||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||
+   correct: CTAGCCCAGTTTTATTAGAGCAGTTTTCGTAAAAACGAACACTAGCCACGATTGCCACCCGTCGTACCAACGTACAGCTACGGTAGGTTTTACAATAAA
+
+
+Basecalling signal 85 out of 200
+The accuracy for for signal 85 is: 96.03960396039604%
+basecalled: TAAGTGCTCTTTAGATGCGGTTAGGTGGCCAACAGTGTTTCTAA-CTGATACTTGGAACGTGAAGGAACTGATATGATTCGG-CGACCATTCC-GTGGTGCT
+            ||||||||||||||||||||||||||||||||||||||||||||-||||||||||||-||||||||||||||||||||||||-||||||||||-||||||||
+   correct: TAAGTGCTCTTTAGATGCGGTTAGGTGGCCAACAGTGTTTCTAAACTGATACTTGGA-CGTGAAGGAACTGATATGATTCGGGCGACCATTCCCGTGGTGCT
+
+
+Basecalling signal 86 out of 200
+The accuracy for for signal 86 is: 93.6842105263158%
+basecalled: GTGTTAGACCCATAACGCGCAACGGTGCTGTAAACCTATTTGGACCTCTGCG-GCAAGTTACAATTGTAATGATGAAACAATTAGGCGGATCCTGGCA-
+            ||||||||||-||||||||||||||||||||||||-||||||||||||||||-||||||-|||||||||||||||||||||||||-||||||||||||-
+   correct: GTGTTAGACC-ATAACGCGCAACGGTGCTGTAAAC-TATTTGGACCTCTGCGCGCAAGT-ACAATTGTAATGATGAAACAATTAG-CGGATCCTGGCAA
+
+
+Basecalling signal 87 out of 200
+The accuracy for for signal 87 is: 95.0%
+basecalled: TTGTTT--ACTATTGTGCTGATATATATAGCCAATAACACCGAGTCCTAGCGGAGAGTGGTGGATAGCCGG-CCGGAAGG-AATACATATCAGCTGGCG-
+            ||||||--|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||-||||||||||||||||||-
+   correct: TTGTTTTTACTATTGTGCTGATATATATAGCCAATAACACCGAGTCCTAGCGGAGAGTGGTGGATAGCCGGGCCGGAAGGGAATACATATCAGCTGGCGG
+
+
+Basecalling signal 88 out of 200
+The accuracy for for signal 88 is: 95.83333333333334%
+basecalled: GAACTGCCGGTTGAGGTCGACC-TTGGGTATGGAACACCAATCTGCAAA-GCCGGAACGCAAGATCACTTCTGGACGTTGCGTTGTT-GGTACTA-
+            ||||||||||||||||||||||-||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||-|||||||-
+   correct: GAACTGCCGGTTGAGGTCGACCCTTGGGTATGGAACACCAATCTGCAAAAGCCGGAACGCAAGATCACTTCTGGACGTTGCGTTGTTTGGTACTAA
+
+
+Basecalling signal 89 out of 200
+The accuracy for for signal 89 is: 95.83333333333334%
+basecalled: TTCGAA-TATGGTACATTAGTTCATGGG-ACGAGGGATCTCCTTACCCTGAAA-TTTTCCGTGGTGTGTTGCACTTGTGAGTTGTCGTCGCCGGA-
+            ||||||-|||||||||||||||||||||-||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||-
+   correct: TTCGAAATATGGTACATTAGTTCATGGGGACGAGGGATCTCCTTACCCTGAAAATTTTCCGTGGTGTGTTGCACTTGTGAGTTGTCGTCGCCGGAA
+
+
+Basecalling signal 90 out of 200
+The accuracy for for signal 90 is: 96.03960396039604%
+basecalled: GTTGTAATCTACAGCGAAGATCGGAGGCGATAGTGTAGGGTCTT-GCTGAAGGGCTTAGGCGTGGCTTTCATAAGAAATTAGTAACGCATTCGCCGAAAA--
+            ||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||-|||||||||||||||||||||||||||||||--
+   correct: GTTGTAATCTACAGCGAAGATCGGAGGCGATAGTGTAGGGTCTTTGCTGAAGGGCTTAGGCGTGGCTT-CATAAGAAATTAGTAACGCATTCGCCGAAAAAA
+
+
+Basecalling signal 91 out of 200
+The accuracy for for signal 91 is: 95.87628865979381%
+basecalled: CGCGGTATTTGCGAGTTAGG-CCTGATTGCATATAACATCACCTGGG--TTAGAGTCATGTATGTACCTGTGCGTTAAA-TATCAACATACACCCGG
+            ||||||||||||||||||||-||||||||||||||||||||||||||--||||||||||||||||||||||||||||||-|||||||||||||||||
+   correct: CGCGGTATTTGCGAGTTAGGGCCTGATTGCATATAACATCACCTGGGGGTTAGAGTCATGTATGTACCTGTGCGTTAAAATATCAACATACACCCGG
+
+
+Basecalling signal 92 out of 200
+The accuracy for for signal 92 is: 95.09803921568627%
+basecalled: ACAACCGACTCC-AGTCACGGCCTGCGGACTTGGGACCTTT-CTGCATTAGGCTTCTAAA-TCCTCTGAAACTTAGCCTCTAGGCCTCCGTGTACTT-AACG
+            ||||||||||||-||||||||||||||||||||||||||||-||||||||||||||||||-||||||||||||||||||||||.|||||||||||||-||||
+   correct: ACAACCGACTCCCAGTCACGGCCTGCGGACTTGGGACCTTTTCTGCATTAGGCTTCTAAAATCCTCTGAAACTTAGCCTCTAGCCCTCCGTGTACTTTAACG
+
+
+Basecalling signal 93 out of 200
+The accuracy for for signal 93 is: 97.27272727272728%
+basecalled: GTAGTATGCGCTGTAATTCTTGTAGCC-GCGCCGCCGGTGCGG-CAGAGCCCTATATGTCTGAACCCGCACACGTACTT-AGCGGCGTCAAACTCCATGCTGACCTACTC
+            |||||||||||||||||||||||||||-|||||||||||||||-|||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||
+   correct: GTAGTATGCGCTGTAATTCTTGTAGCCCGCGCCGCCGGTGCGGGCAGAGCCCTATATGTCTGAACCCGCACACGTACTTTAGCGGCGTCAAACTCCATGCTGACCTACTC
+
+
+Basecalling signal 94 out of 200
+The accuracy for for signal 94 is: 96.0%
+basecalled: CTCGGGCCGCCC-GAATAACAACGTCCGGGTTGCGTACGCGGACCCGGCCCGCAGATGCACGCAGG-CACAGGG-AAGCATAGAAGACGATTATTACGCCG
+            ||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||-|||||||||-||||||||||||||||
+   correct: CTCGGGCCGCCCCGAATAACAACGTCCGGGTTGCGTACGCGGACCCGGCCCGCAGATGCACGCAGGGCACAGGGGAAGCATAGA-GACGATTATTACGCCG
+
+
+Basecalling signal 95 out of 200
+The accuracy for for signal 95 is: 98.05825242718447%
+basecalled: GAGATTTCCGGG-CACTTGGAGCACGAA-TATTGGACGCTCTTGAAACGGTACGTAATCGGCAATATTCGTACCGACCAGTGAGCTTGATAGTTGTATTGAAG
+            ||||||||||||-|||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: GAGATTTCCGGGGCACTTGGAGCACGAAATATTGGACGCTCTTGAAACGGTACGTAATCGGCAATATTCGTACCGACCAGTGAGCTTGATAGTTGTATTGAAG
+
+
+Basecalling signal 96 out of 200
+The accuracy for for signal 96 is: 97.9381443298969%
+basecalled: TATACAATCAGAACAGTGTATTCTCCTCCAGACGTTCGCAGGCACCGCCTGTACTCTATCAGTGAGGGAAGACGGAGTCCAACATAGGTGCACTT-AC
+            ||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||
+   correct: TATACA-TCAGAACAGTGTATTCTCCTCCAGACGTTCGCAGGCACCGCCTGTACTCTATCAGTGAGGGAAGACGGAGTCCAACATAGGTGCACTTTAC
+
+
+Basecalling signal 97 out of 200
+The accuracy for for signal 97 is: 93.06930693069306%
+basecalled: GTATGGAGTTT-GTGCATT-CTGTTTTCTTGAAGCCTATCCAGGAACCCTTGAAGATGGTTCTAACGTCAGTCATT-GACATCATGAA--CTAGCACCGCC-
+            |||||||||||-|||||||-||||||||||||-|||||||||||||||||||||||||||||||||||||||||||-|||||||||||--|||||||||||-
+   correct: GTATGGAGTTTTGTGCATTTCTGTTTTCTTGA-GCCTATCCAGGAACCCTTGAAGATGGTTCTAACGTCAGTCATTTGACATCATGAAAACTAGCACCGCCA
+
+
+Basecalling signal 98 out of 200
+The accuracy for for signal 98 is: 95.09803921568627%
+basecalled: CCGGGATTGCTCGGAGCGGTTCCCAACTCGACTGAAGCGGACAA-CTATCGCGTACGATGGG--CAAGTCCGGAATCCGACC-GCGATACAGTAACCAGGAGA
+            ||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||--||-|||||||||||||||-||||||||||||||||||||
+   correct: CCGGGATTGCTCGGAGCGGTTCCCAACTCGACTGAAGCGGACAAACTATCGCGTACGATGGGGGCA-GTCCGGAATCCGACCCGCGATACAGTAACCAGGAGA
+
+
+Basecalling signal 99 out of 200
+The accuracy for for signal 99 is: 97.95918367346938%
+basecalled: ACACGGAACGTCCCAATGACCGAT-TCTGTTGATGTTCACTTGTTGCGACGCTAAAA-TACCGACCTCACGCGGGCGCACTTTACGGTCTGGTTGGAT
+            ||||||||||||||||||||||||-||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||
+   correct: ACACGGAACGTCCCAATGACCGATATCTGTTGATGTTCACTTGTTGCGACGCTAAAAATACCGACCTCACGCGGGCGCACTTTACGGTCTGGTTGGAT
+
+
+Basecalling signal 100 out of 200
+The accuracy for for signal 100 is: 96.22641509433963%
+basecalled: ACGGAATTGCAGTGACAGAACACACGGAGACGCGATAATACATA-TAGATTG-CAAAGCTTCAGACCCTT-GTCAAGTTTGCGCGTTCCAAGTTCCACCCCTCCCAG
+            ||||||||||||||||||||||||||||||||||||||||||||-|||||||-|||||||||||||||||-||||||||-|||||||||||||||||||||||||||
+   correct: ACGGAATTGCAGTGACAGAACACACGGAGACGCGATAATACATAATAGATTGGCAAAGCTTCAGACCCTTTGTCAAGTT-GCGCGTTCCAAGTTCCACCCCTCCCAG
+
+
+Basecalling signal 101 out of 200
+The accuracy for for signal 101 is: 98.95833333333334%
+basecalled: CATCCTGTCACCGCTTGCACCAGGGTAATGTAGTTGGTCATTACGCGATGTCTCAATCTAACGACTCTCGCGCGTCATCGGATCGGTACGGGCGTAA
+            ||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: CATCCTGTCACCGCTTGCACCAGG-TAATGTAGTTGGTCATTACGCGATGTCTCAATCTAACGACTCTCGCGCGTCATCGGATCGGTACGGGCGTAA
+
+
+Basecalling signal 102 out of 200
+The accuracy for for signal 102 is: 95.83333333333334%
+basecalled: CGTGCTCAAATGCCAAGGCGTCGTGAACATGGG-CTATTGCCGCGTGTGTGAA-CACCGTTGTAGCCGTTCATACATGAA-CTACGCGG-TATTAA
+            |||||||||||||||||||||||||||||||||-|||||||||||||||||||-||||||||||||||||||||||||||-||||||||-||||||
+   correct: CGTGCTCAAATGCCAAGGCGTCGTGAACATGGGGCTATTGCCGCGTGTGTGAAACACCGTTGTAGCCGTTCATACATGAAACTACGCGGGTATTAA
+
+
+Basecalling signal 103 out of 200
+The accuracy for for signal 103 is: 98.9795918367347%
+basecalled: TACCGTTCCTTTGCTAGATATCGTGAAACCAGCGACGACCTCGGGCAGGATGGTTCACCGTACCTCC-TGAACCTGAGCCGTGTGATCATCTCCGTAA
+            |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||
+   correct: TACCGTTCCTTTGCTAGATATCGTGAAACCAGCGACGACCTCGGGCAGGATGGTTCACCGTACCTCCCTGAACCTGAGCCGTGTGATCATCTCCGTAA
+
+
+Basecalling signal 104 out of 200
+The accuracy for for signal 104 is: 99.01960784313727%
+basecalled: CAAGTGACTAGGTTGTCCGTTTACAACGGATTTGTAGACGCACCGTGCCCGCAATGTGTGCAGGCCAAACGACTTACCGTACACTAGGATCGGTGACGTCTTA
+            ||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: CAAGTGACTAGGTTGTCCGTTTACAACG-ATTTGTAGACGCACCGTGCCCGCAATGTGTGCAGGCCAAACGACTTACCGTACACTAGGATCGGTGACGTCTTA
+
+
+Basecalling signal 105 out of 200
+The accuracy for for signal 105 is: 96.11650485436894%
+basecalled: GCCGTCTCCATAGGTTTGTAAGGTAAA-TATACGTACTATGCCCTGCTGGTACATCTACCC-ATATTCCGAGCTAGAAGGAGAGAAACCTGAA-CTGTTCAGCG
+            |||||||||||||-|||||||||||||-|||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||-||||||||||
+   correct: GCCGTCTCCATAG-TTTGTAAGGTAAAATATACGTACTATGCCCTGCTGGTACATCTACCCCATATTCCGAGCTAGAAGGAGAGAAACCTGAAACTGTTCAGCG
+
+
+Basecalling signal 106 out of 200
+The accuracy for for signal 106 is: 95.95959595959596%
+basecalled: TATATGGAAGCTATCGGACATATTATCCCCTTACAGTTAAACATAAA-CGGTGGCGTTATTGTCC-TCTCTATATTGTCAGAACCTAGCAGGG-TGACCC
+            |||||||||||||||||||||||||||||||||||||||||||||||-|||||-|||||||||||-|||||||||||||||||||||||||||-||||||
+   correct: TATATGGAAGCTATCGGACATATTATCCCCTTACAGTTAAACATAAAACGGTG-CGTTATTGTCCCTCTCTATATTGTCAGAACCTAGCAGGGGTGACCC
+
+
+Basecalling signal 107 out of 200
+The accuracy for for signal 107 is: 97.0%
+basecalled: CGGTGAGTAGCCGACTTTGTTTCTCTATAGAGGCTT-AACGCTATCAAACACC-GATACGTGTAGGTAATCTCATTACAGATGGCCATTTCTCTTAGCCGT
+            ||||||||||||||||||||||||||||||||||||-||||||||||||||||-|||||||||||||||||||||-|||||||||||||||||||||||||
+   correct: CGGTGAGTAGCCGACTTTGTTTCTCTATAGAGGCTTTAACGCTATCAAACACCCGATACGTGTAGGTAATCTCAT-ACAGATGGCCATTTCTCTTAGCCGT
+
+
+Basecalling signal 108 out of 200
+The accuracy for for signal 108 is: 93.26923076923077%
+basecalled: CCTGCTCCCAGTCCCTCGCC-GCATTCCCACTGATAGCGTACTGCC--AAA-GGAGG-CAAGCGTGAGGGTGTTAAAGTCTGCC-GGAGCCATAGTTGCACAC-
+            ||||||||||||||||||||-|||||||||||||||||||||||||--|||-|||||-||||||||||||||||||||||||||-||||||||||||||||||-
+   correct: CCTGCTCCCAGTCCCTCGCCCGCATTCCCACTGATAGCGTACTGCCCCAAAAGGAGGGCAAGCGTGAGGGTGTTAAAGTCTGCCCGGAGCCATAGTTGCACACT
+
+
+Basecalling signal 109 out of 200
+The accuracy for for signal 109 is: 96.0%
+basecalled: AGACTGATCAAATAATGAACCCTTATCCCCAATACGAATGAATACTACTGTCTGCGG-CAGGTCGGTCACGAGCAGAGCCCTCTTACTGCGGTAAACTCTA-
+            |||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||-|||-||||||||||||||||-
+   correct: AGACTGATCAAATAATGAACCCTTATCCCCAATACGAATGAATACTACTGTCTGCGGGCAGGTCGGTCACGAGCAGAGCC-TCT-ACTGCGGTAAACTCTAT
+
+
+Basecalling signal 110 out of 200
+The accuracy for for signal 110 is: 96.90721649484536%
+basecalled: ATCAAGGCTCCCGTGTCGGGTAGGCATACGGCATAATCGTGACATGCACGG-TGCCTTTTCGCCTTCAGCACGAAGTCCACCTTT-GACTGCTTGTAA
+            |||||||||||||||||||||||||||||||||||-|||||||||||||||-|||||||||||||||||||||||||||||||||-||||||||||||
+   correct: ATCAAGGCTCCCGTGTCGGGTAGGCATACGGCATA-TCGTGACATGCACGGGTGCCTTTTCGCCTTCAGCACGAAGTCCACCTTTTGACTGCTTGTAA
+
+
+Basecalling signal 111 out of 200
+The accuracy for for signal 111 is: 98.9795918367347%
+basecalled: ATTATCAACTGTAACATCGATCACAAATAGTTAGCTACCCCGGACCTTACCTCGCTCTAAGGGG-CACACGCGATACGCGATGCCCAATACGTACAGT
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||
+   correct: ATTATCAACTGTAACATCGATCACAAATAGTTAGCTACCCCGGACCTTACCTCGCTCTAAGGGGGCACACGCGATACGCGATGCCCAATACGTACAGT
+
+
+Basecalling signal 112 out of 200
+The accuracy for for signal 112 is: 98.9795918367347%
+basecalled: GAGCCAGATTGCACGCATTGCGTCATCTTCAGGAAGGGGCTTGTGTTAACTAATCGGCACCGAGGACCGGCTACGATATAATGATAAGTAAGCTTTCAT
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||
+   correct: GAGCCAGATTGCACGCATTGCGTCATCTTCAGGAAGGGGCTTGTGTTAACTAATCGGCACCGAGGACCGGCTACGATATAATGATAAGTA-GCTTTCAT
+
+
+Basecalling signal 113 out of 200
+The accuracy for for signal 113 is: 92.78350515463917%
+basecalled: GGTCGGTAAA-GCACTGGGACTGTGCCAGCATTGATCGAA-TAATCGGCCGGG-CTCTTGTTT-CTCTAGGTTATT-ATTCCC-GTCC-AACAGGCC
+            ||||||||||-|||||||||||||||||||||||||||||-||||||||||||-|||||||||-||||||||||||-||||||-||||-||||||||
+   correct: GGTCGGTAAAAGCACTGGGACTGTGCCAGCATTGATCGAAATAATCGGCCGGGGCTCTTGTTTTCTCTAGGTTATTTATTCCCCGTCCCAACAGGCC
+
+
+Basecalling signal 114 out of 200
+The accuracy for for signal 114 is: 97.95918367346938%
+basecalled: TGGATCTAGGCCACCGCACCCAGACCTCTTCGCACCTGCTTTTCATGAGTGTGTTTGGGCTGTGAGGTATGTATTGTGTAATT-CAGGATGACAGCA-
+            |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||-
+   correct: TGGATCTAGGCCACCGCACCCAGACCTCTTCGCACCTGCTTTTCATGAGTGTGTTTGGGCTGTGAGGTATGTATTGTGTAATTTCAGGATGACAGCAA
+
+
+Basecalling signal 115 out of 200
+The accuracy for for signal 115 is: 91.0891089108911%
+basecalled: TCGTTTTCACTCC-GTATGTACGCAGTTACAAGTT-AAA-CACTTCACTTATGACGTGTGAGTAGTAGGTACTCGTTTAGTAAAA----GTACGCTCCCTA-
+            |||||||||||||-|||||||||||||||||||||-|||-|||||||||||||||||||||||||||||||||||||-|||||||----||||||||||||-
+   correct: TCGTTTTCACTCCCGTATGTACGCAGTTACAAGTTTAAAACACTTCACTTATGACGTGTGAGTAGTAGGTACTCGTT-AGTAAAAAAAAGTACGCTCCCTAA
+
+
+Basecalling signal 116 out of 200
+The accuracy for for signal 116 is: 99.02912621359224%
+basecalled: CTTATTATGACTCGCACTCAGTCTTCCGACGGTTAGGTAGACAACAGGAGAATCCATCCGTGCAAGCCGTCCGATTCTGTGGACAACCTCGGCATAATGGCC-
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-
+   correct: CTTATTATGACTCGCACTCAGTCTTCCGACGGTTAGGTAGACAACAGGAGAATCCATCCGTGCAAGCCGTCCGATTCTGTGGACAACCTCGGCATAATGGCCT
+
+
+Basecalling signal 117 out of 200
+The accuracy for for signal 117 is: 98.0%
+basecalled: ATCGACAACTCGGCGG-CAAA-TATTCGACTTGGATCTGAAGGGCCGTCTACGTTACATTCATCACATTCGCCGTCAGGTGAGTCTTTTCCAGCTCCTCG
+            ||||||||||||||||-||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: ATCGACAACTCGGCGGGCAAAATATTCGACTTGGATCTGAAGGGCCGTCTACGTTACATTCATCACATTCGCCGTCAGGTGAGTCTTTTCCAGCTCCTCG
+
+
+Basecalling signal 118 out of 200
+The accuracy for for signal 118 is: 98.9795918367347%
+basecalled: GATTACCGGTCCTCGATATTATAATTGGTGACCCTACTCGTGTGCATGTACAAGCATTCTCTTAGTGCCC-GTACGACGTCCAGAGAGTCATTCGCTA
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||
+   correct: GATTACCGGTCCTCGATATTATAATTGGTGACCCTACTCGTGTGCATGTACAAGCATTCTCTTAGTGCCCCGTACGACGTCCAGAGAGTCATTCGCTA
+
+
+Basecalling signal 119 out of 200
+The accuracy for for signal 119 is: 93.5483870967742%
+basecalled: GATGTATACATGTACGCGCAGATGTACTTATGGTTCCAGTTGAGAGCTCCCTGCTACCTATT-ATGGCC-AGCCGGTAA-CGGCGGCAA-GCCTC
+            ||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||-||||||-|||||||||-|||||-|||-|||||
+   correct: GATGTATACATGTACGCGCAGATGTACTTATGGTTCCAGTTGAGAGCTCC-TGCTACCTATTTATGGCCCAGCCGGTAAACGGCG-CAAAGCCTC
+
+
+Basecalling signal 120 out of 200
+The accuracy for for signal 120 is: 96.03960396039604%
+basecalled: CGTTAGG-TTCCGGTTTCAGTACCGAAGAGGTGCC-ATGCATTATCTACTGTCAGGATGG-AGTCGTGAGCCTTT-CAATCGTAGACCTCTTAAGTGCATC
+            |||||||-|||||||||||||||||||||||||||-||||||||||||||||||||||||-||||||||||||||-|||||||||||||||||||||||||
+   correct: CGTTAGGGTTCCGGTTTCAGTACCGAAGAGGTGCCCATGCATTATCTACTGTCAGGATGGGAGTCGTGAGCCTTTTCAATCGTAGACCTCTTAAGTGCATC
+
+
+Basecalling signal 121 out of 200
+The accuracy for for signal 121 is: 96.875%
+basecalled: CGTGATGG-CGATAGGTT-ACCGTTTTGTCAACTATACACTTAAATGTCAAATAATGACCAGGTTCGATCAGGCGGGTGACGAACCTCGACTTGACA
+            ||||||||-|||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||
+   correct: CGTGATGGGCGATAGGTTTACCGTTTTGTCAACTATACACTTAAATGTCAAATAATGACCAGGTTCGATCAGGCGG-TGACGAACCTCGACTTGACA
+
+
+Basecalling signal 122 out of 200
+The accuracy for for signal 122 is: 92.38095238095238%
+basecalled: CAATCTAACCC-AACCACACC-TTATGACGCCACTA-ATCCGATATGCC-TGTGAGACACGCTGAATGAAA-TACCAATAAGCACATTCCGACG-GTTAGGCCACCT
+            |||||||||||-|||||||||-||||||||||||||-||||||||||||-|||||||||||||||-|||||-||||||||||||||||||||||-|||||-||||||
+   correct: CAATCTAACCCCAACCACACCCTTATGACGCCACTACATCCGATATGCCCTGTGAGACACGCTGA-TGAAAATACCAATAAGCACATTCCGACGAGTTAG-CCACCT
+
+
+Basecalling signal 123 out of 200
+The accuracy for for signal 123 is: 95.78947368421052%
+basecalled: CGTGATACTGCACAATTT-CGTGTATAAGGTCCGCTTTACTGG-AACATAATTCC-TGATTTAAGCGGACTCCGCTGAGCC-GAGCTGGGACTTT
+            ||||||||||||||||||-||||||||||||||||||||||||-|||||||||||-|||||||||||||||||||||||||-|||||||||||||
+   correct: CGTGATACTGCACAATTTTCGTGTATAAGGTCCGCTTTACTGGGAACATAATTCCCTGATTTAAGCGGACTCCGCTGAGCCCGAGCTGGGACTTT
+
+
+Basecalling signal 124 out of 200
+The accuracy for for signal 124 is: 95.87628865979381%
+basecalled: GTATGCTTATTAAAAGGCAGTCGCCTGACCGTCGCGACGAATAACGAGACGGGCTTTAATGTAGCAACGTCC-GGCCCC-ACAAACTCAATAA-AGGC
+            ||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||-||||||-|||||||||||||-||||
+   correct: GTATGCTTATTAAAAGGCAGTCGCCTGACCGTCGCGACGA-TAACGAGACGGGCTTTAATGTAGCAACGTCCCGGCCCCCACAAACTCAATAAGAGGC
+
+
+Basecalling signal 125 out of 200
+The accuracy for for signal 125 is: 100.0%
+basecalled: TGCAGGGTGCGATATCTCCGTACACAGGTCCCTGGATAGACCTTCTGACGAACATGTTTCGCCGCCGTAATCACGTAACTGGACTTAGTGACACCTAT
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: TGCAGGGTGCGATATCTCCGTACACAGGTCCCTGGATAGACCTTCTGACGAACATGTTTCGCCGCCGTAATCACGTAACTGGACTTAGTGACACCTAT
+
+
+Basecalling signal 126 out of 200
+The accuracy for for signal 126 is: 98.05825242718447%
+basecalled: TTACTTCCCTGTAGGCTTCGTTACCTAGTAGCTTTTATTCGTGGACACTGGCGCATGGAGTGGGCTTAA-CCGTAGACTAGATTCGTGCCAAGCGTAA-TAGT
+            |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||-||||
+   correct: TTACTTCCCTGTAGGCTTCGTTACCTAGTAGCTTTTATTCGTGGACACTGGCGCATGGAGTGGGCTTAAACCGTAGACTAGATTCGTGCCAAGCGTAAATAGT
+
+
+Basecalling signal 127 out of 200
+The accuracy for for signal 127 is: 95.74468085106383%
+basecalled: AACAGGCTCGCACGCATAAGTGCAACTACAATGTTCATACTCATGGCCAGTTTGCAGAAAA-TGTT-ATAATTGTCAGGG-TGGTGATTGAGCAG
+            ||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||-||||-|||||||||||||-||||||||||||||
+   correct: AACAGGCTCGCACGCATAAGTGCAACTACAATGT-CATACTCATGGCCAGTTTGCAGAAAAATGTTTATAATTGTCAGGGGTGGTGATTGAGCAG
+
+
+Basecalling signal 128 out of 200
+The accuracy for for signal 128 is: 97.02970297029702%
+basecalled: TCTTCGGTGCGGTTTCAATCGTCGAATGTTATT-CGGCGCTCCGCGTCAGCTGAGATGATTGCGTTCACCCACGCC-GAGCTGTT-GGGCTCTGGGACTGC
+            |||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||-||||||||-|||||||||||||||
+   correct: TCTTCGGTGCGGTTTCAATCGTCGAATGTTATTTCGGCGCTCCGCGTCAGCTGAGATGATTGCGTTCACCCACGCCCGAGCTGTTTGGGCTCTGGGACTGC
+
+
+Basecalling signal 129 out of 200
+The accuracy for for signal 129 is: 96.96969696969697%
+basecalled: ACATGGTTCACAAGAAGAGGGTTCCGGAAGGGATCCCACTATACAATTTT-GCCGGCGAAAGGGCGCCGAGTCATATAGG-AGCCCATT-AGTTGCACG
+            ||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||-||||||||-|||||||||
+   correct: ACATGGTTCACAAGAAGAGGGTTCCGGAAGGGATCCCACTATACAATTTTTGCCGGCGAAAGGGCGCCGAGTCATATAGGGAGCCCATTGAGTTGCACG
+
+
+Basecalling signal 130 out of 200
+The accuracy for for signal 130 is: 100.0%
+basecalled: GGCGGCCAACCAGATACTGTGAACGTAGTGAGTAATGAACACTTCAACCAGGATTATTTCAGACCACGCGCACTAGTGGTACACGCTCAGTGTTGAATTCGCTG
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: GGCGGCCAACCAGATACTGTGAACGTAGTGAGTAATGAACACTTCAACCAGGATTATTTCAGACCACGCGCACTAGTGGTACACGCTCAGTGTTGAATTCGCTG
+
+
+Basecalling signal 131 out of 200
+The accuracy for for signal 131 is: 97.95918367346938%
+basecalled: GGGAGGAAAAGCTTAGTCCGAACCTTAACTTAATTGGCACTACTCGTGATGCAGAAGAGCCAAATCAGGGCGCGTGGTGGAATAGAAATATGTCGAGGTG
+            |||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||
+   correct: GGGAGGAAA-GCTTAGTCCGAACCTTAACTTAATTGGCACTACTCGTGATGCAGAAGAGCCAAATCAGG-CGCGTGGTGGAATAGAAATATGTCGAGGTG
+
+
+Basecalling signal 132 out of 200
+The accuracy for for signal 132 is: 97.97979797979798%
+basecalled: CC-TGGAACCTATACACTCTATGCATGCCGGGGCCATTTCGTTGGCTGGG-TCATTACTCGCGCTTGAGTTACATTATGCTTCCGTGCCAGCACTTCTA
+            ||-|||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: CCCTGGAACCTATACACTCTATGCATGCCGGGGCCATTTCGTTGGCTGGGGTCATTACTCGCGCTTGAGTTACATTATGCTTCCGTGCCAGCACTTCTA
+
+
+Basecalling signal 133 out of 200
+The accuracy for for signal 133 is: 94.28571428571428%
+basecalled: GCTACAGTTTGCCAGTTCCAGCTTCTGGTGATCATGCTGTCTT-AATTTAAA-GAACGG-CATCTATTTCCAA-GACACCTTGAATACGAGGCCC-AATTT-ACT
+            |||||||||||||||||||||||||||||||||||||||||||-||||||||-||||||-|||||||||||||-|||||||||||||||||||||-|||||-|||
+   correct: GCTACAGTTTGCCAGTTCCAGCTTCTGGTGATCATGCTGTCTTTAATTTAAAAGAACGGACATCTATTTCCAAAGACACCTTGAATACGAGGCCCCAATTTTACT
+
+
+Basecalling signal 134 out of 200
+The accuracy for for signal 134 is: 99.03846153846155%
+basecalled: GCGAA-TGGGATGGTGCACGCGAAATTACGATTAGAATAACACACAGGAAAGTGGAACTAAGAATTGTGGCCTTAAGTATTTCGTATAGATAGGTTGCCGAAGT
+            |||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: GCGAAATGGGATGGTGCACGCGAAATTACGATTAGAATAACACACAGGAAAGTGGAACTAAGAATTGTGGCCTTAAGTATTTCGTATAGATAGGTTGCCGAAGT
+
+
+Basecalling signal 135 out of 200
+The accuracy for for signal 135 is: 95.04950495049505%
+basecalled: TTGCGTAACCCTCTAAGTCCACTTTGTGACGACGCAGTACTCCATGTTAGGGAAACTGGG-CACAGGCCCTT-GACGAACAACTATTTT-ACTCAACAAC-
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||-||||||||||||||||-||||||||.|-
+   correct: TTGCGTAACCCTCTAAGTCCACTTTGTGACGACGCAGTACTCCATGTTAGGGAAACTGGGGCACAGGCCCTTTGACGAACAACTATTTTTACTCAACACCC
+
+
+Basecalling signal 136 out of 200
+The accuracy for for signal 136 is: 91.17647058823529%
+basecalled: ACGTTT-CATCTTT--AGTCAGGACCATTAGTGCGG-AGTCACCGCCGAAGG-CC-GCTACCTCCTGTCCCC--GCAGGACACGCAAAGGTTAAGGCTCCACT
+            ||||||-|||||||--||||||||||||||||||||-|||||||||||||||-||-||||||||||||||||--|||||||||||||||||||||||||-|||
+   correct: ACGTTTTCATCTTTTTAGTCAGGACCATTAGTGCGGGAGTCACCGCCGAAGGGCCCGCTACCTCCTGTCCCCCCGCAGGACACGCAAAGGTTAAGGCTC-ACT
+
+
+Basecalling signal 137 out of 200
+The accuracy for for signal 137 is: 98.01980198019803%
+basecalled: TTT-CGAGGACCGGAATGCTAAAGACAGTCGCTAAGACAGATTCTCTGTCCTCTATCCCTAGGCTCTAATACTCGGTCGTAATCAACCTGCTTCCGTTCTGC
+            |||-||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||
+   correct: TTTTCGAGGACCGGAATGCTAAAGACAGTCGCTAAGACAGATTCTCTGTCCTCTATCC-TAGGCTCTAATACTCGGTCGTAATCAACCTGCTTCCGTTCTGC
+
+
+Basecalling signal 138 out of 200
+The accuracy for for signal 138 is: 97.14285714285714%
+basecalled: TCTCACGGTTCGCATCAA-CAAA-CACCCTTTGGCGTAAGACACTACCTTATGGTGCCTTGTGAAGTGCTGGTCGTATCCTGTCGCGCTCGCTCCGCCTTGGCGT
+            ||||||||||||||||||-||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||.|||||||
+   correct: TCTCACGGTTCGCATCAAACAAAACACCCTTTGGCGTAAGACACTACCTTATGGTGCCTTGTGAAGTGCTGGTCGTATCCTGTCGCGCTCGCTCCGCTTTGGCGT
+
+
+Basecalling signal 139 out of 200
+The accuracy for for signal 139 is: 98.07692307692307%
+basecalled: TAGGG--TACTAGTTCTCACACATCTCTCCCTTTCGCCATCTAATCGAATACGATTAACACTTATCCATGCGCGCGCTATTCCGAGATGCAGCTGCCTGCTGAT
+            |||||--|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: TAGGGGGTACTAGTTCTCACACATCTCTCCCTTTCGCCATCTAATCGAATACGATTAACACTTATCCATGCGCGCGCTATTCCGAGATGCAGCTGCCTGCTGAT
+
+
+Basecalling signal 140 out of 200
+The accuracy for for signal 140 is: 94.23076923076923%
+basecalled: AGACTGGCTCGTACGGGGCGTT-GCTCAACGTCAGACATCCC-AGACTATT-GAAA-CGTCTAATCAAGCATACAACC-TGTGTGCTAACAAGACACAAGAA-C
+            ||||||||||||||||||||||-|||||||||||||||||||-||||||||-||||-|||||||||||||||||||||-|||||||||||||||||||||||-|
+   correct: AGACTGGCTCGTACGGGGCGTTTGCTCAACGTCAGACATCCCCAGACTATTTGAAAACGTCTAATCAAGCATACAACCCTGTGTGCTAACAAGACACAAGAAAC
+
+
+Basecalling signal 141 out of 200
+The accuracy for for signal 141 is: 96.84210526315789%
+basecalled: TTATACACGGTCGGGG--TCCGTGTTATCCGAACGGTGTATTGATTTCGTGCCATAAGCTGATCTACGGCGAACCCTCCCGGATAAGGGACTGACA
+            ||||||||||||||||--||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: TTATACACGGTCGGGGGGTCCGTGTTATCCGAACGGTGTATTGATT-CGTGCCATAAGCTGATCTACGGCGAACCCTCCCGGATAAGGGACTGACA
+
+
+Basecalling signal 142 out of 200
+The accuracy for for signal 142 is: 96.15384615384616%
+basecalled: AGCGCCGCACGTGTATTTGGCCATTGTGATCATTGGGCCAACCC-AGAAGCGACGCCTATCCC-TAGACTGAACAGTAGTGTCACTACACTGAGAATCCCC-G-
+            ||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||-|||||||||||||||||||||||||||||||||||||-|-
+   correct: AGCGCCGCACGTGTATTTGGCCATTGTGATCATTGGGCCAACCCCAGAAGCGACGCCTATCCCCTAGACTGAACAGTAGTGTCACTACACTGAGAATCCCCCGG
+
+
+Basecalling signal 143 out of 200
+The accuracy for for signal 143 is: 96.03960396039604%
+basecalled: CATAGTCTAGTTGCTATT-CCC--AAAGCCTGCGTGTGATGATGAGAACTTCAGCCTATTTCAAGATGGAGGACGAACCTCTGGCGGAACCATCTGCCGGGA
+            ||||||||||||||||||-|||--||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||
+   correct: CATAGTCTAGTTGCTATTTCCCCCAAAGCCTGCGTGTGATGATGAGAACTTCAGCCTATTTCAAGATGGAGGACGAACCTCTGGCGGAAC-ATCTGCCGGGA
+
+
+Basecalling signal 144 out of 200
+The accuracy for for signal 144 is: 96.0%
+basecalled: CCTTAGCCTCTTT-AATAATGCCGG-ATACAGCGCGAGAACGTGTCCTTTGACACAACACC-ATTTGCAGGAATACATAGACAGAGCATAAGGAAGCCAGA
+            |||||||||||||-|||||||||||-|||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||-||||||||||
+   correct: CCTTAGCCTCTTTTAATAATGCCGGGATACAGCGCGAGAACGTGTCCTTTGACACAACACCCATTTGCAGGAATACATAGACAGAGCATA-GGAAGCCAGA
+
+
+Basecalling signal 145 out of 200
+The accuracy for for signal 145 is: 93.81443298969072%
+basecalled: CCC-TTAA-CCTTATGGG-AAGAGATGCCAACGACGTGATCGGG-TCCTAGAGTCATTTCCACGCACTTGCCGCTAACGCAGTTGGACATTCACG--
+            |||-||||-|||||||||-|||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||--
+   correct: CCCCTTAAACCTTATGGGGAAGAGATGCCAACGACGTGATCGGGGTCCTAGAGTCATTTCCACGCACTTGCCGCTAACGCAGTTGGACATTCACGGG
+
+
+Basecalling signal 146 out of 200
+The accuracy for for signal 146 is: 96.07843137254902%
+basecalled: TGACAATCTACGACTGTACATTCGTACGCAGACCGGAA-GGAACAGACTGTGGTGG-CATTACCTTTT-AGTTAACTGATACATTAGGTTCCGAGCTCC-GG
+            ||||||||||||||||||||||||||||||||||||||-|||||||||||||||||-|||||||||||-||||||||||||||||||||||||||||||-||
+   correct: TGACAATCTACGACTGTACATTCGTACGCAGACCGGAAAGGAACAGACTGTGGTGGGCATTACCTTTTTAGTTAACTGATACATTAGGTTCCGAGCTCCCGG
+
+
+Basecalling signal 147 out of 200
+The accuracy for for signal 147 is: 95.91836734693877%
+basecalled: GATGGGTAGGACGGGAAATGCCGGTCATTGATGCTGTATTATAA-GTCTAGATGATTCCCGGGTTTAAGGCTAAGGCCCTTAGTGCTGGGGCAGCT--
+            ||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||.|||||||||||||||||||||||||||||--
+   correct: GATGGGTAGGACGGGAAATGCCGGTCATTGATGCTGTATTATAAAGTCTAGATGATTCCCGGGTTTTAGGCTAAGGCCCTTAGTGCTGGGGCAGCTTT
+
+
+Basecalling signal 148 out of 200
+The accuracy for for signal 148 is: 100.0%
+basecalled: TATTGAAATATCTTCACTGTAATACCTGGCCGAGAAGAATATGCTGTAAGTAAGCTTCGGCGATTCTCAGGACAAATATAGTAACCGGCACACTTGGCGACA
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: TATTGAAATATCTTCACTGTAATACCTGGCCGAGAAGAATATGCTGTAAGTAAGCTTCGGCGATTCTCAGGACAAATATAGTAACCGGCACACTTGGCGACA
+
+
+Basecalling signal 149 out of 200
+The accuracy for for signal 149 is: 98.01980198019803%
+basecalled: ATAAGACTCATCTGTCAT-TTGGCTGGTTACGCCAAGGTCCAACTAAGTCGTATGGCTAGATACGGGCCATAAAGAAATCTGTAGATACGTCATTTATGG-
+            ||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-
+   correct: ATAAGACTCATCTGTCATATTGGCTGGTTACGCCAAGGTCCAACTAAGTCGTATGGCTAGATACGGGCCATAAAGAAATCTGTAGATACGTCATTTATGGG
+
+
+Basecalling signal 150 out of 200
+The accuracy for for signal 150 is: 100.0%
+basecalled: GGGAGCTATCACCAGGTCGTCTGTCGCTAGCCAATATTAATTTGTAGTAATATTGGATGGCGTATCGACAAACTGATTTGTCGCTACGCTGGCAAGATCT
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: GGGAGCTATCACCAGGTCGTCTGTCGCTAGCCAATATTAATTTGTAGTAATATTGGATGGCGTATCGACAAACTGATTTGTCGCTACGCTGGCAAGATCT
+
+
+Basecalling signal 151 out of 200
+The accuracy for for signal 151 is: 97.02970297029702%
+basecalled: GGGG--ACGATGCTTACCATAACCACTACCAGTTCATACAGTA-ATGACGAGCGACAGAGCGCAGCGCGGCGAAGCCTGTTGGGCCTCAAGCCTGTTGAGA
+            ||||--|||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: GGGGGGACGATGCTTACCATAACCACTACCAGTTCATACAGTAGATGACGAGCGACAGAGCGCAGCGCGGCGAAGCCTGTTGGGCCTCAAGCCTGTTGAGA
+
+
+Basecalling signal 152 out of 200
+The accuracy for for signal 152 is: 95.95959595959596%
+basecalled: ACTGAA-GTCGAACACCGCCGCAGAACAACAATCGTAGAGAGATAGCTTAGG-CCATGGACGACTTATGCCAGGCCATAACAAGTGTCGACAA-TATGA
+            ||||||-|||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||.||||||||||||||||||-|||||
+   correct: ACTGAAAGTCGAACACCGCCGCAGAACAACAATCGTAGAGAGATAGCTTAGGGCCATGGACGACTTATGCCAGGTCATAACAAGTGTCGACAAATATGA
+
+
+Basecalling signal 153 out of 200
+The accuracy for for signal 153 is: 94.1747572815534%
+basecalled: CTGG-TGGTATCTTAA-TGCGGAAACAACAAGATTTCGCGCCGACTTACCGCTATCTAAGACCC-TACGTGGAACGCTCCTCAGAAGCTTCCGACCCGTCC-G-
+            ||||-|||||||||||-||||||||||||||||||||||||||||||||-||||||||||||||-||||||||||||||||||||||||||||||||||||-|-
+   correct: CTGGGTGGTATCTTAAATGCGGAAACAACAAGATTTCGCGCCGACTTAC-GCTATCTAAGACCCCTACGTGGAACGCTCCTCAGAAGCTTCCGACCCGTCCCGG
+
+
+Basecalling signal 154 out of 200
+The accuracy for for signal 154 is: 96.19047619047619%
+basecalled: AGGTTTCGCTCGTGACGTCGCAAATTGATCAA-TACGG--CAGAATTGGTTACGACGCTTCCGGTCAAGGCGTACCGGAACTAACTATTATTCGATATTTCGCTTT
+            ||||||||||||||||||||||||||||||||-|||||--||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: AGGTTTCGCTCGTGACGTCGCAAATTGATCAAATACGGGGCAGAATTGGT-ACGACGCTTCCGGTCAAGGCGTACCGGAACTAACTATTATTCGATATTTCGCTTT
+
+
+Basecalling signal 155 out of 200
+The accuracy for for signal 155 is: 98.0%
+basecalled: GTTCGCGCTGAGATGGATGCGCTAAGCTTTT-AATCGCATGGACAGAAACTGAGG-CCACTTGATGTTCTGTCTGATTTTGCGCTGGGCACTAGTCAGGA
+            |||||||||||||||||||||||||||||||-|||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||
+   correct: GTTCGCGCTGAGATGGATGCGCTAAGCTTTTTAATCGCATGGACAGAAACTGAGGGCCACTTGATGTTCTGTCTGATTTTGCGCTGGGCACTAGTCAGGA
+
+
+Basecalling signal 156 out of 200
+The accuracy for for signal 156 is: 94.28571428571428%
+basecalled: ACAAGGGCCC-AACCCGCTGTCAGTGACTTAGGTACATTTCAACGTCTAGCTACACCATCCCC--AGCCACGGG-TCATGATCCGTTATAACGACCGACCGCTCA-
+            ||||||||||-||||-|||||||||||||||||||||||||||||||||||||||||||||||--|||||||||-||||||||||||||||||||||||||||||-
+   correct: ACAAGGGCCCCAACC-GCTGTCAGTGACTTAGGTACATTTCAACGTCTAGCTACACCATCCCCCCAGCCACGGGGTCATGATCCGTTATAACGACCGACCGCTCAT
+
+
+Basecalling signal 157 out of 200
+The accuracy for for signal 157 is: 97.0%
+basecalled: TACTCTGCGAA-CTAGACCAAGCCC-AGCAAGTGGAAAGGACGCGAAGATGCTCTGACTTGTGTCGTTGCAGCAACTCTCTAAGTCGAGTATTCAGGAT-
+            |||||||||||-|||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-
+   correct: TACTCTGCGAAACTAGACCAAGCCCCAGCAAGTGGAAAGGACGCGAAGATGCTCTGACTTGTGTCGTTGCAGCAACTCTCTAAGTCGAGTATTCAGGATT
+
+
+Basecalling signal 158 out of 200
+The accuracy for for signal 158 is: 97.0873786407767%
+basecalled: GAACCGCCATCGTATGCAAACCCTT-CAGTAAGATTCCTTCAACGTACC-AGATGTAGCTAGAGCTCCACTTGCATCCTCAATAACGGCTAGCCACACGTCTTC
+            |||||||||||||||||||||||||-||||||||||||||||-||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: GAACCGCCATCGTATGCAAACCCTTTCAGTAAGATTCCTTCA-CGTACCCAGATGTAGCTAGAGCTCCACTTGCATCCTCAATAACGGCTAGCCACACGTCTTC
+
+
+Basecalling signal 159 out of 200
+The accuracy for for signal 159 is: 97.0873786407767%
+basecalled: GCGGCGGTGCATTCAGAATGGAGAGCATCAGAGCCGTGCGTGAA-CTAATGGCATTAGGATCCGGTCTCAATCCC-TATTCGG-CGGGTCAGAGCGACTTAAT
+            ||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||-|||||||-|||||||||||||||||||
+   correct: GCGGCGGTGCATTCAGAATGGAGAGCATCAGAGCCGTGCGTGAAACTAATGGCATTAGGATCCGGTCTCAATCCCCTATTCGGGCGGGTCAGAGCGACTTAAT
+
+
+Basecalling signal 160 out of 200
+The accuracy for for signal 160 is: 96.15384615384616%
+basecalled: TAA-TACCGCACGCAACGACGTCGGATCAATTGTT-CTCATGGGATCAAA-GAACTTGATATTGAAGGATACCTCGCACGGATGGAATCGGACTGATT-CTGCG
+            |||-|||||||||||||||||||||||||||||||-||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||-|||||
+   correct: TAAATACCGCACGCAACGACGTCGGATCAATTGTTTCTCATGGGATCAAAAGAACTTGATATTGAAGGATACCTCGCACGGATGGAATCGGACTGATTTCTGCG
+
+
+Basecalling signal 161 out of 200
+The accuracy for for signal 161 is: 95.0%
+basecalled: GAGCTACAGCTTCGCAGATATTGTAACGAGGTTGAACTT-GCTGAATGTGAAACTTCGGCCGCTCGCTCTTT-AGTCGTCACATCGGCCAAA-GGAGA--
+            |||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||-|||||||||||||||||||-|||||--
+   correct: GAGCTACAGCTTCGCAGATATTGTAACGAGGTTGAACTTTGCTGAATGTGAAACTTCGGCCGCTCGCTCTTTTAGTCGTCACATCGGCCAAAAGGAGAAA
+
+
+Basecalling signal 162 out of 200
+The accuracy for for signal 162 is: 97.05882352941177%
+basecalled: AGG-CTAGCGCCTGTCAAGGCTGATGATTGATGGTGACCACAGGAGCGTGGCTGTCTCAGGTTATCGGG-ATCGCGGATAGAATGTCCAGTTGAGACGAGACT
+            |||-|||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||
+   correct: AGGGCTAGCGCCTGTCAAG-CTGATGATTGATGGTGACCACAGGAGCGTGGCTGTCTCAGGTTATCGGGGATCGCGGATAGAATGTCCAGTTGAGACGAGACT
+
+
+Basecalling signal 163 out of 200
+The accuracy for for signal 163 is: 97.0873786407767%
+basecalled: TAGACTGATCCCC-GCCGGATCTTCCACATCAC-TGGCGCTACTCGATAGGTTTCGGGTCCGTGATGTAA-CGCCGCACTGTATGAGCCCATGAGGCGAGTAT
+            |||||||||||||-|||||||||||||||||||-||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||
+   correct: TAGACTGATCCCCCGCCGGATCTTCCACATCACGTGGCGCTACTCGATAGGTTTCGGGTCCGTGATGTAAACGCCGCACTGTATGAGCCCATGAGGCGAGTAT
+
+
+Basecalling signal 164 out of 200
+The accuracy for for signal 164 is: 94.1747572815534%
+basecalled: CACC-T-AG-CAGTTGGGG-TCC-GAGTTAGTGGGTTGTAACCTAATCCTAGATATATTTACACGTAGAAAAGCTCTACCATCTCGTGTTCCAGGGAGTGGGA
+            ||||-|-||-|||||||||-|||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||.|||||||||||||
+   correct: CACCCTTAGGCAGTTGGGGGTCCCGAGTTAGTGGGTTGTAACCTAATCCTAGATATATTTACACGTAGAAAAGCTCTACCATCTCGTGTCCCAGGGAGTGGGA
+
+
+Basecalling signal 165 out of 200
+The accuracy for for signal 165 is: 95.04950495049505%
+basecalled: TCCAAAA--CCCTGG-TTATCCAGGG-AATGAAACGCCGAACCAGGTCGACATATTCAGATCTTCGGCGTGTCAGCGCGACACCATGACTGACTACAGGTCT
+            |||||||--||||||-||||||||||-|||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: TCCAAAAAACCCTGGGTTATCCAGGGGAATGAAACGCCGAAC-AGGTCGACATATTCAGATCTTCGGCGTGTCAGCGCGACACCATGACTGACTACAGGTCT
+
+
+Basecalling signal 166 out of 200
+The accuracy for for signal 166 is: 95.04950495049505%
+basecalled: GGGGTATGGCA-AGTTAA-TAGAGAACGCCAACTTCATTCGCGTT-GGCCATATTATCTATGACATTTCCTAGACACGGTTCGTCGG-TAAGGGTCTTAGGC
+            |||||||||||-|-||||-||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||-||||||||||||||
+   correct: GGGGTATGGCAGA-TTAAATAGAGAACGCCAACTTCATTCGCGTTTGGCCATATTATCTATGACATTTCCTAGACACGGTTCGTCGGGTAAGGGTCTTAGGC
+
+
+Basecalling signal 167 out of 200
+The accuracy for for signal 167 is: 98.0%
+basecalled: ATGCTGCCGGTTGAGTGGCGGACATTAACAGCCTACCCCAGGTTAA-GACAGAGTGTTTGATCTCGTGTGGTAACCTCGTTGCCAGGTTCGGATTCGG-C
+            ||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||-|
+   correct: ATGCTGCCGGTTGAGTGGCGGACATTAACAGCCTACCCCAGGTTAAAGACAGAGTGTTTGATCTCGTGTGGTAACCTCGTTGCCAGGTTCGGATTCGGAC
+
+
+Basecalling signal 168 out of 200
+The accuracy for for signal 168 is: 97.0%
+basecalled: TGTACGCATTTAAACCGTATGGTCATGCTGTAGGCTCTCAACAGTCCACGACTAAACCTGCGGGATCACGCCATTATTAGCGTTATT-ACTCGAGGTCCTTA
+            ||||||||||||||||||||||||||||||||||||||||-|||||-||||||||||||||||||||||||||||||||||||||||-||||||||||||||
+   correct: TGTACGCATTTAAACCGTATGGTCATGCTGTAGGCTCTCA-CAGTC-ACGACTAAACCTGCGGGATCACGCCATTATTAGCGTTATTTACTCGAGGTCCTTA
+
+
+Basecalling signal 169 out of 200
+The accuracy for for signal 169 is: 98.01980198019803%
+basecalled: AGTCGCGG-TCCACACTT-GACACTTTTCGAAGGTATTGCACCTACCGGATACACAGCATCGTGGTTGCCGAGCTCTCCACTGGACATGGCCATTGTCCTG
+            ||||||||-|||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: AGTCGCGGGTCCACACTTTGACACTTTTCGAAGGTATTGCACCTACCGGATACACAGCATCGTGGTTGCCGAGCTCTCCACTGGACATGGCCATTGTCCTG
+
+
+Basecalling signal 170 out of 200
+The accuracy for for signal 170 is: 98.0392156862745%
+basecalled: GTGTTCCGG-ATGTGAACGGCGGCGTCTCCTCTCCAGGCTAA-GACATGCCTTTCTAGTTACCTGAGACAATCTTATCAGAACACTCCGTGGCTCTCCACGA
+            |||||||||-||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: GTGTTCCGGGATGTGAACGGCGGCGTCTCCTCTCCAGGCTAAAGACATGCCTTTCTAGTTACCTGAGACAATCTTATCAGAACACTCCGTGGCTCTCCACGA
+
+
+Basecalling signal 171 out of 200
+The accuracy for for signal 171 is: 97.0%
+basecalled: GGCGGTTGTTTGCATCGCGCC-GATAAGTCTTAGTCCTCGTGTCAGTGCTTACGTGGACTCATCGATCGTTACACCGAAGCAGCTCAACAGCGTAACTGCTT
+            ||||||||||-||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||
+   correct: GGCGGTTGTT-GCATCGCGCCCGATAAGTCTTAGTCCTCGTGTCAGTGCTTACGTGGACTCATCGATCGTTACAC-GAAGCAGCTCAACAGCGTAACTGCTT
+
+
+Basecalling signal 172 out of 200
+The accuracy for for signal 172 is: 94.33962264150944%
+basecalled: CTGTGTAAGGTTCAAAAGA-GTCACTCATGTTTT-GTCCGGCGGGG-TTAAACTACCTCAAACCGACAACAGGG-AAAGTGGGCATTCGTTT-CTGG-CCGGTTAC
+            |||||||||||||||||||-||||||||||||||-|||||||||||-|||||||||||||||||||||||||||-|||||||||||||||||-||||-||||||||
+   correct: CTGTGTAAGGTTCAAAAGAAGTCACTCATGTTTTTGTCCGGCGGGGGTTAAACTACCTCAAACCGACAACAGGGGAAAGTGGGCATTCGTTTTCTGGGCCGGTTAC
+
+
+Basecalling signal 173 out of 200
+The accuracy for for signal 173 is: 98.0%
+basecalled: GCATGCCATGTAGCGCCCGCCGGGCCC-GACATTAGATGCGACGACAACTGCCTTGAACATTCGTATGTAGCCTTCTCAGTTGTTTGATATTGTAGCTTGC
+            |||||||||||||||||-|||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: GCATGCCATGTAGCGCC-GCCGGGCCCCGACATTAGATGCGACGACAACTGCCTTGAACATTCGTATGTAGCCTTCTCAGTTGTTTGATATTGTAGCTTGC
+
+
+Basecalling signal 174 out of 200
+The accuracy for for signal 174 is: 93.26923076923077%
+basecalled: TACATTTTCGGCTCTATAATTAGAAAA--GGATGGCAATT-AAA-CAGCACAGGCAATCATGCTGTCTTATACTATTAA-CATGGTCAT-AGAACAGTCGCTG-
+            |||||||||||||||||||||||||||--|||||||||||-|||-||||||||||||||||||||||||||||||||||-|||||||||-|||||||||||||-
+   correct: TACATTTTCGGCTCTATAATTAGAAAAAAGGATGGCAATTTAAAACAGCACAGGCAATCATGCTGTCTTATACTATTAAACATGGTCATCAGAACAGTCGCTGG
+
+
+Basecalling signal 175 out of 200
+The accuracy for for signal 175 is: 98.0392156862745%
+basecalled: ATTCGTAGCTCTGGACCG-CTTATGCTACGTACTATGGCCCTACGCACAGCCGGTCCGCGAGTAACTCGTCGGAGCGTAAGTTCAGCGACCGGCCGGCGCCCA
+            ||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|
+   correct: ATTCGTAGCTCTGGACCGGCTTATGCTACGTACTATGGCCCTACGCACAGCCGGTCCGCGAGTAACTCGTCGGAGCGTAAGTTCAGCGACCGGCCGGCGCC-A
+
+
+Basecalling signal 176 out of 200
+The accuracy for for signal 176 is: 97.9381443298969%
+basecalled: ACTCCACGTCACTGTAAGCTCCTCATTTT-AGGGGCCGTGACTACTTATCTCGAACAAGTGACTCATATTCAACTCCCTGCGTTATTTGCCACCGTCT
+            |||||||||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||
+   correct: ACTCCACGTCACTGTAAGCTCCTCATTTTTAGGGGCCGTGACTACTTATCTCGAACAAGTGACTCATATTCAACTCC-TGCGTTATTTGCCACCGTCT
+
+
+Basecalling signal 177 out of 200
+The accuracy for for signal 177 is: 96.84210526315789%
+basecalled: GGTTGTTACATATCCATGCTCAATGTGCGAAATCCG-TGATCGCCCTTCGCAGATGTATGCGAAGCATGCGGG-AACCTGGCGATGTT-CAACCT
+            ||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||-||||||||||||||-||||||
+   correct: GGTTGTTACATATCCATGCTCAATGTGCGAAATCCGGTGATCGCCCTTCGCAGATGTATGCGAAGCATGCGGGGAACCTGGCGATGTTTCAACCT
+
+
+Basecalling signal 178 out of 200
+The accuracy for for signal 178 is: 96.15384615384616%
+basecalled: GCC-TCATTCCTGCGAATTCACTACCGTACTGGCGGTCGAAGCCCGTGAAGACCATATATTGGCCCAA-TAGAAAATAATCCCCATCGAGGG-TAGG-AGACCA
+            |||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||-||||-||||||
+   correct: GCCCTCATTCCTGCGAATTCACTACCGTACTGGCGGTCGAAGCCCGTGAAGACCATATATTGGCCCAAATAGAAAATAATCCCCATCGAGGGGTAGGGAGACCA
+
+
+Basecalling signal 179 out of 200
+The accuracy for for signal 179 is: 96.2962962962963%
+basecalled: GACAAGCCATGTCGCTCTGTCCTCGACGTTAAA-CATCGCGTACTGGGTACTGATGTTT-ACCGACACTCAAGG-CTTCCCGGCTAATATTT-AGCGACTCTAAGGGC
+            |||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||-||||||||||||||-|||||||||||||||||-|||||||||||||||
+   correct: GACAAGCCATGTCGCTCTGTCCTCGACGTTAAAACATCGCGTACTGGGTACTGATGTTTTACCGACACTCAAGGGCTTCCCGGCTAATATTTTAGCGACTCTAAGGGC
+
+
+Basecalling signal 180 out of 200
+The accuracy for for signal 180 is: 98.9795918367347%
+basecalled: TAGTAAGAAGCAGACGGCCTAGGATTCTATCGTGGGACGTGTTGACTGAAGTGCATCCTGTATTT-GCATGCGCGATAATTCCCGTGAGCGCATATCC
+            |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||
+   correct: TAGTAAGAAGCAGACGGCCTAGGATTCTATCGTGGGACGTGTTGACTGAAGTGCATCCTGTATTTTGCATGCGCGATAATTCCCGTGAGCGCATATCC
+
+
+Basecalling signal 181 out of 200
+The accuracy for for signal 181 is: 96.0%
+basecalled: CTCACGGGGTCGCGTGCCGCCTGGAGACGAAA-CCAACCCTTAACACAGTGAACGGAGAGTACTGAAGCATACGAAA-CTGGTACTAAGAAACACCAGCG-
+            ||||||||-|||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||-
+   correct: CTCACGGG-TCGCGTGCCGCCTGGAGACGAAAACCAACCCTTAACACAGTGAACGGAGAGTACTGAAGCATACGAAAACTGGTACTAAGAAACACCAGCGG
+
+
+Basecalling signal 182 out of 200
+The accuracy for for signal 182 is: 97.19626168224299%
+basecalled: GGAATTATTGAACGG-GCCGGTTCCACGAACCCTGTGTACCCGGTTTGGTTAGGCC-ATCTGACACACGCTCAGAGTTCCGGAGGTGTGGAGTGCTGAACCGGGATAC
+            |||||||||||||||-||||||||||||||||||||||||||||||||-|||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: GGAATTATTGAACGGTGCCGGTTCCACGAACCCTGTGTACCCGGTTTG-TTAGGCCCATCTGACACACGCTCAGAGTTCCGGAGGTGTGGAGTGCTGAACCGGGATAC
+
+
+Basecalling signal 183 out of 200
+The accuracy for for signal 183 is: 96.96969696969697%
+basecalled: TTCTCAGGCTACATTGCGAGCTATACCGAAGCGCCC-GTATT-ATCAAGTATCGCTAGCACACAAAGTCGCAGCCGCCCGCATGGTTAAGGCAATT-AA
+            ||||||||||||||||||||||||||||||||||||-|||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||-||
+   correct: TTCTCAGGCTACATTGCGAGCTATACCGAAGCGCCCCGTATTTATCAAGTATCGCTAGCACACAAAGTCGCAGCCGCCCGCATGGTTAAGGCAATTTAA
+
+
+Basecalling signal 184 out of 200
+The accuracy for for signal 184 is: 97.05882352941177%
+basecalled: CCTATATGTCCATGTAGCATCGAAA-CGCGTGTGCGCAAGCTACTGTCTGCTCAACCTATCAAGGATGCACCAGATTCGCGGAAGGCCCC-AGACGACC-GC
+            |||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||-||
+   correct: CCTATATGTCCATGTAGCATCGAAAACGCGTGTGCGCAAGCTACTGTCTGCTCAACCTATCAAGGATGCACCAGATTCGCGGAAGGCCCCCAGACGACCCGC
+
+
+Basecalling signal 185 out of 200
+The accuracy for for signal 185 is: 98.95833333333334%
+basecalled: ATTGGGCCAGTTGAGTAATCTACGAGCACAGTAGTAGGAAGTCGATGAACGGCGTTGTCTGACGAGAGAATGGAGCTATTCTTAGATTAGCTCCAT
+            ||.|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: ATGGGGCCAGTTGAGTAATCTACGAGCACAGTAGTAGGAAGTCGATGAACGGCGTTGTCTGACGAGAGAATGGAGCTATTCTTAGATTAGCTCCAT
+
+
+Basecalling signal 186 out of 200
+The accuracy for for signal 186 is: 96.22641509433963%
+basecalled: TT-CAATTGGAGTGAAACATTAGATTCGCCTATCTCGCAGCAAGCGACGCGCATTGTAACGCTGGCCGCC-GAGATGGATAAGTT-GGACCGTGCGTT-AAGAGAC
+            ||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||-||||||||||||-|||||||
+   correct: TTTCAATTGGAGTGAAACATTAGATTCGCCTATCTCGCAGCAAGCGACGCGCATTGTAACGCTGGCCGCCCGAGATGGATAAGTTTGGACCGTGCGTTTAAGAGAC
+
+
+Basecalling signal 187 out of 200
+The accuracy for for signal 187 is: 95.83333333333334%
+basecalled: AGCAAATCGACACGTCACTTGCGCCGAAGTTAGCCTGG-TCGGTTGAGAACCAGATCAATACC-TTT-GGGACATCACATAAAGAAGACATCCC-T
+            ||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||-|||-||||||||||||||||||||||||||-|
+   correct: AGCAAATCGACACGTCACTTGCGCCGAAGTTAGCCTGGGTCGGTTGAGAACCAGATCAATACCCTTTTGGGACATCACATAAAGAAGACATCCCCT
+
+
+Basecalling signal 188 out of 200
+The accuracy for for signal 188 is: 98.98989898989899%
+basecalled: GAGCTGATTGCTCACACGGGATGACGCGCTGGACGCCGGCGATTCCCGTATCCGATATCGTCAGTTTTAGG-AGTGGAGTTCGCTGTCGAATCGCGATC
+            |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||||||
+   correct: GAGCTGATTGCTCACACGGGATGACGCGCTGGACGCCGGCGATTCCCGTATCCGATATCGTCAGTTTTAGGGAGTGGAGTTCGCTGTCGAATCGCGATC
+
+
+Basecalling signal 189 out of 200
+The accuracy for for signal 189 is: 95.14563106796116%
+basecalled: GAGTGTGTTTT---GGACGGTCCCGCTCTTCGCCC-TCGGATACGTGTGTGTATTCCTCACGTGTCCTAGGTTGTCCTAGTATACCGGACATACGAAGGACAAG
+            |||||||||||---|||||||||-|||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: GAGTGTGTTTTTTTGGACGGTCC-GCTCTTCGCCCCTCGGATACGTGTGTGTATTCCTCACGTGTCCTAGGTTGTCCTAGTATACCGGACATACGAAGGACAAG
+
+
+Basecalling signal 190 out of 200
+The accuracy for for signal 190 is: 98.0%
+basecalled: GATCATCATGCAAGCATGACTTGATATAATTCTGGACTTATGTGCTGACACGCGTACCTCAGAATGATACATGGCC-GACTCAACACGTTTGCCCGCTGAG
+            |||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||
+   correct: GATCATCATGCAAGCATGACT-GATATAATTCTGGACTTATGTGCTGACACGCGTACCTCAGAATGATACATGGCCCGACTCAACACGTTTGCCCGCTGAG
+
+
+Basecalling signal 191 out of 200
+The accuracy for for signal 191 is: 100.0%
+basecalled: AACTTCAGGATAGGAGCCAAACACACCCGAACATCCTTCTCAGCATGGCCTTTCTCTCAATCAATTGGTTGAATCTACACTAAGTTCCAGGTTATG
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: AACTTCAGGATAGGAGCCAAACACACCCGAACATCCTTCTCAGCATGGCCTTTCTCTCAATCAATTGGTTGAATCTACACTAAGTTCCAGGTTATG
+
+
+Basecalling signal 192 out of 200
+The accuracy for for signal 192 is: 97.0%
+basecalled: TCTGAGTGAACGTCTCAATAGTTCGACTCAAGGGAAATTT-GCCACTGTATAATAATGTACC-GCCAGATGGCTGCGGACCGCGCACC-ATCGAGACCAT
+            ||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||-|||||||||||||||||||||||||-|||||||||||
+   correct: TCTGAGTGAACGTCTCAATAGTTCGACTCAAGGGAAATTTTGCCACTGTATAATAATGTACCCGCCAGATGGCTGCGGACCGCGCACCCATCGAGACCAT
+
+
+Basecalling signal 193 out of 200
+The accuracy for for signal 193 is: 98.0392156862745%
+basecalled: GTGTCGCTTATGACGGTGCCTTCCAGGAGATGTGCTCAACTATTGTAACGGTTCTCTGTAA-TGCGATCTAGAGGTAA-CAGCCATGGGCGTTACCTAACGT
+            |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||-|||||||||||||||||||||||
+   correct: GTGTCGCTTATGACGGTGCCTTCCAGGAGATGTGCTCAACTATTGTAACGGTTCTCTGTAAATGCGATCTAGAGGTAAACAGCCATGGGCGTTACCTAACGT
+
+
+Basecalling signal 194 out of 200
+The accuracy for for signal 194 is: 98.0%
+basecalled: CC-GTAAATCACCATCTGCAGAATCTCGAGGCAGAAGGGCATTCTGGGTGCCCGAAGCTAAGGTTATTCATAGCTATTGATACCGACGACACTGCGGCCCG
+            ||-|||||||||||||||||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: CCCGTAAATCACCATCTGCAGAATCTCGAGGCAGAAGG-CATTCTGGGTGCCCGAAGCTAAGGTTATTCATAGCTATTGATACCGACGACACTGCGGCCCG
+
+
+Basecalling signal 195 out of 200
+The accuracy for for signal 195 is: 96.90721649484536%
+basecalled: AGCGATCGTTTGCTTCC-GAGCCCTAATAAGCGATTATGTCTCTCAGACGCATACCGCGTGCCTTT-GCATGATAGTGTACAACC-GGCAGGTCAAT
+            |||||||||||||||||-||||||||||||||||||||||||||||||||||||||||||||||||-||||||||||||||||||-|||||||||||
+   correct: AGCGATCGTTTGCTTCCCGAGCCCTAATAAGCGATTATGTCTCTCAGACGCATACCGCGTGCCTTTTGCATGATAGTGTACAACCCGGCAGGTCAAT
+
+
+Basecalling signal 196 out of 200
+The accuracy for for signal 196 is: 95.95959595959596%
+basecalled: AGGGTGGAGAATAACGAATGAA-GCCGTCGATTGTTTCCTGAGGTTTAGCCAGCATATACGCTATGTACATT-CCATGGAAGATTGGTATTTCTTT--C
+            ||||||||||||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||-|||||||||||||||||||||||--|
+   correct: AGGGTGGAGAATAACGAATGAAAGCCGTCGATTGTTTCCTGAGGTTTAGCCAGCATATACGCTATGTACATTTCCATGGAAGATTGGTATTTCTTTTTC
+
+
+Basecalling signal 197 out of 200
+The accuracy for for signal 197 is: 100.0%
+basecalled: TCCAGACACGAACTGAAGGACTGGAGCTTCGAACTTGCGTCGGTCGAGATGTATGCTATTTAATCAGGCACACGACTATTAGATGAGTCCGCAATCGT
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: TCCAGACACGAACTGAAGGACTGGAGCTTCGAACTTGCGTCGGTCGAGATGTATGCTATTTAATCAGGCACACGACTATTAGATGAGTCCGCAATCGT
+
+
+Basecalling signal 198 out of 200
+The accuracy for for signal 198 is: 100.0%
+basecalled: GTTGATCTCCTATACGTGGGCTCGGGATTGAACTAGACTACCTCGGTTACCCCTCCCAATAATGTATACAATAACCCTCTCGTCTTCACGACCAAGAGCT
+            ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: GTTGATCTCCTATACGTGGGCTCGGGATTGAACTAGACTACCTCGGTTACCCCTCCCAATAATGTATACAATAACCCTCTCGTCTTCACGACCAAGAGCT
+
+
+Basecalling signal 199 out of 200
+The accuracy for for signal 199 is: 97.0%
+basecalled: CGTCGTGGCAGAAACTTTCTT-CGCTGAGATACACTACGGTAACTTCTCTAAATCCATCTTAAG-CCTATATTCACCTAAGGTCCACATGCTAAATGGGG
+            |||||||||||||||||||||-||||||||||||||||||||||||||||||||||||||.|||-|||||||||||||||||||||||||||||||||||
+   correct: CGTCGTGGCAGAAACTTTCTTTCGCTGAGATACACTACGGTAACTTCTCTAAATCCATCTAAAGGCCTATATTCACCTAAGGTCCACATGCTAAATGGGG
+
+
+Basecalling signal 200 out of 200
+The accuracy for for signal 200 is: 97.0%
+basecalled: GATT-GTTT-AACTTGCACACC-GGTGGTCCTAACTTATCACGGTTCCTGTCACGGTAAAGCTTCTACTGCGACCAGCTCGATATCCGCGACTTAGCTGT
+            ||||-||||-||||||||||||-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+   correct: GATTTGTTTTAACTTGCACACCCGGTGGTCCTAACTTATCACGGTTCCTGTCACGGTAAAGCTTCTACTGCGACCAGCTCGATATCCGCGACTTAGCTGT
+
+
+Finished basecalling 200 signals
 The average accuracy of the basecaller is: 96.63414334298976%</code></pre>
   <p class="blog-post_paragraph">
     I found that changing the homopolymer cutoff to be 17 timepoints provided
@@ -3315,11 +4518,10 @@ def basecall_all(
     # Print out the alignment
     if detailed:
       print(f"Basecalling signal {i+1} out of {len(signals)}")
-      print(f"The alignment for signal {i + 1} is:")
+      print(f"The accuracy for for signal {i + 1} is: {accuracy}%")
       print("basecalled: " + nice_alignment['query_aligned'])
       print("            " + nice_alignment['matched_aligned'])
       print("   correct: " + nice_alignment['target_aligned'])
-      print(f"The accuracy for this sequence is: {accuracy}%")
       print("\n")
       
   # Determine the average accuracy of the basecaller
