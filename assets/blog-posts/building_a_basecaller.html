@@ -167,12 +167,13 @@ sequence 200: GATTTGTTTTAACTTGCACACCCGGTGGTCCTAACTTATCACGGTTCCTGTCACGGTAAAGCTTCT
   ><code class="language-python"># Prints the first 80 electrical current readings for each sequencing run
 # Only print the data for the first and last 3 readings to not overclutter the output
 for i, sig in enumerate(signals):
-if i < 3 or i >= len(signals) - 3:
-print(f"signal {i + 1}: {sig[0:80]}", end="\n");
-if i == 3:
-print("...")</code></pre>
-  <pre class="output"><code class="language-output">
-signal 1: [0.3100529743453997, 0.3158634462325644, 0.31208845112970585, 0.31708760150559795, 0.3123011896833653, 0.31436657306891536, 0.441634747471758, 0.4407353774410627, 0.4446590187328251, 0.43930513606416066, 0.43076376005652706, 0.4328593195800709, 0.4429004272747269, 0.9361748673202694, 0.9390461565805324, 0.9340941773738767, 0.9415035256947212, 0.9359606710046688, 0.943332432954438, 0.9353710639164073, 0.9419725335868708, 0.9401975844192835, 0.7471104323783434, 0.7543959853309887, 0.746393462038096, 0.746710131244383, 0.7528868451684507, 0.747498631994136, 0.7476246277309819, 0.7486243971631584, 0.7459993232405099, 0.06667997763869558, 0.0649340587939394, 0.062222685213238066, 0.06206643173130584, 0.06430062205106872, 0.06956134040207629, 0.06598387921012897, 0.0604661714628984, 0.06560967682099546, 0.31202491531158766, 0.3117040072647851, 0.3199658855006085, 0.3108242484092875, 0.31058326033949035, 0.30469157885101905, 0.24439068341818745, 0.2518044917549384, 0.24722031639525904, 0.252061655207133, 0.24554051579053626, 0.24693076069467307, 0.25269828282782403, 0.25584356952185233, 0.12736989120569608, 0.129791323366885, 0.13181837668548962, 0.12916035661261638, 0.1213262398467999, 0.6870786211499699, 0.6900207826827397, 0.6858406123948471, 0.6893077841492848, 0.6811833748584222, 0.9341854880845744, 0.9396155189823407, 0.9285516539555502, 0.9330691499908618, 0.9374291267283594, 0.9306224221015219, 0.9377284839843284, 0.934301810037233, 0.9363336216179967, 0.9364640685863979, 0.9382571727902347, 0.9352448450616708, 0.9378587456292904, 0.9350953727974025, 0.9397242940403095, 0.9442752364531524]
+  if i < 3 or i >= len(signals) - 3:
+    print(f"signal {i + 1}: {sig[0:80]}", end="\n");
+  if i == 3:
+    print("...")</code></pre>
+  <pre
+    class="output"
+  ><code class="language-output">signal 1: [0.3100529743453997, 0.3158634462325644, 0.31208845112970585, 0.31708760150559795, 0.3123011896833653, 0.31436657306891536, 0.441634747471758, 0.4407353774410627, 0.4446590187328251, 0.43930513606416066, 0.43076376005652706, 0.4328593195800709, 0.4429004272747269, 0.9361748673202694, 0.9390461565805324, 0.9340941773738767, 0.9415035256947212, 0.9359606710046688, 0.943332432954438, 0.9353710639164073, 0.9419725335868708, 0.9401975844192835, 0.7471104323783434, 0.7543959853309887, 0.746393462038096, 0.746710131244383, 0.7528868451684507, 0.747498631994136, 0.7476246277309819, 0.7486243971631584, 0.7459993232405099, 0.06667997763869558, 0.0649340587939394, 0.062222685213238066, 0.06206643173130584, 0.06430062205106872, 0.06956134040207629, 0.06598387921012897, 0.0604661714628984, 0.06560967682099546, 0.31202491531158766, 0.3117040072647851, 0.3199658855006085, 0.3108242484092875, 0.31058326033949035, 0.30469157885101905, 0.24439068341818745, 0.2518044917549384, 0.24722031639525904, 0.252061655207133, 0.24554051579053626, 0.24693076069467307, 0.25269828282782403, 0.25584356952185233, 0.12736989120569608, 0.129791323366885, 0.13181837668548962, 0.12916035661261638, 0.1213262398467999, 0.6870786211499699, 0.6900207826827397, 0.6858406123948471, 0.6893077841492848, 0.6811833748584222, 0.9341854880845744, 0.9396155189823407, 0.9285516539555502, 0.9330691499908618, 0.9374291267283594, 0.9306224221015219, 0.9377284839843284, 0.934301810037233, 0.9363336216179967, 0.9364640685863979, 0.9382571727902347, 0.9352448450616708, 0.9378587456292904, 0.9350953727974025, 0.9397242940403095, 0.9442752364531524]
 signal 2: [0.8718274187396214, 0.8701425065460943, 0.8736259998975986, 0.873563917571122, 0.8650604183657802, 0.873097399690971, 0.8727233417770178, 0.8694257721321107, 0.871501837917242, 0.8759874130843427, 0.8763655561883015, 0.8762994742089532, 0.8726961912153857, 0.8717003819220065, 0.8755815519018014, 0.8734274313657613, 0.8791456680423432, 0.8796572345884945, 0.4981095474949926, 0.493466052165371, 0.5007334390525425, 0.4973244180014974, 0.5032891882812756, 0.06530039807092146, 0.0582975625632877, 0.06669292223744569, 0.06806910936103525, 0.06404489553159515, 0.06494058414660187, 0.06041628781925487, 0.05906335840732782, 0.06751954748570266, 0.3134644364681886, 0.31213329920146377, 0.3122242999220129, 0.3155110458612274, 0.3116373949351636, 0.3105062883956581, 0.31128102557675413, 0.31185001119590655, 0.3105541145917271, 0.3128531292426612, 0.37303360549249376, 0.3731802886295113, 0.3829461567909086, 0.3750290419359434, 0.3818319447236752, 0.3709809415682388, 0.3780192669371244, 0.3750452720284999, 0.694264040073273, 0.6856392546114898, 0.6946692919574114, 0.6851454156060066, 0.6875305097928515, 0.682875656267178, 0.6873617953935149, 0.6866727075854471, 0.6830624567091332, 0.6801160137914215, 0.6910856277693966, 0.6894805503128675, 0.6847146459314587, 0.6870728254541224, 0.6845991846173449, 0.6869477013746157, 0.6885001707549948, 0.6889124626282804, 0.9354960925055359, 0.9366607824920513, 0.9395644675378666, 0.9348626941960132, 0.9352777715381704, 0.9378274008343893, 0.9394790489943761, 0.9358042009950395, 0.9406861231946123, 0.9372197435360158, 0.9348090298787833, 0.9378776616289848]
 signal 3: [0.1274964684895317, 0.11763153197627063, 0.12233869311664558, 0.12254135138028113, 0.12329276649411786, 0.12496405394528928, 0.12305279351256104, 0.12239640235761852, 0.1246080684691115, 0.12432869653873103, 0.5560826306023586, 0.5553832011121335, 0.5602097558363068, 0.5652997841669394, 0.5617131749677041, 0.5595141922509749, 0.5662509925302252, 0.5519983950524241, 0.5654846593366483, 0.5651964400615108, 0.37905706999889854, 0.3746771430684578, 0.3741134090613114, 0.3724145635578148, 0.38049633862938553, 0.3713483578883748, 0.37691884470929016, 0.3779694670140296, 0.37592619157277657, 0.3713721450438278, 0.384927780972506, 0.37590647784363934, 0.5619483350547104, 0.5603338030303621, 0.5592816320030317, 0.566222509541765, 0.5686722608390449, 0.5680271476000597, 0.5618333249682713, 0.5558656685026228, 0.5602826033697548, 0.564526733886477, 0.5631099032475467, 0.5610104754500993, 0.5580318158535241, 0.43578874108032767, 0.4412567352358483, 0.4338171603530718, 0.4357294506306183, 0.44022261476155106, 0.43335530477482764, 0.4304955471531175, 0.4396365723016269, 0.44029933079579625, 0.4383513242791009, 0.8067275170443323, 0.8119974772736225, 0.8188054252021972, 0.8067538465592148, 0.8136093042092316, 0.8102415519807998, 0.8133409264855411, 0.807648751586652, 0.8057651962969663, 0.8146957560581631, 0.8130323584640134, 0.8134334644374099, 0.8065623716874014, 0.8142275377946145, 0.8175714067476539, 0.37283845202236987, 0.3763459626275503, 0.372998084137685, 0.37856234526935145, 0.37169400880892456, 0.37449915023108193, 0.3784276749805034, 0.37684731771537266, 0.37120261139844263, 0.374844623437569]
 ...
@@ -248,20 +249,20 @@ print(json.dumps(kmer_table, separators = (",\n ", ": ")))</code></pre>
   </p>
   <pre class="line-numbers"><code class="language-python">class Signal:
 
-def __init__(self, signal_index):
-self.signal_index = signal_index
-self.signal = np.row_stack(signals[signal_index]) # Convert the signal data into a numpy array for easier slicing
-self.correct_seq = sequencing[signal_index]
+  def __init__(self, signal_index):
+    self.signal_index = signal_index
+    self.signal = np.row_stack(signals[signal_index]) # Convert the signal data into a numpy array for easier slicing
+    self.correct_seq = sequencing[signal_index]
 
-def __str__(self) -> str:
-nl = "\n" # Trick I used to format newlines in f-strings
-smoothed_signal = self.smoothed_signal if hasattr(self, "smoothed_signal") else "n/a"
-return f"Signals array: {nl}{self.signal} {nl} {nl}Smoothed Signal: {nl}{smoothed_signal} {nl} {nl}Correct sequence: {nl}{self.correct_seq}"
+  def __str__(self) -> str:
+    nl = "\n" # Trick I used to format newlines in f-strings
+    smoothed_signal = self.smoothed_signal if hasattr(self, "smoothed_signal") else "n/a"
+    return f"Signals array: {nl}{self.signal} {nl} {nl}Smoothed Signal: {nl}{smoothed_signal} {nl} {nl}Correct sequence: {nl}{self.correct_seq}"
 
-def __repr__(self) -> str:
-nl = "\n"
-smoothed_signal = self.smoothed_signal.__repr__() if hasattr(self, "smoothed_signal") else "n/a"
-return f"Signal index: {nl}{self.signal_index} {nl} {nl}Signals array (numpy array): {self.signal.__repr__()} {nl} {nl}Smoothed Signal (numpy array): {nl}{smoothed_signal}{nl} {nl}Correct sequence: {nl}{self.correct_seq} "</code></pre>
+  def __repr__(self) -> str:
+    nl = "\n"
+    smoothed_signal = self.smoothed_signal.__repr__() if hasattr(self, "smoothed_signal") else "n/a"
+    return f"Signal index: {nl}{self.signal_index} {nl} {nl}Signals array (numpy array): {self.signal.__repr__()} {nl} {nl}Smoothed Signal (numpy array): {nl}{smoothed_signal}{nl} {nl}Correct sequence: {nl}{self.correct_seq}"</code></pre>
   <p class="blog-post_paragraph">
     Now that all the provided data has been previewed and organized, it would be
     nice to visualize it to explore it further. Plotting out the electrical
@@ -871,7 +872,7 @@ print(f"The DNA was captured at the following timepoints: {dna_capture_timepoint
   </p>
   <pre
     class="line-numbers"
-  > <code class="language-python">def get_mean(signal, capture_ranges):    
+  ><code class="language-python">def get_mean(signal, capture_ranges):    
   # Get the minimum and maximum timepoints for the capture range 
   minimum = capture_ranges[0]
   maximum = capture_ranges[-1]
@@ -970,7 +971,7 @@ print(basecalls)</code></pre>
   ><code class="language-output">['CC', 'CT', 'TT', 'TA', 'AC', 'CC', 'CA', 'AG', 'GT', 'TT', 'TC', 'CA', 'AT', 'TA', 'AA', 'AT', 'TA', 'AA', 'AT', 'TA', 'AA', 'AG', 'GG', 'GT', 'TT', 'TC', 'CC', 'CA', 'AC', 'CA', 'AT', 'TG', 'GC', 'CT', 'TA', 'AC', 'CC', 'CT', 'TG', 'GT', 'TC', 'CC', 'CG', 'GG', 'GC', 'CG', 'GA', 'AC', 'CC', 'CG', 'GT', 'TA', 'AG', 'GG', 'GC', 'CG', 'GA', 'AA', 'AT', 'TA', 'AC', 'CC', 'CG', 'GC', 'CG', 'GC', 'CT', 'TG', 'GC', 'CA', 'AC', 'CG', 'GT', 'TG', 'GC', 'CC', 'CT', 'TC', 'CG', 'GC', 'CT', 'TA', 'AC', 'CT', 'TT', 'TG', 'GT', 'TA', 'AC', 'CA', 'AC', 'CA', 'AT', 'TG', 'GT']</code></pre>
   <pre
     class="line-numbers"
-  > <code class="language-python"># Define a function to plot the signal and basecalls
+  ><code class="language-python"># Define a function to plot the signal and basecalls
 def visualize_basecalls(signal, capture_ranges, basecalls):
   
   # Define a function to help place the basecalls where they belong on the graph
@@ -1090,7 +1091,7 @@ print(f"The basecalled sequence for the first signal is: {signal_1.basecalled_se
     edlib is a quick sequence alignment package that can be used in python. I'll
     use this to measure my alignment accuracy.
   </p>
-  <pre class="line-numbers"> <code class="language-python">import edlib
+  <pre class="line-numbers"><code class="language-python">import edlib
 
 def align(basecalled_seq: "str", correct_seq: "str") -> "dict":
   """Align two sequences using edlib"""
@@ -1121,7 +1122,7 @@ print("   correct: " + nice_alignment['target_aligned'])</code></pre>
 
   <pre
     class="line-numbers"
-  > <code class="language-python"># Measure the accuracy of the basecaller
+  ><code class="language-python"># Measure the accuracy of the basecaller
 def measure_accuracy (alignment: "dict", correct_seq: "str") -> "float":
   acc = (1 - alignment['editDistance'] / len(correct_seq)) * 100  
   return acc
@@ -1168,7 +1169,7 @@ print(f"The accuracy of the basecaller is: {seq_acc}%")</code></pre>
   </p>
   <pre
     class="line-numbers"
-  > <code class="language-python"># Initialize a list to store lengths of the capture ranges
+  ><code class="language-python"># Initialize a list to store lengths of the capture ranges
 capture_ranges_lengths = []
 
 # Loop through each capture range and append the length of the capture range to the list
@@ -1182,7 +1183,7 @@ print(f"The lengths (aka number of timepoints in) of the capture ranges are: {so
   ><code class="language-output">The lengths (aka number of timepoints in) of the capture ranges are: [1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 12, 12, 12, 13, 13, 13, 13, 13, 14, 14, 14, 15, 15, 21, 24, 28]</code></pre>
   <pre
     class="line-numbers"
-  > <code class="language-python"># Plot a histogram of the capture range lengths
+  ><code class="language-python"># Plot a histogram of the capture range lengths
 plt.hist(capture_ranges_lengths, bins=25, range=[0,30]);</code></pre>
   <pre
     class="output-img no-code"
@@ -1203,10 +1204,10 @@ plt.hist(capture_ranges_lengths, bins=25, range=[0,30]);</code></pre>
   </p>
   <pre
     class="line-numbers"
-  > <code class="language-python">homopolymer_cutoff = 20</code></pre>
+  ><code class="language-python">homopolymer_cutoff = 20</code></pre>
   <pre
     class="line-numbers"
-  > <code class="language-python"># Plot a histogram of the capture range lengths
+  ><code class="language-python"># Plot a histogram of the capture range lengths
 plt.hist(capture_ranges_lengths, bins=25, range=[0,30]);
 # add a vertical line to show the cutoff
 plt.axvline(x = homopolymer_cutoff, color = 'purple');
@@ -1239,7 +1240,7 @@ plt.text(26,
   </p>
   <pre
     class="line-numbers"
-  > <code class="language-python">def adjust_capture_timepoints(capture_timepoints, homopolymer_cutoff):
+  ><code class="language-python">def adjust_capture_timepoints(capture_timepoints, homopolymer_cutoff):
   # Make a copy of the capture timepoints to not modify the original argument
   capture_ranges = capture_timepoints.copy()
 
@@ -1270,7 +1271,7 @@ dna_capture_timepoints = adjust_capture_timepoints(dna_capture_timepoints, homop
   </p>
   <pre
     class="line-numbers"
-  > <code class="language-python">visualize_basecalls(signal_1, dna_capture_timepoints, basecalls)</code></pre>
+  ><code class="language-python">visualize_basecalls(signal_1, dna_capture_timepoints, basecalls)</code></pre>
   <pre
     class="output-img no-code"
   ><code class="language-output">&nbsp;</code></pre>
@@ -1290,7 +1291,7 @@ dna_capture_timepoints = adjust_capture_timepoints(dna_capture_timepoints, homop
     Lets run the rest of the pipeline to see if this improved the total
     sequencing accuracy.
   </p>
-  <pre class="line-numbers"> <code class="language-python"># Basecall the signal
+  <pre class="line-numbers"><code class="language-python"># Basecall the signal
 basecalls = basecall_signal(signal_1, dna_capture_timepoints, kmer_table)
 
 # Collapse the basecalls into a single sequence
@@ -1327,7 +1328,7 @@ The accuracy of the basecaller is: 98.01980198019803%</code></pre>
   </p>
   <pre
     class="line-numbers"
-  > <code class="language-python"># Putting it all together
+  ><code class="language-python"># Putting it all together
 def basecall_all(
   signals: "list", 
   kmer_signatures: "dict", 
@@ -3012,7 +3013,7 @@ The average accuracy of the basecaller is: 95.98872015787889%</code></pre>
   <p class="blog-post_paragraph">For example:</p>
   <pre
     class="line-numbers"
-  > <code class="language-python">basecall_all(signals, kmer_table, sequencing, movement_cutoff = 0.03, homopolymer_cutoff = 17, detailed=False)</code></pre>
+  ><code class="language-python">basecall_all(signals, kmer_table, sequencing, movement_cutoff = 0.03, homopolymer_cutoff = 17, detailed=False)</code></pre>
   <pre
     class="output"
   ><code class="language-output">Finished basecalling 200 signals
@@ -3028,7 +3029,7 @@ The average accuracy of the basecaller is: 96.63414334298976%</code></pre>
   </p>
   <pre
     class="line-numbers"
-  > <code class="language-python"># Import the required modules
+  ><code class="language-python"># Import the required modules
 import numpy as np
 import json
 import edlib
@@ -3342,7 +3343,7 @@ if __name__ == "__main__":
     data-user=""
     data-host=""
     style="padding-top: 2.2em"
-  > <code class="language-commandline">python3 basecaller.py -s signals.json -k kmer_table.json -c sequences.json -q</code></pre>
+  ><code class="language-commandline">python3 basecaller.py -s signals.json -k kmer_table.json -c sequences.json -q</code></pre>
   <pre
     class="output"
   ><code class="language-output">Finished basecalling 200 signals

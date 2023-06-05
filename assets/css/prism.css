@@ -2,9 +2,10 @@
 https://prismjs.com/download.html#themes=prism-okaidia&languages=markup+css+clike+javascript+css-extras+python&plugins=line-numbers+show-language+inline-color+command-line+toolbar+copy-to-clipboard+match-braces+treeview */
 
 /* These two properties have to be correlated to each other for the line numbering to work. Make sure these variables are in the CSS */
+/* This requires a bit of trial and error. Find the biggest code block in your post and set the line size percent to whatever value makes the line numbers match up */
 :root {
   --font-size-em: 0.95em;
-  --line-size-percent: 105%;
+  --line-size-percent: 105.257748%;
 }
 
 code[class*="language-"],
