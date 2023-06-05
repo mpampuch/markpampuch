@@ -552,7 +552,10 @@ plt.ylabel('Current (nA)');</code></pre>
   <pre
     class="line-numbers"
   ><code class="language-python"># Plot histogram of the smoothed signal
-plt.hist(signal_1.smoothed_signal, bins = 100, range=[0,0.1]);</code></pre>
+plt.hist(signal_1.smoothed_signal, bins = 100, range=[0,0.1]);
+# Add the axis labels
+plt.xlabel('Change in current between subsequent timepoints (nA/$\it{µ}$s)');
+plt.ylabel('Frequency');</code></pre>
   <pre
     class="output-img no-code"
   ><code class="language-output">&nbsp;</code></pre>
@@ -560,7 +563,7 @@ plt.hist(signal_1.smoothed_signal, bins = 100, range=[0,0.1]);</code></pre>
     <img
       class="img-fluid"
       src="assets/img/blog_posts/basecaller_blog_post/histogram.png"
-      alt="histogram of smooth signal"
+      alt="histogram of changes in current between subsequent timepoints"
     />
   </div>
   <p class="blog-post_paragraph">
@@ -582,6 +585,9 @@ plt.hist(signal_1.smoothed_signal, bins = 100, range=[0,0.1]);</code></pre>
     class="line-numbers"
   ><code class="language-python"># Plot histogram with cutoff line
 plt.hist(signal_1.smoothed_signal, bins = 100, range=[0,0.1]);
+# Add the axis labels
+plt.xlabel('Change in current between subsequent timepoints (nA/$\it{µ}$s)');
+plt.ylabel('Frequency');
 # Add a vertical line at the cutoff point
 plt.axvline(x = cutoff, color = 'red')
 # Limit the x-axis to the right of the cutoff
@@ -589,7 +595,7 @@ plt.xlim(right=0.105)
 # Highlight the area to the right of the cutoff
 plt.axvspan(xmin=cutoff, xmax=0.12, color='orange', alpha=0.1);
 # Add text to the plot
-plt.text(0.069, 60, 'Any signal change in this area \nrepresents a change in \nbasepairs in the pore', fontsize = 12, color = "red", horizontalalignment = "center");</code></pre>
+plt.text(0.069, 60, 'Any current change in this area \nrepresents a change in \nbasepairs in the pore', fontsize = 12, color = "red", horizontalalignment = "center");</code></pre>
   <pre
     class="output-img no-code"
   ><code class="language-output">&nbsp;</code></pre>
@@ -597,7 +603,7 @@ plt.text(0.069, 60, 'Any signal change in this area \nrepresents a change in \nb
     <img
       class="img-fluid"
       src="assets/img/blog_posts/basecaller_blog_post/histogram_w_cutoff.png"
-      alt="histogram of smooth signal with cutoff line"
+      alt="histogram of changes in current between subsequent timepoints with cutoff line"
     />
   </div>
   <p class="blog-post_paragraph">
@@ -620,7 +626,7 @@ plt.ylim(top=0.99)
 # Highlight the area above the cutoff
 plt.axhspan(ymin=cutoff, ymax=1, color='orange', alpha=0.1);
 # Add text to the plot
-plt.text(82, 0.2, f'Signal deltas \n(orange lines) \nin this area \n (exceeding the \nthreshold of {cutoff})\nrepresents a \n change in \nbasepairs \nin the pore', fontsize = 10, color = "red", horizontalalignment="center");</code></pre>
+plt.text(82, 0.2, f'Current changes \n(orange lines) \nin this area \n (exceeding the \nthreshold of {cutoff})\nrepresents a \n change in \nbasepairs \nin the pore', fontsize = 10, color = "red", horizontalalignment="center");</code></pre>
   <pre
     class="output-img no-code"
   ><code class="language-output">&nbsp;</code></pre>
@@ -1194,7 +1200,10 @@ print(f"The lengths (aka number of timepoints in) of the capture ranges are: {so
   <pre
     class="line-numbers"
   ><code class="language-python"># Plot a histogram of the capture range lengths
-plt.hist(capture_ranges_lengths, bins=25, range=[0,30]);</code></pre>
+plt.hist(capture_ranges_lengths, bins=25, range=[0,30]);
+# Add the axis labels
+plt.xlabel('Duration of capture events ($\it{µ}$s)');
+plt.ylabel('Frequency');</code></pre>
   <pre
     class="output-img no-code"
   ><code class="language-output">&nbsp;</code></pre>
@@ -1202,7 +1211,7 @@ plt.hist(capture_ranges_lengths, bins=25, range=[0,30]);</code></pre>
     <img
       class="img-fluid"
       src="assets/img/blog_posts/basecaller_blog_post/capture_length_histogram.png"
-      alt="histogram of capture range lengths"
+      alt="histogram of capture range durations"
     />
   </div>
   <p class="blog-post_paragraph">
@@ -1219,6 +1228,9 @@ plt.hist(capture_ranges_lengths, bins=25, range=[0,30]);</code></pre>
     class="line-numbers"
   ><code class="language-python"># Plot a histogram of the capture range lengths
 plt.hist(capture_ranges_lengths, bins=25, range=[0,30]);
+# Add the axis labels
+plt.xlabel('Duration of capture events ($\it{µ}$s)');
+plt.ylabel('Frequency');
 # add a vertical line to show the cutoff
 plt.axvline(x = homopolymer_cutoff, color = 'purple');
 # Limit the x-axis to the right of the cutoff
