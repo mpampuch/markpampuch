@@ -370,9 +370,7 @@ plt.ylabel('Current (nA)');</code></pre>
   <pre
     class="line-numbers"
   ><code class="language-python"># Plot the data from the first 100 timepoints 
-plot_range_min = 0    
-plot_range_max = 100
-plt.plot(signal_1.signal[plot_range_min:plot_range_max]);
+plt.plot(signal_1.signal[0:100]);
 # Add the axis labels
 plt.xlabel('Time ($\it{µ}$s)');
 plt.ylabel('Current (nA)');</code></pre>
@@ -527,8 +525,8 @@ signal_1.smoothed_signal</code></pre>
   <pre
     class="line-numbers"
   ><code class="language-python"># Plot the signal and the smoothed signal overlayed
-plt.plot(signal_1.signal[plot_range_min:plot_range_max]);
-plt.plot(signal_1.smoothed_signal[plot_range_min:plot_range_max]);
+plt.plot(signal_1.signal[0:100]);
+plt.plot(signal_1.smoothed_signal[0:100]);
 # Add the axis labels
 plt.xlabel('Time ($\it{µ}$s)');
 plt.ylabel('Current (nA)');</code></pre>
@@ -615,8 +613,8 @@ plt.text(0.069, 60, 'Any current change in this area \nrepresents a change in \n
   <pre
     class="line-numbers"
   ><code class="language-python"># Plot the smoothed signal with the cutoff line
-plt.plot(signal_1.signal[plot_range_min:plot_range_max]);
-plt.plot(signal_1.smoothed_signal[plot_range_min:plot_range_max]);
+plt.plot(signal_1.signal[0:100]);
+plt.plot(signal_1.smoothed_signal[0:100]);
 # Add the axis labels
 plt.xlabel('Time ($\it{µ}$s)');
 plt.ylabel('Current (nA)');
@@ -676,9 +674,9 @@ dna_movement_timepoints = get_movement_timepoints(signal_1, cutoff)</code></pre>
     visualize the moments these steps occur.
   </p>
   <pre class="line-numbers"><code class="language-python"># Plot the signal 
-plt.plot(signal_1.signal[plot_range_min:plot_range_max]);
+plt.plot(signal_1.signal[0:100]);
 # Limit the x-axis to the first 100 timepoints
-plt.xlim(right=plot_range_max)
+plt.xlim(right=100)
 # Add axis labels
 plt.xlabel('Time ($\it{µ}$s)');
 plt.ylabel('Current (nA)');
@@ -761,9 +759,9 @@ print(f"The DNA was captured at the following timepoints: {dna_capture_timepoint
     class="line-numbers"
   ><code class="language-python">def plot_capture_ranges(capture_timepoints):
   # Plot the signal 
-  plt.plot(signal_1.signal[plot_range_min:plot_range_max]);
+  plt.plot(signal_1.signal[0:100]);
   # Limit the x-axis to the first 100 timepoints
-  plt.xlim(right=plot_range_max)
+  plt.xlim(right=100)
   # Add axis labels
   plt.xlabel('Time ($\it{µ}$s)');
   plt.ylabel('Current (nA)');
@@ -1008,8 +1006,8 @@ def visualize_basecalls(signal, capture_ranges, basecalls):
   # Define a function to plot the colorized and decolorized subplots
   def plot_subplot(plot_num: "int (0 or 1)", with_color: "bool") -> None:
     #Plot subplots of the signal with annotations
-    axs[plot_num].plot(signal_1.signal[plot_range_min:plot_range_max])
-    axs[plot_num].set_xlim(right=plot_range_max)
+    axs[plot_num].plot(signal_1.signal[0:100])
+    axs[plot_num].set_xlim(right=100)
     axs[plot_num].set_ylim(top=1)
     axs[plot_num].set_xlabel('Time ($\it{µ}$s)')
     axs[plot_num].set_ylabel('Current (nA)')
