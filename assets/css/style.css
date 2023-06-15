@@ -1750,3 +1750,7 @@ test {
 .remove-background {
   background-color: transparent !important;
 }
+
+.warning {
+  color: #ffffffba !important;
+}
