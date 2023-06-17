@@ -6,6 +6,7 @@ https://prismjs.com/download.html#themes=prism-okaidia&languages=markup+css+clik
 :root {
   --font-size-em: 0.95em;
   --line-size-percent: 105.257748%;
+  --line-height-y-transformation: -1px;
 }
 
 code[class*="language-"],
@@ -178,6 +179,10 @@ pre[class*="language-"].line-numbers > code {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+span.line-numbers-rows {
+  transform: translateY(calc(var(--line-height-y-transformation)));
 }
 .line-numbers-rows > span {
   display: block;
