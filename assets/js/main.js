@@ -34,14 +34,92 @@
     }
   };
 
-  /**
-   * Scrolls to an element with header offset
-   */
-  const scrollto = (el) => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+  const switchPage = (e, el) => {
+    let section = select(el.hash);
+    if (section) {
+      e.preventDefault();
+
+      let navbar = select("#navbar");
+      let header = select("#header");
+      let sections = select("section", true);
+      let navlinks = select(".nav-link", true);
+
+      navlinks.forEach((item) => {
+        item.classList.remove("active");
+      });
+
+      // find the navlink that has the same href as the current element and add active class
+      let currentNavlink = navlinks.find(
+        (item) => item.getAttribute("href") == el.hash
+      );
+      console.log(currentNavlink);
+      console.log(currentNavlink.hasAttribute("data-workshowcaseitem"));
+      // highlight navlink if its href is work-showcase
+      if (
+        currentNavlink &&
+        currentNavlink.hasAttribute("data-workshowcaseitem")
+      ) {
+        // TODO ADD A data ATTRIBUTE TO ALL WORK SHOWCASE LINKS. IF THE CURRENT ELEMENT IS A WORK SHOWCASE LINK, THEN ADD THE ACTIVE CLASS TO THE WORK SHOWCASE LINK THAT HAS THE SAME DATA ATTRIBUTE AS THE CURRENT ELEMENT
+        console.log(1);
+        let workEl = navlinks.find(
+          (item) => item.getAttribute("href") == "#work-showcase"
+        );
+        workEl.classList.add("active");
+        console.log(2);
+      } else if (currentNavlink) {
+        currentNavlink.classList.add("active");
+        console.log(3);
+      } else if (el.hash == "#header") {
+        navlinks[0].classList.add("active");
+        console.log(4);
+      }
+
+      // Add to browser history
+      let currentURL = window.location.href.trim();
+      let currentURLprimary = currentURL;
+      if (currentURL.includes("#")) {
+        currentURLprimary = currentURL.split("#")[0].trim();
+      }
+      let updatedURL = currentURLprimary + el.hash;
+      updatedURL = updatedURL.trim();
+      // if the previous url is the same as the updated url, then don't push to history
+      if (currentURL !== updatedURL) {
+        window.history.pushState(null, null, updatedURL);
+        console.log(`pushed to history --${updatedURL}--`);
+      }
+
+      if (navbar.classList.contains("navbar-mobile")) {
+        navbar.classList.remove("navbar-mobile");
+        let navbarToggle = select(".mobile-nav-toggle");
+        navbarToggle.classList.toggle("bi-list");
+        navbarToggle.classList.toggle("bi-x");
+      }
+
+      if (el.hash == "#header") {
+        header.classList.remove("header-top");
+        sections.forEach((item) => {
+          item.classList.remove("section-show");
+        });
+        return;
+      }
+
+      if (!header.classList.contains("header-top")) {
+        header.classList.add("header-top");
+        setTimeout(function () {
+          sections.forEach((item) => {
+            item.classList.remove("section-show");
+          });
+          section.classList.add("section-show");
+        }, 350);
+      } else {
+        sections.forEach((item) => {
+          item.classList.remove("section-show");
+        });
+        section.classList.add("section-show");
+      }
+
+      scrollto(el.hash);
+    }
   };
 
   /**
@@ -54,62 +132,31 @@
   });
 
   /**
-   * Scrool with ofset on links with a class name .scrollto
+   * Scroll with offset on links with a class name .scrollto
    */
   on(
     "click",
     ".nav-link",
     function (e) {
-      let section = select(this.hash);
-      if (section) {
-        e.preventDefault();
-
-        let navbar = select("#navbar");
-        let header = select("#header");
-        let sections = select("section", true);
-        let navlinks = select(".nav-link", true);
-
-        navlinks.forEach((item) => {
-          item.classList.remove("active");
-        });
-
-        this.classList.add("active");
-
-        if (navbar.classList.contains("navbar-mobile")) {
-          navbar.classList.remove("navbar-mobile");
-          let navbarToggle = select(".mobile-nav-toggle");
-          navbarToggle.classList.toggle("bi-list");
-          navbarToggle.classList.toggle("bi-x");
-        }
-
-        if (this.hash == "#header") {
-          header.classList.remove("header-top");
-          sections.forEach((item) => {
-            item.classList.remove("section-show");
-          });
-          return;
-        }
-
-        if (!header.classList.contains("header-top")) {
-          header.classList.add("header-top");
-          setTimeout(function () {
-            sections.forEach((item) => {
-              item.classList.remove("section-show");
-            });
-            section.classList.add("section-show");
-          }, 350);
-        } else {
-          sections.forEach((item) => {
-            item.classList.remove("section-show");
-          });
-          section.classList.add("section-show");
-        }
-
-        scrollto(this.hash);
-      }
+      switchPage(e, this);
     },
     true
   );
+
+  window.addEventListener("hashchange", function (e) {
+    console.log("hash changed");
+    // e.preventDefault();
+
+    const element = document.getElementById(location.hash.substring(1));
+    if (!element)
+      // simulate click on the main index.html page
+      // TODO
+      return;
+    element.hash = location.hash;
+    console.log(element);
+
+    switchPage(e, element);
+  });
 
   /**
    * Activate/show sections on load with hash links
@@ -597,7 +644,83 @@ function reloadJavaScriptFile(filePath) {
 
 /*==================== End Code to Load Blogposts ====================*/
 
+/*==================== Code for History API ====================*/
+
+// window.addEventListener("hashchange", function (e) {
+//   console.log("hash changed");
+//   // e.preventDefault();
+
+//   const element = document.getElementById(location.hash.substring(1));
+//   console.log(element);
+
+//   // remove the class 'active' from all elements
+//   document.querySelectorAll(".nav-link").forEach((el) => {
+//     el.classList.remove("active");
+//   });
+
+//   // add the class 'active' to the element that was clicked
+//   element.classList.add("active");
+
+//   // scroll to that element
+//   scrollto(element.hash);
+// });
+
+// // Function to update the URL
+// function updateURL(clickedEl) {
+//   // Get the data attribute of the clicked element
+//   const clickedElData = clickedEl.getAttribute("data-showcase");
+
+//   // Get the current URL
+//   const currentURL = window.location.href;
+
+//   // Get the current URL without the hash
+//   const currentURLNoHash = currentURL.split("#")[0];
+
+//   // Get the current hash
+//   const currentHash = currentURL.split("#")[1];
+
+//   // If the current hash is the same as the clicked element data attribute, do nothing
+//   if (currentHash === clickedElData) return;
+
+//   // If the current hash is empty, add the clicked element data attribute to the URL
+//   if (currentHash === undefined) {
+//     history.pushState(null, null, `${currentURL}#${clickedElData}`);
+//     return;
+
+//     // If the current hash is not empty, replace the current hash with the clicked element data attribute
+//   } else {
+//     history.replaceState(null, null, `${currentURLNoHash}#${clickedElData}`);
+//     return;
+//   }
+// }
+
+// // Add an event listener to the window to listen for hash changes
+// window.addEventListener("click", (e) => {
+//   // Get clicked element
+//   const clickedEl = document.querySelector(e.target.location.hash);
+
+//   // if clicked element is not an anchor tag, do nothing
+//   if (clickedEl === null) return;
+//   console.log(clickedEl);
+
+//   // Call updateURL function
+//   updateURL(clickedEl);
+// });
+
+/*==================== End Code for History API ====================*/
+
 /*==================== General Helper functions ====================*/
+
+/**
+ * Scrolls to an element with header offset
+ */
+const scrollto = (el) => {
+  console.log("scrolling");
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+};
 
 // Function to capitalize the first letter of a string
 function capitalize(word) {
