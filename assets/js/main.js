@@ -148,11 +148,23 @@
     // e.preventDefault();
 
     const element = document.getElementById(location.hash.substring(1));
-    if (!element)
+    if (!element) {
       // simulate click on the main index.html page
-      // TODO
+      // TODO FIX BACK NOT WORKING TO MAIN PAGE BUG
+      // get the main index.html page
+      //
+      //
+      let currentURL = window.location.href.trim();
+      let currentURLprimary = currentURL;
+      if (currentURL.includes("#")) {
+        currentURLprimary = currentURL.split("#")[0].trim();
+      }
+      console.log("reloading");
+      window.location = currentURLprimary;
       return;
-    element.hash = location.hash;
+    }
+    element.hash = location.hash; // BUG CANNOT SET HASH OF NULL
+
     console.log(element);
 
     switchPage(e, element);
