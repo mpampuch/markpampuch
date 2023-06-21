@@ -52,26 +52,26 @@
       let currentNavlink = navlinks.find(
         (item) => item.getAttribute("href") == el.hash
       );
-      console.log(currentNavlink);
-      console.log(currentNavlink.hasAttribute("data-workshowcaseitem"));
+      // console.log(currentNavlink);
+      // console.log(currentNavlink.hasAttribute("data-workshowcaseitem"));
       // highlight navlink if its href is work-showcase
       if (
         currentNavlink &&
         currentNavlink.hasAttribute("data-workshowcaseitem")
       ) {
         // TODO ADD A data ATTRIBUTE TO ALL WORK SHOWCASE LINKS. IF THE CURRENT ELEMENT IS A WORK SHOWCASE LINK, THEN ADD THE ACTIVE CLASS TO THE WORK SHOWCASE LINK THAT HAS THE SAME DATA ATTRIBUTE AS THE CURRENT ELEMENT
-        console.log(1);
+        // console.log(1);
         let workEl = navlinks.find(
           (item) => item.getAttribute("href") == "#work-showcase"
         );
         workEl.classList.add("active");
-        console.log(2);
+        // console.log(2);
       } else if (currentNavlink) {
         currentNavlink.classList.add("active");
-        console.log(3);
+        // console.log(3);
       } else if (el.hash == "#header") {
         navlinks[0].classList.add("active");
-        console.log(4);
+        // console.log(4);
       }
 
       // Add to browser history
@@ -85,7 +85,7 @@
       // if the previous url is the same as the updated url, then don't push to history
       if (currentURL !== updatedURL) {
         window.history.pushState(null, null, updatedURL);
-        console.log(`pushed to history --${updatedURL}--`);
+        // console.log(`pushed to history --${updatedURL}--`);
       }
 
       if (navbar.classList.contains("navbar-mobile")) {
@@ -144,7 +144,7 @@
   );
 
   window.addEventListener("hashchange", function (e) {
-    console.log("hash changed");
+    // console.log("hash changed");
     // e.preventDefault();
 
     const element = document.getElementById(location.hash.substring(1));
@@ -159,13 +159,13 @@
       if (currentURL.includes("#")) {
         currentURLprimary = currentURL.split("#")[0].trim();
       }
-      console.log("reloading");
+      // console.log("reloading");
       window.location = currentURLprimary;
       return;
     }
     element.hash = location.hash; // BUG CANNOT SET HASH OF NULL
 
-    console.log(element);
+    // console.log(element);
 
     switchPage(e, element);
   });
@@ -583,9 +583,9 @@ window.addEventListener("load", async () => {
       }
     } catch (error) {
       if (error instanceof TypeError) {
-        console.log("Page loaded correctly");
+        // console.log("Page loaded correctly");
       } else {
-        console.log(error);
+        // console.log(error);
       }
     }
   }, 1000);
@@ -618,7 +618,7 @@ async function retrieveBlogPost(filePath) {
     // Catch any errors
   } catch (error) {
     // Log the error to the console
-    console.error(error);
+    // console.error(error);
 
     // Return an error message
     html = `<p>Failed to load blog post</p>`;
@@ -647,7 +647,7 @@ function reloadJavaScriptFile(filePath) {
   script.src = filePath;
   script.async = true;
   script.onload = () => {
-    console.log(`JavaScript file '${filePath}' has been reloaded.`);
+    // console.log(`JavaScript file '${filePath}' has been reloaded.`);
   };
 
   const firstScript = document.getElementsByTagName("script")[0];
@@ -659,11 +659,11 @@ function reloadJavaScriptFile(filePath) {
 /*==================== Code for History API ====================*/
 
 // window.addEventListener("hashchange", function (e) {
-//   console.log("hash changed");
+// console.log("hash changed");
 //   // e.preventDefault();
 
 //   const element = document.getElementById(location.hash.substring(1));
-//   console.log(element);
+// console.log(element);
 
 //   // remove the class 'active' from all elements
 //   document.querySelectorAll(".nav-link").forEach((el) => {
@@ -713,7 +713,7 @@ function reloadJavaScriptFile(filePath) {
 
 //   // if clicked element is not an anchor tag, do nothing
 //   if (clickedEl === null) return;
-//   console.log(clickedEl);
+// console.log(clickedEl);
 
 //   // Call updateURL function
 //   updateURL(clickedEl);
@@ -727,7 +727,7 @@ function reloadJavaScriptFile(filePath) {
  * Scrolls to an element with header offset
  */
 const scrollto = (el) => {
-  console.log("scrolling");
+  // console.log("scrolling");
   window.scrollTo({
     top: 0,
     behavior: "smooth",
