@@ -82,8 +82,13 @@
       }
       let updatedURL = currentURLprimary + el.hash;
       updatedURL = updatedURL.trim();
+      // if the currentNavlink doesnt have the data attribute nohistory, then push to history
       // if the previous url is the same as the updated url, then don't push to history
-      if (currentURL !== updatedURL) {
+      if (
+        currentNavlink &&
+        !currentNavlink.hasAttribute("data-nohistory") &&
+        currentURL !== updatedURL
+      ) {
         window.history.pushState(null, null, updatedURL);
         // console.log(`pushed to history --${updatedURL}--`);
       }
