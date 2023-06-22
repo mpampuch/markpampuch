@@ -562,39 +562,47 @@ workTabsContainers.forEach((workTabsContainer) => {
 window.addEventListener("load", async () => {
   // Wait for the page to load to ensure .show-section is present
   setTimeout(async () => {
-    try {
-      // If there is a data attribute of blogpost in the URL, load the blogpost
-      if (
-        // document.body.classList.contains("section-show") &&
-        document.querySelector(".section-show").hasAttribute("data-blogpost")
-      ) {
-        // Retrieve the blogpost section
-        const blogPostSectionEl = document
-          .querySelector(".section-show")
-          .closest("section");
-
-        // Get the data attribute of the clicked element
-        const blogPost = document
-          .querySelector(".section-show")
-          .getAttribute("data-blogpost");
-
-        // Retrieve the blogpost
-        let html = await retrieveBlogPost(
-          `./assets/blog-posts/${blogPost}.html`
-        );
-
-        // Load the blogpost into the content element
-        loadBlogPost(blogPostSectionEl, html);
-      }
-    } catch (error) {
-      if (error instanceof TypeError) {
-        // console.log("Page loaded correctly");
-      } else {
-        // console.log(error);
-      }
-    }
+    autoLoadBlogPost();
   }, 1000);
 });
+window.addEventListener("hashchange", async () => {
+  // Wait for the page to load to ensure .show-section is present
+  setTimeout(async () => {
+    autoLoadBlogPost();
+  }, 1000);
+});
+
+async function autoLoadBlogPost() {
+  try {
+    // If there is a data attribute of blogpost in the URL, load the blogpost
+    if (
+      // document.body.classList.contains("section-show") &&
+      document.querySelector(".section-show").hasAttribute("data-blogpost")
+    ) {
+      // Retrieve the blogpost section
+      const blogPostSectionEl = document
+        .querySelector(".section-show")
+        .closest("section");
+
+      // Get the data attribute of the clicked element
+      const blogPost = document
+        .querySelector(".section-show")
+        .getAttribute("data-blogpost");
+
+      // Retrieve the blogpost
+      let html = await retrieveBlogPost(`./assets/blog-posts/${blogPost}.html`);
+
+      // Load the blogpost into the content element
+      loadBlogPost(blogPostSectionEl, html);
+    }
+  } catch (error) {
+    if (error instanceof TypeError) {
+      // console.log("Page loaded correctly");
+    } else {
+      // console.log(error);
+    }
+  }
+}
 
 function resetClicked() {
   setTimeout(() => {
