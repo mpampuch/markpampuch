@@ -942,7 +942,7 @@ i.bx-money + span::before {
 }
 
 .resume .resume-item {
-  padding: 0 0 20px 20px;
+  padding: 0 0 0px 20px;
   margin-top: -2px;
   border-left: 2px solid rgba(255, 255, 255, 0.2);
   position: relative;
@@ -980,6 +980,18 @@ i.bx-money + span::before {
   padding-bottom: 0;
 }
 
+.resume .resume-subitem {
+  padding: 0 0 0px 20px;
+  margin-top: -2px;
+  border-left: 2px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  font-size: 1.5rem;
+}
+
+.resume .resume-subitem:last-child {
+  padding-bottom: 0;
+}
+
 .resume .resume-item::before {
   content: "";
   position: absolute;
@@ -987,6 +999,18 @@ i.bx-money + span::before {
   height: 16px;
   border-radius: 50px;
   left: -9px;
+  top: 0;
+  background: #18d26e;
+  border: 2px solid #18d26e;
+}
+
+.resume .resume-subitem::before {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50px;
+  left: -6.5px;
   top: 0;
   background: #18d26e;
   border: 2px solid #18d26e;
