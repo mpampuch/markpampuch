@@ -14,9 +14,11 @@ body {
   color: #fff;
   position: relative;
   background: transparent;
+  margin: 0;
+  padding: 0;
 }
 
-body::before {
+/* body::before {
   content: "";
   position: fixed;
   background: #040404 url("../img/bg.webp") top right no-repeat;
@@ -26,7 +28,53 @@ body::before {
   top: 0;
   height: 100vh;
   z-index: -1;
+} */
+
+#background-video-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
 }
+
+#background-video-container video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Dont download background video on mobile */
+@media screen and (max-width: 650px) {
+  #background-video-container {
+    display: none;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    background: #040404 url("../img/bg.webp") top right no-repeat;
+    background-size: cover;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    z-index: -1;
+  }
+}
+/* Dont download background video on mobile end */
 
 /* Use high-res photo on large monitors  */
 @media (min-width: 1024px) {
@@ -431,7 +479,7 @@ section {
 }
 
 section.section-show {
-  top: 100px;
+  top: 80px;
   bottom: auto;
   opacity: 1;
   padding-bottom: 45px;
