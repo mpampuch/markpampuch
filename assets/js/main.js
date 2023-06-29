@@ -4,6 +4,15 @@
  * Author: BootstrapMade.com
  * License: https://bootstrapmade.com/license/
  */
+// Redirect to / if the url contains #header to prevent the page from scrolling to the header if the user refreshes the page
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.location.href.includes("#header")) {
+    // redirect to the main page
+    window.location = window.location.href.split("#")[0];
+  }
+});
+// End of redirect fix
+
 (function () {
   "use strict";
 
