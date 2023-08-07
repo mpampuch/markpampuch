@@ -634,8 +634,25 @@ async function retrieveBlogPost(filePath) {
     // Convert the response to text
     const html = await response.text();
 
-    // Return the HTML
-    return html;
+    // Preload images in the HTML
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = html;
+    const images = tempDiv.querySelectorAll("img");
+
+    // Create a promise to track image loading
+    const imagePromises = Array.from(images).map((img) => {
+      return new Promise((resolve) => {
+        img.addEventListener("load", () => {
+          resolve();
+        });
+      });
+    });
+
+    // Wait for all image promises to resolve
+    await Promise.all(imagePromises);
+
+    // Return the HTML after all images are loaded
+    return tempDiv.innerHTML;
 
     // Catch any errors
   } catch (error) {
