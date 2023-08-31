@@ -1123,6 +1123,43 @@ div > p.blog-post-title {
   text-align: justify;
 }
 
+.blog-post_img__clickable_container {
+  position: relative;
+}
+
+.blog-post_img__clickable_container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  opacity: 0; /* Start with the overlay hidden */
+  transition: opacity 0.3s ease; /* Add a smooth transition effect */
+  pointer-events: none; /* Allow interaction with elements behind the overlay */
+}
+
+.blog-post_img__clickable_container:hover::before {
+  opacity: 1;
+}
+
+.blog-post_img__clickable {
+  border-radius: 15px;
+  transition: opacity 0.2s ease;
+  width: 90%;
+  height: 90%;
+  top: 0;
+  left: 0;
+  /* object-fit: cover; */
+  position: relative;
+  z-index: 1;
+}
+
+.blog-post_img__clickable:hover {
+  opacity: 0.6;
+}
+
 /* remove the box shadow past 1200px */
 @media (max-width: 1200px) {
   .blog-post {
@@ -1837,4 +1874,14 @@ test {
 
 .warning {
   color: #ffffffba !important;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mb-12 {
+  margin-bottom: 12px;
 }
