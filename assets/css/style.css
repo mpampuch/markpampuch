@@ -578,11 +578,9 @@ section .container {
     border: var(--b) solid #0000; /* space for the border */
     --_g: #0000 90deg, var(--c) 0;
     --_p: var(--w) var(--w) border-box no-repeat;
-    background: conic-gradient(
-          from 90deg at top var(--b) left var(--b),
-          var(--_g)
-        )
-        0 0 / var(--_p),
+    background:
+      conic-gradient(from 90deg at top var(--b) left var(--b), var(--_g)) 0 0 /
+        var(--_p),
       conic-gradient(from 180deg at top var(--b) right var(--b), var(--_g)) 100%
         0 / var(--_p),
       conic-gradient(from 0deg at bottom var(--b) left var(--b), var(--_g)) 0
@@ -857,6 +855,16 @@ i.bx-money + span::before {
   }
 }
 
+@media (max-width: 390px) {
+  .section-subtitle h2 {
+    font-size: 11.5px;
+  }
+
+  .progress {
+    font-size: 0.6rem;
+  }
+}
+
 .skills .progress .skill .val {
   float: right;
   font-style: normal;
@@ -1099,7 +1107,10 @@ i.bx-money + span::before {
   margin: auto;
   padding-left: 50px;
   padding-right: 50px;
-  box-shadow: 0 9px 0px 0px #000, 0 -9px 0px 0px #000, 0px 0px 15px -4px #212529,
+  box-shadow:
+    0 9px 0px 0px #000,
+    0 -9px 0px 0px #000,
+    0px 0px 15px -4px #212529,
     0px 0px 0px -4px #212529;
 }
 div > p.blog-post-title {
