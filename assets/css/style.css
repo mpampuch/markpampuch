@@ -1882,6 +1882,14 @@ test {
   justify-content: center;
 }
 
+.mb-0 {
+  margin-bottom: 0px !important;
+}
+
+.mb-4 {
+  margin-bottom: 4px !important;
+}
+
 .mb-12 {
-  margin-bottom: 12px;
+  margin-bottom: 12px !important;
 }
