@@ -1893,3 +1893,13 @@ test {
 .mb-12 {
   margin-bottom: 12px !important;
 }
+
+.no-desktop-inline-block {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .no-desktop-inline-block {
+    display: inline-block !important;
+  }
+}
