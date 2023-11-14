@@ -220,8 +220,8 @@ document.addEventListener("DOMContentLoaded", function () {
   let skillsContents = select(".skills-content", true);
   let offsetList =
     window.innerWidth >= 992
-      ? ["70%", "80%", "80%", "90%"] // offset for desktop
-      : ["65%", "80%", "80%", "92%"]; // offset for mobile
+      ? ["70%", "80%", "90%", "80%", "90%"] // offset for desktop
+      : ["65%", "80%", "92%", "80%", "92%"]; // offset for mobile
   skillsContents.forEach((skillsContent, index) => {
     if (skillsContent) {
       new Waypoint({
