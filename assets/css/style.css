@@ -588,7 +588,7 @@ section .container {
 
 .section-subtitle h2::after {
   content: "";
-  width: 60px;
+  width: 30px;
   height: 1px;
   display: inline-block;
   background: #18d26e;
