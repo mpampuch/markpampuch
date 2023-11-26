@@ -59,13 +59,13 @@ body {
 
 /* Dont download background video on mobile */
 @media screen and (max-width: 650px) {
-  #background-video-container {
+  /* #background-video-container {
     display: none;
-  }
+  } */
   body::before {
     content: "";
     position: fixed;
-    background: #040404 url("../img/dna_bg_mobile.jpg") center top no-repeat;
+    /* background: #040404 url("../img/dna_bg_mobile.jpg") center top no-repeat; */
     background-size: cover;
     left: 0;
     right: -100%;
