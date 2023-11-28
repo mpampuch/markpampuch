@@ -218,10 +218,37 @@ document.addEventListener("DOMContentLoaded", function () {
    * Skills animation
    */
   let skillsContents = select(".skills-content", true);
+  const offsetObj = {
+    General: ["70%", "65%"],
+    "Data Analysis": ["80%", "80%"],
+    "Workflow Managment": ["90%", "92%"],
+    Containerization: ["90%", "92%"],
+    Supercomputing: ["90%", "92%"],
+    "Web Development": ["80%", "80%"],
+    "Machine Learning": ["95%", "94%"],
+  };
   let offsetList =
     window.innerWidth >= 992
-      ? ["70%", "80%", "90%", "90%", "80%", "90%"] // offset for desktop
-      : ["65%", "80%", "92%", "92%", "80%", "92%"]; // offset for mobile
+      ? // ? ["70%", "80%", "90%", "90%", "90%", "80%", "92%"] // offset for desktop
+        [
+          offsetObj["General"][0],
+          offsetObj["Data Analysis"][0],
+          offsetObj["Workflow Managment"][0],
+          offsetObj["Containerization"][0],
+          offsetObj["Supercomputing"][0],
+          offsetObj["Web Development"][0],
+          offsetObj["Machine Learning"][0],
+        ] // offset for desktop
+      : [
+          offsetObj["General"][1],
+          offsetObj["Data Analysis"][1],
+          offsetObj["Workflow Managment"][1],
+          offsetObj["Containerization"][1],
+          offsetObj["Supercomputing"][1],
+          offsetObj["Web Development"][1],
+          offsetObj["Machine Learning"][1],
+        ]; // offset for mobile
+
   skillsContents.forEach((skillsContent, index) => {
     if (skillsContent) {
       new Waypoint({
