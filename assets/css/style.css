@@ -57,6 +57,10 @@ body {
   object-fit: cover;
 }
 
+#background-video-container video::-webkit-media-controls-start-playback-button {
+    display: none;
+}
+
 /* Dont download background video on mobile */
 @media screen and (max-width: 650px) {
   /* #background-video-container {
