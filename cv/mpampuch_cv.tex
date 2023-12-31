@@ -1,0 +1,603 @@
+% Document class and font size
+\documentclass[a4paper,9pt]{extarticle}
+
+% Packages
+\usepackage[utf8]{inputenc} % For input encoding
+\usepackage{geometry} % For page margins
+\geometry{letterpaper, margin=0.75in} % Set paper size and margins
+\usepackage{titlesec} % For section title formatting
+\usepackage{enumitem} % For itemized list formatting
+\usepackage[hidelinks]{hyperref} % For hyperlinks
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+
+% Formatting
+\setlist{noitemsep} % Removes item separation
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}[\titlerule] % Section title format
+\titlespacing*{\section}{0pt}{\baselineskip}{\baselineskip} % Section title spacing
+%%%%%%%%%%
+
+% Begin document
+\begin{document}
+
+% Disable page numbers
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead{}
+\fancyhead[C]{\textit{Mark Pampuch CV}}
+% \fancyhead[R]{\textit{2024}} %{\textit{\# month \#year}}
+\thispagestyle{empty} % Remove header from the first page
+
+% Header
+\begin{flushleft}
+	\textbf{\huge Mark Pampuch}\\[2pt] 
+	Researcher and Data Scientist | Citizenship: Canadian | Current Location: Toronto, Ontario, Canada
+	\\ \href{mailto:markpampuch@gmail.com}{markpampuch@gmail.com} | +1 (416) 458-3034 | \href{https://www.linkedin.com/in/mark-pampuch-a07775169/}{linkedin.com/in/mark-pampuch-a07775169} | \href{https://markpampuch.com}{markpampuch.com} 
+\end{flushleft}
+
+% Summary Section
+\section*{SUMMARY}
+\noindent
+I am a benchtop scientist turned computational biologist, possessing expertise in multiple disciplines, including biology, biochemistry, large-scale data analysis, computer science, and bioinformatics. I am a self-motivated and collaborative individual who seamlessly integrates into diverse settings. With a detail-oriented and driven personality, I have a proven ability to meet deadlines in fast-paced environments. My productivity is reflected in my contributions to two publications and presentations at nine scientific conferences. Additionally, I am trilingual, capable of speaking in English, French, and Polish, and possess strong communication skills. I am seeking a position in a dynamic and collaborative environment where I can apply my skills and expertise to solve complex problems in biology or data science.
+
+% Research Interests Section
+\section*{RESEARCH INTERESTS}
+\noindent
+Biology, Bioinformatics, Data Science, Biochemistry, Genetics, Next Generation Sequencing, Synthetic Biology, Bioengineering
+
+% Education Section
+\section*{EDUCATION}
+\noindent
+\begin{minipage}{1\textwidth}
+\textbf{King Abdullah University of Science and Technology}, Thuwal, Makkah, Saudi Arabia \hfill August 2023 | \textit{Present}\\ 
+Ph.D in Bioengineering\par % \hfill Cumulative GPA: 4.0/4.0 \\ % Degree and GPA
+% Thesis Title: TBD % Additional info
+{\hsize.70\linewidth\parskip1ex\hangindent2em\parindent0em 
+	\setlength{\parskip}{0pt} % Remove space between paragraphs within the minipage 
+Thesis Title: Advances in \textit{Phaeodactylum tricornutum} Nuclear Genome Engineering\par}
+\end{minipage}
+\vspace{\parskip}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\textbf{The University of Western Ontario}, London, Ontario, Canada \hfill September 2021 | August 2023\\ 
+Master of Science in Biochemistry \hfill Cumulative GPA: 4.0/4.0 \par % Degree and GPA
+{\hsize.70\linewidth\parskip1ex\hangindent2em\parindent0em 
+	\setlength{\parskip}{0pt} % Remove space between paragraphs within the minipage 
+Thesis Title: Advances in \textit{Phaeodactylum tricornutum} Nuclear Genome Engineering\par}
+\end{minipage}
+\vspace{\parskip}
+
+% \noindent\\
+% \textbf{The University of British Columbia}, Vancouver, British Columbia, Canada \hfill September 2020 | December 2020\\ 
+% Master of Science in Botany \hfill \textit{Withdrawn}  \\ 
+
+\noindent
+\begin{minipage}{1\textwidth}
+\textbf{The University of Western Ontario}, London, Ontario, Canada \hfill September 2016 | April 2020\\ 
+Bachelor of Science in Biology, Honours Specialization in Genetics \hfill Cumulative GPA: 3.7/4.0 \par % Degree and GPA
+{\hsize.70\linewidth\parskip1ex\hangindent2em\parindent0em 
+	\setlength{\parskip}{0pt} % Remove space between paragraphs within the minipage 
+Undergraduate Thesis Title: Shaping the Root: Assessing a Dose-dependent Role for the \textit{Lotus japonicus HAR1} Receptor Kinase Gene \par}
+\end{minipage}
+
+% Experience Section
+\section*{PROFESSIONAL EXPERIENCE}
+\begin{minipage}{1\textwidth} 
+\setlength{\parindent}{15pt} % Default is 15pt
+\noindent
+	\textbf{King Abdullah University of Science and Technology} \hfill Thuwal, Makkah, Saudi Arabia\\ % Company name and location
+	\textit{Visiting Researcher} \hfill September 2023 | December 2023 \par % Position and duration
+	{\hsize.80\linewidth\parskip1ex\hangindent4em\parindent2em 
+	\setlength{\parskip}{0pt} % Remove space between paragraphs within the minipage
+		Developping \textbf{high molecular weight DNA extraction} protocols on photosynthetic microbes\par
+		\hangindent4em
+		Performing \textbf{next-generation sequencing} using Oxford Nanopore Technologies platforms\par
+		\hangindent4em
+		Analyzing next-generation sequencing data using \textbf{Bash}, \textbf{R}, and \textbf{Python}\par
+		\hangindent4em
+		Distributing computational loads over \textbf{high-performance computing clusters} in parallel for timely processing of large data\par}
+					% Job responsibilities and achievements
+\end{minipage}
+\vspace{\parskip}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Agriculture and Agrifood Canada} \hfill London, Ontario, Canada\\ % Company name and location
+	\textit{Research Assistant} \hfill May 2019 | August 2019  \par % Position and duration
+	{\hsize.80\linewidth\parskip1ex\hangindent4em\parindent2em 
+	\setlength{\parskip}{0pt} % Remove space between paragraphs within the minipage
+		\textbf{Culturing} and maintenance of plant tissue\par
+		\hangindent4em
+		\textbf{Genetic sequence analysis} for potential CRISPR cut sites\par
+		\hangindent4em
+		Designing guide RNA's and genotyping primers\par
+		\hangindent4em
+		\textbf{DNA Isolation} from plant tissue and genotyping via \textbf{PCR}\par
+		\hangindent4em
+		Phenotyping using \textbf{brightfield microscopy}\par
+		\hangindent4em
+		\textbf{RNA Isolation} and \textbf{quantitative PCR}\par}
+					% Job responsibilities and achievements
+\end{minipage}
+\vspace{\parskip}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{MolecuLight Inc.} \hfill MaRS Discovery District, Toronto, Ontario, Canada\\ % Company name and location
+	\textit{Internship} \hfill May 2018 | August 2018  \par % Position and duration
+	{\hsize.80\linewidth\parskip1ex\hangindent4em\parindent2em 
+	\setlength{\parskip}{0pt} % Remove space between paragraphs within the minipage
+		\hangindent4em	
+		\textbf{Collecting} and \textbf{processing data} from clinical trial report forms \par %, ensuring accuracy and completeness\\
+		\hangindent4em
+		Analyzing microbial composition data obtained from clinical samples \par
+		\hangindent4em
+		Performing \textbf{market research} involving data collection and client profiling of hospitals across North America and Europe  \par 
+		\hangindent4em
+		Performing \textbf{literature reviews} and \textbf{reports} on topics related to microbiology and healthcare economics \par % the economic aspects of healthcare systems and how they relate to MolecuLight's products
+		\hangindent4em
+		\textbf{Analyzing competitors} in the medical or healthcare industry to gain insights into their products, strategies, and market positioning \par}
+		% Performing \textbf{quality assurance} for new website deployment\\
+		% Job responsibilities and achievements
+\end{minipage}
+\vspace{\parskip}
+
+% Projects Section
+\section*{PROJECTS}
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Sequencing a Living Library of KSA Microorganisms} \hfill Thuwal, Makkah, Saudi Arabia\\ % Project name and location
+	\textit{Visiting Researcher}
+	\hfill September 2023 | December 2023 \par% Project link and duration
+	{\hsize.80\linewidth\parskip1ex\hangindent4em\parindent2em 
+	\setlength{\parskip}{0pt} % Remove space between paragraphs within the minipage
+		Developping \textbf{high molecular weight DNA extraction} protocols on photosynthetic microbes\par		
+		\hangindent4em
+		Performing \textbf{next-generation sequencing} using Oxford Nanopore Technologies platforms\par
+		\hangindent4em
+		Analyzing next-generation sequencing data using \textbf{Bash}, \textbf{R}, and \textbf{Python}\par
+		\hangindent4em
+		Distributing computational loads over \textbf{high-performance computing clusters} in parallel for timely processing of large data\par}
+\end{minipage}
+\vspace{\parskip}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Remapping \textit{Phaeodactylum tricornutum} Genomic Data} \hfill London, Ontario, Canada\\ % Project name and location
+	\textit{Graduate Student Researcher}
+	\hfill January 2022 | June 2023 \par % Project link and duration
+	{\hsize.80\linewidth\parskip1ex\hangindent4em\parindent2em 
+	\setlength{\parskip}{0pt} % Remove space between paragraphs within the minipage
+		\textbf{Curating} and \textbf{tidying data} from various online databases\par
+		\hangindent4em
+		\textbf{Developping algorithms} to filter genome-scale mapping data \par
+		\hangindent4em
+		\textbf{Uploading} and \textbf{hosting} genomic data on remote server\par}
+\end{minipage}
+\vspace{\parskip}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+\noindent
+	\textbf{Optimizing \textit{Phaeodactylum tricornutum} Nuclear Genome Engineering} \hfill London, Ontario, Canada\\ % Project name and location
+	\textit{Graduate Student Researcher}
+	\hfill January 2022 | April 2023 \par % Project link and duration
+	{\hsize.80\linewidth\parskip1ex\hangindent4em\parindent2em 
+	\setlength{\parskip}{0pt} % Remove space between paragraphs within the minipage
+		\textbf{Culturing} and \textbf{maintenance} of algal cell culture\par	
+		\hangindent4em
+		Optimizing \textbf{electroporation} protocols for \textit{P. tricornutum}\par
+		\hangindent4em
+		Performing \textbf{next-generation sequencing} of transformant lines\par}
+\end{minipage}
+\vspace{\parskip}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Directed Evolution of Conjugative Plasmids} \hfill London, Ontario, Canada\\ % Project name and location
+	\textit{Graduate Student Researcher}
+	\hfill September 2021 | December 2021  \par % Project link and duration
+	{\hsize.80\linewidth\parskip1ex\hangindent4em\parindent2em 
+	\setlength{\parskip}{0pt} % Remove space between paragraphs within the minipage
+		\textbf{Designing} and \textbf{executing} laboratory evolution experiment\par
+		\hangindent4em
+		\textbf{Genetic transformation} of laboratory \textit{E. coli} strains\par
+		\hangindent4em
+		Performing precice and meticulous \textbf{bacterial conjugation} experiments \par} %to generate donor frequency data\\
+\end{minipage}
+\vspace{\parskip}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Assessing Dose-dependent effects in the \textit{Lotus japonicus HAR1} Locus} \hfill London, Ontario, Canada\\ % Project name and location
+	\textit{Undergraduate Student Researcher}
+	\hfill September 2019 | March 2020  \par % Project link and duration
+	{\hsize.80\linewidth\parskip1ex\hangindent4em\parindent2em 
+	\setlength{\parskip}{0pt} % Remove space between paragraphs within the minipage
+		\textbf{DNA Isolation} from plant tissue and genotyping via \textbf{PCR}\par
+		\hangindent4em
+		Phenotyping using \textbf{brightfield microscopy}\par
+		\hangindent4em
+		\textbf{RNA Isolation} and \textbf{quantitative PCR}\par}
+\end{minipage}
+\vspace{\parskip}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Engineering QTL's in Legume Species using CRISPR/Cas Technologies} \hfill London, Ontario, Canada\\ % Project name and location
+	\textit{Summer Research Assistant}
+	\hfill May 2019 | August 2019 \par % Project link and duration
+	{\hsize.80\linewidth\parskip1ex\hangindent4em\parindent2em 
+	\setlength{\parskip}{0pt} % Remove space between paragraphs within the minipage
+		\textbf{Culturing} and \textbf{maintenance} of plant tissue \par
+		\hangindent4em
+		\textbf{Genetic sequence analysis} for potential CRISPR cut sites \par
+		\hangindent4em
+		Designing guide RNA's and genotyping primers \par}
+\end{minipage}
+
+\section*{PUBLICATIONS}
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	Walker, E. J. L., \textbf{Pampuch, M.}, Chang, N., Cochrane, R. R., and Karas, B. J. (2023) Design and Assembly of the 117-kb \textit{Phaeodactylum tricornutum} Chloroplast Genome. Plant Physiology. \href{https://doi.org/10.1093/plphys/kiad670}{https://doi.org/10.1093/plphys/kiad670} \\
+\end{minipage}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Pampuch, M.}, Walker, E. J. L., and Karas, B. J. (2021) Towards Synthetic Diatoms: The \textit{Phaeodactylum tricornutum} Pt-syn1.0 Project. Current Opinion in Green and Sustainable Chemistry. \href{https://doi.org/10.1016/j.cogsc.2022.100611}{https://doi.org/10.1016/j.cogsc.2022.100611}
+\end{minipage}
+
+    
+\section*{PRESENTATIONS}
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Fostering International Collaborations for Algal Biotechnology}  \hfill Webinar\\ 
+	SynDiatoms Fall 2023 Workshop | Speaker  \hfill October 2023\\
+\end{minipage}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Advances in \textit{Phaeodactylum tricornutm} Nuclear Genome Engineering}  \hfill Waik$\mathrm{\bar{o}}$loa Beach, Hawaii, USA\\ 
+	International Conference on Algal Biomass, Biofuels and Bioproducts | Speaker  \hfill June 2023\\
+\end{minipage}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Advances in \textit{Phaeodactylum tricornutm} Nuclear Genome Engineering}  \hfill Webinar\\ 
+	SynDiatoms Spring 2023 Workshop | Speaker  \hfill May 2023\\
+\end{minipage}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Advances in \textit{Phaeodactylum tricornutm} Nuclear Genome Engineering}  \hfill London, Ontario, Canada\\ 
+	Graduate Research Spring Symposium | Speaker  \hfill May 2023\\
+\end{minipage}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Genetic Engineering Advances in Diatoms}  \hfill Webinar\\ 
+	2023 Bioenergy Conference | Speaker  \hfill January 2023\\
+\end{minipage}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Optimizing Transformation Methods for \textit{Phaeodactylum tricornutum}}  \hfill Webinar\\ 
+	SynDiatoms 2022 Workshop | Speaker  \hfill December 2022\\
+\end{minipage}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Towards Synthetic Diatoms: The Pt-Syn 1.0 Project}  \hfill Toronto, Ontario, Canada\\ 
+	Canada SynBio 2022 | Speaker \& Poster  \hfill May 2022\\
+	Video: \href{https://www.linkedin.com/feed/update/urn:li:activity:6938749677995470848/}{https://www.linkedin.com/feed/update/urn:li:activity:6938749677995470848/}\\
+\end{minipage}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Towards Synthetic Diatoms}  \hfill London, Ontario, Canada\\ 
+	Graduate Research Winter Symposium | Poster  \hfill January 2022\\
+\end{minipage}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Assessing a Dose-dependent Role for the \textit{Lotus japonicus HAR1} Locus}  \hfill Hamilton, Ontario, Canada\\ 
+	Ontario Biology Day | Speaker \hfill \textit{Scheduled but cancelled due to COVID-19}
+\end{minipage}
+
+\section*{WORKSHOPS}
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{An Introduction to Machine Learning for Oxford Nanopore Data}  \hfill Manhattan, New York, USA\\ 
+	Entailed building a DNA basecaller using HMM's and a variant caller using a CNN.  \hfill December 2022
+\end{minipage}
+
+\section*{AWARDS}
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Chair's Travel Award}  \hfill London, Ontario, Canada\\ 
+	\$500 --- Issued by the Schulich School of Medicine \& Dentistry Biochemistry Department \hfill June 2023\\ \\
+	\textbf{Canada Graduate Scholarships -- Master's Program}  \hfill Canada\\ 
+	\$17,500 --- Issued by the Natural Sciences and Engineering Research Council of Canada (NSERC) \hfill September 2022\\ 
+\end{minipage}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Ontario Graduate Scholarship}  \hfill Ontario, Canada\\ 
+	\$15,000 --- Issued by the Government of Ontario \hfill September 2022\\ 
+	\textit{Awarded but declined due to conflict with NSERC award}\\ 
+\end{minipage}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Ontario Graduate Scholarship}  \hfill Ontario, Canada\\ 
+	\$15,000 --- Issued by the Government of Ontario \hfill September 2021\\ 
+\end{minipage}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{British Columbia Graduate Scholarship}  \hfill British Columbia, Canada\\ 
+	\$15,000 --- Issued by the Government of British Columbia \hfill September 2020\\ 
+\end{minipage}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Deans Honour List (x4)}  \hfill London, Ontario, Canada\\ 
+	Issued by the University of Western Ontario \hfill 2016 | 2020\\ 
+\end{minipage}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Western Scholarship of Distinction}  \hfill London, Ontario, Canada\\ 
+	\$1000 --- Issued by the University of Western Ontario \hfill September 2016
+\end{minipage}
+
+\section*{EXTRACURRICULAR INVOLVEMENTS}
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Seed Your Startup 2023 Semi-Finalist} \hfill London, Ontario, Canada\\ % Company name and location
+	\textit{Morrissette Institute for Entrepreneurship} \hfill March 2023  \par% Position and duration
+	{\hsize.80\linewidth\parskip1ex\hangindent4em\parindent2em 
+	\setlength{\parskip}{0pt} % Remove space between paragraphs within the minipage
+		\indent Created a business plan and presented a pitch for a biotechnology start-up company \par
+		\hangindent4em
+		\indent Semi-finalist amongst one other student “co-founder” in university-wide competition \par}
+\end{minipage}
+\vspace{\parskip}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{2023 Ivey Business Plan Competition Semi-Finalist} \hfill London, Ontario, Canada\\ % Company name and location
+	\textit{Ivey Business School} \hfill November 2022 | January 2023  \par% Position and duration
+	{\hsize.80\linewidth\parskip1ex\hangindent4em\parindent2em 
+	\setlength{\parskip}{0pt} % Remove space between paragraphs within the minipage
+		\indent Created a business plan and presented pitches for a biotechnology start-up company \par
+		\hangindent4em
+		\indent Semi-finalist amongst one other student “co-founder” in Canada/USA-wide competition \par}
+\end{minipage}
+\vspace{\parskip}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Exhibit Organizer} \hfill London, Ontario, Canada\\ % Company name and location
+	\textit{Science Rendezvous} \hfill July 2022, May 2023  \par% Position and duration
+	{\hsize.80\linewidth\parskip1ex\hangindent4em\parindent2em 
+	\setlength{\parskip}{0pt} % Remove space between paragraphs within the minipage
+		\indent Role entailed engaging with local youth and promoting science  \par
+		\hangindent4em
+		\indent Organized booths on behalf of the Western University biochemistry department \par}
+\end{minipage}
+\vspace{\parskip}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Community Representative} \hfill London, Ontario, Canada\\ % Company name and location
+	\textit{Western Biochemistry Graduate Student Association} \hfill September 2021 | August 2023  \par% Position and duration
+	{\hsize.80\linewidth\parskip1ex\hangindent4em\parindent2em 
+	\setlength{\parskip}{0pt} % Remove space between paragraphs within the minipage
+		\indent Role entailed promoting science and the Western University biochemistry department in the local community \par
+		\hangindent4em
+		\indent Organized donation drive in partnership with Diabetes Canada \par
+		\hangindent4em
+		\indent Organized youth outreach exhibit in partnership with Science Rendezvous \par}
+\end{minipage}
+\vspace{\parskip}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Competition Judge} \hfill London, Ontario, Canada\\ % Company name and location
+	\textit{cGEM} \hfill October 2021 \par% Position and duration
+	{\hsize.80\linewidth\parskip1ex\hangindent4em\parindent2em 
+	\setlength{\parskip}{0pt} % Remove space between paragraphs within the minipage
+		\indent Judge for nation-wide biotechnology competition in Canada \par}
+\end{minipage}
+\vspace{\parskip}
+
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Writer/Researcher} \hfill London, Ontario, Canada\\ % Company name and location
+	\textit{Western University Technology Review} \hfill September 2018 | April 2019 \par% Position and duration
+	{\hsize.80\linewidth\parskip1ex\hangindent4em\parindent2em 
+	\setlength{\parskip}{0pt} % Remove space between paragraphs within the minipage
+		\indent Role entailed writing about sustainability initiatives in the local community \par}
+\end{minipage}
+\vspace{\parskip}
+
+% \section*{SELECTED COURSES} 
+
+% \begin{tabularx}{1\textwidth}{
+% 	>{\raggedright\arraybackslash}X 
+% 	>{\raggedright\arraybackslash}X }
+% 	\textbf{Master's Courses} & \textbf{Bachelor's Courses} \\  
+% 	\begin{itemize}[leftmargin=0px]
+% 	\item[] Bioinformatics I | 98\%
+% 	\item[] Bioinformatics II | 93\%
+% 	\item[] Genome Evolution | 90\%
+% 	\item[] Ideas to Innovation | 93\%
+% 	\end{itemize}
+% & \begin{itemize}[leftmargin=0px] 
+% 	\item[] Genome Biology | 97\%
+% 	%         \item Evolution and Reproduction | 90\%
+% 	\item[] Genetic Engineering | 95\%
+% 	\item[] DNA Organization, Mutagenesis, and Repair | 87\%
+% 	\item[] Principals of Human Genetics | 93\%
+% 	%          \item Behavioural Genetics | 84\%
+% 	\end{itemize}\\
+% \end{tabularx}
+    
+% \noindent
+% \begin{tabularx}{1\textwidth}{
+% 	>{\raggedright\arraybackslash}X                              
+% 	>{\raggedright\arraybackslash}X }                            
+% 	\textbf{Additional Courses}                                  
+% 	\begin{itemize}[leftmargin=0px]                              
+% 	\item[] Quantitative Methods in Evolution | \textit{Audited} 
+% 	\item[] Synthetic Biology | \textit{Audited}                 
+% 	\end{itemize}                                                
+% \end{tabularx}
+
+% Skills Section
+\section*{SKILLS}
+\noindent
+\textbf{Programming:} Python, R, Bash/Linux Shell, JavaScript, SQL, \LaTeX\ % Related Programming languages those can be helpful; comma separated
+
+\noindent
+\textbf{Technologies:} Nextflow, Snakemake, SLURM, Docker, Singularity, Anaconda, Git % Related Technologies languages those can be helpful; comma separated
+
+\noindent
+\textbf{Software:} Visual Studio Code, RStudio, Microsoft Excel, IGV, Benchling, SnapGene % Related software those can be helpful; comma separated
+
+\noindent
+\textbf{Soft Skills:} Problem Solving, Creativity, Time Management, Teamwork, Public Speaking % Related soft skills those can be helpful; comma separated
+
+% Languages
+\section*{LANGUAGES}
+\begin{minipage}{1\textwidth}
+\begin{center}
+	\noindent
+	\begin{tabular*}{0.95\textwidth}{
+		@{\extracolsep{\fill}}
+		l @{\ ---\ \extracolsep{0pt}} l @{\extracolsep{\fill}}
+		l @{\ ---\ \extracolsep{0pt}} l @{\extracolsep{\fill}}
+		l @{\ ---\ \extracolsep{0pt}} l
+		@{}
+		}
+		\multicolumn{2}{@{}l}{\textbf{English} (Native)} &
+		\multicolumn{2}{@{}l}{\textbf{French}} &
+		\multicolumn{2}{@{}l@{}}{\textbf{Polish}} \\[0.5ex]
+		Speaking & \textit{Fluent} & Speaking & \textit{Limited} & Speaking & \textit{Proficient} \\
+		Listening & \textit{Fluent} & Listening & \textit{Limited} & Listening & \textit{Proficient} \\
+		Reading & \textit{Fluent} & Reading & \textit{Proficient} & Reading & \textit{Limited} \\
+		Writing &  \textit{Fluent} & Writing & \textit{Intermediate} & Writing & \textit{Basic} \\
+	\end{tabular*}
+\end{center}
+\end{minipage}
+
+% Certifications 
+\section*{CERTIFICATIONS}
+\noindent
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	edX Verified Certificate for CS50's Introduction to Computer Science \\
+	\textit{Issued by HarvardX} | Credential ID: \href{https://courses.edx.org/certificates/b2f0e720dcab45dabf14307458bffba8}{b2f0e720dcab45dabf14307458bffba8} 
+\end{minipage}
+
+\section*{REFERENCES}
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Prof. Kyle J. Lauersen}\\
+	\textit{Assistant Professor, Bioengineering, King Abdullah University of Science and Technology | Thuwal, Makkah, Saudi Arabia}\\
+	E-mail: \href{mailto:kyle.lauersen@kaust.edu.sa}{kyle.lauersen@kaust.edu.sa}\\
+	Scholar Profiles: \href{https://www.kaust.edu.sa/en/study/faculty/kyle-j-lauersen}{KAUST - Personal Page} | \href{https://scholar.google.com/citations?user=IvP8gI8AAAAJ&hl=en}{Google Scholar} | \href{https://www.linkedin.com/in/kylejlauersen/}{LinkedIn}\\
+	\end{minipage}
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Prof. Bogumil Karas}\\
+	\textit{Assistant Professor, Department of Biochemistry, Univeristy of Western Ontario | London, Ontario, Canada}\\
+	E-mail: \href{mailto:bkaras@uwo.ca}{bkaras@uwo.ca}\\
+	Scholar Profiles: \href{https://www.schulich.uwo.ca/biochem//people/faculty/Karas.html}{University of Western Ontario - Personal Page} | \href{https://scholar.google.com/citations?user=b58zresAAAAJ&hl=en}{Google Scholar} | \href{https://www.linkedin.com/in/bogumil-j-karas-77222913/}{LinkedIn}\\ 
+\end{minipage}
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Prof. Krzysztof Szczyglowski}\\
+	\textit{Research Scientist, London Research and Development Centre, Agriculture and Agrifood Canada | London, Ontario, Canada}\\
+	E-mail: \href{mailto:krzystof.szczyglowski@AGR.GC.CA}{krzystof.szczyglowski@AGR.GC.CA}\\
+	Scholar Profiles: \href{https://www.goc411.ca/en/7381/Krzysztof-Szczyglowski}{AAFC - Personal Page} | \href{https://www.linkedin.com/in/krzysztof-szczyglowski-28197552/}{LinkedIn}\\ 
+\end{minipage}
+\begin{minipage}{1\textwidth}
+\setlength{\parindent}{15pt} % Default is 15pt
+	\noindent
+	\textbf{Prof. Ralph DaCosta}\\
+	\textit{Founder/CSO, MolecuLight \& Assistant Professor, Medical Biophysics, University of Toronto | Toronto, Ontario, Canada}\\
+	E-mail: \href{mailto:rdacosta@uhnres.utoronto.ca}{rdacosta@uhnres.utoronto.ca}\\
+	Scholar Profiles: \href{https://medbio.utoronto.ca/faculty/dacosta}{University of Toronto - Personal Page} | \href{https://www.linkedin.com/in/dr-ralph-dacosta-474b41127/}{LinkedIn}\\ \\
+\end{minipage}
+% End document
+\end{document}
