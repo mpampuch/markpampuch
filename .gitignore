@@ -1,6 +1,11 @@
 ## Ignore .gitignore directory
 .gitignore_dir
 
+## Manual override
+cv/*.fdb_latexmk
+cv/*.log
+cv/*.synctex.gz
+
 ## Core latex/pdflatex auxiliary files:
 **.aux
 **.lof
