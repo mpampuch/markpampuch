@@ -822,3 +822,97 @@ function formatGoBack(word) {
   return conversions[word];
 }
 /*==================== End General Helper functions ====================*/
+
+/*==================== Code to format Work History Section Display ====================*/
+
+// Perform the following steps after DOM content is loaded
+
+// Add event listener to the window to listen for the DOMContentLoaded event
+window.addEventListener("DOMContentLoaded", () => {
+  // Format the work history section display
+  formatWorkHistoryDisplay();
+});
+
+// Also add event listener for media query change
+const mediaQuery = window.matchMedia("(min-width: 991px)");
+mediaQuery.addEventListener("change", () => {
+  // console.log("media query changed");
+  // Format the work history section display
+  formatWorkHistoryDisplay();
+});
+
+// Function to format the work history section display
+function formatWorkHistoryDisplay() {
+  // Select all the work history items
+  const workHistoryItems = document.querySelectorAll(".work-history-item");
+  // console.log(workHistoryItems);
+
+  // Get the length of the work history items
+  const workHistoryItemsLength = workHistoryItems.length;
+  // console.log(workHistoryItemsLength);
+
+  // Get the screen width
+  const screenWidth = window.innerWidth;
+  console.log(screenWidth);
+
+  // Loop through the work history items.
+  // If the index of the item (First item starting at 1) is odd, add the classes "work-history-item-odd",  "work-history-item-description-left", and "work-history-item-image-right" to the item.
+  // Also if the index of the item is odd change the data-aos attribute of the first child of the element that has a data-aos attribute to be "fade-right"
+  // If the index of the item is even, add the classes "work-history-item-even", "work-history-item-description-right", and "work-history-item-image-left" to the item.
+  // Also if the index of the item is even change the data-aos attribute of the first child of the element that has a data-aos attribute to be "fade-left"
+
+  for (let i = 0; i < workHistoryItemsLength; i++) {
+    if (i % 2 === 0) {
+      workHistoryItems[i].classList.add("work-history-item-even");
+      workHistoryItems[i].classList.add("work-history-description-right");
+      workHistoryItems[i].classList.add("work-history-item-image-left");
+      // Also if the index of the item is odd change the data-aos attribute of the first child of the element that has a data-aos attribute to be "fade-right"
+      // workHistoryItems[i]
+      //   .querySelector("[data-aos]")
+      //   .setAttribute("data-aos", "fade-right");
+    } else {
+      workHistoryItems[i].classList.add("work-history-item-odd");
+      workHistoryItems[i].classList.add("work-history-description-left");
+      workHistoryItems[i].classList.add("work-history-item-image-right");
+      // Also if the index of the item is even change the data-aos attribute of the first child of the element that has a data-aos attribute to be "fade-left"
+      // workHistoryItems[i]
+      // .querySelector("[data-aos]")
+      // .setAttribute("data-aos", "fade-left");
+      // console.log(workHistoryItems[i].querySelector("[data-aos]"));
+
+      // if the screen width is less than 992px, move the <div class="work-history-description-and-header-container"> element to be the adjacent sibling element of the <div class="work-history-position-1"></div> element
+      if (window.innerWidth < 992) {
+        const workHistoryDescriptionContainerParent = workHistoryItems[
+          i
+        ].querySelector(
+          ".work-history-description-and-header-container-parent"
+        );
+        console.log(workHistoryDescriptionContainerParent);
+        const workHistoryPosition1 = workHistoryItems[i].querySelector(
+          ".work-history-position-1"
+        );
+        console.log(workHistoryPosition1);
+        workHistoryPosition1.insertAdjacentElement(
+          "afterend",
+          workHistoryDescriptionContainerParent
+        );
+      } else if (window.innerWidth >= 992) {
+        const workHistoryDescriptionContainerParent = workHistoryItems[
+          i
+        ].querySelector(
+          ".work-history-description-and-header-container-parent"
+        );
+        console.log(workHistoryDescriptionContainerParent);
+        const workHistoryPosition2 = workHistoryItems[i].querySelector(
+          ".work-history-position-2"
+        );
+        console.log(workHistoryPosition2);
+        workHistoryPosition2.insertAdjacentElement(
+          "afterend",
+          workHistoryDescriptionContainerParent
+        );
+      }
+    }
+  }
+}
+/*==================== End Code to format Work History Section Display ====================*/

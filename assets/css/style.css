@@ -433,13 +433,15 @@ h6 {
   }
 
   /* Edit photo when the screen display gets smaller */
-  .me-container {
+  .me-container,
+  .work-history-image-container {
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  .me-container img {
+  .me-container img,
+  .work-history-image-container img {
     max-width: 70%;
     height: auto;
     border: 0.15rem solid #aaaaaa;
@@ -529,7 +531,8 @@ section .container {
   }
 
   /* Make my photo a little bigger when the page is mobile sized */
-  .me-container img {
+  .me-container img,
+  .work-history-image-container image {
     max-width: 100%;
   }
 }
@@ -640,7 +643,7 @@ section .container {
 
 /* Add border between px's 992 and 1399 */
 @media (max-width: 1400px) {
-  .about-me .row:has(img) {
+  .about-me .main-row:has(img) {
     --b: 0.15rem; /* thickness of the border */
     --c: #18d26e; /* color of the border */
     --w: 20px; /* width of border */
@@ -669,13 +672,15 @@ section .container {
   }
 }
 
-.about-me .me-container-parent {
+.about-me .me-container-parent,
+.about-me .work-history-image-container-parent {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.about-me .me-container img {
+.about-me .me-container img,
+.about-me .work-history-image-container img {
   max-width: 100%;
   height: auto;
   border: 0.15rem solid #aaaaaa;
@@ -685,13 +690,15 @@ section .container {
 
 @media (max-width: 991px) {
   /* Edit photo when the screen display gets smaller */
-  .me-container {
+  .me-container,
+  .work-history-image-container {
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  .about-me .me-container img {
+  .about-me .me-container img,
+  .about-me .work-history-image-container img {
     max-width: 70%;
     align-self: flex-end;
   }
@@ -699,7 +706,8 @@ section .container {
 
 @media (max-width: 768px) {
   /* Make my photo a little bigger when the page is mobile sized */
-  .about-me .me-container img {
+  .about-me .me-container img,
+  .about-me .work-history-image-container img {
     max-width: 100%;
   }
 }
@@ -796,6 +804,50 @@ section .container {
 @media (min-width: 992px) {
   .about-me .biography h2 {
     display: none;
+  }
+}
+
+/* WORK HISTORY SECTION */
+
+.work-history-item {
+  padding-bottom: 2rem;
+}
+
+.work-history-item:last-of-type {
+  padding-bottom: 0;
+}
+
+.work-history-description-and-header-container-parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.work-history-position-container {
+  display: none;
+}
+
+@media (max-width: 992px) {
+  .work-history-item .row {
+    gap: 20px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .work-history-item-even .content {
+    /* padding-left: 150px; */
+  }
+
+  .work-history-item-even .work-history-image-container-parent {
+    /* padding-right: 50px */
+  }
+
+  .work-history-item-odd .content {
+    /* padding-right: 150px; */
+  }
+
+  .work-history-item-odd .work-history-image-container-parent {
+    /* padding-left: 50px */
   }
 }
 
