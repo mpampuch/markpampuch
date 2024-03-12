@@ -585,6 +585,10 @@ section .container {
   margin: 4px 0 4px 10px;
 }
 
+.section-title__achievements {
+  transform: translateY(-24px);
+}
+
 /* @media (max-width: 575px) {
   .section-title h2::after {
     content: "";
