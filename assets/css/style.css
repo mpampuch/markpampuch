@@ -835,6 +835,15 @@ section .container {
   .work-history-item .row {
     gap: 20px;
   }
+
+  .work-history-item .row .content {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .section-title__work-history h2 {
+    margin-bottom: 0;
+  }
 }
 
 @media (min-width: 1400px) {
