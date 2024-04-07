@@ -1,6 +1,11 @@
 ## Ignore .gitignore directory
 .gitignore_dir
 
+## Ignore raw blogposts
+assets/blog-posts/blog-posts-raw-notebooks
+assets/blog-posts/blog-posts-raw-notebooks/*
+assets/blog-posts/blog-posts-raw-notebooks/** 
+
 ## Manual override
 cv/*.fdb_latexmk
 cv/*.log
