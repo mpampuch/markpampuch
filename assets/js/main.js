@@ -817,6 +817,7 @@ function formatGoBack(word) {
     "other-science": "Other Science Projects",
     "cli-softwares": "Command Line Softwares",
     "web-softwares": "Web Softwares",
+    "ai-ml-softwares": "AI / Machine Learning",
   };
 
   return conversions[word];
@@ -877,7 +878,7 @@ function formatWorkHistoryDisplay() {
       workHistoryItems[i].classList.add("work-history-item-odd");
       workHistoryItems[i].classList.add("work-history-description-left");
       workHistoryItems[i].classList.add("work-history-item-image-right");
-      
+
       // if the screen width is less than 992px, move the <div class="work-history-description-and-header-container"> element to be the adjacent sibling element of the <div class="work-history-position-1"></div> element
       if (window.innerWidth < 992) {
         const workHistoryDescriptionContainerParent = workHistoryItems[
@@ -910,3 +911,27 @@ function formatWorkHistoryDisplay() {
   }
 }
 /*==================== End Code to format Work History Section Display ====================*/
+
+// ======= Code to randomly load a blogpost =======
+// List for blog posts
+const blogPosts = ["building-a-basecaller", "building-a-variant-caller"];
+
+// Calculate probabilities
+const totalPosts = blogPosts.length;
+
+document.getElementById("randomPost").addEventListener("click", function (e) {
+  // Prevent the default action of the link
+  e.preventDefault();
+
+  // Check if the user triggered the click (as opposed to javascript code)
+  if (!e.isTrusted) return;
+
+  // Randomly generate index of the blog post
+  const randomIndex = Math.floor(Math.random() * totalPosts);
+
+  // Change the link attributes to redirect to the selected blog post
+  randomPostLink = document.getElementById("randomPost");
+  randomPostLink.href = `#${blogPosts[randomIndex]}`;
+  randomPostLink.setAttribute("data-blogpost", blogPosts[randomIndex]);
+});
+// ======== End Code to randomly load a blogpost ========
