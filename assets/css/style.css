@@ -1295,6 +1295,23 @@ div > p.blog-post-title {
   opacity: 0.6;
 }
 
+.blog-post_img__text_overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.blog-post_img__clickable_container:hover .blog-post_img__text_overlay {
+  opacity: 1;
+}
+
 /* remove the box shadow past 1200px */
 @media (max-width: 1200px) {
   .blog-post {
