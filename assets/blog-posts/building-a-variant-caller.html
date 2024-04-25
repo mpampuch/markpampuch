@@ -2537,7 +2537,6 @@ resnet50_model_0.fc = torch.nn.Linear(in_features=2048,
 # Print a summary using torchinfo
 summary(model=resnet50_model_0,
         input_size=(32, 3, 224, 224),
-        # col_names=["input_size", "output_size", "num_params", "trainable"],
         col_names=["input_size", "output_size", "num_params", "trainable"],
         col_width=20,
         row_settings=["var_names"])</code></pre>
