@@ -2295,7 +2295,7 @@ plot_transformed_images(image_path_list,
     performance, especially in cases like differentiating between homozygous and
     non-mutation containing individuals where the differences between the groups
     can be as small as a single pixel. The only way to know how these
-    transformations will affect the models accuracy is by testing it out.
+    transformations will affect the models accuracy is by testing them out.
   </p>
   <p class="blog-post_paragraph">
     Now that we have the model's data transformations, we can begin focusing on
@@ -3221,8 +3221,8 @@ batch_size = 32</code></pre>
     there are no errors in the data.
   </p>
   <pre class="line-numbers"><code class="language-python">p_data_to_sample = 1.0
-    sample_all_seq_errors = (False, [0])
-    sample_all_align_errors = (False, [0])</code></pre>
+sample_all_seq_errors = (False, [0])
+sample_all_align_errors = (False, [0])</code></pre>
   <p class="blog-post_paragraph">
     The following code trains the variant caller built from scratch.
   </p>
