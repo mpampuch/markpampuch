@@ -3383,7 +3383,7 @@ loaded_model_1_df_test_acc = tensorboard_to_df("runs/2024-04-21_17:13:05/benchma
 loaded_model_1_df_train_loss = tensorboard_to_df("runs/2024-04-21_17:13:05/benchmarking/tinyvgg_1/no-error-data_30000-samples/Loss_train_loss")
 loaded_model_1_df_test_loss = tensorboard_to_df("runs/2024-04-21_17:13:05/benchmarking/tinyvgg_1/no-error-data_30000-samples/Loss_test_loss")
 
-# Plotting loss and accuracy as subplots
+# Plotting loss and accuracy for custom model
 plot_loss_accuracy(loaded_model_1_df_train_loss, loaded_model_1_df_test_loss, loaded_model_1_df_train_acc, loaded_model_1_df_test_acc)</code></pre>
   <pre
     class="output-img no-code"
@@ -3452,7 +3452,7 @@ loaded_resnet50_model_1_df_test_acc = tensorboard_to_df("runs/2024-04-21_18:18:2
 loaded_resnet50_model_1_df_train_loss = tensorboard_to_df("runs/2024-04-21_18:18:26/benchmarking/resnet50_frozen_1/no-error-data_30000-samples/Loss_train_loss")
 loaded_resnet50_model_1_df_test_loss = tensorboard_to_df("runs/2024-04-21_18:18:26/benchmarking/resnet50_frozen_1/no-error-data_30000-samples/Loss_test_loss")
 
-# Plotting loss and accuracy for ResNet-50 model
+# Plotting loss and accuracy for ResNet50 model
 plot_loss_accuracy(loaded_resnet50_model_1_df_train_loss, loaded_resnet50_model_1_df_test_loss, loaded_resnet50_model_1_df_train_acc, loaded_resnet50_model_1_df_test_acc)</code></pre>
   <pre
     class="output-img no-code"
@@ -3610,7 +3610,7 @@ with open("loaded_resnet50_model_1_test_results.pkl", "wb") as f:
   </p>
   <pre
     class="line-numbers"
-  ><code class="language-python">def plot_accuracy_heatmap_and_confusion_matrix(results_dicts, col="viridis", device='cpu'):
+  ><code class="language-python">def plot_heatmap_and_confusion_matrix(results_dicts, col="viridis", device='cpu'):
   """
   Plot a heatmap of accuracies and confusion matrix side by side.
 
@@ -3671,7 +3671,7 @@ with open("loaded_resnet50_model_1_test_results.pkl", "wb") as f:
   </p>
   <pre
     class="line-numbers"
-  ><code class="language-python">plot_accuracy_heatmap_and_confusion_matrix(loaded_model_1_test_results)</code></pre>
+  ><code class="language-python">plot_heatmap_and_confusion_matrix(loaded_model_1_test_results)</code></pre>
   <pre
     class="output-img no-code"
   ><code class="language-output">&nbsp;</code></pre>
@@ -3769,7 +3769,7 @@ loaded_model_2_df_test_acc = tensorboard_to_df("runs/2024-04-21_22:04:32/benchma
 loaded_model_2_df_train_loss = tensorboard_to_df("runs/2024-04-21_22:04:32/benchmarking/tinyvgg_2/data-with-errors_30000-samples/Loss_train_loss")
 loaded_model_2_df_test_loss = tensorboard_to_df("runs/2024-04-21_22:04:32/benchmarking/tinyvgg_2/data-with-errors_30000-samples/Loss_test_loss")
 
-# Plotting loss and accuracy for ResNet-50 model
+# Plotting loss and accuracy for custom model
 plot_loss_accuracy(loaded_model_2_df_train_loss, loaded_model_2_df_test_loss, loaded_model_2_df_train_acc, loaded_model_2_df_test_acc)</code></pre>
   <pre
     class="output-img no-code"
@@ -3838,7 +3838,7 @@ loaded_resnet50_model_2_df_test_acc = tensorboard_to_df("runs/2024-04-21_23:09:1
 loaded_resnet50_model_2_df_train_loss = tensorboard_to_df("runs/2024-04-21_23:09:13/benchmarking/resnet50_frozen_2/data-with-errors_30000-samples/Loss_train_loss")
 loaded_resnet50_model_2_df_test_loss = tensorboard_to_df("runs/2024-04-21_23:09:13/benchmarking/resnet50_frozen_2/data-with-errors_30000-samples/Loss_test_loss")
 
-# Plotting loss and accuracy for ResNet-50 model
+# Plotting loss and accuracy for ResNet50 model
 plot_loss_accuracy(loaded_resnet50_model_2_df_train_loss, loaded_resnet50_model_2_df_test_loss, loaded_resnet50_model_2_df_train_acc, loaded_resnet50_model_2_df_test_acc)</code></pre>
   <pre
     class="output-img no-code"
@@ -3880,7 +3880,7 @@ with open("loaded_resnet50_model_2_test_results.pkl", "wb") as f:
   </p>
   <pre
     class="line-numbers"
-  ><code class="language-python">plot_accuracy_heatmap_and_confusion_matrix(loaded_resnet50_model_2_test_results)</code></pre>
+  ><code class="language-python">plot_heatmap_and_confusion_matrix(loaded_resnet50_model_2_test_results)</code></pre>
   <pre
     class="output-img no-code"
   ><code class="language-output">&nbsp;</code></pre>
@@ -3989,7 +3989,7 @@ loaded_resnet50_model_3_df_test_acc = tensorboard_to_df("runs/2024-04-19_01_12_0
 loaded_resnet50_model_3_df_train_loss = tensorboard_to_df("runs/2024-04-19_01_12_08/benchmarking/resnet50_unfrozen_3/data-with-errors_90000-samples/Loss_train_loss")
 loaded_resnet50_model_3_df_test_loss = tensorboard_to_df("runs/2024-04-19_01_12_08/benchmarking/resnet50_unfrozen_3/data-with-errors_90000-samples/Loss_test_loss")
 
-# Plotting loss and accuracy for ResNet-50 model
+# Plotting loss and accuracy for ResNet50 model
 plot_loss_accuracy(loaded_resnet50_model_3_df_train_loss, loaded_resnet50_model_3_df_test_loss, loaded_resnet50_model_3_df_train_acc, loaded_resnet50_model_3_df_test_acc)</code></pre>
   <pre
     class="output-img no-code"
@@ -4021,7 +4021,7 @@ with open("loaded_resnet50_model_3_test_results.pkl", "wb") as f:
   pickle.dump(loaded_resnet50_model_3_test_results, f)
 
 # Plot accuracy heatmap and confusion matrix for model five 
-plot_accuracy_heatmap_and_confusion_matrix(loaded_resnet50_model_3_test_results)</code></pre>
+plot_heatmap_and_confusion_matrix(loaded_resnet50_model_3_test_results)</code></pre>
   <pre
     class="output-img no-code"
   ><code class="language-output">&nbsp;</code></pre>
