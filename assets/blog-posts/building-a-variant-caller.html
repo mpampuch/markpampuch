@@ -4067,14 +4067,10 @@ plot_heatmap_and_confusion_matrix(loaded_resnet50_model_3_test_results)</code></
       random.seed(set_seed[1])
 
     # get image and labels from test data
-    # print(model_results)
     random_image_idx = random.randint(0, len(model_results) - 1)
     random_image_idx_2 = random.randint(0, len(model_results[random_image_idx]["test-data"]) - 1)
-    # print(model_results[random_image_idx]["test-data"][random_image_idx_2])
     img = tiny_vgg_transforms(PILImage.open(model_results[random_image_idx]["test-data"].imgs[random_image_idx_2][0]))
     label = model_results[random_image_idx]["test-data"].imgs[random_image_idx_2][1]
-    # print(model_results[random_image_idx]["test-data"][random_image_idx_2])
-    # print(label)
     model_pred_label = model_results[random_image_idx]['test-preds'][random_image_idx_2].cpu().item()
 
     # Create the subplot
