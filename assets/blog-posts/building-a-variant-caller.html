@@ -441,11 +441,11 @@ plt.show()</code></pre>
     />
   </div>
   <p class="blog-post_paragraph">
-    These alignments appear as expected. The alignment simulator function placed
-    created no mutations, or created a mutation in one or both copies of an
-    individuals chromosome halfway along the length of the reference sequence,
-    in this case at position 100 along the DNA sequence. Looking at the
-    alignments, you can see that:
+    These alignments appear as expected. The alignment simulator function
+    created sequencing data with no mutations, or created a mutation in one or
+    both copies of an individuals chromosome halfway along the length of the
+    reference sequence, in this case at position 100 along the DNA sequence.
+    Looking at the alignments, you can see that:
   </p>
   <ul>
     <li>
@@ -465,7 +465,7 @@ plt.show()</code></pre>
 
   <p class="blog-post_paragraph">
     One thing to notice already is that although it's fairly easy to spot the
-    mutation signature of the heterozygous individual, its much harder to
+    mutation signature of the heterozygous individual, it's much harder to
     visually distinguish between an individual with no mutations and a
     homozygous individual with two mutations. When plotted out like this there's
     only about a 1 pixel difference between the two. This is something to keep
@@ -588,7 +588,7 @@ plot_alignment(alignment_idx = 2)</code></pre>
   <p class="blog-post_paragraph">
     In the following code I'll describe the steps I took to build and train a
     variant caller to classify the mutation profile of each individual. The
-    goals of this project were four as four-fold:
+    goals of this project were four-fold:
   </p>
   <ol>
     <li>
@@ -958,8 +958,8 @@ create_dir_structure_for_alignments(num_alignments=10,
                                     set_rand_seed_data_split=(True, RANDOM_SEED),
                                     set_rand_seed_alignments=(True, RANDOM_SEED))</code></pre>
   <p class="blog-post_paragraph">
-    Now I'll check if function organized the alignments in the correct directory
-    structure.
+    Now I'll check if the function organized the alignments in the correct
+    directory structure.
   </p>
   <pre
     class="command-line"
@@ -1021,7 +1021,7 @@ create_dir_structure_for_alignments(num_alignments=10,
 
 19 directories, 32 files</code></pre>
   <p class="blog-post_paragraph">
-    So it looks like this function is capable of simulated various kinds of DNA
+    So it looks like this function is capable of simulating various kinds of DNA
     alignment data and organizing it into the desired directory structure. It's
     even capable of generating a development set (aka a cross-validation set).
     Development sets are useful because this subset of the dataset can be used
@@ -1166,7 +1166,7 @@ Image(filename=file_path)</code></pre>
   </div>
   <p class="blog-post_paragraph">
     All the images have saved perfectly so the function I created is perfect for
-    generating data. I'll know generate a ton of data in order to give the deep
+    generating data. I'll now generate a ton of data in order to give the deep
     learning models something to train and test on.
   </p>
   <p class="blog-post_paragraph">
@@ -1206,7 +1206,7 @@ for i in tqdm(range(len(error_probabilities))):
   if remove_existing_data:
     remove_existing_data = False</code></pre>
   <p class="blog-post_paragraph">
-    After simulating all the alignments, the data directory look likes this.
+    After simulating all the alignments, the data directory looks like this.
   </p>
   <pre
     class="command-line"
@@ -1386,7 +1386,7 @@ for i in tqdm(range(len(error_probabilities))):
     The last thing I'll want to do before I can start getting the data ready
     into a machine learning compatible format is to create a function that lets
     me sample the data and copy it into a more ideal directory structure.
-    Currently there the data is organized as follows
+    Currently the data is organized as follows
     <code
       >data -> train/test_dir -> what_errors_were_simulated ->
       what_mutation_the_alignments_show -> a_lot_of_alignments_images</code
@@ -1400,18 +1400,18 @@ for i in tqdm(range(len(error_probabilities))):
     (meaning that the folder with what errors were simulated needs to be removed
     from the directory structure and all the mutation data pooled). The problem
     with just naively doing this is that if all the data is just pooled then it
-    will impossible to evenly divide the data properly if I choose to subset it.
-    For example. If I want to only use 10% of the data to try training my
-    models, I'll want to want to grab 10% of my samples without any errors, 10%
-    from my samples with 1% sequencing error, 10% of my samples with 1%
-    alignment error, etc. so I have an even distribution of all samples from
-    every permutation of errors I generated in the data. If I pooled all the
-    data straight away, I would only be able to sample 10% of the data overall,
-    but where this 10% would come from would be up to random sampling and I
-    would have an uneven distribution of samples from each set of simulations.
-    Machine learning models work best if the training data is a good
-    representation of the testing data so taking the time to make sure the data
-    is correctly organized pays off before training the model.
+    will be impossible to evenly divide the data properly if I choose to subset
+    it. For example. If I want to only use 10% of the data to try training my
+    models, I'll want to grab 10% of my samples without any errors, 10% from my
+    samples with 1% sequencing error, 10% of my samples with 1% alignment error,
+    etc. so I have an even distribution of all samples from every permutation of
+    errors I generated in the data. If I pooled all the data straight away, I
+    would only be able to sample 10% of the data overall, but where this 10%
+    would come from would be up to random sampling and I would have an uneven
+    distribution of samples from each set of simulations. Machine learning
+    models work best if the training data is a good representation of the
+    testing data so taking the time to make sure the data is correctly organized
+    pays off before training the model.
   </p>
   <pre
     class="line-numbers"
@@ -1576,11 +1576,11 @@ data/test: 2700 files</code></pre>
   </p>
   <p class="blog-post_paragraph">
     I'll continue working with the small amount of sampled data to quickly build
-    and iterate my models. Once I have them up and running I'll revist sampling
+    and iterate my models. Once I have them up and running I'll revisit sampling
     my data when I figure out how much data I want to feed them.
   </p>
   <p class="blog-post_paragraph">
-    Now that images are downloaded and organized, need to make them compatible
+    Now that images are downloaded and organized, I need to make them compatible
     with PyTorch.
     <a href="https://en.wikipedia.org/wiki/PyTorch" target="_blank">PyTorch</a>
     is a popular open-source library for machine learning and deep learning
@@ -1694,17 +1694,17 @@ plot_transformed_images(image_path_list,
     />
   </div>
   <p class="blog-post_paragraph">
-    Plotting the images we see that the images look unchanged visually. The only
-    difference is that the pixel values were arranged in tensor format. The
+    Plotting the images we can see that the images look unchanged visually. The
+    only difference is that the pixel values were arranged in tensor format. The
     image tensor has three dimensions: colour channels, height, and width. This
     is exactly what we wanted.
   </p>
   <p class="blog-post_paragraph">
     Now that the transformed images have been visualized and the transformations
-    are functioning as expected, we can begin to take the next step of the
-    getting the data ready to be trained by a deep learning model which is to
-    generate PyTorch datasets. Datasets in PyTorch refer to python objects which
-    are collections of data that are organized and structured for training and
+    are functioning as expected, we can begin to take the next step of getting
+    the data ready to be trained by a deep learning model which is to generate
+    PyTorch datasets. Datasets in PyTorch refer to python objects which are
+    collections of data that are organized and structured for training and
     validating models. These datasets typically consist of input data (in this
     case images represented as tensors) and corresponding, ground truth labels
     (whether the alignment images were derived from a heterzygous, homozygous,
@@ -1831,7 +1831,7 @@ class_dict</code></pre>
     and <code>2</code> if the individual did not have a mutation.
   </p>
   <p class="blog-post_paragraph">
-    The last thing I'll check is the lenght of the datasets to make sure it
+    The last thing I'll check is the length of the datasets to make sure it
     contains the same amount of data that I sampled. I sampled 5% of 270000
     images (90000 images for each mutation profile), resulting in an estimated
     13500 images. I then split up the data so that 80% was in the training set
@@ -1847,12 +1847,12 @@ len(train_data), len(test_data)</code></pre>
   <p class="blog-post_paragraph">
     Perfect. The datasets were created correctly. The final step to getting the
     data ready is to put them into dataloaders. In PyTorch, dataloaders are a
-    utility that help in efficiently loading and managing datasets during the
+    utility that help with efficiently loading and managing datasets during the
     training and validation phases of a model. They handle tasks such as data
     shuffling and parallelizing data loading, making it easier to iterate over
-    the dataset during training. It also gives the benefit of "batching" the
-    data, allowing you to load in the data in small batches at a time. This
-    offers the benfit of training the model in a more memory efficient way
+    the dataset during training. It also allows for "batching" of the data,
+    giving you the ability to load in the data in small batches at a time. This
+    offers the benefit of training the model in a more memory efficient way
     because you don't have to load all the data into the computer's memory at
     once, but also has the added benefit of allowing your model to train a
     little before it sees the next little bit of training data, which could
@@ -1901,9 +1901,9 @@ def create_dataloader(dataset: torch.utils.data.dataset.Dataset,
   return dataloader</code></pre>
   <p class="blog-post_paragraph">
     I'll create the dataloaders with a batch size of 32. This means all the data
-    will be passed through model 32 images at a time for every round (aka epoch)
-    of training. 32 was chosen as the batch size because it has been suggested
-    to produce more stable and reliable training (<a
+    will be passed through the model 32 images at a time for every round (aka
+    epoch) of training. 32 was chosen as the batch size because it has been
+    suggested to produce more stable and reliable training (<a
       href="https://arxiv.org/abs/1804.07612"
       target="_blank"
       >see here for more info</a
@@ -1982,7 +1982,7 @@ Label: 1</code></pre>
     model. There are two approaches that I will use:
   </p>
   <ol>
-    <li>Building a deep learning model from from scratch.</li>
+    <li>Building a deep learning model from scratch.</li>
     <li>Using transfer learning to re-train an existing deep learning model</li>
   </ol>
   <p class="blog-post_paragraph">
@@ -2095,7 +2095,7 @@ model_0</code></pre>
     )
   )</code></pre>
   <p class="blog-post_paragraph">
-    With the model architecture prepared, the we can move along to creating the
+    With the model architecture prepared, we can move along to creating the
     transfer learning model.
   </p>
   <p class="blog-post_paragraph">
@@ -2121,7 +2121,7 @@ model_0</code></pre>
     The rationale is that by leveraging the pre-trained ResNet50 model, I can
     benefit from the extensive knowledge it has on learning rich hierarchical
     representations of various objects, textures, and patterns present in
-    images. This will hopefully allow it to learn complex pattern that can
+    images. This will hopefully allow it to learn complex patterns that can
     distinguish between the three mutation profiles, even in messy data.
   </p>
   <p class="blog-post_paragraph">
@@ -2145,13 +2145,13 @@ resnet50_weights</code></pre>
     Now before I can fine-tune this model to make predictions on the mutation
     profiles, a crucial step for successfully implementing transfer learning is
     to make sure the data you're using is transformed in the same way that the
-    data the model was trained on. Pre-trained models are typically trained on
-    large-scale datasets with specific preprocessing steps such as
-    normalization, resizing, and data augmentation. This ensures that the input
-    data is compatible with the pre-trained model's requirements but also that
-    the models prediction capacity is not degraded because deep learning models
-    can only make accurate predictions if the testing data is a good
-    representation of the data is was trained on.
+    data the model was trained on was transformed. Pre-trained models are
+    typically trained on large-scale datasets with specific preprocessing steps
+    such as normalization, resizing, and data augmentation. This ensures that
+    the input data is compatible with the pre-trained model's requirements but
+    also that the models prediction capacity is not degraded because deep
+    learning models can only make accurate predictions if the testing data is a
+    good representation of the data it was trained on.
   </p>
   <p class="blog-post_paragraph">
     In PyTorch, the transformations a pre-trained model used can be extracted
@@ -2299,9 +2299,10 @@ plot_transformed_images(image_path_list,
     the model. Usually when performing transfer learning, you don't want to
     re-train an existing model. Instead you want to fine tune it. Often this
     means "freezing" the parameters learned in all the layers of the model
-    except for the last one so that you can keep all the good parameters the
-    model learned from it's previous training but leave the last few parameters
-    trainable so the model can make predictions for your specific problem.
+    except for the last one (which is the prediction layer) so that you can keep
+    all the good parameters the model learned from it's previous training but
+    leave the last few parameters trainable so the model can make predictions
+    for your specific problem.
   </p>
   <p class="blog-post_paragraph">
     Let's start with freezing the model parameters.
@@ -2789,11 +2790,11 @@ summary(model=resnet50_model_0,
     <u><em>Step 6: Begin training and testing models</em></u>
   </p>
   <p class="blog-post_paragraph">
-    In order to begin training models, it's important create a function for
-    training models. This function will be comprised of other various other
-    functions to functionize different parts of the training process (training,
-    testing, saving, etc.). The code for all the functions and helper functions
-    is shown below.
+    In order to begin training models, it's important to create a function for
+    this purpose. This function will be comprised of various other functions to
+    functionize different parts of the training process (training, testing,
+    saving, etc.). The code for all the functions and helper functions is shown
+    below.
   </p>
   <pre
     class="line-numbers"
@@ -3269,18 +3270,18 @@ summary(model=resnet50_model_0,
         Epoch: 10 | Train Loss: 0.0000 | Train Accuracy: 1.0000 | Test Loss: 0.0000 | Test Accuracy: 1.0000</code></pre>
   <p class="blog-post_paragraph">
     To make sure the model is not overfitting or underfitting, it can be
-    insightful to plot the loss and accuracy curves of the model. Overfitting
+    inightful to plot the loss and accuracy curves of the model. Overfitting
     occurs when a model learns to perform well on the training data but fails to
     generalize to unseen data. In terms of loss values, overfitting is often
     indicated by a significant gap between the training loss and the test loss.
-    The training loss continues to decrease while the validation loss starts
+    The training loss continues to decrease while the test loss starts
     increasing or remains stagnant. This divergence occurs because the model
     becomes too complex and starts to memorize the training data, rather than
     learning the underlying patterns. As a result, it performs poorly on unseen
     data. Visually on a loss curve, you'll notice that the training loss curve
-    continues to decrease, while the validation loss curve starts to plateau or
-    even increase after a certain point. On the other hand, underfitting happens
-    when a model is too simple to capture the underlying structure of the data,
+    continues to decrease, while the test loss curve starts to plateau or even
+    increase after a certain point. On the other hand, underfitting happens when
+    a model is too simple to capture the underlying structure of the data,
     resulting in poor performance on both the training and test sets. In terms
     of loss values, underfitting is indicated by high training and test losses
     that do not decrease significantly over time. The values may show little
@@ -3687,7 +3688,7 @@ summary(model=resnet50_model_0,
     that despite not being trained on any data with errors the model is still
     pretty good at identifying data when alignment errors are present, being
     able to still correctly identify 73.8% of the mutation profiles when
-    alignment error was as high as 20%. However, as soon as any sequencing data
+    alignment error was as high as 20%. However, as soon as any sequencing error
     is added to the data, the model's performance steeply drops off. At the
     highest amount of error (20% sequencing error and 20% alignment error), the
     model has 35.5% accuracy. When picking between one of three labels, this is
@@ -3897,10 +3898,10 @@ summary(model=resnet50_model_0,
   <ol>
     <li>
       The transfer learning model has most of it's layers frozen, meaning the
-      model cannot update the model weights of hidden layers of the model. Since
-      the model was trained on real image data, it could be the case that these
-      hidden layers are trained to extract features that may be present in
-      real-world images but not present in the alignemnt data. In this case, it
+      model cannot update the weights within the hidden layers of the model.
+      Since the model was trained on real image data, it could be the case that
+      these hidden layers are trained to extract features that may be present in
+      real-world images but not present in the alignment data. In this case, it
       may be beneficial to "unfreeze" these layers and try to let the hidden
       layers learn the features of this dataset specifically.
     </li>
@@ -4003,7 +4004,7 @@ summary(model=resnet50_model_0,
     towards the tail end of the training time which might indicate that
     overfitting is beginning to start, but the upwards trend is very shallow and
     this was predictable due to the longer time this model was trained for.
-    Overally the loss curves and accuracy look pretty good.
+    Overall the loss curves and accuracy look pretty good.
   </p>
   <p class="blog-post_paragraph">
     Let's inspect this model's performance further.
@@ -4104,24 +4105,24 @@ summary(model=resnet50_model_0,
   <p class="blog-post_paragraph">
     So to summarize, I was able to build a deep learning model that could
     classify whether an individual had zero, one, or two copies of a mutation
-    from a set of simulated DNA alignment data with 98.6% accuracy. By
+    from a set of simulated DNA alignment data with an accuracy of 98.6%. By
     leveraging techniques such as transfer learning, data augmentation, and
     careful model selection, I achieved great classification accuracy. This
     problem was an excellent exercise in learning how deep learning and neural
     network models work under the hood. Deep learning is becoming increasingly
     ubiquitous in various fields, including biology and genetics. For
-    researchers in genetics and related fields, understanding and applying deep
-    learning techniques is becoming essential for staying at the forefront of
-    research. It is a powerful tool for analyzing complex datasets and
-    extracting meaningful patterns that may not be immediately apparent to human
-    researchers. The intersection of deep learning and genetics holds tremendous
-    promise for advancing our understanding of complex biological systems and
-    developing novel biotechnologies. Now that I understand how these models
-    work and how they can be built I feel much more confident in my skills as a
-    researcher. I am able to now comprehend the latest literature which features
-    deep learning approach and be able to effectively work with teams of
-    interdisciplinary people on complex data-related challenges. AI has the
-    power to change the world in a beneficial way and I'm excited to see how it
-    will advance all fields of science.
+    researchers, understanding and applying deep learning techniques is becoming
+    essential for staying at the forefront of research. It is a powerful tool
+    for analyzing complex datasets and extracting meaningful patterns that may
+    not be immediately apparent to human researchers. The intersection of deep
+    learning and genetics holds tremendous promise for advancing our
+    understanding of complex biological systems and developing novel
+    biotechnologies. Now that I understand how these models work and how they
+    can be built I feel much more confident in my skills as a researcher. I am
+    able to now comprehend the latest literature which features deep learning
+    approaches and be able to effectively work with teams of interdisciplinary
+    people on complex data-related challenges. AI has the power to change the
+    world in a beneficial way and I'm excited to see how it will advance all
+    fields of science.
   </p>
 </div>
