@@ -205,13 +205,13 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 NUCLEOTIDES = "ACGT"
 
 def simulate_alignments(reference_length: int = 200,
-            num_alignments: int = 20000,
-            depth: int = 100,
-            p_sequencing_error: float = 0.0,
-            p_alignment_error: float = 0.0,
-            set_custom_mutation: Tuple[bool, int] = (False, _),
-            set_rand_seed: Tuple[bool, int] = (False, _)
-            ) -> Tuple[List[List[List[str]]], List[int]]:
+                        num_alignments: int = 20000,
+                        depth: int = 100,
+                        p_sequencing_error: float = 0.0,
+                        p_alignment_error: float = 0.0,
+                        set_custom_mutation: Tuple[bool, int] = (False, _),
+                        set_rand_seed: Tuple[bool, int] = (False, _)
+                        ) -> Tuple[List[List[List[str]]], List[int]]:
   """
   Simulates alignments of DNA sequences.
 
@@ -315,11 +315,11 @@ def simulate_alignments(reference_length: int = 200,
   ><code class="language-python"># Compute 3 sets of alignments without errors
 RANDOM_SEED = 70
 alignments, mutation_types = simulate_alignments(reference_length = 200,
-                                                num_alignments = 3,
-                                                depth = 100,
-                                                p_sequencing_error = 0.0,
-                                                p_alignment_error = 0.0,
-                                                set_rand_seed = (True, RANDOM_SEED))
+                                                 num_alignments = 3,
+                                                 depth = 100,
+                                                 p_sequencing_error = 0.0,
+                                                 p_alignment_error = 0.0,
+                                                 set_rand_seed = (True, RANDOM_SEED))
 alignments = np.array(alignments)</code></pre>
   <p class="blog-post_paragraph">
     Let's visualize these alignments to see how each mutation type looks like in
@@ -380,8 +380,8 @@ plt.show()</code></pre>
   ><code class="language-python"># Prepare alignment data for plotting
 transdict = {"A":0, "C": 1, "G":2, "T":3}
 mutation_type_names = {0: "No mutation",
-                  1: "Homozygous Mutation",
-                  2: "Heterozygous Mutation"}
+                       1: "Homozygous Mutation",
+                       2: "Heterozygous Mutation"}
 alignments_ints = np.vectorize(transdict.get)(alignments) # Convert the DNA alignments to numerical encodings</code></pre>
   <pre
     class="line-numbers"
@@ -518,11 +518,11 @@ sequencing_error = 0.15
 alignment_error = 0.05
 
 alignments, mutation_types = simulate_alignments(reference_length=200,
-                                                num_alignments=10,
-                                                depth=100,
-                                                p_sequencing_error=sequencing_error,
-                                                p_alignment_error=alignment_error,
-                                                set_rand_seed=(True, RANDOM_SEED))
+                                                 num_alignments=10,
+                                                 depth=100,
+                                                 p_sequencing_error=sequencing_error,
+                                                 p_alignment_error=alignment_error,
+                                                 set_rand_seed=(True, RANDOM_SEED))
 alignments = np.array(alignments)
 
 alignments_ints = np.vectorize(transdict.get)(alignments) # Convert the DNA alignments to numerical encodings</code></pre>
@@ -531,12 +531,12 @@ alignments_ints = np.vectorize(transdict.get)(alignments) # Convert the DNA alig
     class="line-numbers"
   ><code class="language-python"># Plot the set of alignments
 def plot_alignment(alignment_idx):
-    plt.imshow(alignments_ints[alignment_idx], cmap='jet')
-    plt.xlabel('Position along DNA Sequence')
-    plt.ylabel('Sequencing Depth')
-    plt.title('Mutation type - ' + mutation_type_names[mutation_types[alignment_idx]], y=1.05)
-    plt.text(0.5, 1.02, f'With {int(sequencing_error * 100)}% Sequencing error and {int(alignment_error * 100)}% Alignment error', horizontalalignment='center', fontsize=9, transform=plt.gca().transAxes)
-    plt.show()
+  plt.imshow(alignments_ints[alignment_idx], cmap='jet')
+  plt.xlabel('Position along DNA Sequence')
+  plt.ylabel('Sequencing Depth')
+  plt.title('Mutation type - ' + mutation_type_names[mutation_types[alignment_idx]], y=1.05)
+  plt.text(0.5, 1.02, f'With {int(sequencing_error * 100)}% Sequencing error and {int(alignment_error * 100)}% Alignment error', horizontalalignment='center', fontsize=9, transform=plt.gca().transAxes)
+  plt.show()
 
 # Plot no mutation sample
 plot_alignment(alignment_idx = 0)
@@ -867,12 +867,12 @@ def save_alignment_data(X_data: List[List[List[int]]],
   """
   # Perform alignments
   alignments, mutation_types = simulate_alignments(reference_length=reference_length,
-              num_alignments=num_alignments,
-              depth=depth,
-              p_sequencing_error=p_sequencing_error,
-              p_alignment_error=p_alignment_error,
-              set_custom_mutation=set_custom_mutation,
-              set_rand_seed=set_rand_seed_alignments)
+                                                   num_alignments=num_alignments,
+                                                   depth=depth,
+                                                   p_sequencing_error=p_sequencing_error,
+                                                   p_alignment_error=p_alignment_error,
+                                                   set_custom_mutation=set_custom_mutation,
+                                                   set_rand_seed=set_rand_seed_alignments)
 
   alignments = np.array(alignments)
   mutation_types = np.array(mutation_types)
@@ -886,16 +886,15 @@ def save_alignment_data(X_data: List[List[List[int]]],
   # Create dev set if specified
   X_dev, y_dev = (np.empty(0), np.empty(0))
   if set_dev_set[0]:
-  desired_p_dev_set_split = set_dev_set[1]
+    desired_p_dev_set_split = set_dev_set[1]
   # Create dev set by splitting up the train set
   if set_dev_set[2] == "split_train" and set_dev_set[1] <= p_train_data: # Only split train set if mathematically possible
-  actual_p_dev_set_split = round((1 / (p_train_data)) * (desired_p_dev_set_split), 4)
+    actual_p_dev_set_split = round((1 / (p_train_data)) * (desired_p_dev_set_split), 4)
   X_dev, X_train, y_dev, y_train = train_test_split(X_train, y_train, train_size=actual_p_dev_set_split, random_state=random_seed)
   # Create dev set by splitting up the test set (default)
   elif set_dev_set[1] <= (1 - p_train_data): # Only split test set if mathematically possible
-  actual_p_dev_set_split = round((1 / (1 - p_train_data)) * (desired_p_dev_set_split), 4)
+    actual_p_dev_set_split = round((1 / (1 - p_train_data)) * (desired_p_dev_set_split), 4)
   X_dev, X_test, y_dev, y_test = train_test_split(X_test, y_test, train_size=actual_p_dev_set_split, random_state=random_seed)
-
 
   # Set up directory structure
   data_path = Path("data/")
@@ -904,9 +903,9 @@ def save_alignment_data(X_data: List[List[List[int]]],
 
   # Remove existing data if set to true
   if remove_all_existing_data:
-  if data_path.exists():
-  print(f"[INFO] Removing previous data from {data_path}")
-  shutil.rmtree(data_path)
+    if data_path.exists():
+      print(f"[INFO] Removing previous data from {data_path}")
+      shutil.rmtree(data_path)
 
   # Create train directory
   train_path = data_path / "train" / error_path
@@ -925,9 +924,10 @@ def save_alignment_data(X_data: List[List[List[int]]],
   save_alignment_data(X_test, y_test, test_path, mutation_path_dict, add_rand_string_to_filename)
 
   # Create dev directory if dev set exists
-  if (X_dev.size != 0 and y_dev.size != 0):
-  dev_path = data_path / "dev" / error_path
-  dev_path.mkdir(parents=True, exist_ok=True)
+  if remove_all_existing_data and data_path.exists():
+    print(f"[INFO] Removing previous data from {data_path}")
+    shutil.rmtree(data_path)
+
   # Save dev data
   print("[INFO] Saving development set data...")
   save_alignment_data(X_dev, y_dev, dev_path, mutation_path_dict, add_rand_string_to_filename)</code></pre>
@@ -1191,18 +1191,16 @@ for seq_error in seq_error_range:
 # Generate data
 remove_existing_data = True
 for i in tqdm(range(len(error_probabilities))):
-
   seq_error = error_probabilities[i][0]
   align_error = error_probabilities[i][1]
-
   for j in range(len(mutation_type_names)):
-  mutation_type = j
-  create_dir_structure_for_alignments(num_alignments=N_DATA_PER_MUTATION,
-                    set_custom_mutation=(True, mutation_type),
-                    p_sequencing_error=seq_error,
-                    p_alignment_error=align_error,
-                    remove_all_existing_data=remove_existing_data,
-                    add_rand_string_to_filename=True)
+    mutation_type = j
+    create_dir_structure_for_alignments(num_alignments=N_DATA_PER_MUTATION,
+                                        set_custom_mutation=(True, mutation_type),
+                                        p_sequencing_error=seq_error,
+                                        p_alignment_error=align_error,
+                                        remove_all_existing_data=remove_existing_data,
+                                        add_rand_string_to_filename=True)
   if remove_existing_data:
     remove_existing_data = False</code></pre>
   <p class="blog-post_paragraph">
@@ -1604,15 +1602,15 @@ data/test: 2700 files</code></pre>
     class="line-numbers"
   ><code class="language-python"># Define a custom lambda function to discard alpha channel
 def remove_alpha_channel(image):
-    if image.mode == 'RGBA':
-        # Discard the alpha channel
-        image = image.convert('RGB')
-    return image
+  if image.mode == 'RGBA':
+    # Discard the alpha channel
+    image = image.convert('RGB')
+  return image
 
 # Write a transform for turning images into tensors
 data_transform = transforms.Compose([
-    transforms.Lambda(remove_alpha_channel),
-    transforms.ToTensor()  # converts pixel values from 0-255 to be between 0-1
+  transforms.Lambda(remove_alpha_channel),
+  transforms.ToTensor()  # converts pixel values from 0-255 to be between 0-1
 ])</code></pre>
   <p class="blog-post_paragraph">
     The above code stores the transformations we want applied to an image, in
@@ -2069,7 +2067,8 @@ Label: 1</code></pre>
 
 # Instantiate the model
 model_0 = VariantCallerTinyVGG(input_shape = 3, # Number of image colour channels
-                               hidden_units = 10,output_shape = len(class_names) # Number of mutation signatures
+                               hidden_units = 10,
+                               output_shape = len(class_names) # Number of mutation signatures
                                ).to(device)
 model_0</code></pre>
   <pre
@@ -2178,14 +2177,14 @@ resnet50_auto_transforms</code></pre>
   <pre
     class="line-numbers"
   ><code class="language-python">resnet50_train_data = create_dataset(data_dir=train_dir,
-                            transform=resnet50_auto_transforms,
-                            target_transform=None
-                            )
+                                     transform=resnet50_auto_transforms,
+                                     target_transform=None
+                                     )
 
 resnet50_test_data = create_dataset(data_dir=test_dir,
-                            transform=resnet50_auto_transforms,
-                            target_transform=None
-                            )
+                                    transform=resnet50_auto_transforms,
+                                    target_transform=None
+                                    )
 
 resnet50_train_data, resnet50_test_data</code></pre>
   <pre
@@ -2215,14 +2214,14 @@ Transform: ImageClassification(
   <pre class="line-numbers"><code class="language-python">BATCH_SIZE = 32
 
 resnet50_train_dataloader = create_dataloader(dataset = resnet50_train_data,
-                                    batch_size = BATCH_SIZE,
-                                    num_workers = os.cpu_count(),
-                                    shuffle = True)
+                                              batch_size = BATCH_SIZE,
+                                              num_workers = os.cpu_count(),
+                                              shuffle = True)
 
 resnet50_test_dataloader = create_dataloader(dataset = resnet50_test_data,
-                                    batch_size = BATCH_SIZE,
-                                    num_workers = os.cpu_count(),
-                                    shuffle = False)
+                                             batch_size = BATCH_SIZE,
+                                             num_workers = os.cpu_count(),
+                                             shuffle = False)
 
 # Check how many batches of images are in the data loaders?
 len(resnet50_train_dataloader), len(resnet50_test_dataloader)</code></pre>
@@ -2237,15 +2236,15 @@ len(resnet50_train_dataloader), len(resnet50_test_dataloader)</code></pre>
     class="line-numbers"
   ><code class="language-python"># Manually recreate the ResNet50 transforms to make them compatible with visualzation
 data_transform = transforms.Compose([
-    # Resize and crop
-    transforms.Resize(256),
-    transforms.CenterCrop(224),
-    # Apply the custom lambda function to remove alpha channel
-    transforms.Lambda(remove_alpha_channel),
-    # Convert to tensor
-    transforms.ToTensor(),
-    # Normalize
-    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+  # Resize and crop
+  transforms.Resize(256),
+  transforms.CenterCrop(224),
+  # Apply the custom lambda function to remove alpha channel
+  transforms.Lambda(remove_alpha_channel),
+  # Convert to tensor
+  transforms.ToTensor(),
+  # Normalize
+  transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 ])
 
 # Plot some images
@@ -2314,7 +2313,7 @@ resnet50_model_0 = torchvision.models.resnet50(weights=resnet50_weights).to(devi
 
 # Freeze all base layers of the model
 for param in resnet50_model_0.parameters():
-    param.requires_grad = False
+  param.requires_grad = False
 
 # Print a summary using torchinfo
 summary(model=resnet50_model_0,
@@ -2528,8 +2527,8 @@ Estimated Total Size (MB): 5812.11
     class="line-numbers"
   ><code class="language-python"># Recreate the fc layer and seed it to the target device
 resnet50_model_0.fc = torch.nn.Linear(in_features=2048,
-                                    out_features=len(class_names), # same number of output units as our number of classes
-                                    bias=True).to(device)
+                                      out_features=len(class_names), # same number of output units as our number of classes
+                                      bias=True).to(device)
 
 
 # Print a summary using torchinfo
@@ -2541,194 +2540,194 @@ summary(model=resnet50_model_0,
   <pre
     class="output no-lang-display"
   ><code class="language-output">========================================================================================================================
-        Layer (type (var_name))                  Input Shape          Output Shape         Param #              Trainable
-        ========================================================================================================================
-        ResNet (ResNet)                          [32, 3, 224, 224]    [32, 3]              --                   Partial
-        ├─Conv2d (conv1)                         [32, 3, 224, 224]    [32, 64, 112, 112]   (9,408)              False
-        ├─BatchNorm2d (bn1)                      [32, 64, 112, 112]   [32, 64, 112, 112]   (128)                False
-        ├─ReLU (relu)                            [32, 64, 112, 112]   [32, 64, 112, 112]   --                   --
-        ├─MaxPool2d (maxpool)                    [32, 64, 112, 112]   [32, 64, 56, 56]     --                   --
-        ├─Sequential (layer1)                    [32, 64, 56, 56]     [32, 256, 56, 56]    --                   False
-        │    └─Bottleneck (0)                    [32, 64, 56, 56]     [32, 256, 56, 56]    --                   False
-        │    │    └─Conv2d (conv1)               [32, 64, 56, 56]     [32, 64, 56, 56]     (4,096)              False
-        │    │    └─BatchNorm2d (bn1)            [32, 64, 56, 56]     [32, 64, 56, 56]     (128)                False
-        │    │    └─ReLU (relu)                  [32, 64, 56, 56]     [32, 64, 56, 56]     --                   --
-        │    │    └─Conv2d (conv2)               [32, 64, 56, 56]     [32, 64, 56, 56]     (36,864)             False
-        │    │    └─BatchNorm2d (bn2)            [32, 64, 56, 56]     [32, 64, 56, 56]     (128)                False
-        │    │    └─ReLU (relu)                  [32, 64, 56, 56]     [32, 64, 56, 56]     --                   --
-        │    │    └─Conv2d (conv3)               [32, 64, 56, 56]     [32, 256, 56, 56]    (16,384)             False
-        │    │    └─BatchNorm2d (bn3)            [32, 256, 56, 56]    [32, 256, 56, 56]    (512)                False
-        │    │    └─Sequential (downsample)      [32, 64, 56, 56]     [32, 256, 56, 56]    (16,896)             False
-        │    │    └─ReLU (relu)                  [32, 256, 56, 56]    [32, 256, 56, 56]    --                   --
-        │    └─Bottleneck (1)                    [32, 256, 56, 56]    [32, 256, 56, 56]    --                   False
-        │    │    └─Conv2d (conv1)               [32, 256, 56, 56]    [32, 64, 56, 56]     (16,384)             False
-        │    │    └─BatchNorm2d (bn1)            [32, 64, 56, 56]     [32, 64, 56, 56]     (128)                False
-        │    │    └─ReLU (relu)                  [32, 64, 56, 56]     [32, 64, 56, 56]     --                   --
-        │    │    └─Conv2d (conv2)               [32, 64, 56, 56]     [32, 64, 56, 56]     (36,864)             False
-        │    │    └─BatchNorm2d (bn2)            [32, 64, 56, 56]     [32, 64, 56, 56]     (128)                False
-        │    │    └─ReLU (relu)                  [32, 64, 56, 56]     [32, 64, 56, 56]     --                   --
-        │    │    └─Conv2d (conv3)               [32, 64, 56, 56]     [32, 256, 56, 56]    (16,384)             False
-        │    │    └─BatchNorm2d (bn3)            [32, 256, 56, 56]    [32, 256, 56, 56]    (512)                False
-        │    │    └─ReLU (relu)                  [32, 256, 56, 56]    [32, 256, 56, 56]    --                   --
-        │    └─Bottleneck (2)                    [32, 256, 56, 56]    [32, 256, 56, 56]    --                   False
-        │    │    └─Conv2d (conv1)               [32, 256, 56, 56]    [32, 64, 56, 56]     (16,384)             False
-        │    │    └─BatchNorm2d (bn1)            [32, 64, 56, 56]     [32, 64, 56, 56]     (128)                False
-        │    │    └─ReLU (relu)                  [32, 64, 56, 56]     [32, 64, 56, 56]     --                   --
-        │    │    └─Conv2d (conv2)               [32, 64, 56, 56]     [32, 64, 56, 56]     (36,864)             False
-        │    │    └─BatchNorm2d (bn2)            [32, 64, 56, 56]     [32, 64, 56, 56]     (128)                False
-        │    │    └─ReLU (relu)                  [32, 64, 56, 56]     [32, 64, 56, 56]     --                   --
-        │    │    └─Conv2d (conv3)               [32, 64, 56, 56]     [32, 256, 56, 56]    (16,384)             False
-        │    │    └─BatchNorm2d (bn3)            [32, 256, 56, 56]    [32, 256, 56, 56]    (512)                False
-        │    │    └─ReLU (relu)                  [32, 256, 56, 56]    [32, 256, 56, 56]    --                   --
-        ├─Sequential (layer2)                    [32, 256, 56, 56]    [32, 512, 28, 28]    --                   False
-        │    └─Bottleneck (0)                    [32, 256, 56, 56]    [32, 512, 28, 28]    --                   False
-        │    │    └─Conv2d (conv1)               [32, 256, 56, 56]    [32, 128, 56, 56]    (32,768)             False
-        │    │    └─BatchNorm2d (bn1)            [32, 128, 56, 56]    [32, 128, 56, 56]    (256)                False
-        │    │    └─ReLU (relu)                  [32, 128, 56, 56]    [32, 128, 56, 56]    --                   --
-        │    │    └─Conv2d (conv2)               [32, 128, 56, 56]    [32, 128, 28, 28]    (147,456)            False
-        │    │    └─BatchNorm2d (bn2)            [32, 128, 28, 28]    [32, 128, 28, 28]    (256)                False
-        │    │    └─ReLU (relu)                  [32, 128, 28, 28]    [32, 128, 28, 28]    --                   --
-        │    │    └─Conv2d (conv3)               [32, 128, 28, 28]    [32, 512, 28, 28]    (65,536)             False
-        │    │    └─BatchNorm2d (bn3)            [32, 512, 28, 28]    [32, 512, 28, 28]    (1,024)              False
-        │    │    └─Sequential (downsample)      [32, 256, 56, 56]    [32, 512, 28, 28]    (132,096)            False
-        │    │    └─ReLU (relu)                  [32, 512, 28, 28]    [32, 512, 28, 28]    --                   --
-        │    └─Bottleneck (1)                    [32, 512, 28, 28]    [32, 512, 28, 28]    --                   False
-        │    │    └─Conv2d (conv1)               [32, 512, 28, 28]    [32, 128, 28, 28]    (65,536)             False
-        │    │    └─BatchNorm2d (bn1)            [32, 128, 28, 28]    [32, 128, 28, 28]    (256)                False
-        │    │    └─ReLU (relu)                  [32, 128, 28, 28]    [32, 128, 28, 28]    --                   --
-        │    │    └─Conv2d (conv2)               [32, 128, 28, 28]    [32, 128, 28, 28]    (147,456)            False
-        │    │    └─BatchNorm2d (bn2)            [32, 128, 28, 28]    [32, 128, 28, 28]    (256)                False
-        │    │    └─ReLU (relu)                  [32, 128, 28, 28]    [32, 128, 28, 28]    --                   --
-        │    │    └─Conv2d (conv3)               [32, 128, 28, 28]    [32, 512, 28, 28]    (65,536)             False
-        │    │    └─BatchNorm2d (bn3)            [32, 512, 28, 28]    [32, 512, 28, 28]    (1,024)              False
-        │    │    └─ReLU (relu)                  [32, 512, 28, 28]    [32, 512, 28, 28]    --                   --
-        │    └─Bottleneck (2)                    [32, 512, 28, 28]    [32, 512, 28, 28]    --                   False
-        │    │    └─Conv2d (conv1)               [32, 512, 28, 28]    [32, 128, 28, 28]    (65,536)             False
-        │    │    └─BatchNorm2d (bn1)            [32, 128, 28, 28]    [32, 128, 28, 28]    (256)                False
-        │    │    └─ReLU (relu)                  [32, 128, 28, 28]    [32, 128, 28, 28]    --                   --
-        │    │    └─Conv2d (conv2)               [32, 128, 28, 28]    [32, 128, 28, 28]    (147,456)            False
-        │    │    └─BatchNorm2d (bn2)            [32, 128, 28, 28]    [32, 128, 28, 28]    (256)                False
-        │    │    └─ReLU (relu)                  [32, 128, 28, 28]    [32, 128, 28, 28]    --                   --
-        │    │    └─Conv2d (conv3)               [32, 128, 28, 28]    [32, 512, 28, 28]    (65,536)             False
-        │    │    └─BatchNorm2d (bn3)            [32, 512, 28, 28]    [32, 512, 28, 28]    (1,024)              False
-        │    │    └─ReLU (relu)                  [32, 512, 28, 28]    [32, 512, 28, 28]    --                   --
-        │    └─Bottleneck (3)                    [32, 512, 28, 28]    [32, 512, 28, 28]    --                   False
-        │    │    └─Conv2d (conv1)               [32, 512, 28, 28]    [32, 128, 28, 28]    (65,536)             False
-        │    │    └─BatchNorm2d (bn1)            [32, 128, 28, 28]    [32, 128, 28, 28]    (256)                False
-        │    │    └─ReLU (relu)                  [32, 128, 28, 28]    [32, 128, 28, 28]    --                   --
-        │    │    └─Conv2d (conv2)               [32, 128, 28, 28]    [32, 128, 28, 28]    (147,456)            False
-        │    │    └─BatchNorm2d (bn2)            [32, 128, 28, 28]    [32, 128, 28, 28]    (256)                False
-        │    │    └─ReLU (relu)                  [32, 128, 28, 28]    [32, 128, 28, 28]    --                   --
-        │    │    └─Conv2d (conv3)               [32, 128, 28, 28]    [32, 512, 28, 28]    (65,536)             False
-        │    │    └─BatchNorm2d (bn3)            [32, 512, 28, 28]    [32, 512, 28, 28]    (1,024)              False
-        │    │    └─ReLU (relu)                  [32, 512, 28, 28]    [32, 512, 28, 28]    --                   --
-        ├─Sequential (layer3)                    [32, 512, 28, 28]    [32, 1024, 14, 14]   --                   False
-        │    └─Bottleneck (0)                    [32, 512, 28, 28]    [32, 1024, 14, 14]   --                   False
-        │    │    └─Conv2d (conv1)               [32, 512, 28, 28]    [32, 256, 28, 28]    (131,072)            False
-        │    │    └─BatchNorm2d (bn1)            [32, 256, 28, 28]    [32, 256, 28, 28]    (512)                False
-        │    │    └─ReLU (relu)                  [32, 256, 28, 28]    [32, 256, 28, 28]    --                   --
-        │    │    └─Conv2d (conv2)               [32, 256, 28, 28]    [32, 256, 14, 14]    (589,824)            False
-        │    │    └─BatchNorm2d (bn2)            [32, 256, 14, 14]    [32, 256, 14, 14]    (512)                False
-        │    │    └─ReLU (relu)                  [32, 256, 14, 14]    [32, 256, 14, 14]    --                   --
-        │    │    └─Conv2d (conv3)               [32, 256, 14, 14]    [32, 1024, 14, 14]   (262,144)            False
-        │    │    └─BatchNorm2d (bn3)            [32, 1024, 14, 14]   [32, 1024, 14, 14]   (2,048)              False
-        │    │    └─Sequential (downsample)      [32, 512, 28, 28]    [32, 1024, 14, 14]   (526,336)            False
-        │    │    └─ReLU (relu)                  [32, 1024, 14, 14]   [32, 1024, 14, 14]   --                   --
-        │    └─Bottleneck (1)                    [32, 1024, 14, 14]   [32, 1024, 14, 14]   --                   False
-        │    │    └─Conv2d (conv1)               [32, 1024, 14, 14]   [32, 256, 14, 14]    (262,144)            False
-        │    │    └─BatchNorm2d (bn1)            [32, 256, 14, 14]    [32, 256, 14, 14]    (512)                False
-        │    │    └─ReLU (relu)                  [32, 256, 14, 14]    [32, 256, 14, 14]    --                   --
-        │    │    └─Conv2d (conv2)               [32, 256, 14, 14]    [32, 256, 14, 14]    (589,824)            False
-        │    │    └─BatchNorm2d (bn2)            [32, 256, 14, 14]    [32, 256, 14, 14]    (512)                False
-        │    │    └─ReLU (relu)                  [32, 256, 14, 14]    [32, 256, 14, 14]    --                   --
-        │    │    └─Conv2d (conv3)               [32, 256, 14, 14]    [32, 1024, 14, 14]   (262,144)            False
-        │    │    └─BatchNorm2d (bn3)            [32, 1024, 14, 14]   [32, 1024, 14, 14]   (2,048)              False
-        │    │    └─ReLU (relu)                  [32, 1024, 14, 14]   [32, 1024, 14, 14]   --                   --
-        │    └─Bottleneck (2)                    [32, 1024, 14, 14]   [32, 1024, 14, 14]   --                   False
-        │    │    └─Conv2d (conv1)               [32, 1024, 14, 14]   [32, 256, 14, 14]    (262,144)            False
-        │    │    └─BatchNorm2d (bn1)            [32, 256, 14, 14]    [32, 256, 14, 14]    (512)                False
-        │    │    └─ReLU (relu)                  [32, 256, 14, 14]    [32, 256, 14, 14]    --                   --
-        │    │    └─Conv2d (conv2)               [32, 256, 14, 14]    [32, 256, 14, 14]    (589,824)            False
-        │    │    └─BatchNorm2d (bn2)            [32, 256, 14, 14]    [32, 256, 14, 14]    (512)                False
-        │    │    └─ReLU (relu)                  [32, 256, 14, 14]    [32, 256, 14, 14]    --                   --
-        │    │    └─Conv2d (conv3)               [32, 256, 14, 14]    [32, 1024, 14, 14]   (262,144)            False
-        │    │    └─BatchNorm2d (bn3)            [32, 1024, 14, 14]   [32, 1024, 14, 14]   (2,048)              False
-        │    │    └─ReLU (relu)                  [32, 1024, 14, 14]   [32, 1024, 14, 14]   --                   --
-        │    └─Bottleneck (3)                    [32, 1024, 14, 14]   [32, 1024, 14, 14]   --                   False
-        │    │    └─Conv2d (conv1)               [32, 1024, 14, 14]   [32, 256, 14, 14]    (262,144)            False
-        │    │    └─BatchNorm2d (bn1)            [32, 256, 14, 14]    [32, 256, 14, 14]    (512)                False
-        │    │    └─ReLU (relu)                  [32, 256, 14, 14]    [32, 256, 14, 14]    --                   --
-        │    │    └─Conv2d (conv2)               [32, 256, 14, 14]    [32, 256, 14, 14]    (589,824)            False
-        │    │    └─BatchNorm2d (bn2)            [32, 256, 14, 14]    [32, 256, 14, 14]    (512)                False
-        │    │    └─ReLU (relu)                  [32, 256, 14, 14]    [32, 256, 14, 14]    --                   --
-        │    │    └─Conv2d (conv3)               [32, 256, 14, 14]    [32, 1024, 14, 14]   (262,144)            False
-        │    │    └─BatchNorm2d (bn3)            [32, 1024, 14, 14]   [32, 1024, 14, 14]   (2,048)              False
-        │    │    └─ReLU (relu)                  [32, 1024, 14, 14]   [32, 1024, 14, 14]   --                   --
-        │    └─Bottleneck (4)                    [32, 1024, 14, 14]   [32, 1024, 14, 14]   --                   False
-        │    │    └─Conv2d (conv1)               [32, 1024, 14, 14]   [32, 256, 14, 14]    (262,144)            False
-        │    │    └─BatchNorm2d (bn1)            [32, 256, 14, 14]    [32, 256, 14, 14]    (512)                False
-        │    │    └─ReLU (relu)                  [32, 256, 14, 14]    [32, 256, 14, 14]    --                   --
-        │    │    └─Conv2d (conv2)               [32, 256, 14, 14]    [32, 256, 14, 14]    (589,824)            False
-        │    │    └─BatchNorm2d (bn2)            [32, 256, 14, 14]    [32, 256, 14, 14]    (512)                False
-        │    │    └─ReLU (relu)                  [32, 256, 14, 14]    [32, 256, 14, 14]    --                   --
-        │    │    └─Conv2d (conv3)               [32, 256, 14, 14]    [32, 1024, 14, 14]   (262,144)            False
-        │    │    └─BatchNorm2d (bn3)            [32, 1024, 14, 14]   [32, 1024, 14, 14]   (2,048)              False
-        │    │    └─ReLU (relu)                  [32, 1024, 14, 14]   [32, 1024, 14, 14]   --                   --
-        │    └─Bottleneck (5)                    [32, 1024, 14, 14]   [32, 1024, 14, 14]   --                   False
-        │    │    └─Conv2d (conv1)               [32, 1024, 14, 14]   [32, 256, 14, 14]    (262,144)            False
-        │    │    └─BatchNorm2d (bn1)            [32, 256, 14, 14]    [32, 256, 14, 14]    (512)                False
-        │    │    └─ReLU (relu)                  [32, 256, 14, 14]    [32, 256, 14, 14]    --                   --
-        │    │    └─Conv2d (conv2)               [32, 256, 14, 14]    [32, 256, 14, 14]    (589,824)            False
-        │    │    └─BatchNorm2d (bn2)            [32, 256, 14, 14]    [32, 256, 14, 14]    (512)                False
-        │    │    └─ReLU (relu)                  [32, 256, 14, 14]    [32, 256, 14, 14]    --                   --
-        │    │    └─Conv2d (conv3)               [32, 256, 14, 14]    [32, 1024, 14, 14]   (262,144)            False
-        │    │    └─BatchNorm2d (bn3)            [32, 1024, 14, 14]   [32, 1024, 14, 14]   (2,048)              False
-        │    │    └─ReLU (relu)                  [32, 1024, 14, 14]   [32, 1024, 14, 14]   --                   --
-        ├─Sequential (layer4)                    [32, 1024, 14, 14]   [32, 2048, 7, 7]     --                   False
-        │    └─Bottleneck (0)                    [32, 1024, 14, 14]   [32, 2048, 7, 7]     --                   False
-        │    │    └─Conv2d (conv1)               [32, 1024, 14, 14]   [32, 512, 14, 14]    (524,288)            False
-        │    │    └─BatchNorm2d (bn1)            [32, 512, 14, 14]    [32, 512, 14, 14]    (1,024)              False
-        │    │    └─ReLU (relu)                  [32, 512, 14, 14]    [32, 512, 14, 14]    --                   --
-        │    │    └─Conv2d (conv2)               [32, 512, 14, 14]    [32, 512, 7, 7]      (2,359,296)          False
-        │    │    └─BatchNorm2d (bn2)            [32, 512, 7, 7]      [32, 512, 7, 7]      (1,024)              False
-        │    │    └─ReLU (relu)                  [32, 512, 7, 7]      [32, 512, 7, 7]      --                   --
-        │    │    └─Conv2d (conv3)               [32, 512, 7, 7]      [32, 2048, 7, 7]     (1,048,576)          False
-        │    │    └─BatchNorm2d (bn3)            [32, 2048, 7, 7]     [32, 2048, 7, 7]     (4,096)              False
-        │    │    └─Sequential (downsample)      [32, 1024, 14, 14]   [32, 2048, 7, 7]     (2,101,248)          False
-        │    │    └─ReLU (relu)                  [32, 2048, 7, 7]     [32, 2048, 7, 7]     --                   --
-        │    └─Bottleneck (1)                    [32, 2048, 7, 7]     [32, 2048, 7, 7]     --                   False
-        │    │    └─Conv2d (conv1)               [32, 2048, 7, 7]     [32, 512, 7, 7]      (1,048,576)          False
-        │    │    └─BatchNorm2d (bn1)            [32, 512, 7, 7]      [32, 512, 7, 7]      (1,024)              False
-        │    │    └─ReLU (relu)                  [32, 512, 7, 7]      [32, 512, 7, 7]      --                   --
-        │    │    └─Conv2d (conv2)               [32, 512, 7, 7]      [32, 512, 7, 7]      (2,359,296)          False
-        │    │    └─BatchNorm2d (bn2)            [32, 512, 7, 7]      [32, 512, 7, 7]      (1,024)              False
-        │    │    └─ReLU (relu)                  [32, 512, 7, 7]      [32, 512, 7, 7]      --                   --
-        │    │    └─Conv2d (conv3)               [32, 512, 7, 7]      [32, 2048, 7, 7]     (1,048,576)          False
-        │    │    └─BatchNorm2d (bn3)            [32, 2048, 7, 7]     [32, 2048, 7, 7]     (4,096)              False
-        │    │    └─ReLU (relu)                  [32, 2048, 7, 7]     [32, 2048, 7, 7]     --                   --
-        │    └─Bottleneck (2)                    [32, 2048, 7, 7]     [32, 2048, 7, 7]     --                   False
-        │    │    └─Conv2d (conv1)               [32, 2048, 7, 7]     [32, 512, 7, 7]      (1,048,576)          False
-        │    │    └─BatchNorm2d (bn1)            [32, 512, 7, 7]      [32, 512, 7, 7]      (1,024)              False
-        │    │    └─ReLU (relu)                  [32, 512, 7, 7]      [32, 512, 7, 7]      --                   --
-        │    │    └─Conv2d (conv2)               [32, 512, 7, 7]      [32, 512, 7, 7]      (2,359,296)          False
-        │    │    └─BatchNorm2d (bn2)            [32, 512, 7, 7]      [32, 512, 7, 7]      (1,024)              False
-        │    │    └─ReLU (relu)                  [32, 512, 7, 7]      [32, 512, 7, 7]      --                   --
-        │    │    └─Conv2d (conv3)               [32, 512, 7, 7]      [32, 2048, 7, 7]     (1,048,576)          False
-        │    │    └─BatchNorm2d (bn3)            [32, 2048, 7, 7]     [32, 2048, 7, 7]     (4,096)              False
-        │    │    └─ReLU (relu)                  [32, 2048, 7, 7]     [32, 2048, 7, 7]     --                   --
-        ├─AdaptiveAvgPool2d (avgpool)            [32, 2048, 7, 7]     [32, 2048, 1, 1]     --                   --
-        ├─Linear (fc)                            [32, 2048]           [32, 3]              6,147                True
-        ========================================================================================================================
-        Total params: 23,514,179
-        Trainable params: 6,147
-        Non-trainable params: 23,508,032
-        Total mult-adds (G): 130.79
-        ========================================================================================================================
-        Input size (MB): 19.27
-        Forward/backward pass size (MB): 5690.36
-        Params size (MB): 94.06
-        Estimated Total Size (MB): 5803.68
-        ========================================================================================================================</code></pre>
+Layer (type (var_name))                  Input Shape          Output Shape         Param #              Trainable
+========================================================================================================================
+ResNet (ResNet)                          [32, 3, 224, 224]    [32, 3]              --                   Partial
+├─Conv2d (conv1)                         [32, 3, 224, 224]    [32, 64, 112, 112]   (9,408)              False
+├─BatchNorm2d (bn1)                      [32, 64, 112, 112]   [32, 64, 112, 112]   (128)                False
+├─ReLU (relu)                            [32, 64, 112, 112]   [32, 64, 112, 112]   --                   --
+├─MaxPool2d (maxpool)                    [32, 64, 112, 112]   [32, 64, 56, 56]     --                   --
+├─Sequential (layer1)                    [32, 64, 56, 56]     [32, 256, 56, 56]    --                   False
+│    └─Bottleneck (0)                    [32, 64, 56, 56]     [32, 256, 56, 56]    --                   False
+│    │    └─Conv2d (conv1)               [32, 64, 56, 56]     [32, 64, 56, 56]     (4,096)              False
+│    │    └─BatchNorm2d (bn1)            [32, 64, 56, 56]     [32, 64, 56, 56]     (128)                False
+│    │    └─ReLU (relu)                  [32, 64, 56, 56]     [32, 64, 56, 56]     --                   --
+│    │    └─Conv2d (conv2)               [32, 64, 56, 56]     [32, 64, 56, 56]     (36,864)             False
+│    │    └─BatchNorm2d (bn2)            [32, 64, 56, 56]     [32, 64, 56, 56]     (128)                False
+│    │    └─ReLU (relu)                  [32, 64, 56, 56]     [32, 64, 56, 56]     --                   --
+│    │    └─Conv2d (conv3)               [32, 64, 56, 56]     [32, 256, 56, 56]    (16,384)             False
+│    │    └─BatchNorm2d (bn3)            [32, 256, 56, 56]    [32, 256, 56, 56]    (512)                False
+│    │    └─Sequential (downsample)      [32, 64, 56, 56]     [32, 256, 56, 56]    (16,896)             False
+│    │    └─ReLU (relu)                  [32, 256, 56, 56]    [32, 256, 56, 56]    --                   --
+│    └─Bottleneck (1)                    [32, 256, 56, 56]    [32, 256, 56, 56]    --                   False
+│    │    └─Conv2d (conv1)               [32, 256, 56, 56]    [32, 64, 56, 56]     (16,384)             False
+│    │    └─BatchNorm2d (bn1)            [32, 64, 56, 56]     [32, 64, 56, 56]     (128)                False
+│    │    └─ReLU (relu)                  [32, 64, 56, 56]     [32, 64, 56, 56]     --                   --
+│    │    └─Conv2d (conv2)               [32, 64, 56, 56]     [32, 64, 56, 56]     (36,864)             False
+│    │    └─BatchNorm2d (bn2)            [32, 64, 56, 56]     [32, 64, 56, 56]     (128)                False
+│    │    └─ReLU (relu)                  [32, 64, 56, 56]     [32, 64, 56, 56]     --                   --
+│    │    └─Conv2d (conv3)               [32, 64, 56, 56]     [32, 256, 56, 56]    (16,384)             False
+│    │    └─BatchNorm2d (bn3)            [32, 256, 56, 56]    [32, 256, 56, 56]    (512)                False
+│    │    └─ReLU (relu)                  [32, 256, 56, 56]    [32, 256, 56, 56]    --                   --
+│    └─Bottleneck (2)                    [32, 256, 56, 56]    [32, 256, 56, 56]    --                   False
+│    │    └─Conv2d (conv1)               [32, 256, 56, 56]    [32, 64, 56, 56]     (16,384)             False
+│    │    └─BatchNorm2d (bn1)            [32, 64, 56, 56]     [32, 64, 56, 56]     (128)                False
+│    │    └─ReLU (relu)                  [32, 64, 56, 56]     [32, 64, 56, 56]     --                   --
+│    │    └─Conv2d (conv2)               [32, 64, 56, 56]     [32, 64, 56, 56]     (36,864)             False
+│    │    └─BatchNorm2d (bn2)            [32, 64, 56, 56]     [32, 64, 56, 56]     (128)                False
+│    │    └─ReLU (relu)                  [32, 64, 56, 56]     [32, 64, 56, 56]     --                   --
+│    │    └─Conv2d (conv3)               [32, 64, 56, 56]     [32, 256, 56, 56]    (16,384)             False
+│    │    └─BatchNorm2d (bn3)            [32, 256, 56, 56]    [32, 256, 56, 56]    (512)                False
+│    │    └─ReLU (relu)                  [32, 256, 56, 56]    [32, 256, 56, 56]    --                   --
+├─Sequential (layer2)                    [32, 256, 56, 56]    [32, 512, 28, 28]    --                   False
+│    └─Bottleneck (0)                    [32, 256, 56, 56]    [32, 512, 28, 28]    --                   False
+│    │    └─Conv2d (conv1)               [32, 256, 56, 56]    [32, 128, 56, 56]    (32,768)             False
+│    │    └─BatchNorm2d (bn1)            [32, 128, 56, 56]    [32, 128, 56, 56]    (256)                False
+│    │    └─ReLU (relu)                  [32, 128, 56, 56]    [32, 128, 56, 56]    --                   --
+│    │    └─Conv2d (conv2)               [32, 128, 56, 56]    [32, 128, 28, 28]    (147,456)            False
+│    │    └─BatchNorm2d (bn2)            [32, 128, 28, 28]    [32, 128, 28, 28]    (256)                False
+│    │    └─ReLU (relu)                  [32, 128, 28, 28]    [32, 128, 28, 28]    --                   --
+│    │    └─Conv2d (conv3)               [32, 128, 28, 28]    [32, 512, 28, 28]    (65,536)             False
+│    │    └─BatchNorm2d (bn3)            [32, 512, 28, 28]    [32, 512, 28, 28]    (1,024)              False
+│    │    └─Sequential (downsample)      [32, 256, 56, 56]    [32, 512, 28, 28]    (132,096)            False
+│    │    └─ReLU (relu)                  [32, 512, 28, 28]    [32, 512, 28, 28]    --                   --
+│    └─Bottleneck (1)                    [32, 512, 28, 28]    [32, 512, 28, 28]    --                   False
+│    │    └─Conv2d (conv1)               [32, 512, 28, 28]    [32, 128, 28, 28]    (65,536)             False
+│    │    └─BatchNorm2d (bn1)            [32, 128, 28, 28]    [32, 128, 28, 28]    (256)                False
+│    │    └─ReLU (relu)                  [32, 128, 28, 28]    [32, 128, 28, 28]    --                   --
+│    │    └─Conv2d (conv2)               [32, 128, 28, 28]    [32, 128, 28, 28]    (147,456)            False
+│    │    └─BatchNorm2d (bn2)            [32, 128, 28, 28]    [32, 128, 28, 28]    (256)                False
+│    │    └─ReLU (relu)                  [32, 128, 28, 28]    [32, 128, 28, 28]    --                   --
+│    │    └─Conv2d (conv3)               [32, 128, 28, 28]    [32, 512, 28, 28]    (65,536)             False
+│    │    └─BatchNorm2d (bn3)            [32, 512, 28, 28]    [32, 512, 28, 28]    (1,024)              False
+│    │    └─ReLU (relu)                  [32, 512, 28, 28]    [32, 512, 28, 28]    --                   --
+│    └─Bottleneck (2)                    [32, 512, 28, 28]    [32, 512, 28, 28]    --                   False
+│    │    └─Conv2d (conv1)               [32, 512, 28, 28]    [32, 128, 28, 28]    (65,536)             False
+│    │    └─BatchNorm2d (bn1)            [32, 128, 28, 28]    [32, 128, 28, 28]    (256)                False
+│    │    └─ReLU (relu)                  [32, 128, 28, 28]    [32, 128, 28, 28]    --                   --
+│    │    └─Conv2d (conv2)               [32, 128, 28, 28]    [32, 128, 28, 28]    (147,456)            False
+│    │    └─BatchNorm2d (bn2)            [32, 128, 28, 28]    [32, 128, 28, 28]    (256)                False
+│    │    └─ReLU (relu)                  [32, 128, 28, 28]    [32, 128, 28, 28]    --                   --
+│    │    └─Conv2d (conv3)               [32, 128, 28, 28]    [32, 512, 28, 28]    (65,536)             False
+│    │    └─BatchNorm2d (bn3)            [32, 512, 28, 28]    [32, 512, 28, 28]    (1,024)              False
+│    │    └─ReLU (relu)                  [32, 512, 28, 28]    [32, 512, 28, 28]    --                   --
+│    └─Bottleneck (3)                    [32, 512, 28, 28]    [32, 512, 28, 28]    --                   False
+│    │    └─Conv2d (conv1)               [32, 512, 28, 28]    [32, 128, 28, 28]    (65,536)             False
+│    │    └─BatchNorm2d (bn1)            [32, 128, 28, 28]    [32, 128, 28, 28]    (256)                False
+│    │    └─ReLU (relu)                  [32, 128, 28, 28]    [32, 128, 28, 28]    --                   --
+│    │    └─Conv2d (conv2)               [32, 128, 28, 28]    [32, 128, 28, 28]    (147,456)            False
+│    │    └─BatchNorm2d (bn2)            [32, 128, 28, 28]    [32, 128, 28, 28]    (256)                False
+│    │    └─ReLU (relu)                  [32, 128, 28, 28]    [32, 128, 28, 28]    --                   --
+│    │    └─Conv2d (conv3)               [32, 128, 28, 28]    [32, 512, 28, 28]    (65,536)             False
+│    │    └─BatchNorm2d (bn3)            [32, 512, 28, 28]    [32, 512, 28, 28]    (1,024)              False
+│    │    └─ReLU (relu)                  [32, 512, 28, 28]    [32, 512, 28, 28]    --                   --
+├─Sequential (layer3)                    [32, 512, 28, 28]    [32, 1024, 14, 14]   --                   False
+│    └─Bottleneck (0)                    [32, 512, 28, 28]    [32, 1024, 14, 14]   --                   False
+│    │    └─Conv2d (conv1)               [32, 512, 28, 28]    [32, 256, 28, 28]    (131,072)            False
+│    │    └─BatchNorm2d (bn1)            [32, 256, 28, 28]    [32, 256, 28, 28]    (512)                False
+│    │    └─ReLU (relu)                  [32, 256, 28, 28]    [32, 256, 28, 28]    --                   --
+│    │    └─Conv2d (conv2)               [32, 256, 28, 28]    [32, 256, 14, 14]    (589,824)            False
+│    │    └─BatchNorm2d (bn2)            [32, 256, 14, 14]    [32, 256, 14, 14]    (512)                False
+│    │    └─ReLU (relu)                  [32, 256, 14, 14]    [32, 256, 14, 14]    --                   --
+│    │    └─Conv2d (conv3)               [32, 256, 14, 14]    [32, 1024, 14, 14]   (262,144)            False
+│    │    └─BatchNorm2d (bn3)            [32, 1024, 14, 14]   [32, 1024, 14, 14]   (2,048)              False
+│    │    └─Sequential (downsample)      [32, 512, 28, 28]    [32, 1024, 14, 14]   (526,336)            False
+│    │    └─ReLU (relu)                  [32, 1024, 14, 14]   [32, 1024, 14, 14]   --                   --
+│    └─Bottleneck (1)                    [32, 1024, 14, 14]   [32, 1024, 14, 14]   --                   False
+│    │    └─Conv2d (conv1)               [32, 1024, 14, 14]   [32, 256, 14, 14]    (262,144)            False
+│    │    └─BatchNorm2d (bn1)            [32, 256, 14, 14]    [32, 256, 14, 14]    (512)                False
+│    │    └─ReLU (relu)                  [32, 256, 14, 14]    [32, 256, 14, 14]    --                   --
+│    │    └─Conv2d (conv2)               [32, 256, 14, 14]    [32, 256, 14, 14]    (589,824)            False
+│    │    └─BatchNorm2d (bn2)            [32, 256, 14, 14]    [32, 256, 14, 14]    (512)                False
+│    │    └─ReLU (relu)                  [32, 256, 14, 14]    [32, 256, 14, 14]    --                   --
+│    │    └─Conv2d (conv3)               [32, 256, 14, 14]    [32, 1024, 14, 14]   (262,144)            False
+│    │    └─BatchNorm2d (bn3)            [32, 1024, 14, 14]   [32, 1024, 14, 14]   (2,048)              False
+│    │    └─ReLU (relu)                  [32, 1024, 14, 14]   [32, 1024, 14, 14]   --                   --
+│    └─Bottleneck (2)                    [32, 1024, 14, 14]   [32, 1024, 14, 14]   --                   False
+│    │    └─Conv2d (conv1)               [32, 1024, 14, 14]   [32, 256, 14, 14]    (262,144)            False
+│    │    └─BatchNorm2d (bn1)            [32, 256, 14, 14]    [32, 256, 14, 14]    (512)                False
+│    │    └─ReLU (relu)                  [32, 256, 14, 14]    [32, 256, 14, 14]    --                   --
+│    │    └─Conv2d (conv2)               [32, 256, 14, 14]    [32, 256, 14, 14]    (589,824)            False
+│    │    └─BatchNorm2d (bn2)            [32, 256, 14, 14]    [32, 256, 14, 14]    (512)                False
+│    │    └─ReLU (relu)                  [32, 256, 14, 14]    [32, 256, 14, 14]    --                   --
+│    │    └─Conv2d (conv3)               [32, 256, 14, 14]    [32, 1024, 14, 14]   (262,144)            False
+│    │    └─BatchNorm2d (bn3)            [32, 1024, 14, 14]   [32, 1024, 14, 14]   (2,048)              False
+│    │    └─ReLU (relu)                  [32, 1024, 14, 14]   [32, 1024, 14, 14]   --                   --
+│    └─Bottleneck (3)                    [32, 1024, 14, 14]   [32, 1024, 14, 14]   --                   False
+│    │    └─Conv2d (conv1)               [32, 1024, 14, 14]   [32, 256, 14, 14]    (262,144)            False
+│    │    └─BatchNorm2d (bn1)            [32, 256, 14, 14]    [32, 256, 14, 14]    (512)                False
+│    │    └─ReLU (relu)                  [32, 256, 14, 14]    [32, 256, 14, 14]    --                   --
+│    │    └─Conv2d (conv2)               [32, 256, 14, 14]    [32, 256, 14, 14]    (589,824)            False
+│    │    └─BatchNorm2d (bn2)            [32, 256, 14, 14]    [32, 256, 14, 14]    (512)                False
+│    │    └─ReLU (relu)                  [32, 256, 14, 14]    [32, 256, 14, 14]    --                   --
+│    │    └─Conv2d (conv3)               [32, 256, 14, 14]    [32, 1024, 14, 14]   (262,144)            False
+│    │    └─BatchNorm2d (bn3)            [32, 1024, 14, 14]   [32, 1024, 14, 14]   (2,048)              False
+│    │    └─ReLU (relu)                  [32, 1024, 14, 14]   [32, 1024, 14, 14]   --                   --
+│    └─Bottleneck (4)                    [32, 1024, 14, 14]   [32, 1024, 14, 14]   --                   False
+│    │    └─Conv2d (conv1)               [32, 1024, 14, 14]   [32, 256, 14, 14]    (262,144)            False
+│    │    └─BatchNorm2d (bn1)            [32, 256, 14, 14]    [32, 256, 14, 14]    (512)                False
+│    │    └─ReLU (relu)                  [32, 256, 14, 14]    [32, 256, 14, 14]    --                   --
+│    │    └─Conv2d (conv2)               [32, 256, 14, 14]    [32, 256, 14, 14]    (589,824)            False
+│    │    └─BatchNorm2d (bn2)            [32, 256, 14, 14]    [32, 256, 14, 14]    (512)                False
+│    │    └─ReLU (relu)                  [32, 256, 14, 14]    [32, 256, 14, 14]    --                   --
+│    │    └─Conv2d (conv3)               [32, 256, 14, 14]    [32, 1024, 14, 14]   (262,144)            False
+│    │    └─BatchNorm2d (bn3)            [32, 1024, 14, 14]   [32, 1024, 14, 14]   (2,048)              False
+│    │    └─ReLU (relu)                  [32, 1024, 14, 14]   [32, 1024, 14, 14]   --                   --
+│    └─Bottleneck (5)                    [32, 1024, 14, 14]   [32, 1024, 14, 14]   --                   False
+│    │    └─Conv2d (conv1)               [32, 1024, 14, 14]   [32, 256, 14, 14]    (262,144)            False
+│    │    └─BatchNorm2d (bn1)            [32, 256, 14, 14]    [32, 256, 14, 14]    (512)                False
+│    │    └─ReLU (relu)                  [32, 256, 14, 14]    [32, 256, 14, 14]    --                   --
+│    │    └─Conv2d (conv2)               [32, 256, 14, 14]    [32, 256, 14, 14]    (589,824)            False
+│    │    └─BatchNorm2d (bn2)            [32, 256, 14, 14]    [32, 256, 14, 14]    (512)                False
+│    │    └─ReLU (relu)                  [32, 256, 14, 14]    [32, 256, 14, 14]    --                   --
+│    │    └─Conv2d (conv3)               [32, 256, 14, 14]    [32, 1024, 14, 14]   (262,144)            False
+│    │    └─BatchNorm2d (bn3)            [32, 1024, 14, 14]   [32, 1024, 14, 14]   (2,048)              False
+│    │    └─ReLU (relu)                  [32, 1024, 14, 14]   [32, 1024, 14, 14]   --                   --
+├─Sequential (layer4)                    [32, 1024, 14, 14]   [32, 2048, 7, 7]     --                   False
+│    └─Bottleneck (0)                    [32, 1024, 14, 14]   [32, 2048, 7, 7]     --                   False
+│    │    └─Conv2d (conv1)               [32, 1024, 14, 14]   [32, 512, 14, 14]    (524,288)            False
+│    │    └─BatchNorm2d (bn1)            [32, 512, 14, 14]    [32, 512, 14, 14]    (1,024)              False
+│    │    └─ReLU (relu)                  [32, 512, 14, 14]    [32, 512, 14, 14]    --                   --
+│    │    └─Conv2d (conv2)               [32, 512, 14, 14]    [32, 512, 7, 7]      (2,359,296)          False
+│    │    └─BatchNorm2d (bn2)            [32, 512, 7, 7]      [32, 512, 7, 7]      (1,024)              False
+│    │    └─ReLU (relu)                  [32, 512, 7, 7]      [32, 512, 7, 7]      --                   --
+│    │    └─Conv2d (conv3)               [32, 512, 7, 7]      [32, 2048, 7, 7]     (1,048,576)          False
+│    │    └─BatchNorm2d (bn3)            [32, 2048, 7, 7]     [32, 2048, 7, 7]     (4,096)              False
+│    │    └─Sequential (downsample)      [32, 1024, 14, 14]   [32, 2048, 7, 7]     (2,101,248)          False
+│    │    └─ReLU (relu)                  [32, 2048, 7, 7]     [32, 2048, 7, 7]     --                   --
+│    └─Bottleneck (1)                    [32, 2048, 7, 7]     [32, 2048, 7, 7]     --                   False
+│    │    └─Conv2d (conv1)               [32, 2048, 7, 7]     [32, 512, 7, 7]      (1,048,576)          False
+│    │    └─BatchNorm2d (bn1)            [32, 512, 7, 7]      [32, 512, 7, 7]      (1,024)              False
+│    │    └─ReLU (relu)                  [32, 512, 7, 7]      [32, 512, 7, 7]      --                   --
+│    │    └─Conv2d (conv2)               [32, 512, 7, 7]      [32, 512, 7, 7]      (2,359,296)          False
+│    │    └─BatchNorm2d (bn2)            [32, 512, 7, 7]      [32, 512, 7, 7]      (1,024)              False
+│    │    └─ReLU (relu)                  [32, 512, 7, 7]      [32, 512, 7, 7]      --                   --
+│    │    └─Conv2d (conv3)               [32, 512, 7, 7]      [32, 2048, 7, 7]     (1,048,576)          False
+│    │    └─BatchNorm2d (bn3)            [32, 2048, 7, 7]     [32, 2048, 7, 7]     (4,096)              False
+│    │    └─ReLU (relu)                  [32, 2048, 7, 7]     [32, 2048, 7, 7]     --                   --
+│    └─Bottleneck (2)                    [32, 2048, 7, 7]     [32, 2048, 7, 7]     --                   False
+│    │    └─Conv2d (conv1)               [32, 2048, 7, 7]     [32, 512, 7, 7]      (1,048,576)          False
+│    │    └─BatchNorm2d (bn1)            [32, 512, 7, 7]      [32, 512, 7, 7]      (1,024)              False
+│    │    └─ReLU (relu)                  [32, 512, 7, 7]      [32, 512, 7, 7]      --                   --
+│    │    └─Conv2d (conv2)               [32, 512, 7, 7]      [32, 512, 7, 7]      (2,359,296)          False
+│    │    └─BatchNorm2d (bn2)            [32, 512, 7, 7]      [32, 512, 7, 7]      (1,024)              False
+│    │    └─ReLU (relu)                  [32, 512, 7, 7]      [32, 512, 7, 7]      --                   --
+│    │    └─Conv2d (conv3)               [32, 512, 7, 7]      [32, 2048, 7, 7]     (1,048,576)          False
+│    │    └─BatchNorm2d (bn3)            [32, 2048, 7, 7]     [32, 2048, 7, 7]     (4,096)              False
+│    │    └─ReLU (relu)                  [32, 2048, 7, 7]     [32, 2048, 7, 7]     --                   --
+├─AdaptiveAvgPool2d (avgpool)            [32, 2048, 7, 7]     [32, 2048, 1, 1]     --                   --
+├─Linear (fc)                            [32, 2048]           [32, 3]              6,147                True
+========================================================================================================================
+Total params: 23,514,179
+Trainable params: 6,147
+Non-trainable params: 23,508,032
+Total mult-adds (G): 130.79
+========================================================================================================================
+Input size (MB): 19.27
+Forward/backward pass size (MB): 5690.36
+Params size (MB): 94.06
+Estimated Total Size (MB): 5803.68
+========================================================================================================================</code></pre>
   <p class="blog-post_paragraph">
     You can see from the summary that now the only part of the model that is
     trainable is the last layer which is our new classifier layer.
@@ -2740,48 +2739,47 @@ summary(model=resnet50_model_0,
   <pre
     class="line-numbers"
   ><code class="language-python">def create_resnet50_model(num_out_classes: int = 10,
-                              frozen: bool = True,
-                              compiled: bool = False,
-                              device: str = device,
-                              ) -> torch.nn.Module:
-        
-        """
-        Create a transfer learning model based off ResNet50 architecture for classification.
-        
-        Args:
-        num_out_classes (int, optional): Number of output classes. Defaults to 10.
-        frozen (bool, optional): Whether to freeze the base layers. Defaults to True.
-        compiled (bool, optional): Whether to compile the model. Defaults to False.
-        device (str, optional): Device to load the model onto. Defaults to device.
-        
-        Returns:
-        torch.nn.Module: ResNet50 model.
-        torchvision.transforms: Transforms used to create pretrained weights.
-        """
-        
-        # Get the optimal model weights
-        weights = torchvision.models.ResNet50_Weights.DEFAULT
-        
-        # Get the transforms used to create our pre-trained weights
-        auto_transforms = weights.transforms()
-        
-        # Create the model
-        resnet50_model = torchvision.models.resnet50(weights=weights).to(device)
-        
-        # Freeze all base layers of the model
-        if frozen:
-        for param in resnet50_model.parameters():
-          param.requires_grad = False
-        
-        # Recreate the fc layer and seed it to the target device
-        resnet50_model.fc = torch.nn.Linear(in_features=2048,
-                                          out_features=num_out_classes,
-                                          bias=True).to(device)
-        
-        if compiled:
-        resnet50_model = torch.compile(resnet50_model).to(device)
-        
-        return resnet50_model, auto_transforms</code></pre>
+                          frozen: bool = True,
+                          compiled: bool = False,
+                          device: str = device,
+                          ) -> torch.nn.Module:
+  """
+  Create a transfer learning model based off ResNet50 architecture for classification.
+
+  Args:
+    num_out_classes (int, optional): Number of output classes. Defaults to 10.
+    frozen (bool, optional): Whether to freeze the base layers. Defaults to True.
+    compiled (bool, optional): Whether to compile the model. Defaults to False.
+    device (str, optional): Device to load the model onto. Defaults to device.
+
+  Returns:
+    torch.nn.Module: ResNet50 model.
+    torchvision.transforms: Transforms used to create pretrained weights.
+  """
+  
+  # Get the optimal model weights
+  weights = torchvision.models.ResNet50_Weights.DEFAULT
+
+  # Get the transforms used to create our pre-trained weights
+  auto_transforms = weights.transforms()
+
+  # Create the model
+  resnet50_model = torchvision.models.resnet50(weights=weights).to(device)
+
+  # Freeze all base layers of the model
+  if frozen:
+    for param in resnet50_model.parameters():
+      param.requires_grad = False
+
+  # Recreate the fc layer and seed it to the target device
+  resnet50_model.fc = torch.nn.Linear(in_features=2048,
+                                      out_features=num_out_classes,
+                                      bias=True).to(device)
+  
+  if compiled:
+    resnet50_model = torch.compile(resnet50_model).to(device)
+
+  return resnet50_model, auto_transforms</code></pre>
   <p class="blog-post_paragraph">
     Now that both our custom and transfer learning models are ready to go, we
     can finally begin training them.
@@ -2799,380 +2797,378 @@ summary(model=resnet50_model_0,
   <pre
     class="line-numbers"
   ><code class="language-python">def train_step(model: torch.nn.Module,
-                   dataloader: torch.utils.data.DataLoader,
-                   loss_fn: torch.nn.Module,
-                   optimizer: torch.optim.Optimizer,
-                   return_preds: bool = False):
-        """
-        Perform a single training step on the given model using the provided data.
-        
-        Parameters:
-        model (torch.nn.Module): The neural network model.
-        dataloader (torch.utils.data.DataLoader): DataLoader providing the training data.
-        loss_fn (torch.nn.Module): Loss function to compute the loss.
-        optimizer (torch.optim.Optimizer): Optimizer to update the model parameters.
-        return_preds (bool): Whether to return predictions along with loss and accuracy. Default is False.
-        
-        Returns:
-        Tuple[float, float]: A tuple containing the average loss and accuracy.
-        Optional[Tuple[float, float, torch.Tensor]]: If return_preds is True, also returns the predicted labels.
-        """
-        
-        # Put the model in train mode
-        model.train()
-        
-        # Setup train loss and train accuracy values
-        train_loss = 0
-        train_acc = 0
-        
-        # Set up list to keep track of all labels
-        all_pred_labels = []
-        
-        # Loop through data loader and data batches
-        for batch, (X_train, y_train) in enumerate(dataloader):
-        # Send data to target device
-        X_train = X_train.to(device)
-        y_train = y_train.to(device)
-        
-        # 1. Do forward pass
-        y_pred = model(X_train)
-        
-        # 2. Calculate and accumulate loss
-        loss_this_batch = loss_fn(y_pred, y_train)
-        train_loss += loss_this_batch.item()
-        
-        # 3. Zero the gradients
-        optimizer.zero_grad()
-        
-        # 4. Backpropagation
-        loss_this_batch.backward()
-        
-        # 5. Perform a step of the optimizer funciton
-        optimizer.step()
-        
-        # 6. Calculate and accumulate accuracy metric across all batches
-        y_pred_labels = torch.argmax(torch.softmax(y_pred, dim = 1), dim = 1)
-        acc_this_batch = (y_pred_labels == y_train).sum().item()/len(y_pred)
-        train_acc += acc_this_batch
-        
-        # Append the labels to the preds list
-        if return_preds:
-          all_pred_labels.append(y_pred_labels)
-        
-        # Adjust the metrics to get average loss and average accuracy per batch
-        train_loss /= len(dataloader)
-        train_acc /= len(dataloader)
-        
-        # Return predictions if specified
-        if return_preds:
-        all_pred_labels=torch.cat(all_pred_labels).cpu()
-        return train_loss, train_acc, all_pred_labels
-        
-        return train_loss, train_acc</code></pre>
+               dataloader: torch.utils.data.DataLoader,
+               loss_fn: torch.nn.Module,
+               optimizer: torch.optim.Optimizer,
+               return_preds: bool = False):
+  """
+  Perform a single training step on the given model using the provided data.
+
+  Parameters:
+    model (torch.nn.Module): The neural network model.
+    dataloader (torch.utils.data.DataLoader): DataLoader providing the training data.
+    loss_fn (torch.nn.Module): Loss function to compute the loss.
+    optimizer (torch.optim.Optimizer): Optimizer to update the model parameters.
+    return_preds (bool): Whether to return predictions along with loss and accuracy. Default is False.
+
+  Returns:
+    Tuple[float, float]: A tuple containing the average loss and accuracy.
+    Optional[Tuple[float, float, torch.Tensor]]: If return_preds is True, also returns the predicted labels.
+  """
+
+  # Put the model in train mode
+  model.train()
+
+  # Setup train loss and train accuracy values
+  train_loss = 0
+  train_acc = 0
+
+  # Set up list to keep track of all labels
+  all_pred_labels = []
+
+  # Loop through data loader and data batches
+  for batch, (X_train, y_train) in enumerate(dataloader):
+    # Send data to target device
+    X_train = X_train.to(device)
+    y_train = y_train.to(device)
+
+    # 1. Do forward pass
+    y_pred = model(X_train)
+
+    # 2. Calculate and accumulate loss
+    loss_this_batch = loss_fn(y_pred, y_train)
+    train_loss += loss_this_batch.item()
+
+    # 3. Zero the gradients
+    optimizer.zero_grad()
+
+    # 4. Backpropagation
+    loss_this_batch.backward()
+
+    # 5. Perform a step of the optimizer funciton
+    optimizer.step()
+
+    # 6. Calculate and accumulate accuracy metric across all batches
+    y_pred_labels = torch.argmax(torch.softmax(y_pred, dim = 1), dim = 1)
+    acc_this_batch = (y_pred_labels == y_train).sum().item()/len(y_pred)
+    train_acc += acc_this_batch
+
+    # Append the labels to the preds list
+    if return_preds:
+      all_pred_labels.append(y_pred_labels)
+
+  # Adjust the metrics to get average loss and average accuracy per batch
+  train_loss /= len(dataloader)
+  train_acc /= len(dataloader)
+
+  # Return predictions if specified
+  if return_preds:
+    all_pred_labels=torch.cat(all_pred_labels).cpu()
+    return train_loss, train_acc, all_pred_labels
+
+  return train_loss, train_acc</code></pre>
   <pre
     class="line-numbers"
   ><code class="language-python">def test_step(model: torch.nn.Module,
-                  dataloader: torch.utils.data.DataLoader,
-                  loss_fn: torch.nn.Module,
-                  return_preds: bool = False):
-        """
-        Perform a single testing step on the given model using the provided data.
-        
-        Parameters:
-        model (torch.nn.Module): The neural network model.
-        dataloader (torch.utils.data.DataLoader): DataLoader providing the testing data.
-        loss_fn (torch.nn.Module): Loss function to compute the loss.
-        return_preds (bool): Whether to return predictions along with loss and accuracy. Default is False.
-        
-        Returns:
-        Tuple[float, float]: A tuple containing the average loss and accuracy.
-        Optional[Tuple[float, float, torch.Tensor]]: If return_preds is True, also returns the predicted labels.
-        """
-        
-        # Put model in eval mode
-        model.eval()
-        
-        # Set up the test loss and test accuracy values
-        test_loss = 0
-        test_acc = 0
-        
-        # Set up list to keep track of all labels
-        all_pred_labels = []
-        
-        # Turn on inference mode context manager
-        with torch.inference_mode():
-        # Loop through the DataLoader batches
-        for batch, (X_test, y_test) in enumerate(dataloader):
-          # Send data to the target device
-          X_test = X_test.to(device)
-          y_test = y_test.to(device)
-        
-          # 1. Forward pass
-          test_pred_logits = model(X_test)
-        
-          # 2. Calculate and accumulate loss
-          loss_this_batch = loss_fn(test_pred_logits, y_test)
-          test_loss += loss_this_batch.item()
-        
-          # 3. Calculate and accumulate accuracy
-          test_pred_labels = torch.argmax(torch.softmax(test_pred_logits, dim = 1), dim = 1)
-          acc_this_batch = (test_pred_labels == y_test).sum().item() / len(test_pred_labels)
-          test_acc += acc_this_batch
-        
-          # Append the labels to the preds list
-          if return_preds:
-            all_pred_labels.append(test_pred_labels)
-        
-        # Adjust metrics to get an average loss and accuracy per batch
-        test_loss /= len(dataloader)
-        test_acc /= len(dataloader)
-        
-        # Return predictions if specified
-        if return_preds:
-          all_pred_labels=torch.cat(all_pred_labels).cpu()
-          return test_loss, test_acc, all_pred_labels
-        
-        return test_loss, test_acc
-        </code></pre>
+              dataloader: torch.utils.data.DataLoader,
+              loss_fn: torch.nn.Module,
+              return_preds: bool = False):
+  """
+  Perform a single testing step on the given model using the provided data.
+
+  Parameters:
+    model (torch.nn.Module): The neural network model.
+    dataloader (torch.utils.data.DataLoader): DataLoader providing the testing data.
+    loss_fn (torch.nn.Module): Loss function to compute the loss.
+    return_preds (bool): Whether to return predictions along with loss and accuracy. Default is False.
+
+  Returns:
+    Tuple[float, float]: A tuple containing the average loss and accuracy.
+    Optional[Tuple[float, float, torch.Tensor]]: If return_preds is True, also returns the predicted labels.
+  """
+
+  # Put model in eval mode
+  model.eval()
+
+  # Set up the test loss and test accuracy values
+  test_loss = 0
+  test_acc = 0
+
+  # Set up list to keep track of all labels
+  all_pred_labels = []
+
+  # Turn on inference mode context manager
+  with torch.inference_mode():
+    # Loop through the DataLoader batches
+    for batch, (X_test, y_test) in enumerate(dataloader):
+      # Send data to the target device
+      X_test = X_test.to(device)
+      y_test = y_test.to(device)
+
+      # 1. Forward pass
+      test_pred_logits = model(X_test)
+
+      # 2. Calculate and accumulate loss
+      loss_this_batch = loss_fn(test_pred_logits, y_test)
+      test_loss += loss_this_batch.item()
+
+      # 3. Calculate and accumulate accuracy
+      test_pred_labels = torch.argmax(torch.softmax(test_pred_logits, dim = 1), dim = 1)
+      acc_this_batch = (test_pred_labels == y_test).sum().item() / len(test_pred_labels)
+      test_acc += acc_this_batch
+
+      # Append the labels to the preds list
+      if return_preds:
+        all_pred_labels.append(test_pred_labels)
+
+    # Adjust metrics to get an average loss and accuracy per batch
+    test_loss /= len(dataloader)
+    test_acc /= len(dataloader)
+
+    # Return predictions if specified
+    if return_preds:
+      all_pred_labels=torch.cat(all_pred_labels).cpu()
+      return test_loss, test_acc, all_pred_labels
+
+    return test_loss, test_acc
+  </code></pre>
   <pre
     class="line-numbers"
   ><code class="language-python">def create_writer(experiment_name: str, 
-              model_name: str, 
-              extra: str=None) -> torch.utils.tensorboard.writer.SummaryWriter():
-        """Creates a torch.utils.tensorboard.writer.SummaryWriter() instance saving to a specific log_dir.
-        
-        log_dir is a combination of runs/timestamp/experiment_name/model_name/extra.
-        
-        Where timestamp is the current date in YYYY-MM-DD_HH:MM:SS format.
-        
-        Args:
-        experiment_name (str): Name of experiment.
-        model_name (str): Name of model.
-        extra (str, optional): Anything extra to add to the directory. Defaults to None.
-        
-        Returns:
-        torch.utils.tensorboard.writer.SummaryWriter(): Instance of a writer saving to log_dir.
-        
-        Example usage:
-        # Create a writer saving to "runs/2022-06-04_22:10:44/data_10_percent/effnetb2/5_epochs/"
-        writer = create_writer(experiment_name="data_10_percent",
-                               model_name="effnetb2",
-                               extra="5_epochs")
-        # The above is the same as:
-        writer = SummaryWriter(log_dir="runs/2022-06-04/data_10_percent/effnetb2/5_epochs/")
-        """
-        import os
-        
-        # Get timestamp of current date (all experiments on certain day live in same folder)
-        timestamp = datetime.now().strftime("%Y-%m-%d_%H:%M:%S") # returns current date in YYYY-MM-DD_HH:MM:SS format
-        
-        if extra:
-        # Create log directory path
-        log_dir = os.path.join("runs", timestamp, experiment_name, model_name, extra)
-        else:
-        log_dir = os.path.join("runs", timestamp, experiment_name, model_name)
-        
-        print(f"[INFO] Created SummaryWriter, saving to: {log_dir}...")
-        return SummaryWriter(log_dir=log_dir)</code></pre>
+          model_name: str, 
+          extra: str=None) -> torch.utils.tensorboard.writer.SummaryWriter():
+  """Creates a torch.utils.tensorboard.writer.SummaryWriter() instance saving to a specific log_dir.
+
+  log_dir is a combination of runs/timestamp/experiment_name/model_name/extra.
+
+  Where timestamp is the current date in YYYY-MM-DD_HH:MM:SS format.
+
+  Args:
+    experiment_name (str): Name of experiment.
+    model_name (str): Name of model.
+    extra (str, optional): Anything extra to add to the directory. Defaults to None.
+
+  Returns:
+    torch.utils.tensorboard.writer.SummaryWriter(): Instance of a writer saving to log_dir.
+
+  Example usage:
+    # Create a writer saving to "runs/2022-06-04_22:10:44/data_10_percent/effnetb2/5_epochs/"
+    writer = create_writer(experiment_name="data_10_percent",
+                           model_name="effnetb2",
+                           extra="5_epochs")
+    # The above is the same as:
+    writer = SummaryWriter(log_dir="runs/2022-06-04/data_10_percent/effnetb2/5_epochs/")
+  """
+  import os
+
+  # Get timestamp of current date (all experiments on certain day live in same folder)
+  timestamp = datetime.now().strftime("%Y-%m-%d_%H:%M:%S") # returns current date in YYYY-MM-DD_HH:MM:SS format
+
+  if extra:
+    # Create log directory path
+    log_dir = os.path.join("runs", timestamp, experiment_name, model_name, extra)
+  else:
+    log_dir = os.path.join("runs", timestamp, experiment_name, model_name)
+    
+  print(f"[INFO] Created SummaryWriter, saving to: {log_dir}...")
+  return SummaryWriter(log_dir=log_dir)</code></pre>
   <pre
     class="line-numbers"
   ><code class="language-python">def save_model(model: torch.nn.Module,
-                   target_dir: str,
-                   model_name: str):
-        """Saves a PyTorch model to a target directory.
-        Args:
-        model: A PyTorch model to save.
-        target_dir: a directory for saving the model to.
-        model_name: A filename for the saved model.
-                    Should include either ".pth" or ".pt" as the file extension.
-        Example usage:
-        save_model(model = model_0,
-                 target_dir = "models",
-                 model_name = "05_going_modular_tinyvgg_model.pth")
-        """
-        # Create target directory
-        target_dir_path = Path(target_dir)
-        target_dir_path.mkdir(parents = True, exist_ok = True)
-        
-        # Create model save path
-        assert model_name.endswith(".pth") or model_name.endswith(".pt"),  "model_name should end with '.pt' or '.pth'"
-        model_save_path = target_dir_path / model_name
-        
-        # Save the model state_dict()
-        print(f"[INFO] Saving model to: {model_save_path}")
-        torch.save(obj = model.state_dict(), f = model_save_path)</code></pre>
+               target_dir: str,
+               model_name: str):
+  """Saves a PyTorch model to a target directory.
+  Args:
+    model: A PyTorch model to save.
+    target_dir: a directory for saving the model to.
+    model_name: A filename for the saved model.
+                Should include either ".pth" or ".pt" as the file extension.
+  Example usage:
+  save_model(model = model_0,
+             target_dir = "models",
+             model_name = "05_going_modular_tinyvgg_model.pth")
+  """
+  # Create target directory
+  target_dir_path = Path(target_dir)
+  target_dir_path.mkdir(parents = True, exist_ok = True)
+
+  # Create model save path
+  assert model_name.endswith(".pth") or model_name.endswith(".pt"),  "model_name should end with '.pt' or '.pth'"
+  model_save_path = target_dir_path / model_name
+
+  # Save the model state_dict()
+  print(f"[INFO] Saving model to: {model_save_path}")
+  torch.save(obj = model.state_dict(), f = model_save_path)</code></pre>
   <pre
     class="line-numbers"
   ><code class="language-python">def train(model: torch.nn.Module,
-              sample_from_dir: str = "./variant-caller-data",
-              output_dir: str = "data/",
-              p_data_to_sample: float = 1.0,
-              sample_all_splits: Tuple[bool, List[str]] = (True, _),
-              sample_all_seq_errors: Tuple[bool, List[int]] = (True, _),
-              sample_all_align_errors: Tuple[bool, List[int]] = (True, _),
-              sample_all_mutations: Tuple[bool, List[str]] = (True, _),
-              set_rand_seed: Tuple[bool, int] = (False, _),
-              transform: torchvision.transforms = transforms.ToTensor(), # transforms to perform on data (images)
-              target_transform: torchvision.transforms = None,  # transforms to perform on labels (if necessary)
-              batch_size: int = 1,
-              shuffle_train: bool = True,
-              shuffle_test: bool = True,
-              num_workers: int = 0,
-              optimizer: torch.optim.Optimizer = torch.optim.Adam,
-              learning_rate: float = 0.001,
-              loss_fn: torch.nn.Module = nn.CrossEntropyLoss(),
-              epochs: int = 5,
-              writer: torch.utils.tensorboard.writer.SummaryWriter = None
-              ) -> Dict[str, List[float]]:
-        
-        """
-        Train the given model using the provided data and hyperparameters.
-        
-        Parameters:
-        model (torch.nn.Module): The neural network model.
-        sample_from_dir (str): Path to the directory containing the data to sample from. Default is "./variant-caller-data".
-        output_dir (str): Directory to save the sampled data. Default is "data/".
-        p_data_to_sample (float): Proportion of data to sample from the original dataset. Default is 1.0.
-        sample_all_splits (Tuple[bool, List[str]]): Tuple indicating whether to sample all splits and which splits to sample. Default is (True, _).
-        sample_all_seq_errors (Tuple[bool, List[int]]): Tuple indicating whether to sample all sequencing errors and which errors to sample. Default is (True, _).
-        sample_all_align_errors (Tuple[bool, List[int]]): Tuple indicating whether to sample all alignment errors and which errors to sample. Default is (True, _).
-        sample_all_mutations (Tuple[bool, List[str]]): Tuple indicating whether to sample all mutations and which mutations to sample. Default is (True, _).
-        set_rand_seed (Tuple[bool, int]): Tuple indicating whether to set a random seed for sampling and the seed value. Default is (False, _).
-        transform (torchvision.transforms): Transforms to perform on data (images). Default is transforms.ToTensor().
-        target_transform (torchvision.transforms): Transforms to perform on labels (if necessary). Default is None.
-        batch_size (int): Batch size for training and testing. Default is 1.
-        shuffle_train (bool): Whether to shuffle the training data loader. Default is True.
-        shuffle_test (bool): Whether to shuffle the testing data loader. Default is True.
-        num_workers (int): Number of subprocesses to use for data loading. Default is 0.
-        optimizer (torch.optim.Optimizer): Optimizer function to use for training. Default is torch.optim.Adam.
-        learning_rate (float): Learning rate for the optimizer. Default is 0.001.
-        loss_fn (torch.nn.Module): Loss function to compute the loss. Default is nn.CrossEntropyLoss().
-        epochs (int): Number of epochs to train the model. Default is 5.
-        writer (torch.utils.tensorboard.writer.SummaryWriter): SummaryWriter for logging training metrics. Default is None.
-        
-        Returns:
-        Dict[str, List[float]]: A dictionary containing training and testing metrics.
-        """
-        
-        # Start timing
-        time_start = timer()
-        
-        # Sample data
-        input_dir = Path(sample_from_dir)
-        sample_and_create_pytorch_compatible_dir_structure(input_dir,
-                                                         output_dir = output_dir,
-                                                         p_data_to_sample = p_data_to_sample,
-                                                         sample_all_splits = sample_all_splits,
-                                                         sample_all_seq_errors = sample_all_seq_errors,
-                                                         sample_all_align_errors = sample_all_align_errors,
-                                                         sample_all_mutations = sample_all_mutations,
-                                                         set_rand_seed = set_rand_seed)
-        
-        # Create datasets from sampled data
-        print("[INFO] Creating datasets from sampled data...")
-        data_path = Path(output_dir)
-        train_dir = data_path / "train"
-        test_dir = data_path / "test"
-        
-        train_data = create_dataset(data_dir = train_dir,
-                                transform = transform,
-                                target_transform = target_transform
-                                )
-        
-        test_data = create_dataset(data_dir = test_dir,
-                                transform = transform,
-                                target_transform = target_transform
-                                )
-        
-        # Create dataloaders
-        print("[INFO] Creating dataloaders...")
-        train_dataloader = create_dataloader(dataset = train_data,
-                                          batch_size = batch_size,
-                                          num_workers = num_workers,
-                                          shuffle = shuffle_train)
-        
-        test_dataloader = create_dataloader(dataset = test_data,
-                                          batch_size = batch_size,
-                                          num_workers = num_workers,
-                                          shuffle = shuffle_test)
-        
-        
-        print("[INFO] Training the model...")
-        # Create results dictionary
-        results = {"train_loss": [],
-                 "train_acc": [],
-                 "train_time": [],
-                 "test_loss": [],
-                 "test_acc": [],
-                 "test_time": [],
-                 "total_time": []}
-        
-        # Create optimizer
-        optimizer_fn = optimizer(model.parameters(), lr = learning_rate)
-        
-        # Loop through the training and testing steps for the number of epochs
-        for epoch in tqdm(range(epochs)):
-        # Train step
-        train_time_start = timer()
-        train_loss, train_acc = train_step(model = model,
-                                           dataloader = train_dataloader,
-                                           loss_fn = loss_fn,
-                                           optimizer = optimizer_fn)
-        train_time_end = timer()
-        train_time = round(train_time_end - train_time_start, 3)
-        # Test step
-        test_time_start = timer()
-        test_loss, test_acc = test_step(model = model,
-                                        dataloader = test_dataloader,
-                                        loss_fn = loss_fn)
-        test_time_end = timer()
-        test_time = round(test_time_end - test_time_start, 3)
-        # Print out what's happening
-        print(f"Epoch: {epoch + 1} | "
-              f"Train Loss: {train_loss:.4f} | "
-              f"Train Accuracy: {train_acc:.4f} | "
-              f"Test Loss: {test_loss:.4f} | "
-              f"Test Accuracy: {test_acc:.4f} "
-        )
-        
-        # Updates the results dictionary
-        results["train_loss"].append(train_loss)
-        results["train_acc"].append(train_acc)
-        results["train_time"].append(train_time)
-        results["test_loss"].append(test_loss)
-        results["test_acc"].append(test_acc)
-        results["test_time"].append(train_time)
-        
-        # See if there's a writer, if so, log to it
-        if writer:
-          # Add results to SummaryWriter
-          writer.add_scalars(main_tag="Loss",
-                             tag_scalar_dict={"train_loss": train_loss,
-                                              "test_loss": test_loss},
-                             global_step=epoch)
-          writer.add_scalars(main_tag="Accuracy",
-                             tag_scalar_dict={"train_acc": train_acc,
-                                              "test_acc": test_acc},
-                             global_step=epoch)
-          writer.add_scalars(main_tag="Time",
-                             tag_scalar_dict={"train_time": train_time,
-                                              "test_time": test_time},
-                             global_step=epoch)
-          # Close the writer
-          writer.close()
-        
-        # End timing
-        time_end = timer()
-        total_time = round(time_end - time_start, 3)
-        
-        if writer:
-        writer.add_scalars(main_tag="Total-time",
-                             tag_scalar_dict={"total_time": total_time})
-        # Close the writer
-        writer.close()
-        
-        # Return the results dictionary
-        return results</code></pre>
+          sample_from_dir: str = "./variant-caller-data",
+          output_dir: str = "data/",
+          p_data_to_sample: float = 1.0,
+          sample_all_splits: Tuple[bool, List[str]] = (True, _),
+          sample_all_seq_errors: Tuple[bool, List[int]] = (True, _),
+          sample_all_align_errors: Tuple[bool, List[int]] = (True, _),
+          sample_all_mutations: Tuple[bool, List[str]] = (True, _),
+          set_rand_seed: Tuple[bool, int] = (False, _),
+          transform: torchvision.transforms = transforms.ToTensor(), # transforms to perform on data (images)
+          target_transform: torchvision.transforms = None,  # transforms to perform on labels (if necessary)
+          batch_size: int = 1,
+          shuffle_train: bool = True,
+          shuffle_test: bool = True,
+          num_workers: int = 0,
+          optimizer: torch.optim.Optimizer = torch.optim.Adam,
+          learning_rate: float = 0.001,
+          loss_fn: torch.nn.Module = nn.CrossEntropyLoss(),
+          epochs: int = 5,
+          writer: torch.utils.tensorboard.writer.SummaryWriter = None
+          ) -> Dict[str, List[float]]:
+  """
+  Train the given model using the provided data and hyperparameters.
+
+  Parameters:
+    model (torch.nn.Module): The neural network model.
+    sample_from_dir (str): Path to the directory containing the data to sample from. Default is "./variant-caller-data".
+    output_dir (str): Directory to save the sampled data. Default is "data/".
+    p_data_to_sample (float): Proportion of data to sample from the original dataset. Default is 1.0.
+    sample_all_splits (Tuple[bool, List[str]]): Tuple indicating whether to sample all splits and which splits to sample. Default is (True, _).
+    sample_all_seq_errors (Tuple[bool, List[int]]): Tuple indicating whether to sample all sequencing errors and which errors to sample. Default is (True, _).
+    sample_all_align_errors (Tuple[bool, List[int]]): Tuple indicating whether to sample all alignment errors and which errors to sample. Default is (True, _).
+    sample_all_mutations (Tuple[bool, List[str]]): Tuple indicating whether to sample all mutations and which mutations to sample. Default is (True, _).
+    set_rand_seed (Tuple[bool, int]): Tuple indicating whether to set a random seed for sampling and the seed value. Default is (False, _).
+    transform (torchvision.transforms): Transforms to perform on data (images). Default is transforms.ToTensor().
+    target_transform (torchvision.transforms): Transforms to perform on labels (if necessary). Default is None.
+    batch_size (int): Batch size for training and testing. Default is 1.
+    shuffle_train (bool): Whether to shuffle the training data loader. Default is True.
+    shuffle_test (bool): Whether to shuffle the testing data loader. Default is True.
+    num_workers (int): Number of subprocesses to use for data loading. Default is 0.
+    optimizer (torch.optim.Optimizer): Optimizer function to use for training. Default is torch.optim.Adam.
+    learning_rate (float): Learning rate for the optimizer. Default is 0.001.
+    loss_fn (torch.nn.Module): Loss function to compute the loss. Default is nn.CrossEntropyLoss().
+    epochs (int): Number of epochs to train the model. Default is 5.
+    writer (torch.utils.tensorboard.writer.SummaryWriter): SummaryWriter for logging training metrics. Default is None.
+
+  Returns:
+    Dict[str, List[float]]: A dictionary containing training and testing metrics.
+  """
+
+  # Start timing
+  time_start = timer()
+
+  # Sample data
+  input_dir = Path(sample_from_dir)
+  sample_and_create_pytorch_compatible_dir_structure(input_dir,
+                                                     output_dir = output_dir,
+                                                     p_data_to_sample = p_data_to_sample,
+                                                     sample_all_splits = sample_all_splits,
+                                                     sample_all_seq_errors = sample_all_seq_errors,
+                                                     sample_all_align_errors = sample_all_align_errors,
+                                                     sample_all_mutations = sample_all_mutations,
+                                                     set_rand_seed = set_rand_seed)
+
+  # Create datasets from sampled data
+  print("[INFO] Creating datasets from sampled data...")
+  data_path = Path(output_dir)
+  train_dir = data_path / "train"
+  test_dir = data_path / "test"
+
+  train_data = create_dataset(data_dir = train_dir,
+                              transform = transform,
+                              target_transform = target_transform
+                              )
+
+  test_data = create_dataset(data_dir = test_dir,
+                             transform = transform,
+                             target_transform = target_transform
+                             )
+
+  # Create dataloaders
+  print("[INFO] Creating dataloaders...")
+  train_dataloader = create_dataloader(dataset = train_data,
+                                       batch_size = batch_size,
+                                       num_workers = num_workers,
+                                       shuffle = shuffle_train)
+
+  test_dataloader = create_dataloader(dataset = test_data,
+                                      batch_size = batch_size,
+                                      num_workers = num_workers,
+                                      shuffle = shuffle_test)
+
+  print("[INFO] Training the model...")
+  # Create results dictionary
+  results = {"train_loss": [],
+             "train_acc": [],
+             "train_time": [],
+             "test_loss": [],
+             "test_acc": [],
+             "test_time": [],
+             "total_time": []}
+
+  # Create optimizer
+  optimizer_fn = optimizer(model.parameters(), lr = learning_rate)
+
+  # Loop through the training and testing steps for the number of epochs
+  for epoch in tqdm(range(epochs)):
+    # Train step
+    train_time_start = timer()
+    train_loss, train_acc = train_step(model = model,
+                                       dataloader = train_dataloader,
+                                       loss_fn = loss_fn,
+                                       optimizer = optimizer_fn)
+    train_time_end = timer()
+    train_time = round(train_time_end - train_time_start, 3)
+    # Test step
+    test_time_start = timer()
+    test_loss, test_acc = test_step(model = model,
+                                    dataloader = test_dataloader,
+                                    loss_fn = loss_fn)
+    test_time_end = timer()
+    test_time = round(test_time_end - test_time_start, 3)
+    # Print out what's happening
+    print(f"Epoch: {epoch + 1} | "
+          f"Train Loss: {train_loss:.4f} | "
+          f"Train Accuracy: {train_acc:.4f} | "
+          f"Test Loss: {test_loss:.4f} | "
+          f"Test Accuracy: {test_acc:.4f} "
+    )
+
+    # Updates the results dictionary
+    results["train_loss"].append(train_loss)
+    results["train_acc"].append(train_acc)
+    results["train_time"].append(train_time)
+    results["test_loss"].append(test_loss)
+    results["test_acc"].append(test_acc)
+    results["test_time"].append(train_time)
+
+    # See if there's a writer, if so, log to it
+    if writer:
+      # Add results to SummaryWriter
+      writer.add_scalars(main_tag="Loss",
+                         tag_scalar_dict={"train_loss": train_loss,
+                                          "test_loss": test_loss},
+                         global_step=epoch)
+      writer.add_scalars(main_tag="Accuracy",
+                         tag_scalar_dict={"train_acc": train_acc,
+                                          "test_acc": test_acc},
+                         global_step=epoch)
+      writer.add_scalars(main_tag="Time",
+                         tag_scalar_dict={"train_time": train_time,
+                                          "test_time": test_time},
+                         global_step=epoch)
+      # Close the writer
+      writer.close()
+
+  # End timing
+  time_end = timer()
+  total_time = round(time_end - time_start, 3)
+
+  if writer:
+    writer.add_scalars(main_tag="Total-time",
+                       tag_scalar_dict={"total_time": total_time})
+    # Close the writer
+    writer.close()
+
+  # Return the results dictionary
+  return results</code></pre>
   <p class="blog-post_paragraph">
     Now that the functions are declared I'll define some common parameters to be
     used for the model training. The two most important ones are the optimizer
@@ -3199,10 +3195,10 @@ summary(model=resnet50_model_0,
   <pre
     class="line-numbers"
   ><code class="language-python">optimizer = torch.optim.Adam
-        loss_fn = nn.CrossEntropyLoss()
-        learning_rate = 0.001
-        num_workers = os.cpu_count()
-        batch_size = 32</code></pre>
+loss_fn = nn.CrossEntropyLoss()
+learning_rate = 0.001
+num_workers = os.cpu_count()
+batch_size = 32</code></pre>
   <p class="blog-post_paragraph">
     I'll also train the models for 10
     <a href="https://www.opentrain.ai/glossary/epoch-machine-learning"
@@ -3218,56 +3214,55 @@ summary(model=resnet50_model_0,
     there are no errors in the data.
   </p>
   <pre class="line-numbers"><code class="language-python">p_data_to_sample = 1.0
-        sample_all_seq_errors = (False, [0])
-        sample_all_align_errors = (False, [0])</code></pre>
+sample_all_seq_errors = (False, [0])
+sample_all_align_errors = (False, [0])</code></pre>
   <p class="blog-post_paragraph">
     The following code trains the variant caller built from scratch.
   </p>
   <pre
     class="line-numbers"
   ><code class="language-python">experiment_name = "benchmarking"
-        model_name = "tinyvgg_1"
-        extra = "no-error-data_30000-samples"
-        
-        tiny_vgg_transforms = transforms.Compose([transforms.ToTensor()])
-        
-        tinyvgg_1 = VariantCallerTinyVGG(input_shape = 3,
-                                      hidden_units = 10,
-                                      output_shape = len(class_names)
-                                      ).to(device)
-        
-        writer = create_writer(experiment_name = experiment_name,
-                            model_name = model_name,
-                            extra = extra)
-        
-        results_tinyvgg_1 = train(model = tinyvgg_1,
-                              p_data_to_sample = p_data_to_sample,
-                              sample_all_seq_errors = sample_all_seq_errors,
-                              sample_all_align_errors = sample_all_align_errors,
-                              transform = tiny_vgg_transforms,
-                              optimizer = optimizer,
-                              loss_fn = loss_fn,
-                              learning_rate = learning_rate,
-                              batch_size = batch_size,
-                              num_workers = num_workers,
-                              epochs = epochs,
-                              writer = writer)
-        
-        save_filepath = f"{experiment_name}_{model_name}_{extra}_{epochs}_epochs.pth"
-        save_model(model=tinyvgg_1, target_dir="models", model_name=save_filepath)
-        </code></pre>
+model_name = "tinyvgg_1"
+extra = "no-error-data_30000-samples"
+
+tiny_vgg_transforms = transforms.Compose([transforms.ToTensor()])
+
+tinyvgg_1 = VariantCallerTinyVGG(input_shape = 3,
+                                 hidden_units = 10,
+                                 output_shape = len(class_names)
+                                 ).to(device)
+
+writer = create_writer(experiment_name = experiment_name,
+                       model_name = model_name,
+                       extra = extra)
+
+results_tinyvgg_1 = train(model = tinyvgg_1,
+                          p_data_to_sample = p_data_to_sample,
+                          sample_all_seq_errors = sample_all_seq_errors,
+                          sample_all_align_errors = sample_all_align_errors,
+                          transform = tiny_vgg_transforms,
+                          optimizer = optimizer,
+                          loss_fn = loss_fn,
+                          learning_rate = learning_rate,
+                          batch_size = batch_size,
+                          num_workers = num_workers,
+                          epochs = epochs,
+                          writer = writer)
+
+save_filepath = f"{experiment_name}_{model_name}_{extra}_{epochs}_epochs.pth"
+save_model(model=tinyvgg_1, target_dir="models", model_name=save_filepath)</code></pre>
   <pre
     class="output no-lang-display"
   ><code class="language-output">Epoch: 1 | Train Loss: 0.9396 | Train Accuracy: 0.5080 | Test Loss: 0.0064 | Test Accuracy: 1.0000
-        Epoch: 2 | Train Loss: 0.0009 | Train Accuracy: 1.0000 | Test Loss: 0.0002 | Test Accuracy: 1.0000
-        Epoch: 3 | Train Loss: 0.0001 | Train Accuracy: 1.0000 | Test Loss: 0.0001 | Test Accuracy: 1.0000
-        Epoch: 4 | Train Loss: 0.0000 | Train Accuracy: 1.0000 | Test Loss: 0.0000 | Test Accuracy: 1.0000
-        Epoch: 5 | Train Loss: 0.0000 | Train Accuracy: 1.0000 | Test Loss: 0.0000 | Test Accuracy: 1.0000
-        Epoch: 6 | Train Loss: 0.0000 | Train Accuracy: 1.0000 | Test Loss: 0.0000 | Test Accuracy: 1.0000
-        Epoch: 7 | Train Loss: 0.0000 | Train Accuracy: 1.0000 | Test Loss: 0.0000 | Test Accuracy: 1.0000
-        Epoch: 8 | Train Loss: 0.0000 | Train Accuracy: 1.0000 | Test Loss: 0.0000 | Test Accuracy: 1.0000
-        Epoch: 9 | Train Loss: 0.0000 | Train Accuracy: 1.0000 | Test Loss: 0.0000 | Test Accuracy: 1.0000
-        Epoch: 10 | Train Loss: 0.0000 | Train Accuracy: 1.0000 | Test Loss: 0.0000 | Test Accuracy: 1.0000</code></pre>
+Epoch: 2 | Train Loss: 0.0009 | Train Accuracy: 1.0000 | Test Loss: 0.0002 | Test Accuracy: 1.0000
+Epoch: 3 | Train Loss: 0.0001 | Train Accuracy: 1.0000 | Test Loss: 0.0001 | Test Accuracy: 1.0000
+Epoch: 4 | Train Loss: 0.0000 | Train Accuracy: 1.0000 | Test Loss: 0.0000 | Test Accuracy: 1.0000
+Epoch: 5 | Train Loss: 0.0000 | Train Accuracy: 1.0000 | Test Loss: 0.0000 | Test Accuracy: 1.0000
+Epoch: 6 | Train Loss: 0.0000 | Train Accuracy: 1.0000 | Test Loss: 0.0000 | Test Accuracy: 1.0000
+Epoch: 7 | Train Loss: 0.0000 | Train Accuracy: 1.0000 | Test Loss: 0.0000 | Test Accuracy: 1.0000
+Epoch: 8 | Train Loss: 0.0000 | Train Accuracy: 1.0000 | Test Loss: 0.0000 | Test Accuracy: 1.0000
+Epoch: 9 | Train Loss: 0.0000 | Train Accuracy: 1.0000 | Test Loss: 0.0000 | Test Accuracy: 1.0000
+Epoch: 10 | Train Loss: 0.0000 | Train Accuracy: 1.0000 | Test Loss: 0.0000 | Test Accuracy: 1.0000</code></pre>
   <p class="blog-post_paragraph">
     To make sure the model is not overfitting or underfitting, it can be
     inightful to plot the loss and accuracy curves of the model. Overfitting
@@ -3294,95 +3289,95 @@ summary(model=resnet50_model_0,
   <pre
     class="line-numbers"
   ><code class="language-python">def tensorboard_to_df(logdir):
-        """
-        Convert TensorBoard event data to a pandas DataFrame.
-        
-        Args:
-        logdir (str): Path to the TensorBoard log directory.
-        
-        Returns:
-        pd.DataFrame: DataFrame containing the scalar data from the TensorBoard events.
-        """
-        
-        # Load TensorBoard event accumulator
-        event_acc = EventAccumulator(logdir)
-        event_acc.Reload()
-        
-        # Extract tags and metrics
-        tags = event_acc.Tags()['scalars']
-        data = {}
-        
-        for tag in tags:
-        tag_values = event_acc.Scalars(tag)
-        if tag_values:
-          steps = [v.step for v in tag_values]
-          values = [v.value for v in tag_values]
-          data[tag] = values
-        
-        # Create DataFrame
-        df = pd.DataFrame(data)
-        return df
-        
-        def smooth_data(data, alpha=0.6):
-        """
-        Smooth the data using exponential moving average.
-        
-        Args:
-        data (pd.Series): Data to be smoothed.
-        alpha (float): Smoothing factor (default is 0.6).
-        
-        Returns:
-        pd.Series: Smoothed data.
-        """
-        return data.ewm(alpha=alpha).mean()
-        
-        def plot_loss_accuracy(train_loss_df, test_loss_df, train_acc_df, test_acc_df):
-        """
-        Plot training and testing loss, and training and testing accuracy as subplots.
-        
-        Args:
-        train_loss_df (pd.DataFrame): DataFrame containing training loss data.
-        test_loss_df (pd.DataFrame): DataFrame containing testing loss data.
-        train_acc_df (pd.DataFrame): DataFrame containing training accuracy data.
-        test_acc_df (pd.DataFrame): DataFrame containing testing accuracy data.
-        """
-        
-        fig, axes = plt.subplots(2, figsize=(10, 10))
-        
-        # Plotting training and testing loss
-        axes[0].plot(train_loss_df.index, smooth_data(train_loss_df['Loss']), label='Train Loss')
-        axes[0].plot(test_loss_df.index, smooth_data(test_loss_df['Loss']), label='Test Loss')
-        axes[0].set_xlabel('Epoch')
-        axes[0].set_ylabel('Loss')
-        axes[0].set_title('Training and Testing Loss')
-        axes[0].legend()
-        axes[0].grid(True)
-        
-        # Plotting training and testing accuracy
-        axes[1].plot(train_acc_df.index, smooth_data(train_acc_df['Accuracy']), label='Train Accuracy')
-        axes[1].plot(test_acc_df.index, smooth_data(test_acc_df['Accuracy']), label='Test Accuracy')
-        axes[1].set_xlabel('Epoch')
-        axes[1].set_ylabel('Accuracy')
-        axes[1].set_title('Training and Testing Accuracy')
-        axes[1].legend()
-        axes[1].grid(True)
-        
-        # Set legend color to black
-        for ax in axes:
-        for text in ax.legend().get_texts():
-          text.set_color('black')
-        
-        plt.subplots_adjust(hspace=0.3)
-        plt.show()
-        
-        # Convert TensorBoard data to pandas DataFrame
-        loaded_model_1_df_train_acc = tensorboard_to_df("runs/2024-04-21_17:13:05/benchmarking/tinyvgg_1/no-error-data_30000-samples/Accuracy_train_acc")
-        loaded_model_1_df_test_acc = tensorboard_to_df("runs/2024-04-21_17:13:05/benchmarking/tinyvgg_1/no-error-data_30000-samples/Accuracy_test_acc")
-        loaded_model_1_df_train_loss = tensorboard_to_df("runs/2024-04-21_17:13:05/benchmarking/tinyvgg_1/no-error-data_30000-samples/Loss_train_loss")
-        loaded_model_1_df_test_loss = tensorboard_to_df("runs/2024-04-21_17:13:05/benchmarking/tinyvgg_1/no-error-data_30000-samples/Loss_test_loss")
-        
-        # Plotting loss and accuracy for custom model
-        plot_loss_accuracy(loaded_model_1_df_train_loss, loaded_model_1_df_test_loss, loaded_model_1_df_train_acc, loaded_model_1_df_test_acc)</code></pre>
+  """
+  Convert TensorBoard event data to a pandas DataFrame.
+
+  Args:
+    logdir (str): Path to the TensorBoard log directory.
+
+  Returns:
+    pd.DataFrame: DataFrame containing the scalar data from the TensorBoard events.
+  """
+  
+  # Load TensorBoard event accumulator
+  event_acc = EventAccumulator(logdir)
+  event_acc.Reload()
+
+  # Extract tags and metrics
+  tags = event_acc.Tags()['scalars']
+  data = {}
+
+  for tag in tags:
+    tag_values = event_acc.Scalars(tag)
+    if tag_values:
+      steps = [v.step for v in tag_values]
+      values = [v.value for v in tag_values]
+      data[tag] = values
+
+  # Create DataFrame
+  df = pd.DataFrame(data)
+  return df
+
+def smooth_data(data, alpha=0.6):
+  """
+  Smooth the data using exponential moving average.
+
+  Args:
+  data (pd.Series): Data to be smoothed.
+  alpha (float): Smoothing factor (default is 0.6).
+
+  Returns:
+  pd.Series: Smoothed data.
+  """
+  return data.ewm(alpha=alpha).mean()
+
+def plot_loss_accuracy(train_loss_df, test_loss_df, train_acc_df, test_acc_df):
+  """
+  Plot training and testing loss, and training and testing accuracy as subplots.
+
+  Args:
+    train_loss_df (pd.DataFrame): DataFrame containing training loss data.
+    test_loss_df (pd.DataFrame): DataFrame containing testing loss data.
+    train_acc_df (pd.DataFrame): DataFrame containing training accuracy data.
+    test_acc_df (pd.DataFrame): DataFrame containing testing accuracy data.
+  """
+  
+  fig, axes = plt.subplots(2, figsize=(10, 10))
+
+  # Plotting training and testing loss
+  axes[0].plot(train_loss_df.index, smooth_data(train_loss_df['Loss']), label='Train Loss')
+  axes[0].plot(test_loss_df.index, smooth_data(test_loss_df['Loss']), label='Test Loss')
+  axes[0].set_xlabel('Epoch')
+  axes[0].set_ylabel('Loss')
+  axes[0].set_title('Training and Testing Loss')
+  axes[0].legend()
+  axes[0].grid(True)
+
+  # Plotting training and testing accuracy
+  axes[1].plot(train_acc_df.index, smooth_data(train_acc_df['Accuracy']), label='Train Accuracy')
+  axes[1].plot(test_acc_df.index, smooth_data(test_acc_df['Accuracy']), label='Test Accuracy')
+  axes[1].set_xlabel('Epoch')
+  axes[1].set_ylabel('Accuracy')
+  axes[1].set_title('Training and Testing Accuracy')
+  axes[1].legend()
+  axes[1].grid(True)
+
+  # Set legend color to black
+  for ax in axes:
+    for text in ax.legend().get_texts():
+      text.set_color('black')
+  
+  plt.subplots_adjust(hspace=0.3)
+  plt.show()
+
+# Convert TensorBoard data to pandas DataFrame
+loaded_model_1_df_train_acc = tensorboard_to_df("runs/2024-04-21_17:13:05/benchmarking/tinyvgg_1/no-error-data_30000-samples/Accuracy_train_acc")
+loaded_model_1_df_test_acc = tensorboard_to_df("runs/2024-04-21_17:13:05/benchmarking/tinyvgg_1/no-error-data_30000-samples/Accuracy_test_acc")
+loaded_model_1_df_train_loss = tensorboard_to_df("runs/2024-04-21_17:13:05/benchmarking/tinyvgg_1/no-error-data_30000-samples/Loss_train_loss")
+loaded_model_1_df_test_loss = tensorboard_to_df("runs/2024-04-21_17:13:05/benchmarking/tinyvgg_1/no-error-data_30000-samples/Loss_test_loss")
+
+# Plotting loss and accuracy for custom model
+plot_loss_accuracy(loaded_model_1_df_train_loss, loaded_model_1_df_test_loss, loaded_model_1_df_train_acc, loaded_model_1_df_test_acc)</code></pre>
   <pre
     class="output-img no-code"
   ><code class="language-output">&nbsp;</code></pre>
@@ -3404,54 +3399,54 @@ summary(model=resnet50_model_0,
   <pre
     class="line-numbers"
   ><code class="language-python">experiment_name = "benchmarking"
-        model_name = "resnet50_frozen_1"
-        extra = "no-error-data_30000-samples"
-        
-        resnet50_frozen_1, resnet50_transforms = create_resnet50_model(num_out_classes = len(class_names),
-                                                                  frozen = True,
-                                                                  device = device)
-        
-        writer = create_writer(experiment_name = experiment_name, 
-                           model_name = model_name, 
-                           extra = extra)
-        
-        results_resnet50_frozen_1 = train(model = resnet50_frozen_1,
-                                      p_data_to_sample = p_data_to_sample,
-                                      sample_all_seq_errors = sample_all_seq_errors,
-                                      sample_all_align_errors = sample_all_align_errors,
-                                      transform = resnet50_transforms,
-                                      optimizer = optimizer,
-                                      loss_fn = loss_fn,
-                                      learning_rate = learning_rate,
-                                      batch_size = batch_size,
-                                      num_workers = num_workers,
-                                      epochs = epochs,
-                                      writer = writer)
-        
-        save_filepath = f"{experiment_name}_{model_name}_{extra}_{epochs}_epochs.pth" 
-        save_model(model=resnet50_frozen_1, target_dir="models", model_name=save_filepath)</code></pre>
+model_name = "resnet50_frozen_1"
+extra = "no-error-data_30000-samples"
+
+resnet50_frozen_1, resnet50_transforms = create_resnet50_model(num_out_classes = len(class_names),
+                                                               frozen = True,
+                                                               device = device)
+
+writer = create_writer(experiment_name = experiment_name, 
+                       model_name = model_name, 
+                       extra = extra)
+
+results_resnet50_frozen_1 = train(model = resnet50_frozen_1,
+                                  p_data_to_sample = p_data_to_sample,
+                                  sample_all_seq_errors = sample_all_seq_errors,
+                                  sample_all_align_errors = sample_all_align_errors,
+                                  transform = resnet50_transforms,
+                                  optimizer = optimizer,
+                                  loss_fn = loss_fn,
+                                  learning_rate = learning_rate,
+                                  batch_size = batch_size,
+                                  num_workers = num_workers,
+                                  epochs = epochs,
+                                  writer = writer)
+
+save_filepath = f"{experiment_name}_{model_name}_{extra}_{epochs}_epochs.pth" 
+save_model(model=resnet50_frozen_1, target_dir="models", model_name=save_filepath)</code></pre>
   <pre
     class="output no-lang-display"
   ><code class="language-output">Epoch: 1 | Train Loss: 0.8166 | Train Accuracy: 0.5877 | Test Loss: 0.7344 | Test Accuracy: 0.6238
-        Epoch: 2 | Train Loss: 0.7078 | Train Accuracy: 0.6436 | Test Loss: 0.6992 | Test Accuracy: 0.6418
-        Epoch: 3 | Train Loss: 0.6778 | Train Accuracy: 0.6579 | Test Loss: 0.6999 | Test Accuracy: 0.6361
-        Epoch: 4 | Train Loss: 0.6599 | Train Accuracy: 0.6654 | Test Loss: 0.6876 | Test Accuracy: 0.6395
-        Epoch: 5 | Train Loss: 0.6500 | Train Accuracy: 0.6741 | Test Loss: 0.6772 | Test Accuracy: 0.6476
-        Epoch: 6 | Train Loss: 0.6465 | Train Accuracy: 0.6763 | Test Loss: 0.6681 | Test Accuracy: 0.6501
-        Epoch: 7 | Train Loss: 0.6401 | Train Accuracy: 0.6796 | Test Loss: 0.6742 | Test Accuracy: 0.6528
-        Epoch: 8 | Train Loss: 0.6392 | Train Accuracy: 0.6766 | Test Loss: 0.6631 | Test Accuracy: 0.6528
-        Epoch: 9 | Train Loss: 0.6370 | Train Accuracy: 0.6802 | Test Loss: 0.6660 | Test Accuracy: 0.6504
-        Epoch: 10 | Train Loss: 0.6397 | Train Accuracy: 0.6807 | Test Loss: 0.6743 | Test Accuracy: 0.6548</code></pre>
+Epoch: 2 | Train Loss: 0.7078 | Train Accuracy: 0.6436 | Test Loss: 0.6992 | Test Accuracy: 0.6418
+Epoch: 3 | Train Loss: 0.6778 | Train Accuracy: 0.6579 | Test Loss: 0.6999 | Test Accuracy: 0.6361
+Epoch: 4 | Train Loss: 0.6599 | Train Accuracy: 0.6654 | Test Loss: 0.6876 | Test Accuracy: 0.6395
+Epoch: 5 | Train Loss: 0.6500 | Train Accuracy: 0.6741 | Test Loss: 0.6772 | Test Accuracy: 0.6476
+Epoch: 6 | Train Loss: 0.6465 | Train Accuracy: 0.6763 | Test Loss: 0.6681 | Test Accuracy: 0.6501
+Epoch: 7 | Train Loss: 0.6401 | Train Accuracy: 0.6796 | Test Loss: 0.6742 | Test Accuracy: 0.6528
+Epoch: 8 | Train Loss: 0.6392 | Train Accuracy: 0.6766 | Test Loss: 0.6631 | Test Accuracy: 0.6528
+Epoch: 9 | Train Loss: 0.6370 | Train Accuracy: 0.6802 | Test Loss: 0.6660 | Test Accuracy: 0.6504
+Epoch: 10 | Train Loss: 0.6397 | Train Accuracy: 0.6807 | Test Loss: 0.6743 | Test Accuracy: 0.6548</code></pre>
   <pre
     class="line-numbers"
   ><code class="language-python"># Convert TensorBoard data to pandas DataFrame
-        loaded_resnet50_model_1_df_train_acc = tensorboard_to_df("runs/2024-04-21_18:18:26/benchmarking/resnet50_frozen_1/no-error-data_30000-samples/Accuracy_train_acc")
-        loaded_resnet50_model_1_df_test_acc = tensorboard_to_df("runs/2024-04-21_18:18:26/benchmarking/resnet50_frozen_1/no-error-data_30000-samples/Accuracy_test_acc")
-        loaded_resnet50_model_1_df_train_loss = tensorboard_to_df("runs/2024-04-21_18:18:26/benchmarking/resnet50_frozen_1/no-error-data_30000-samples/Loss_train_loss")
-        loaded_resnet50_model_1_df_test_loss = tensorboard_to_df("runs/2024-04-21_18:18:26/benchmarking/resnet50_frozen_1/no-error-data_30000-samples/Loss_test_loss")
-        
-        # Plotting loss and accuracy for ResNet50 model
-        plot_loss_accuracy(loaded_resnet50_model_1_df_train_loss, loaded_resnet50_model_1_df_test_loss, loaded_resnet50_model_1_df_train_acc, loaded_resnet50_model_1_df_test_acc)</code></pre>
+loaded_resnet50_model_1_df_train_acc = tensorboard_to_df("runs/2024-04-21_18:18:26/benchmarking/resnet50_frozen_1/no-error-data_30000-samples/Accuracy_train_acc")
+loaded_resnet50_model_1_df_test_acc = tensorboard_to_df("runs/2024-04-21_18:18:26/benchmarking/resnet50_frozen_1/no-error-data_30000-samples/Accuracy_test_acc")
+loaded_resnet50_model_1_df_train_loss = tensorboard_to_df("runs/2024-04-21_18:18:26/benchmarking/resnet50_frozen_1/no-error-data_30000-samples/Loss_train_loss")
+loaded_resnet50_model_1_df_test_loss = tensorboard_to_df("runs/2024-04-21_18:18:26/benchmarking/resnet50_frozen_1/no-error-data_30000-samples/Loss_test_loss")
+
+# Plotting loss and accuracy for ResNet50 model
+plot_loss_accuracy(loaded_resnet50_model_1_df_train_loss, loaded_resnet50_model_1_df_test_loss, loaded_resnet50_model_1_df_train_acc, loaded_resnet50_model_1_df_test_acc)</code></pre>
   <pre
     class="output-img no-code"
   ><code class="language-output">&nbsp;</code></pre>
@@ -3482,123 +3477,121 @@ summary(model=resnet50_model_0,
   <pre
     class="line-numbers"
   ><code class="language-python">def test_model_on_all_testing_data(model: torch.nn.Module,
-                                       p_data_to_sample: float = 1.0,
-                                       sample_all_seq_errors: Tuple[bool, List[int]] = (True, _),
-                                       sample_all_align_errors: Tuple[bool, List[int]] = (True, _),
-                                       sample_all_mutations: Tuple[bool, List[str]] = (True, _),
-                                       set_rand_seed: Tuple[bool, int] = (False, _),
-                                       sample_from_dir: str = "./variant-caller-data",
-                                       output_dir: str = "data/",
-                                       transform: torchvision.transforms = transforms.ToTensor(),
-                                       target_transform: torchvision.transforms = None,
-                                       batch_size: int = 1,
-                                       num_workers: int = 0
-                                       ) -> Dict[str, float]:
-        """
-        Test the model on all testing data with various error configurations.
-        
-        Parameters:
-        model (torch.nn.Module): The model to be tested.
-        p_data_to_sample (float): The proportion of data to sample from the input directory. Default is 1.0.
-        sample_all_seq_errors (Tuple[bool, List[int]]): Tuple containing a boolean indicating whether to sample all sequencing errors and a list of specific sequencing errors to sample. Default is (True, _).
-        sample_all_align_errors (Tuple[bool, List[int]]): Tuple containing a boolean indicating whether to sample all alignment errors and a list of specific alignment errors to sample. Default is (True, _).
-        sample_all_mutations (Tuple[bool, List[str]]): Tuple containing a boolean indicating whether to sample all mutations and a list of specific mutations to sample. Default is (True, _).
-        set_rand_seed (Tuple[bool, int]): Tuple containing a boolean indicating whether to set a random seed and the random seed value. Default is (False, _).
-        sample_from_dir (str): The directory path from which to sample data. Default is "./variant-caller-data".
-        output_dir (str): The directory path to save the sampled data. Default is "data/".
-        transform (torchvision.transforms): Transforms to perform on data (images). Default is transforms.ToTensor().
-        target_transform (torchvision.transforms): Transforms to perform on labels (if necessary). Default is None.
-        batch_size (int): The batch size for testing. Default is 1.
-        num_workers (int): The number of worker processes to use for data loading. Default is 0.
-        
-        Returns:
-        List[Dict[str, float]]: A list of dictionaries containing the testing results for each error configuration.
-        """
-        
-        model_to_test = model
-        results_dicts = []
-        input_dir = Path(sample_from_dir)
-        
-        seq_errors_to_test = [0, 1, 2, 3, 4, 5, 10, 15, 20]
-        if not sample_all_seq_errors[0]:
-        seq_errors_to_test = sample_all_seq_errors[1]
-        
-        align_errors_to_test = [0, 1, 2, 3, 4, 5, 10, 15, 20]
-        if not sample_all_align_errors[0]:
-        align_errors_to_test = sample_all_align_errors[1]
-        
-        for seq_error in tqdm(seq_errors_to_test):
-        for align_error in align_errors_to_test:
-        
-          # Create data directory
-          sample_and_create_pytorch_compatible_dir_structure(input_dir,
-                                                              p_data_to_sample = p_data_to_sample,
-                                                              sample_all_splits = (False, ["test"]),
-                                                              sample_all_seq_errors = (False, [seq_error]),
-                                                              sample_all_align_errors = (False, [align_error]),
-                                                              sample_all_mutations = sample_all_mutations,
-                                                              set_rand_seed = set_rand_seed)
-        
-          # Create a dataset from the directory
-          print("[INFO] Creating dataset...")
-          data_path = Path(output_dir)
-          test_dir = data_path / "test"
-        
-          test_data = create_dataset(data_dir = test_dir,
-                                     transform = transform,
-                                     target_transform = target_transform
-                                     )
-        
-          # Create dataloaders
-          print("[INFO] Creating dataloader...")
-          test_dataloader = create_dataloader(dataset = test_data,
-                                              batch_size = batch_size,
-                                              num_workers = num_workers,
-                                              shuffle = False)
-        
-        
-          print(f"[INFO] Testing the model on training data with {seq_error}% sequencing error and {align_error}% alignment error...")
-        
-          test_loss, test_acc, test_preds = test_step(model = model,
-                                                      dataloader = test_dataloader,
-                                                      loss_fn = nn.CrossEntropyLoss(),
-                                                      return_preds = True)
-        
-          # Append value to the results dictionary list
-          results_dict = {}
-          results_dict["seq-error"] = seq_error
-          results_dict["align-error"] = align_error
-          results_dict["seq-align-error"] = (seq_error, align_error)
-          results_dict["test-acc"] = test_acc
-          results_dict["test-preds"] = test_preds
-          results_dict["test-targets"] = test_data.targets
-          results_dict["test-classes_to_idx"] = test_data.class_to_idx
-          results_dict["test-data"] = test_data
-        
-        
-          results_dicts.append(results_dict)
-        
-        # Regenerate full data directory to allow for further future image validation
-        sample_and_create_pytorch_compatible_dir_structure(input_dir)
-        
-        return results_dicts</code></pre>
+                                   p_data_to_sample: float = 1.0,
+                                   sample_all_seq_errors: Tuple[bool, List[int]] = (True, _),
+                                   sample_all_align_errors: Tuple[bool, List[int]] = (True, _),
+                                   sample_all_mutations: Tuple[bool, List[str]] = (True, _),
+                                   set_rand_seed: Tuple[bool, int] = (False, _),
+                                   sample_from_dir: str = "./variant-caller-data",
+                                   output_dir: str = "data/",
+                                   transform: torchvision.transforms = transforms.ToTensor(),
+                                   target_transform: torchvision.transforms = None,
+                                   batch_size: int = 1,
+                                   num_workers: int = 0
+                                   ) -> Dict[str, float]:
+  """
+  Test the model on all testing data with various error configurations.
+
+  Parameters:
+    model (torch.nn.Module): The model to be tested.
+    p_data_to_sample (float): The proportion of data to sample from the input directory. Default is 1.0.
+    sample_all_seq_errors (Tuple[bool, List[int]]): Tuple containing a boolean indicating whether to sample all sequencing errors and a list of specific sequencing errors to sample. Default is (True, _).
+    sample_all_align_errors (Tuple[bool, List[int]]): Tuple containing a boolean indicating whether to sample all alignment errors and a list of specific alignment errors to sample. Default is (True, _).
+    sample_all_mutations (Tuple[bool, List[str]]): Tuple containing a boolean indicating whether to sample all mutations and a list of specific mutations to sample. Default is (True, _).
+    set_rand_seed (Tuple[bool, int]): Tuple containing a boolean indicating whether to set a random seed and the random seed value. Default is (False, _).
+    sample_from_dir (str): The directory path from which to sample data. Default is "./variant-caller-data".
+    output_dir (str): The directory path to save the sampled data. Default is "data/".
+    transform (torchvision.transforms): Transforms to perform on data (images). Default is transforms.ToTensor().
+    target_transform (torchvision.transforms): Transforms to perform on labels (if necessary). Default is None.
+    batch_size (int): The batch size for testing. Default is 1.
+    num_workers (int): The number of worker processes to use for data loading. Default is 0.
+
+  Returns:
+    List[Dict[str, float]]: A list of dictionaries containing the testing results for each error configuration.
+  """
+
+  model_to_test = model
+  results_dicts = []
+  input_dir = Path(sample_from_dir)
+
+  seq_errors_to_test = [0, 1, 2, 3, 4, 5, 10, 15, 20]
+  if not sample_all_seq_errors[0]:
+    seq_errors_to_test = sample_all_seq_errors[1]
+
+  align_errors_to_test = [0, 1, 2, 3, 4, 5, 10, 15, 20]
+  if not sample_all_align_errors[0]:
+    align_errors_to_test = sample_all_align_errors[1]
+
+  for seq_error in tqdm(seq_errors_to_test):
+    for align_error in align_errors_to_test:
+
+      # Create data directory
+      sample_and_create_pytorch_compatible_dir_structure(input_dir,
+                                                         p_data_to_sample = p_data_to_sample,
+                                                         sample_all_splits = (False, ["test"]),
+                                                         sample_all_seq_errors = (False, [seq_error]),
+                                                         sample_all_align_errors = (False, [align_error]),
+                                                         sample_all_mutations = sample_all_mutations,
+                                                         set_rand_seed = set_rand_seed)
+
+      # Create a dataset from the directory
+      print("[INFO] Creating dataset...")
+      data_path = Path(output_dir)
+      test_dir = data_path / "test"
+
+      test_data = create_dataset(data_dir = test_dir,
+                                 transform = transform,
+                                 target_transform = target_transform
+                                 )
+
+      # Create dataloaders
+      print("[INFO] Creating dataloader...")
+      test_dataloader = create_dataloader(dataset = test_data,
+                                          batch_size = batch_size,
+                                          num_workers = num_workers,
+                                          shuffle = False)
+
+
+      print(f"[INFO] Testing the model on training data with {seq_error}% sequencing error and {align_error}% alignment error...")
+
+      test_loss, test_acc, test_preds = test_step(model = model,
+                                                  dataloader = test_dataloader,
+                                                  loss_fn = nn.CrossEntropyLoss(),
+                                                  return_preds = True)
+
+      # Append value to the results dictionary list
+      results_dict = {}
+      results_dict["seq-error"] = seq_error
+      results_dict["align-error"] = align_error
+      results_dict["seq-align-error"] = (seq_error, align_error)
+      results_dict["test-acc"] = test_acc
+      results_dict["test-preds"] = test_preds
+      results_dict["test-targets"] = test_data.targets
+      results_dict["test-classes_to_idx"] = test_data.class_to_idx
+      results_dict["test-data"] = test_data
+      results_dicts.append(results_dict)
+
+  # Regenerate full data directory to allow for further future image validation
+  sample_and_create_pytorch_compatible_dir_structure(input_dir)
+
+  return results_dicts</code></pre>
   <pre class="line-numbers"><code class="language-python"># Test model one
-        loaded_model_1_test_results = test_model_on_all_testing_data(model = loaded_model_1,
-                                                                 transform = tiny_vgg_transforms,
-                                                                 batch_size = batch_size,
-                                                                 num_workers = num_workers)
-        # Save model one results
-        with open("loaded_model_1_test_results.pkl", "wb") as f:
-        pickle.dump(loaded_model_1_test_results, f)
-        
-        # Test model two
-        loaded_resnet50_model_1_test_results = test_model_on_all_testing_data(model = loaded_resnet50_model_1,
-                                                                          transform = resnet50_transforms,
-                                                                          batch_size = batch_size,
-                                                                          num_workers = num_workers)
-        # Save model two results
-        with open("loaded_resnet50_model_1_test_results.pkl", "wb") as f:
-        pickle.dump(loaded_resnet50_model_1_test_results, f)</code></pre>
+loaded_model_1_test_results = test_model_on_all_testing_data(model = loaded_model_1,
+                                                             transform = tiny_vgg_transforms,
+                                                             batch_size = batch_size,
+                                                             num_workers = num_workers)
+# Save model one results
+with open("loaded_model_1_test_results.pkl", "wb") as f:
+  pickle.dump(loaded_model_1_test_results, f)
+
+# Test model two
+loaded_resnet50_model_1_test_results = test_model_on_all_testing_data(model = loaded_resnet50_model_1,
+                                                                      transform = resnet50_transforms,
+                                                                      batch_size = batch_size,
+                                                                      num_workers = num_workers)
+# Save model two results
+with open("loaded_resnet50_model_1_test_results.pkl", "wb") as f:
+  pickle.dump(loaded_resnet50_model_1_test_results, f)</code></pre>
   <p class="blog-post_paragraph">
     Now that the models are tested on all the data, it'd be useful to create a
     function that can display a heatmap of the model accuracies on the data for
@@ -3609,60 +3602,60 @@ summary(model=resnet50_model_0,
   <pre
     class="line-numbers"
   ><code class="language-python">def plot_heatmap_and_confusion_matrix(results_dicts, col="viridis", device='cpu'):
-        """
-        Plot a heatmap of accuracies and confusion matrix side by side.
-        
-        Parameters:
-        results_dicts (list): List of dictionaries containing accuracy data.
-        col (str): Color map for the heatmap.
-        device (str): Device on which the model is trained.
-        
-        Returns:
-        None
-        """
-        
-        # Extract accuracy data
-        seq_errors = []
-        align_errors = []
-        accuracies = []
-        for result in results_dicts:
-        seq_errors.append(result["seq-error"])
-        align_errors.append(result["align-error"])
-        accuracies.append(result["test-acc"])
-        
-        # Convert data to DataFrame
-        df = pd.DataFrame({"Seq Error": seq_errors, "Align Error": align_errors, "Test Accuracy": accuracies})
-        
-        # Create subplot with heatmap and confusion matrix
-        fig, axs = plt.subplots(2, 1, figsize=(10, 10), gridspec_kw={'height_ratios': [7, 3]})
-        
-        # Plot heatmap
-        heatmap_data = df.pivot_table(index="Seq Error", columns="Align Error", values="Test Accuracy", aggfunc="mean")
-        heatmap_data = heatmap_data.iloc[::-1]  # Invert rows
-        heatmap_data *= 100  # Multiply values by 100
-        sns.heatmap(heatmap_data, annot=True, cmap=col, fmt=".1f", ax=axs[0])
-        axs[0].set_title("Accuracy Heatmap (% Correct)")
-        axs[0].set_xlabel("Alignment Error (%)")
-        axs[0].set_ylabel("Sequencing Error (%)")
-        
-        # Plot confusion matrix
-        y_preds = torch.cat([result["test-preds"] for result in results_dicts])
-        y_targets = torch.tensor([item for sublist in [result["test-targets"] for result in results_dicts] for item in sublist])
-        classes_to_idx = results_dicts[0]['test-classes_to_idx']
-        confmat = ConfusionMatrix(task="multiclass", num_classes=len(classes_to_idx))
-        confmat_tensor = confmat(preds=y_preds.to(device), target=y_targets.to(device))
-        
-        # Plot the confusion matrix
-        plot_confusion_matrix(
-        conf_mat=confmat_tensor.numpy(),
-        class_names=list(classes_to_idx.keys()),
-        figsize = (2, 2),
-        axis=axs[1]
-        )
-        axs[1].set_title("Confusion Matrix")
-        
-        plt.subplots_adjust(hspace=0.3)  # Adjust the gap between subplots
-        plt.show()</code></pre>
+  """
+  Plot a heatmap of accuracies and confusion matrix side by side.
+
+  Parameters:
+    results_dicts (list): List of dictionaries containing accuracy data.
+    col (str): Color map for the heatmap.
+    device (str): Device on which the model is trained.
+
+  Returns:
+    None
+  """
+
+  # Extract accuracy data
+  seq_errors = []
+  align_errors = []
+  accuracies = []
+  for result in results_dicts:
+    seq_errors.append(result["seq-error"])
+    align_errors.append(result["align-error"])
+    accuracies.append(result["test-acc"])
+
+  # Convert data to DataFrame
+  df = pd.DataFrame({"Seq Error": seq_errors, "Align Error": align_errors, "Test Accuracy": accuracies})
+
+  # Create subplot with heatmap and confusion matrix
+  fig, axs = plt.subplots(2, 1, figsize=(10, 10), gridspec_kw={'height_ratios': [7, 3]})
+
+  # Plot heatmap
+  heatmap_data = df.pivot_table(index="Seq Error", columns="Align Error", values="Test Accuracy", aggfunc="mean")
+  heatmap_data = heatmap_data.iloc[::-1]  # Invert rows
+  heatmap_data *= 100  # Multiply values by 100
+  sns.heatmap(heatmap_data, annot=True, cmap=col, fmt=".1f", ax=axs[0])
+  axs[0].set_title("Accuracy Heatmap (% Correct)")
+  axs[0].set_xlabel("Alignment Error (%)")
+  axs[0].set_ylabel("Sequencing Error (%)")
+
+  # Plot confusion matrix
+  y_preds = torch.cat([result["test-preds"] for result in results_dicts])
+  y_targets = torch.tensor([item for sublist in [result["test-targets"] for result in results_dicts] for item in sublist])
+  classes_to_idx = results_dicts[0]['test-classes_to_idx']
+  confmat = ConfusionMatrix(task="multiclass", num_classes=len(classes_to_idx))
+  confmat_tensor = confmat(preds=y_preds.to(device), target=y_targets.to(device))
+
+  # Plot the confusion matrix
+  plot_confusion_matrix(
+    conf_mat=confmat_tensor.numpy(),
+    class_names=list(classes_to_idx.keys()),
+    figsize = (2, 2),
+    axis=axs[1]
+  )
+  axs[1].set_title("Confusion Matrix")
+
+  plt.subplots_adjust(hspace=0.3)  # Adjust the gap between subplots
+  plt.show()</code></pre>
   <p class="blog-post_paragraph">
     If we plot the accuracies of the better performing model (the custom built
     one), we see this.
@@ -3712,63 +3705,63 @@ summary(model=resnet50_model_0,
   <pre
     class="line-numbers"
   ><code class="language-python">p_data_to_sample = 0.11
-        sample_all_seq_errors = (True, )
-        sample_all_align_errors = (True, )</code></pre>
+sample_all_seq_errors = (True, )
+sample_all_align_errors = (True, )</code></pre>
   <p class="blog-post_paragraph">
     Now to retrain the variant caller built from scratch with the new data.
   </p>
   <pre
     class="line-numbers"
   ><code class="language-python">experiment_name = "benchmarking"
-        model_name = "tinyvgg_2"
-        extra = "data-with-errors_30000-samples"
-        
-        tinyvgg_2 = VariantCallerTinyVGG(input_shape = 3,
-                      hidden_units = 10,
-                      output_shape = len(class_names)
-                      ).to(device)
-        
-        writer = create_writer(experiment_name = experiment_name,
-                           model_name = model_name,
-                           extra = extra)
-        
-        results_tinyvgg_2 = train(model = tinyvgg_2,
-                              p_data_to_sample = p_data_to_sample,
-                              sample_all_seq_errors = sample_all_seq_errors,
-                              sample_all_align_errors = sample_all_align_errors,
-                              transform = tiny_vgg_transforms,
-                              optimizer = optimizer,
-                              loss_fn = loss_fn,
-                              learning_rate = learning_rate,
-                              batch_size = batch_size,
-                              num_workers = num_workers,
-                              epochs = epochs,
-                              writer = writer)
-        
-        save_filepath = f"{experiment_name}_{model_name}_{extra}_{epochs}_epochs.pth"
-        save_model(model=tinyvgg_2, target_dir="models", model_name=save_filepath)</code></pre>
+model_name = "tinyvgg_2"
+extra = "data-with-errors_30000-samples"
+
+tinyvgg_2 = VariantCallerTinyVGG(input_shape = 3,
+                                 hidden_units = 10,
+                                 output_shape = len(class_names)
+                                 ).to(device)
+
+writer = create_writer(experiment_name = experiment_name,
+                       model_name = model_name,
+                       extra = extra)
+
+results_tinyvgg_2 = train(model = tinyvgg_2,
+                          p_data_to_sample = p_data_to_sample,
+                          sample_all_seq_errors = sample_all_seq_errors,
+                          sample_all_align_errors = sample_all_align_errors,
+                          transform = tiny_vgg_transforms,
+                          optimizer = optimizer,
+                          loss_fn = loss_fn,
+                          learning_rate = learning_rate,
+                          batch_size = batch_size,
+                          num_workers = num_workers,
+                          epochs = epochs,
+                          writer = writer)
+
+save_filepath = f"{experiment_name}_{model_name}_{extra}_{epochs}_epochs.pth"
+save_model(model=tinyvgg_2, target_dir="models", model_name=save_filepath)</code></pre>
   <pre
     class="output no-lang-display"
   ><code class="language-output">Epoch: 1 | Train Loss: 1.1367 | Train Accuracy: 0.3321 | Test Loss: 1.0986 | Test Accuracy: 0.3331
-        Epoch: 2 | Train Loss: 1.0987 | Train Accuracy: 0.3324 | Test Loss: 1.0986 | Test Accuracy: 0.3330
-        Epoch: 3 | Train Loss: 1.0988 | Train Accuracy: 0.3299 | Test Loss: 1.0986 | Test Accuracy: 0.3333
-        Epoch: 4 | Train Loss: 1.0987 | Train Accuracy: 0.3295 | Test Loss: 1.0986 | Test Accuracy: 0.3332
-        Epoch: 5 | Train Loss: 1.0987 | Train Accuracy: 0.3307 | Test Loss: 1.0986 | Test Accuracy: 0.3336
-        Epoch: 6 | Train Loss: 1.0987 | Train Accuracy: 0.3297 | Test Loss: 1.0987 | Test Accuracy: 0.3334
-        Epoch: 7 | Train Loss: 1.0987 | Train Accuracy: 0.3307 | Test Loss: 1.0987 | Test Accuracy: 0.3334
-        Epoch: 8 | Train Loss: 1.0987 | Train Accuracy: 0.3318 | Test Loss: 1.0986 | Test Accuracy: 0.3333
-        Epoch: 9 | Train Loss: 1.0987 | Train Accuracy: 0.3324 | Test Loss: 1.0987 | Test Accuracy: 0.3331
-        Epoch: 10 | Train Loss: 1.0987 | Train Accuracy: 0.3293 | Test Loss: 1.0986 | Test Accuracy: 0.3334</code></pre>
+Epoch: 2 | Train Loss: 1.0987 | Train Accuracy: 0.3324 | Test Loss: 1.0986 | Test Accuracy: 0.3330
+Epoch: 3 | Train Loss: 1.0988 | Train Accuracy: 0.3299 | Test Loss: 1.0986 | Test Accuracy: 0.3333
+Epoch: 4 | Train Loss: 1.0987 | Train Accuracy: 0.3295 | Test Loss: 1.0986 | Test Accuracy: 0.3332
+Epoch: 5 | Train Loss: 1.0987 | Train Accuracy: 0.3307 | Test Loss: 1.0986 | Test Accuracy: 0.3336
+Epoch: 6 | Train Loss: 1.0987 | Train Accuracy: 0.3297 | Test Loss: 1.0987 | Test Accuracy: 0.3334
+Epoch: 7 | Train Loss: 1.0987 | Train Accuracy: 0.3307 | Test Loss: 1.0987 | Test Accuracy: 0.3334
+Epoch: 8 | Train Loss: 1.0987 | Train Accuracy: 0.3318 | Test Loss: 1.0986 | Test Accuracy: 0.3333
+Epoch: 9 | Train Loss: 1.0987 | Train Accuracy: 0.3324 | Test Loss: 1.0987 | Test Accuracy: 0.3331
+Epoch: 10 | Train Loss: 1.0987 | Train Accuracy: 0.3293 | Test Loss: 1.0986 | Test Accuracy: 0.3334</code></pre>
   <pre
     class="line-numbers"
   ><code class="language-python"># Convert TensorBoard data to pandas DataFrame
-        loaded_model_2_df_train_acc = tensorboard_to_df("runs/2024-04-21_22:04:32/benchmarking/tinyvgg_2/data-with-errors_30000-samples/Accuracy_train_acc")
-        loaded_model_2_df_test_acc = tensorboard_to_df("runs/2024-04-21_22:04:32/benchmarking/tinyvgg_2/data-with-errors_30000-samples/Accuracy_test_acc")
-        loaded_model_2_df_train_loss = tensorboard_to_df("runs/2024-04-21_22:04:32/benchmarking/tinyvgg_2/data-with-errors_30000-samples/Loss_train_loss")
-        loaded_model_2_df_test_loss = tensorboard_to_df("runs/2024-04-21_22:04:32/benchmarking/tinyvgg_2/data-with-errors_30000-samples/Loss_test_loss")
-        
-        # Plotting loss and accuracy for custom model
-        plot_loss_accuracy(loaded_model_2_df_train_loss, loaded_model_2_df_test_loss, loaded_model_2_df_train_acc, loaded_model_2_df_test_acc)</code></pre>
+loaded_model_2_df_train_acc = tensorboard_to_df("runs/2024-04-21_22:04:32/benchmarking/tinyvgg_2/data-with-errors_30000-samples/Accuracy_train_acc")
+loaded_model_2_df_test_acc = tensorboard_to_df("runs/2024-04-21_22:04:32/benchmarking/tinyvgg_2/data-with-errors_30000-samples/Accuracy_test_acc")
+loaded_model_2_df_train_loss = tensorboard_to_df("runs/2024-04-21_22:04:32/benchmarking/tinyvgg_2/data-with-errors_30000-samples/Loss_train_loss")
+loaded_model_2_df_test_loss = tensorboard_to_df("runs/2024-04-21_22:04:32/benchmarking/tinyvgg_2/data-with-errors_30000-samples/Loss_test_loss")
+
+# Plotting loss and accuracy for custom model
+plot_loss_accuracy(loaded_model_2_df_train_loss, loaded_model_2_df_test_loss, loaded_model_2_df_train_acc, loaded_model_2_df_test_acc)</code></pre>
   <pre
     class="output-img no-code"
   ><code class="language-output">&nbsp;</code></pre>
@@ -3790,54 +3783,54 @@ summary(model=resnet50_model_0,
   <pre
     class="line-numbers"
   ><code class="language-python">experiment_name = "benchmarking"
-        model_name = "resnet50_frozen_2"
-        extra = "data-with-errors_30000-samples"
-        
-        resnet50_frozen_2, resnet50_transforms = create_resnet50_model(num_out_classes = len(class_names),
-                                                                  frozen = True,
-                                                                  device = device)
-        
-        writer = create_writer(experiment_name = experiment_name,
-                           model_name = model_name,
-                           extra = extra)
-        
-        results_resnet50_frozen_2 = train(model = resnet50_frozen_2,
-                                      p_data_to_sample = p_data_to_sample,
-                                      sample_all_seq_errors = sample_all_seq_errors,
-                                      sample_all_align_errors = sample_all_align_errors,
-                                      transform = resnet50_transforms,
-                                      optimizer = optimizer,
-                                      loss_fn = loss_fn,
-                                      learning_rate = learning_rate,
-                                      batch_size = batch_size,
-                                      num_workers = num_workers,
-                                      epochs = epochs,
-                                      writer = writer)
-        
-        save_filepath = f"{experiment_name}_{model_name}_{extra}_{epochs}_epochs.pth"
-        save_model(model=resnet50_frozen_2, target_dir="models", model_name=save_filepath)</code></pre>
+model_name = "resnet50_frozen_2"
+extra = "data-with-errors_30000-samples"
+
+resnet50_frozen_2, resnet50_transforms = create_resnet50_model(num_out_classes = len(class_names),
+                                                               frozen = True,
+                                                               device = device)
+
+writer = create_writer(experiment_name = experiment_name,
+                       model_name = model_name,
+                       extra = extra)
+
+results_resnet50_frozen_2 = train(model = resnet50_frozen_2,
+                                  p_data_to_sample = p_data_to_sample,
+                                  sample_all_seq_errors = sample_all_seq_errors,
+                                  sample_all_align_errors = sample_all_align_errors,
+                                  transform = resnet50_transforms,
+                                  optimizer = optimizer,
+                                  loss_fn = loss_fn,
+                                  learning_rate = learning_rate,
+                                  batch_size = batch_size,
+                                  num_workers = num_workers,
+                                  epochs = epochs,
+                                  writer = writer)
+
+save_filepath = f"{experiment_name}_{model_name}_{extra}_{epochs}_epochs.pth"
+save_model(model=resnet50_frozen_2, target_dir="models", model_name=save_filepath)</code></pre>
   <pre
     class="output no-lang-display"
   ><code class="language-output">Epoch: 1 | Train Loss: 1.0812 | Train Accuracy: 0.3909 | Test Loss: 1.0626 | Test Accuracy: 0.4146
-        Epoch: 2 | Train Loss: 1.0510 | Train Accuracy: 0.4359 | Test Loss: 1.0618 | Test Accuracy: 0.4137
-        Epoch: 3 | Train Loss: 1.0390 | Train Accuracy: 0.4425 | Test Loss: 1.0746 | Test Accuracy: 0.4035
-        Epoch: 4 | Train Loss: 1.0325 | Train Accuracy: 0.4566 | Test Loss: 1.0560 | Test Accuracy: 0.4252
-        Epoch: 5 | Train Loss: 1.0287 | Train Accuracy: 0.4574 | Test Loss: 1.0722 | Test Accuracy: 0.4191
-        Epoch: 6 | Train Loss: 1.0222 | Train Accuracy: 0.4644 | Test Loss: 1.0722 | Test Accuracy: 0.4182
-        Epoch: 7 | Train Loss: 1.0266 | Train Accuracy: 0.4608 | Test Loss: 1.0748 | Test Accuracy: 0.4114
-        Epoch: 8 | Train Loss: 1.0239 | Train Accuracy: 0.4661 | Test Loss: 1.0755 | Test Accuracy: 0.4158
-        Epoch: 9 | Train Loss: 1.0234 | Train Accuracy: 0.4666 | Test Loss: 1.0864 | Test Accuracy: 0.4123
-        Epoch: 10 | Train Loss: 1.0199 | Train Accuracy: 0.4680 | Test Loss: 1.1123 | Test Accuracy: 0.4141</code></pre>
+Epoch: 2 | Train Loss: 1.0510 | Train Accuracy: 0.4359 | Test Loss: 1.0618 | Test Accuracy: 0.4137
+Epoch: 3 | Train Loss: 1.0390 | Train Accuracy: 0.4425 | Test Loss: 1.0746 | Test Accuracy: 0.4035
+Epoch: 4 | Train Loss: 1.0325 | Train Accuracy: 0.4566 | Test Loss: 1.0560 | Test Accuracy: 0.4252
+Epoch: 5 | Train Loss: 1.0287 | Train Accuracy: 0.4574 | Test Loss: 1.0722 | Test Accuracy: 0.4191
+Epoch: 6 | Train Loss: 1.0222 | Train Accuracy: 0.4644 | Test Loss: 1.0722 | Test Accuracy: 0.4182
+Epoch: 7 | Train Loss: 1.0266 | Train Accuracy: 0.4608 | Test Loss: 1.0748 | Test Accuracy: 0.4114
+Epoch: 8 | Train Loss: 1.0239 | Train Accuracy: 0.4661 | Test Loss: 1.0755 | Test Accuracy: 0.4158
+Epoch: 9 | Train Loss: 1.0234 | Train Accuracy: 0.4666 | Test Loss: 1.0864 | Test Accuracy: 0.4123
+Epoch: 10 | Train Loss: 1.0199 | Train Accuracy: 0.4680 | Test Loss: 1.1123 | Test Accuracy: 0.4141</code></pre>
   <pre
     class="line-numbers"
   ><code class="language-python"># Convert TensorBoard data to pandas DataFrame
-        loaded_resnet50_model_2_df_train_acc = tensorboard_to_df("runs/2024-04-21_23:09:13/benchmarking/resnet50_frozen_2/data-with-errors_30000-samples/Accuracy_train_acc")
-        loaded_resnet50_model_2_df_test_acc = tensorboard_to_df("runs/2024-04-21_23:09:13/benchmarking/resnet50_frozen_2/data-with-errors_30000-samples/Accuracy_test_acc")
-        loaded_resnet50_model_2_df_train_loss = tensorboard_to_df("runs/2024-04-21_23:09:13/benchmarking/resnet50_frozen_2/data-with-errors_30000-samples/Loss_train_loss")
-        loaded_resnet50_model_2_df_test_loss = tensorboard_to_df("runs/2024-04-21_23:09:13/benchmarking/resnet50_frozen_2/data-with-errors_30000-samples/Loss_test_loss")
-        
-        # Plotting loss and accuracy for ResNet50 model
-        plot_loss_accuracy(loaded_resnet50_model_2_df_train_loss, loaded_resnet50_model_2_df_test_loss, loaded_resnet50_model_2_df_train_acc, loaded_resnet50_model_2_df_test_acc)</code></pre>
+loaded_resnet50_model_2_df_train_acc = tensorboard_to_df("runs/2024-04-21_23:09:13/benchmarking/resnet50_frozen_2/data-with-errors_30000-samples/Accuracy_train_acc")
+loaded_resnet50_model_2_df_test_acc = tensorboard_to_df("runs/2024-04-21_23:09:13/benchmarking/resnet50_frozen_2/data-with-errors_30000-samples/Accuracy_test_acc")
+loaded_resnet50_model_2_df_train_loss = tensorboard_to_df("runs/2024-04-21_23:09:13/benchmarking/resnet50_frozen_2/data-with-errors_30000-samples/Loss_train_loss")
+loaded_resnet50_model_2_df_test_loss = tensorboard_to_df("runs/2024-04-21_23:09:13/benchmarking/resnet50_frozen_2/data-with-errors_30000-samples/Loss_test_loss")
+
+# Plotting loss and accuracy for ResNet50 model
+plot_loss_accuracy(loaded_resnet50_model_2_df_train_loss, loaded_resnet50_model_2_df_test_loss, loaded_resnet50_model_2_df_train_acc, loaded_resnet50_model_2_df_test_acc)</code></pre>
   <pre
     class="output-img no-code"
   ><code class="language-output">&nbsp;</code></pre>
@@ -3856,22 +3849,22 @@ summary(model=resnet50_model_0,
     accuracies.
   </p>
   <pre class="line-numbers"><code class="language-python"># Test model three 
-        loaded_model_2_test_results = test_model_on_all_testing_data(model = loaded_model_2,
-                                                                 transform = tiny_vgg_transforms,
-                                                                 batch_size = batch_size,
-                                                                 num_workers = num_workers)
-        # Save model three results
-        with open("loaded_model_2_test_results.pkl", "wb") as f:
-        pickle.dump(loaded_model_2_test_results, f)
-        
-        # Test model four
-        loaded_resnet50_model_2_test_results = test_model_on_all_testing_data(model = loaded_resnet50_model_2,
-                                                                          transform = resnet50_transforms,
-                                                                          batch_size = batch_size,
-                                                                          num_workers = num_workers)
-        # Save model four results
-        with open("loaded_resnet50_model_2_test_results.pkl", "wb") as f:
-        pickle.dump(loaded_resnet50_model_2_test_results, f)</code></pre>
+loaded_model_2_test_results = test_model_on_all_testing_data(model = loaded_model_2,
+                                                             transform = tiny_vgg_transforms,
+                                                             batch_size = batch_size,
+                                                             num_workers = num_workers)
+# Save model three results
+with open("loaded_model_2_test_results.pkl", "wb") as f:
+  pickle.dump(loaded_model_2_test_results, f)
+
+# Test model four
+loaded_resnet50_model_2_test_results = test_model_on_all_testing_data(model = loaded_resnet50_model_2,
+                                                                      transform = resnet50_transforms,
+                                                                      batch_size = batch_size,
+                                                                      num_workers = num_workers)
+# Save model four results
+with open("loaded_resnet50_model_2_test_results.pkl", "wb") as f:
+  pickle.dump(loaded_resnet50_model_2_test_results, f)</code></pre>
   <p class="blog-post_paragraph">
     This time the transfer learning model seemed to do better. Let's inspect is
     robustness to errored data.
@@ -3925,70 +3918,70 @@ summary(model=resnet50_model_0,
     all of the data I simulated, and for double the training time I used before.
   </p>
   <pre class="line-numbers"><code class="language-python">p_data_to_sample = 1.0
-        sample_all_seq_errors = (True, )
-        sample_all_align_errors = (True, )
-        epochs = 20</code></pre>
+sample_all_seq_errors = (True, )
+sample_all_align_errors = (True, )
+epochs = 20</code></pre>
   <pre
     class="line-numbers"
   ><code class="language-python">experiment_name = "benchmarking"
-        model_name = "resnet50_unfrozen_3"
-        extra = "data-with-errors_90000-samples"
-        
-        resnet50_unfrozen_3, resnet50_transforms = create_resnet50_model(num_out_classes = len(class_names),
-                                                                  frozen = False,
-                                                                  device = device)
-        
-        writer = create_writer(experiment_name = experiment_name,
-                            model_name = model_name,
-                            extra = extra)
-        
-        results_resnet50_unfrozen_3 = train(model = resnet50_unfrozen_3,
-                                        p_data_to_sample = p_data_to_sample,
-                                        sample_all_seq_errors = sample_all_seq_errors,
-                                        sample_all_align_errors = sample_all_align_errors,
-                                        transform = resnet50_transforms,
-                                        optimizer = optimizer,
-                                        loss_fn = loss_fn,
-                                        learning_rate = learning_rate,
-                                        batch_size = batch_size,
-                                        num_workers = num_workers,
-                                        epochs = epochs,
-                                        writer = writer)
-        
-        save_filepath = f"{experiment_name}_{model_name}_{extra}_{epochs}_epochs.pth"
-        save_model(model=resnet50_unfrozen_3, target_dir="models", model_name=save_filepath)</code></pre>
+model_name = "resnet50_unfrozen_3"
+extra = "data-with-errors_90000-samples"
+
+resnet50_unfrozen_3, resnet50_transforms = create_resnet50_model(num_out_classes = len(class_names),
+                                                                 frozen = False,
+                                                                 device = device)
+
+writer = create_writer(experiment_name = experiment_name,
+                       model_name = model_name,
+                       extra = extra)
+
+results_resnet50_unfrozen_3 = train(model = resnet50_unfrozen_3,
+                                    p_data_to_sample = p_data_to_sample,
+                                    sample_all_seq_errors = sample_all_seq_errors,
+                                    sample_all_align_errors = sample_all_align_errors,
+                                    transform = resnet50_transforms,
+                                    optimizer = optimizer,
+                                    loss_fn = loss_fn,
+                                    learning_rate = learning_rate,
+                                    batch_size = batch_size,
+                                    num_workers = num_workers,
+                                    epochs = epochs,
+                                    writer = writer)
+
+save_filepath = f"{experiment_name}_{model_name}_{extra}_{epochs}_epochs.pth"
+save_model(model=resnet50_unfrozen_3, target_dir="models", model_name=save_filepath)</code></pre>
   <pre
     class="output no-lang-display"
   ><code class="language-output">Epoch: 1 | Train Loss: 0.2732 | Train Accuracy: 0.8744 | Test Loss: 0.1259 | Test Accuracy: 0.9541
-        Epoch: 2 | Train Loss: 0.0897 | Train Accuracy: 0.9680 | Test Loss: 0.0783 | Test Accuracy: 0.9729
-        Epoch: 3 | Train Loss: 0.0644 | Train Accuracy: 0.9778 | Test Loss: 0.0645 | Test Accuracy: 0.9780
-        Epoch: 4 | Train Loss: 0.0532 | Train Accuracy: 0.9823 | Test Loss: 0.0526 | Test Accuracy: 0.9832
-        Epoch: 5 | Train Loss: 0.0460 | Train Accuracy: 0.9850 | Test Loss: 0.0489 | Test Accuracy: 0.9841
-        Epoch: 6 | Train Loss: 0.0411 | Train Accuracy: 0.9864 | Test Loss: 0.0511 | Test Accuracy: 0.9834
-        Epoch: 7 | Train Loss: 0.0370 | Train Accuracy: 0.9882 | Test Loss: 0.0464 | Test Accuracy: 0.9850
-        Epoch: 8 | Train Loss: 0.0340 | Train Accuracy: 0.9891 | Test Loss: 0.0436 | Test Accuracy: 0.9864
-        Epoch: 9 | Train Loss: 0.0311 | Train Accuracy: 0.9902 | Test Loss: 0.0457 | Test Accuracy: 0.9853
-        Epoch: 10 | Train Loss: 0.0284 | Train Accuracy: 0.9908 | Test Loss: 0.0455 | Test Accuracy: 0.9859
-        Epoch: 11 | Train Loss: 0.0254 | Train Accuracy: 0.9919 | Test Loss: 0.0485 | Test Accuracy: 0.9858
-        Epoch: 12 | Train Loss: 0.0225 | Train Accuracy: 0.9927 | Test Loss: 0.0464 | Test Accuracy: 0.9866
-        Epoch: 13 | Train Loss: 0.0202 | Train Accuracy: 0.9935 | Test Loss: 0.0531 | Test Accuracy: 0.9859
-        Epoch: 14 | Train Loss: 0.0183 | Train Accuracy: 0.9940 | Test Loss: 0.0529 | Test Accuracy: 0.9845
-        Epoch: 15 | Train Loss: 0.0163 | Train Accuracy: 0.9946 | Test Loss: 0.0501 | Test Accuracy: 0.9856
-        Epoch: 16 | Train Loss: 0.0141 | Train Accuracy: 0.9952 | Test Loss: 0.0552 | Test Accuracy: 0.9861
-        Epoch: 17 | Train Loss: 0.0128 | Train Accuracy: 0.9957 | Test Loss: 0.0629 | Test Accuracy: 0.9847
-        Epoch: 18 | Train Loss: 0.0122 | Train Accuracy: 0.9959 | Test Loss: 0.0575 | Test Accuracy: 0.9854
-        Epoch: 19 | Train Loss: 0.0101 | Train Accuracy: 0.9965 | Test Loss: 0.0706 | Test Accuracy: 0.9850
-        Epoch: 20 | Train Loss: 0.0095 | Train Accuracy: 0.9969 | Test Loss: 0.0692 | Test Accuracy: 0.9859</code></pre>
+Epoch: 2 | Train Loss: 0.0897 | Train Accuracy: 0.9680 | Test Loss: 0.0783 | Test Accuracy: 0.9729
+Epoch: 3 | Train Loss: 0.0644 | Train Accuracy: 0.9778 | Test Loss: 0.0645 | Test Accuracy: 0.9780
+Epoch: 4 | Train Loss: 0.0532 | Train Accuracy: 0.9823 | Test Loss: 0.0526 | Test Accuracy: 0.9832
+Epoch: 5 | Train Loss: 0.0460 | Train Accuracy: 0.9850 | Test Loss: 0.0489 | Test Accuracy: 0.9841
+Epoch: 6 | Train Loss: 0.0411 | Train Accuracy: 0.9864 | Test Loss: 0.0511 | Test Accuracy: 0.9834
+Epoch: 7 | Train Loss: 0.0370 | Train Accuracy: 0.9882 | Test Loss: 0.0464 | Test Accuracy: 0.9850
+Epoch: 8 | Train Loss: 0.0340 | Train Accuracy: 0.9891 | Test Loss: 0.0436 | Test Accuracy: 0.9864
+Epoch: 9 | Train Loss: 0.0311 | Train Accuracy: 0.9902 | Test Loss: 0.0457 | Test Accuracy: 0.9853
+Epoch: 10 | Train Loss: 0.0284 | Train Accuracy: 0.9908 | Test Loss: 0.0455 | Test Accuracy: 0.9859
+Epoch: 11 | Train Loss: 0.0254 | Train Accuracy: 0.9919 | Test Loss: 0.0485 | Test Accuracy: 0.9858
+Epoch: 12 | Train Loss: 0.0225 | Train Accuracy: 0.9927 | Test Loss: 0.0464 | Test Accuracy: 0.9866
+Epoch: 13 | Train Loss: 0.0202 | Train Accuracy: 0.9935 | Test Loss: 0.0531 | Test Accuracy: 0.9859
+Epoch: 14 | Train Loss: 0.0183 | Train Accuracy: 0.9940 | Test Loss: 0.0529 | Test Accuracy: 0.9845
+Epoch: 15 | Train Loss: 0.0163 | Train Accuracy: 0.9946 | Test Loss: 0.0501 | Test Accuracy: 0.9856
+Epoch: 16 | Train Loss: 0.0141 | Train Accuracy: 0.9952 | Test Loss: 0.0552 | Test Accuracy: 0.9861
+Epoch: 17 | Train Loss: 0.0128 | Train Accuracy: 0.9957 | Test Loss: 0.0629 | Test Accuracy: 0.9847
+Epoch: 18 | Train Loss: 0.0122 | Train Accuracy: 0.9959 | Test Loss: 0.0575 | Test Accuracy: 0.9854
+Epoch: 19 | Train Loss: 0.0101 | Train Accuracy: 0.9965 | Test Loss: 0.0706 | Test Accuracy: 0.9850
+Epoch: 20 | Train Loss: 0.0095 | Train Accuracy: 0.9969 | Test Loss: 0.0692 | Test Accuracy: 0.9859</code></pre>
   <pre
     class="line-numbers"
   ><code class="language-python"># Convert TensorBoard data to pandas DataFrame
-        loaded_resnet50_model_3_df_train_acc = tensorboard_to_df("runs/2024-04-19_01_12_08/benchmarking/resnet50_unfrozen_3/data-with-errors_90000-samples/Accuracy_train_acc")
-        loaded_resnet50_model_3_df_test_acc = tensorboard_to_df("runs/2024-04-19_01_12_08/benchmarking/resnet50_unfrozen_3/data-with-errors_90000-samples/Accuracy_test_acc")
-        loaded_resnet50_model_3_df_train_loss = tensorboard_to_df("runs/2024-04-19_01_12_08/benchmarking/resnet50_unfrozen_3/data-with-errors_90000-samples/Loss_train_loss")
-        loaded_resnet50_model_3_df_test_loss = tensorboard_to_df("runs/2024-04-19_01_12_08/benchmarking/resnet50_unfrozen_3/data-with-errors_90000-samples/Loss_test_loss")
-        
-        # Plotting loss and accuracy for ResNet50 model
-        plot_loss_accuracy(loaded_resnet50_model_3_df_train_loss, loaded_resnet50_model_3_df_test_loss, loaded_resnet50_model_3_df_train_acc, loaded_resnet50_model_3_df_test_acc)</code></pre>
+loaded_resnet50_model_3_df_train_acc = tensorboard_to_df("runs/2024-04-19_01_12_08/benchmarking/resnet50_unfrozen_3/data-with-errors_90000-samples/Accuracy_train_acc")
+loaded_resnet50_model_3_df_test_acc = tensorboard_to_df("runs/2024-04-19_01_12_08/benchmarking/resnet50_unfrozen_3/data-with-errors_90000-samples/Accuracy_test_acc")
+loaded_resnet50_model_3_df_train_loss = tensorboard_to_df("runs/2024-04-19_01_12_08/benchmarking/resnet50_unfrozen_3/data-with-errors_90000-samples/Loss_train_loss")
+loaded_resnet50_model_3_df_test_loss = tensorboard_to_df("runs/2024-04-19_01_12_08/benchmarking/resnet50_unfrozen_3/data-with-errors_90000-samples/Loss_test_loss")
+
+# Plotting loss and accuracy for ResNet50 model
+plot_loss_accuracy(loaded_resnet50_model_3_df_train_loss, loaded_resnet50_model_3_df_test_loss, loaded_resnet50_model_3_df_train_acc, loaded_resnet50_model_3_df_test_acc)</code></pre>
   <pre
     class="output-img no-code"
   ><code class="language-output">&nbsp;</code></pre>
@@ -4010,16 +4003,16 @@ summary(model=resnet50_model_0,
     Let's inspect this model's performance further.
   </p>
   <pre class="line-numbers"><code class="language-python"># Test model five
-        loaded_resnet50_model_3_test_results = test_model_on_all_testing_data(model = loaded_resnet50_model_3,
-                                                                          transform = resnet50_transforms,
-                                                                          batch_size = batch_size,
-                                                                          num_workers = num_workers)
-        # Save model five results
-        with open("loaded_resnet50_model_3_test_results.pkl", "wb") as f:
-        pickle.dump(loaded_resnet50_model_3_test_results, f)
-        
-        # Plot accuracy heatmap and confusion matrix for model five 
-        plot_heatmap_and_confusion_matrix(loaded_resnet50_model_3_test_results)</code></pre>
+loaded_resnet50_model_3_test_results = test_model_on_all_testing_data(model = loaded_resnet50_model_3,
+                                                                      transform = resnet50_transforms,
+                                                                      batch_size = batch_size,
+                                                                      num_workers = num_workers)
+# Save model five results
+with open("loaded_resnet50_model_3_test_results.pkl", "wb") as f:
+  pickle.dump(loaded_resnet50_model_3_test_results, f)
+
+# Plot accuracy heatmap and confusion matrix for model five 
+plot_heatmap_and_confusion_matrix(loaded_resnet50_model_3_test_results)</code></pre>
   <pre
     class="output-img no-code"
   ><code class="language-output">&nbsp;</code></pre>
@@ -4043,55 +4036,55 @@ summary(model=resnet50_model_0,
   <pre
     class="line-numbers"
   ><code class="language-python">def visualize_samples(model_results: List[Dict],
-                num_samples: int = 6,
-                set_seed: Tuple[bool, int] = (False, _),
-                grid_cols: int = 2,
-                ):
-        """
-        Visualize randomly selected samples from model results in a 3x2 grid layout.
-        
-        Parameters:
-        model_results (list): List of dictionaries containing model results.
-        translation_dict (dict): Dictionary for translating labels.
-        num_samples (int): Number of samples to visualize. Default is 6.
-        set_seed: Tuple[bool, int] = (False, _)
-        grid_rows (int): Number of rows in the grid. Default is 3.
-        """
-        
-        num_rows = math.ceil(num_samples / grid_cols)
-        plt.figure(figsize=(6, num_samples))
-        
-        for i in range(num_samples):
-        
-        # Set random seed if given
-        if set_seed[0]:
-          random.seed(set_seed[1])
-        
-        # get image and labels from test data
-        random_image_idx = random.randint(0, len(model_results) - 1)
-        random_image_idx_2 = random.randint(0, len(model_results[random_image_idx]["test-data"]) - 1)
-        img = tiny_vgg_transforms(PILImage.open(model_results[random_image_idx]["test-data"].imgs[random_image_idx_2][0]))
-        label = model_results[random_image_idx]["test-data"].imgs[random_image_idx_2][1]
-        model_pred_label = model_results[random_image_idx]['test-preds'][random_image_idx_2].cpu().item()
-        
-        # Create the subplot
-        plt.subplot(num_rows, grid_cols, i + 1)
-        plt.imshow(img.permute(1, 2, 0))
-        
-        # Determine text color based on prediction correctness
-        text_color = 'lightgreen' if label == model_pred_label else 'red'
-        
-        # Plot the figure with colored text
-        translation_dict = {0: 'Heterozygous', 1: 'Homozygous', 2: 'No mutation'}
-        plt.title(f"True Label: {translation_dict[label]} \n Model Prediction: {translation_dict[model_pred_label]}", color=text_color)
-        plt.axis(False)
-        
-        plt.subplots_adjust(wspace=0, hspace=0)
-        plt.tight_layout()
-        
-        # Visualize predictions
-        random.seed(1)
-        visualize_samples(loaded_resnet50_model_3_test_results, num_samples=14)</code></pre>
+                      num_samples: int = 6,
+                      set_seed: Tuple[bool, int] = (False, _),
+                      grid_cols: int = 2,
+                      ):
+  """
+  Visualize randomly selected samples from model results in a 3x2 grid layout.
+
+  Parameters:
+    model_results (list): List of dictionaries containing model results.
+    translation_dict (dict): Dictionary for translating labels.
+    num_samples (int): Number of samples to visualize. Default is 6.
+    set_seed: Tuple[bool, int] = (False, _)
+    grid_rows (int): Number of rows in the grid. Default is 3.
+  """
+
+  num_rows = math.ceil(num_samples / grid_cols)
+  plt.figure(figsize=(6, num_samples))
+
+  for i in range(num_samples):
+
+    # Set random seed if given
+    if set_seed[0]:
+      random.seed(set_seed[1])
+
+    # get image and labels from test data
+    random_image_idx = random.randint(0, len(model_results) - 1)
+    random_image_idx_2 = random.randint(0, len(model_results[random_image_idx]["test-data"]) - 1)
+    img = tiny_vgg_transforms(PILImage.open(model_results[random_image_idx]["test-data"].imgs[random_image_idx_2][0]))
+    label = model_results[random_image_idx]["test-data"].imgs[random_image_idx_2][1]
+    model_pred_label = model_results[random_image_idx]['test-preds'][random_image_idx_2].cpu().item()
+
+    # Create the subplot
+    plt.subplot(num_rows, grid_cols, i + 1)
+    plt.imshow(img.permute(1, 2, 0))
+
+    # Determine text color based on prediction correctness
+    text_color = 'lightgreen' if label == model_pred_label else 'red'
+
+    # Plot the figure with colored text
+    translation_dict = {0: 'Heterozygous', 1: 'Homozygous', 2: 'No mutation'}
+    plt.title(f"True Label: {translation_dict[label]} \n Model Prediction: {translation_dict[model_pred_label]}", color=text_color)
+    plt.axis(False)
+
+  plt.subplots_adjust(wspace=0, hspace=0)
+  plt.tight_layout()
+
+# Visualize predictions
+random.seed(1)
+visualize_samples(loaded_resnet50_model_3_test_results, num_samples=14)</code></pre>
   <pre
     class="output-img no-code"
   ><code class="language-output">&nbsp;</code></pre>
