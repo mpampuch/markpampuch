@@ -648,6 +648,54 @@ function resetClicked() {
 }
 
 // Retrieve blogpost HTML from an HTML file
+// async function retrieveBlogPost(filePath) {
+//   try {
+//     // Fetch the HTML
+//     const response = await fetch(filePath);
+
+//     // Throw an error if the response is not ok
+//     if (!response.ok) {
+//       throw new Error(`Failed to load HTML from ${filePath}`);
+//     }
+
+//     // Convert the response to text
+//     const html = await response.text();
+
+//     // Preload images in the HTML
+//     const tempDiv = document.createElement("div");
+//     tempDiv.innerHTML = html;
+//     const images = tempDiv.querySelectorAll("img");
+
+//     // Create a promise to track image loading
+//     const imagePromises = Array.from(images).map((img) => {
+//       return new Promise((resolve) => {
+//         img.addEventListener("load", () => {
+//           resolve();
+//         });
+//       });
+//     });
+
+//     console.log("Made it here");
+
+//     // Wait for all image promises to resolve
+//     await Promise.all(imagePromises);
+//     console.log("Made it here 2");
+//     // Return the HTML after all images are loaded
+//     return tempDiv.innerHTML;
+
+//     // Catch any errors
+//   } catch (error) {
+//     // Log the error to the console
+//     // console.error(error);
+
+//     // Return an error message
+//     html = `<p>Failed to load blog post</p>`;
+
+//     // Return the HTML
+//     return html;
+//   }
+// }
+
 async function retrieveBlogPost(filePath) {
   try {
     // Fetch the HTML
@@ -668,26 +716,33 @@ async function retrieveBlogPost(filePath) {
 
     // Create a promise to track image loading
     const imagePromises = Array.from(images).map((img) => {
-      return new Promise((resolve) => {
+      return new Promise((resolve, reject) => {
         img.addEventListener("load", () => {
           resolve();
+        });
+        img.addEventListener("error", () => {
+          // Resolve the promise even if the image fails to load
+          resolve();
+          // Alternatively, you could reject the promise if you want to handle the error differently
+          // reject(new Error(`Failed to load image: ${img.src}`));
         });
       });
     });
 
-    // Wait for all image promises to resolve
+    console.log("Made it here");
+
+    // Wait for all image promises to resolve or reject
     await Promise.all(imagePromises);
+    console.log("Made it here 2");
 
-    // Return the HTML after all images are loaded
+    // Return the HTML after all images are loaded or failed to load
     return tempDiv.innerHTML;
-
-    // Catch any errors
   } catch (error) {
     // Log the error to the console
-    // console.error(error);
+    console.error(error);
 
     // Return an error message
-    html = `<p>Failed to load blog post</p>`;
+    const html = `<p>Failed to load blog post</p>`;
 
     // Return the HTML
     return html;
