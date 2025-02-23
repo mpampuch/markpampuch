@@ -215,6 +215,7 @@ div.code-toolbar:focus-within > .toolbar {
 div.code-toolbar > .toolbar > .toolbar-item {
   display: inline-block;
 }
+
 div.code-toolbar > .toolbar > .toolbar-item > a {
   cursor: pointer;
 }
@@ -242,6 +243,17 @@ div.code-toolbar > .toolbar > .toolbar-item > span {
   box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.2);
   border-radius: 0.5em;
 }
+
+/* CUSTOM */
+div.code-toolbar > .toolbar > .toolbar-item > span {
+  background: #000000bd !important;
+  padding-left: 0.5em !important;
+  border: 1px solid #000000 !important;
+  border-radius: 0.5em !important; /* Optional: Adds rounded corners */
+  box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.2) !important;
+  transform: perspective(100px) rotateX(2deg); /* Slight 3D tilt */
+}
+/* END CUSTOM */
 
 div.code-toolbar > .toolbar > .toolbar-item > a:focus,
 div.code-toolbar > .toolbar > .toolbar-item > a:hover,
