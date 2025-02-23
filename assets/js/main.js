@@ -729,11 +729,8 @@ async function retrieveBlogPost(filePath) {
       });
     });
 
-    console.log("Made it here");
-
     // Wait for all image promises to resolve or reject
     await Promise.all(imagePromises);
-    console.log("Made it here 2");
 
     // Return the HTML after all images are loaded or failed to load
     return tempDiv.innerHTML;
