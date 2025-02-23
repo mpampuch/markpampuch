@@ -324,7 +324,7 @@ span.inline-color {
   border-right: 1px solid #999;
   display: block;
   float: left;
-  font-size: 100%;
+  font-size: var(--line-size-percent);
   letter-spacing: -1px;
   margin-right: 1em;
   pointer-events: none;
