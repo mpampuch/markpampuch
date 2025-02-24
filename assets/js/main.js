@@ -966,7 +966,11 @@ function formatWorkHistoryDisplay() {
 
 // ======= Code to randomly load a blogpost =======
 // List for blog posts
-const blogPosts = ["building-a-basecaller", "building-a-variant-caller"];
+const blogPosts = [
+  "building-a-basecaller",
+  "building-a-variant-caller",
+  "genome-assembly",
+];
 
 // Calculate probabilities
 const totalPosts = blogPosts.length;
