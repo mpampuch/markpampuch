@@ -3185,13 +3185,13 @@ $MERQURY/trio/block_n_stats.sh $asm1 $out.${asm1/.fasta/}.*.phased_block.bed $as
 <p class="blog-post_paragraph">There are many more ways Hi-C can help understand your genome and it is too much to all list here. More information on how to interpret Hi-C maps can be found <a href="https://gitlab.com/wtsi-grit/rapid-curation/-/blob/main/Interpreting_HiC_Maps_guide.pdf" target="_blank">in this document</a>.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_99.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_77.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">One good way to think of Hi-C maps is as <strong>modern day Karyotypes</strong>. They can quickly show you the number of- and size of the chromosomes in an organisms genome. But in addition, they can quickly reveal a lot of other genomic patterns and unique characteristics of your organism's biology.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_100.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_78.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">We tend to take certain things in biology for granted: "Centromeres are very repetative", "Telomeres are organized in specific ways", etc. Now with these chromatin-capture technologies we are able to do this high-resolution biology that we were never able to do before. We can now easily evaluate how our previous biological notions hold up across the tree of life.</p>
@@ -3199,7 +3199,7 @@ $MERQURY/trio/block_n_stats.sh $asm1 $out.${asm1/.fasta/}.*.phased_block.bed $as
 <p class="blog-post_paragraph"><strong>Scaffolding using some sort of chromatin-capture technology is a very important ingredient of creating a high-quality genome assembly</strong>. Not only for the myriads of benefits of having better data for identifying contamination, misassemblies, and genome features like sex chromosomes, but also just on a basic level whereby proximity-ligation-based scaffolding can significantly improve the contiguity of your genome.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_101.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_79.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">Here you can see an example where just by performing Hi-C scaffolding on an assembly using short-reads, the researchers were able to go from a contig N50 of 64,321 to a scaffold N50 of 140,950,122. <strong>This is a over 2000-fold increase in genome contiguity</strong>.</p>
@@ -3227,7 +3227,7 @@ $MERQURY/trio/block_n_stats.sh $asm1 $out.${asm1/.fasta/}.*.phased_block.bed $as
 <p class="blog-post_paragraph">Here is an example of a real manual curation step, of a very complicated marine organism.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_102.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_80.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">As you can see, even after manual curation, there is still a lot of small, off-target mappings in the fragments. Genome assembly is hardly ever perfect, and for a lot of organisms, you aren't striving to spend weeks upon weeks to create the perfect assembly and refine out every little innaccuracy in all of your smallest fragments. At some point you will just have to say "<em>khallas</em> this is good enough for what I need".</p>
@@ -3319,19 +3319,19 @@ GAP	sum = 16000, n = 32, mean = 500, largest = 500, smallest = 500</code></pre>
 <p class="blog-post_paragraph">These files, as well as a curated one, were visualized the <a href="https://www.aidenlab.org/juicebox/" target="_blank">Juicebox</a> software webserver. On the site, I clicked <code>Load Map</code> > <code>Local File</code> and uploaded my <code>.hic</code> files.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_102.1.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_81.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">In the workshop we also performed a misassembly investigation using Hi-C maps and IGV, for this purpose, a <em>Eristalis pertinax</em> scaffolded assembly was provided and visualized in Juicebox.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_102.2.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_82.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">As you can see, there is a strange distribution of mappings in scaffold 1. This region (scaffold_1:56,972,207-56,977,386) was isolated and viewed in IGV.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_102.3.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_83.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">As you can see, there is a gap in the Pacbio coverage at this region. Therefore, since we have a weird looking Hi-C Heatmap and no reads crossing that region, <strong>we can very safetly assume this is a misassembly</strong>.</p>
@@ -3339,7 +3339,7 @@ GAP	sum = 16000, n = 32, mean = 500, largest = 500, smallest = 500</code></pre>
 <p class="blog-post_paragraph">So overall, <u>this is basically all you need to create a high-quality, chromosome-level nuclear genome assembly. High quality reads and chromatin proximity ligation data.</u> Telomere-to-telomere genome assemblies still need the added ingredient of Ultra Long reads (Have to be Oxford Nanopore Reads as of right now), however this may change soon with how quickly this field evolves. RNA-Sequencing needs to be done, especially in eukaryotic organisms, to produce good gene models for the organism</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_103.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_84.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">
@@ -3351,7 +3351,7 @@ GAP	sum = 16000, n = 32, mean = 500, largest = 500, smallest = 500</code></pre>
 <p class="blog-post_paragraph">The final thing to take note of is organelle genome assemblies. Every time you isolate DNA from an organism, a large percentage of the reads will come from the organelle genomes. Each organelle (mitochondria and chlroplasts (in photosynthetic eukaryotes)) typically contains multiple copies of their own genome. The number of copies can vary depending on the cell type, organism, and metabolic demands, but as a general rule of thumb for well studied organisms, <strong>a single mitochondrion may contain 2 to 10 copies of mitochondrial DNA (mtDNA) and a single chloroplast can contain 10 to 100 copies of chloroplast DNA (cpDNA)</strong>. In addition, a cell can have tenss, to hundreds, to thousands of organelles per cell,<strong>the overall number of organellular DNA copies per cell can range from hundreds to tens of thousands</strong>.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_104.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_85.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">A lot of assembly programs will output files that end in <code>.gfa</code>. These are <strong>Graphical Fragment Assembly files</strong>. These files contain information from the <em>graph space</em> of the genome assembly (which is like the intermediate version of the assembly, before the assembly is linearized). A <code>.gfa</code> file consists of a set of sequences and tab-delimited pairs of sequences with their overlaps. You can read more about this format from <a href="http://gfa-spec.github.io/GFA-spec/GFA1.html" target="_blank">here</a>. These graphical fragment assembly files can be visualized in programs like <a href="https://rrwick.github.io/Bandage/" target="_blank">Bandage</a>, which help you visualize assembly graphs of your genomes. An assembly graph is used to represent the final assembly of a genome (or metagenomes). In simple terms, <strong>the assembler builds this assembly graph based on reads and their overlap information. Then the assembler resolves paths across the assembly graph and outputs non-branching paths as contigs</strong>.</p>
@@ -3361,25 +3361,25 @@ GAP	sum = 16000, n = 32, mean = 500, largest = 500, smallest = 500</code></pre>
 <p class="blog-post_paragraph">Here you can see what a typical graph structure of a chloroplast genome assembly looks like.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_105.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_86.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">The way to basically interpret this is as follows</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_106.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_87.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">This is an example of a resolved DNA structure. The way to think about this is to imagine tracing a single path through the graph and then linearizing that trace. This results in a single, circular sequence of DNA.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_107.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_88.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">If you think about it, because there are 3 nodes and 4 edges in the above graph, with one of the nodes coming from collapsed repeated sequences, there are 2 ways to traverse the graph above: two separate circular sequences that share a region in common, or a single larger circular sequence with an element that occurs twice.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_108.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_89.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">It's important to always take into account the biology of your organism when interpretting this graph. If you combine this information with additional knowledge about chloroplast structures and how they contain long, inverted repeats, then you can rule out the first scenario and deduce that the real structure of the bacterial genome would be the second option. In this way, Bandage has assisted in turning a fragmented assembly of three contigs into a completed genome of one sequence.</p>
@@ -3387,43 +3387,43 @@ GAP	sum = 16000, n = 32, mean = 500, largest = 500, smallest = 500</code></pre>
 <p class="blog-post_paragraph"><strong>Assembly of the chloroplast genome, especially in plants, is usually a very streamlined process</strong>. There are usually no real issues with it and softwares like <a href="https://github.com/c-zhou/oatk" target="_blank">Oatk</a> are really good at assembling them. However, <strong>mitochondrial genome assembly can still be a complicated challenge</strong>. Mitochondrial biology can be more diverse than chloroplast biology generally. Here is just a quick rundown of many differences between mitochondria found in plants and animals.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_109.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_90.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">This variety extends past animals and plants. Across the Eukaryotic tree of life there is a wide variety of genetic architecture. You will often find many differences in intergenic regions, number and length of introns, the presence and number of pseudogenes, etc., between organisms.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_110.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_91.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">However despite the differences in structure between mitochondria of different organisms, their genetic function is well conserved across many Eukaryotic organisms (except for in anaerobic eukaryotes whose mitochondria have evolved into <a href="https://onlinelibrary.wiley.com/doi/10.1111/j.1550-7408.2009.00407.x" target="_blank">hydrogenosomes or mitosomes</a>). There is also no correlation between genome size and gene content</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_111.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_92.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">Below is an example of how these genes are layed out on a mitochondrial genome.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_112.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_93.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">It's also important to remember that mitochondria exhibit <strong>heteroplasmy</strong>, which is the presence of more than one type of mtDNA in an individual. This was thought to be a rare phenomenon that was associated with aging and disease, but with modern sequencing technology we are realising that it is quite common amongst many taxa. Heterplasmy can exist at the level of different mtDNA between cells of an organism but also different mtDNA within the same cell.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_113.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_94.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">Another important concept for mitochondrial genome assembly is <strong>NUMTs</strong>, which stands for <strong>Nuclear Mitochondrial DNA segments</strong>. These are created by the transfer of portions of the mitochondrial genome to the nuclear genome. Because this is usually an evolutionary process that takes a lot of time, the original mitochondrial genome that's inserted into the nuclear genome tend to go through mutations over the generations and becomes diversified away from the original sequence. However, there is still some similarity which makes some software and analytical tools that try to find mitochondrial sequences confused and they predict that NUMTs are really the mitochondrial sequences.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_114.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_95.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">This trend is not limited to evolutionary DNA transfer from the mitochondria to the nucleus. In eukaryotic biology, the general trend is summarized below.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_115.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_96.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">Because of all of these peculiarities, specialized softwares to assemble mitochondrial genomes have been developped that take all of these factors into consideration. One of these is <a href="https://github.com/marcelauliano/MitoHiFi" target="_blank">MitoHiFi</a>.</p>
@@ -3448,7 +3448,7 @@ GAP	sum = 16000, n = 32, mean = 500, largest = 500, smallest = 500</code></pre>
 <p class="blog-post_paragraph">More specifically, this is how the MitoHiFi workflow looks like. To run MitoHiFi, you will always need to have a reference genome. This will probably need to be a mitogenome of a closely related organism. The MitoHiFi program comes with a script that helps you find a closely-related reference mitogenome called <code>findMitoReference.py</code>. MitoHiFi can also be run in two different modes: The first one is the <strong>reads mode</strong> (<code>-r</code>). Here you can input you PacBio HiFi reads or your Nanopore high-quality reads together with the reference mitogenome. Then the reads are mapped to the reference genome and only the reads with high-quality mappings are retained because these reads that likely came from the mitochondrial DNA. These reads are then fed into <code>hifiasm</code> to assemble contigs. The contigs are then aligned to the reference mitogenome, and then only the best aligning contigs are retained. The selected contigs are circularized and then annotated with either <code>MitoFinder</code> or <code>MITOS</code>. You can also run this in <strong>contig mode</strong> (<code>-c</code>), so if you already have an initial set of contigs then this you just skip the <code>hifiasm</code> assembly and go straight to the BLAST stage.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_116.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_97.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">To run <code>findMitoReference.py</code>, you provide as input the name of your species, your email, an output directory and a minimum mitogenome reference length to ensure that the mitogenome you get back is not an incomplete or partial mitogenome (<strong>suggested to set this to around 15000 for an animal mitogenome</strong>).</p>
@@ -3479,7 +3479,7 @@ GAP	sum = 16000, n = 32, mean = 500, largest = 500, smallest = 500</code></pre>
 <p class="blog-post_paragraph">If you ever need to view the help page or view more options, simply run <code>python mitohifi.py -h</code>.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_117.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_98.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">More information on how MitoHiFi works under the hood is shown below. First, if you are using read mode, reads are mapped to the reference and mapped reads are assembled with hifiasm to produce contigs. These contigs (or the ones you provided in contig mode) are then BLASTed to the reference mitogenome, and then the results of the alignment are parsed and filtered according to three different criterea:</p>
@@ -3494,7 +3494,7 @@ GAP	sum = 16000, n = 32, mean = 500, largest = 500, smallest = 500</code></pre>
 <p class="blog-post_paragraph">You can tweak all of these parameters from their default values. The most important parameter out of all of these to be aware of is the last one, which you can change with the <code>-p</code> flag. If you are dealing with mitogenomes from taxa that are usually well conserved, like mammals or vertebrates, then you can likely increase this default <code>50%</code> filter to something higher like <code>70%</code> or <code>80%</code>. The default value of <code>50%</code> was chosen because the Darwin Tree of Life team noticed that for some invertebrate mitogenomes, a lot of their mitogenomes are really dissimilar to each other, especially in the repeated regions, and that sometimes picking a very stringent value would cause the researcher to <em>overfilter</em> real mitogenomes that were just divergent sequence-wise.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_118.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_99.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">Once the pool of contigs are filtered, the program then proceeds to the circularization step. Because of the circular nature of the mitochondrial genome, you will have sequencing reads that support overlaps all across the sequence. So for example, if you look at the diagram below, you will have many reads that support connections from regions <code>A <-> B</code>, <code>B <-> C</code>, and <code>C <-> A</code>. Sometimes, during the assembly process, the assemblers can get confused and you might end up having a linear contig that contains the same sequence at the start and end positions. So sometimes with circular DNA you will get an assembly artifact where you get a contig with redundant information.</p>
@@ -3502,13 +3502,13 @@ GAP	sum = 16000, n = 32, mean = 500, largest = 500, smallest = 500</code></pre>
 <p class="blog-post_paragraph">To solve this issue, MitoHiFi performs a <strong>self-blast</strong> on the contigs. If a contig has a redundant region at the beginning and the end, the region at the end is deleted. This is performed using the script inside <code>circularizationCheck.py</code>.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_119.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_100.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">The next thing that MitoHiFi does is <strong>rotate</strong> the contig. This is to ensure that all the potential mitogenomes have the same start location. The creators of MitoHiFi decided to standardize this so at the mitogenome sequence starts that the <strong>tRNA-Phe</strong> coding gene. However, in order rotate the sequence so that it starts at this gene, the contig has to be annotated first, The mitogenome is annotated using the GenBank information of the reference mitogenome.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_120.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_101.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">The last step in the MitoHiFi pipeline is to take all the potential mitogenomes that have remained passed the previous filters, and then choose the <strong>final mitogenome</strong>. The final mitogenome is that one that satisfies these three criteria:</p>
@@ -3520,31 +3520,31 @@ GAP	sum = 16000, n = 32, mean = 500, largest = 500, smallest = 500</code></pre>
 </ol> 
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_121.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_102.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">Once MitoHifi finishes running, you expect to have these <strong>3 main files as outputs</strong>: <code>final_mitogenome.fasta</code>, <code>final_mitogenome.gb</code>, and <code>final_mitogenome.annotation.png</code>. If you are running MitoHifi in the reads mode (<code>-r</code>), you will also have another important file called <code>final_mitogenome.coverage.png</code>. This is a graph that shows the sequencing coverage of the reads. This is a sanity check to see if there could have been any drops in coverage across the genome that could have caused a misassembly of the final mitogenome. You will likely see a drop in coverage at the beginning and the end of the mitogenome but this is okay. This is a common artifact of a mitogenome assembly</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_122.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_103.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">However there are also more files that allow you to perform a more in-depth analysis MitoHiFi. These files let you view details about the <strong>other contigs that made it to the last step of the pipeline but were not selected as the final mitogenome</strong> (other potential mitogenomes). <code>shared_genes.tsv</code> is also a useful output to check the similarity between your final mitogenome and the mitogenome used as the reference.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_123.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_104.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">And also there are these files that in most cases are probably too much information but are present regardless if you need to investigate further.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_124.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_105.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">An alternative to MitoHiFi is <a href="https://github.com/c-zhou/oatk" target="_blank">Oatk</a>. This program is especially useful for chloropast genomes, but can also be use for assembling mitogenomes as well.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_125.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_106.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">A final note on mitogenome assembly is that organelle genome assembly is a thing that is kept in mind during the entire genome assembly process. For example, if you want to run MitoHiFi in contig mode, the best time do so would be right after you perform the initial assembly step. This is because other programs in the assembly pipeline like <code>purge_dups</code> might purge out the mitogenome contigs because the mitochondria has a different coverage to the nuclear genome. For the Darwin Tree of Life Genome Assembly pipeline specifically, there is another step that was not really touched on here which is contamination filtering before manual curation. They have <a href="https://pipelines.tol.sanger.ac.uk/blobtoolkit" target="_blank">their own pipeline that uses <code>blobtoolkit</code></a> and they use that to find mitochondrial contigs and other organelle contigs that they then remove. The organelle genomes are then assembled seperated from the nuclear genomes at the end. The final genome <code>.fasta</code> files that are deposited in databases like the NCBI will have the organelle genomes concatenated to the end of the file but it's important to be aware that these are all assembled seperately.</p>
@@ -4164,7 +4164,7 @@ ORIGIN
 <p class="blog-post_paragraph">Visually, this is what the final annotated mitogenome looks like.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_126.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_107.png" alt="alt text" />
 </div>
 
 <p class="blog-post_paragraph">
@@ -4174,6 +4174,6 @@ ORIGIN
 <p class="blog-post_paragraph">Overall, I learned a great deal from this workshop. It has been an invaluable experience that has significantly enhanced my technical skills and deepened my understanding of genomic data analysis. The hands-on training and insights gained will undoubtedly accelerate my progress in effectively working towards my PhD research, which focuses on sequencing challenges. Beyond my immediate project, this workshop has equipped me with tools and knowledge that will make me a more versatile and effective scientist, as sequencing technologies underpin a lot of the modern biological analyses performed today. I feel much more capable of thinking critical about these techniques problems and effectively collaborating with other research groups. There is still a lot to learn on this topic, but I feel lucky to learn the best practices from members of some of the best genome sequencing initiatives in the world and to have access to their public resources to streamline my future sequencing projects.</p>
 
 <div class="workshowcase-img-container">
-  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_127.png" alt="alt text" />
+  <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_108.png" alt="alt text" />
 </div>
 </div>
