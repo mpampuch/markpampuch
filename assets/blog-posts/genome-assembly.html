@@ -253,7 +253,11 @@ Options (default value in (), *required):
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_17.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">The relative heights of the peaks will be determined by the overall rate of heterozygosity: low heterozygosity causes the first peak to be relatively short and higher rates of heterozygosity causes the first peak to grow taller and taller. Since each heterozygous base can create 2\*k heterozygous <em>k</em>-mers, the height of the heterozygous peak grows very quickly and matches the height of the homozygous peak at around only 1.2% heterozygosity for <em>k</em>=21.</p>
+<p class="blog-post_paragraph">The relative heights of the peaks will be determined by the overall rate of heterozygosity: low heterozygosity causes the first peak to be relatively short and higher rates of heterozygosity causes the first peak to grow taller and taller. Since each heterozygous base can create <math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mn>2</mn>
+  <mo>&times;</mo>
+  <mi>k</mi>
+</math> heterozygous <em>k</em>-mers, the height of the heterozygous peak grows very quickly and matches the height of the homozygous peak at around only 1.2% heterozygosity for <em>k</em>=21.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_18.png" alt="alt text" />
@@ -265,7 +269,11 @@ Options (default value in (), *required):
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_19.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">Sequencing errors and read duplications distort the distribution by creating false <em>k</em>-mers that only occur a few numbers of times or artificially creating duplicated <em>k</em>-mers, which reduces the effective average coverage and increases the variance of the distributions. As with heterozygous variation, since each erroneous base can create 2\*k erroneous <em>k</em>-mers, the height of the erroneousus peak grows very quickly. However because these errors will be scattered randomly across the reads unlike heterozygous variation, these <em>k</em>-mers' peak will be differentiable from the heterozygous peaks because off the much smaller amount of genome coverage.</p>
+<p class="blog-post_paragraph">Sequencing errors and read duplications distort the distribution by creating false <em>k</em>-mers that only occur a few numbers of times or artificially creating duplicated <em>k</em>-mers, which reduces the effective average coverage and increases the variance of the distributions. As with heterozygous variation, since each erroneous base can create <math xmlns="http://www.w3.org/1998/Math/MathML">
+  <mn>2</mn>
+  <mo>&times;</mo>
+  <mi>k</mi>
+</math> erroneous <em>k</em>-mers, the height of the erroneousus peak grows very quickly. However because these errors will be scattered randomly across the reads unlike heterozygous variation, these <em>k</em>-mers' peak will be differentiable from the heterozygous peaks because off the much smaller amount of genome coverage.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_20.png" alt="alt text" />
@@ -1504,7 +1512,18 @@ Options:
 Example: ./hifiasm -o NA12878.asm -t 32 NA12878.fq.gz
 See `https://hifiasm.readthedocs.io/en/latest/' or `man ./hifiasm.1' for complete documentation.</code></pre>
 
-<p class="blog-post_paragraph">hifiasm doesn't require you to provide the estimated genome size. All it requires is the sequencing reads for assembly. The <code>--primary</code> flag tells hifiasm to output both a primary and an alternate assembly, with emphasis on generating a more contiguous primary assembly containing homozygous and some heterzygous regions. The <code>-f0</code> flag is used to disable the initial bloom filter which takes 16GB memory at the beginning. The bloom filter is used to filter out singleton <em>k</em>-mers when counting all <em>k</em>-mers. It takes 2^(INT-3) bytes of memory. Using a proper value for <code>-f</code> saves memory. <code>-f37</code> is recommended for human assemblies, and for genomes much larger than human, applying <code>-f38</code> or even <code>-f39</code> is preferred to save memory on <em>k</em>-mer counting. However for small genomes it's often recommended to disable this with <code>-f0</code>.</p>
+<p class="blog-post_paragraph">hifiasm doesn't require you to provide the estimated genome size. All it requires is the sequencing reads for assembly. The <code>--primary</code> flag tells hifiasm to output both a primary and an alternate assembly, with emphasis on generating a more contiguous primary assembly containing homozygous and some heterzygous regions. The <code>-f0</code> flag is used to disable the initial bloom filter which takes 16 GB of memory at the beginning. The bloom filter is used to filter out singleton <em>k</em>-mers when counting all <em>k</em>-mers. It takes <math xmlns="http://www.w3.org/1998/Math/MathML">
+    <msup>
+      <mn>2</mn>
+      <mrow>
+        <mo>(</mo>
+        <mtext>INT</mtext>
+        <mo>-</mo>
+        <mn>3</mn>
+        <mo>)</mo>
+      </mrow>
+    </msup>
+  </math> bytes of memory. Using a proper value for <code>-f</code> saves memory. <code>-f37</code> is recommended for human assemblies, and for genomes much larger than human, applying <code>-f38</code> or even <code>-f39</code> is preferred to save memory on <em>k</em>-mer counting. However for small genomes it's often recommended to disable this with <code>-f0</code>.</p>
 
 <pre class="command-line" data-user="" data-host=""><code class="language-commandline">cd /home/user19/drUrtUren1/hifiasm
 ln -s /home/ubuntu/Share/drUrtUren1_data/drUrtUren1.600.fasta
@@ -2784,7 +2803,21 @@ tig00000002.fasta.fai</code></pre>
 
 <p class="blog-post_paragraph">So in conclusion, when it comes to purging, in your Merqury plots you can have an extra layer above your peaks with higher coverage (indicating <strong>retained-haplotypes</strong>) or a peak of read-only <em>k</em>-mers (indicating that you <strong>over-purged</strong>). All in all it shows the necessity of performing multiple Merqury QC steps at every step of the assembly. More information on how to evaluate <em>k</em>-mer plots can be found <a href="https://github.com/marbl/merqury/wiki/2.-Overall-k-mer-evaluation" target="_blank">here</a>.</p>
 
-<p class="blog-post_paragraph">The last thing to note about Merqury is that in addition to <em>k</em>-mer spectra plots, Merqury will also output alignment stats to give you <strong>QV</strong> (consensus quality value) estimates in files titled <code>output.qv</code>. QV is a assembly quality metric, based on the number of <em>k</em>-mers that are found only in the assembly but not in the reads (which would imply consensus base pair errors). This is also known as the <strong><em>k</em>-mer survival rate</strong> (i.e., how many <em>k</em>-mers are unaffected by sequencing error). To calculate this, the error rate is first determined. The proportion of unique <em>k</em>-mers in the assembly over the total number of <em>k</em>-mers in the assembly represent the error rate, as they are assumed to have base errors. Then, it is recorded as a log-scaled probability of error for the consensus base calls (Phred Quality Score). The formula for the error rate, with E being error rate is <code>QV = −10log E</code>. <code>Q30</code> corresponds to 99.90% accuracy, <code>Q40</code> to 99.99%, etc.</p>
+<p class="blog-post_paragraph">The last thing to note about Merqury is that in addition to <em>k</em>-mer spectra plots, Merqury will also output alignment stats to give you <strong>QV</strong> (consensus quality value) estimates in files titled <code>output.qv</code>. QV is an assembly quality metric, based on the number of <em>k</em>-mers that are found only in the assembly but not in the reads (which would imply consensus base pair errors). This is also known as the <strong><em>k</em>-mer survival rate</strong> (i.e., how many <em>k</em>-mers are unaffected by sequencing error). To calculate this, the error rate is first determined. The proportion of unique <em>k</em>-mers in the assembly over the total number of <em>k</em>-mers in the assembly represent the error rate, as they are assumed to have base errors. Then, it is recorded as a log-scaled probability of error for the consensus base calls (Phred Quality Score). The formula for the error rate, with <em>E</em> being error rate is:</p>
+
+<div style="text-align: center;">
+  <math xmlns="http://www.w3.org/1998/Math/MathML">
+    <mi>QV</mi>
+    <mo>=</mo>
+    <mo>-</mo>
+    <mn>10</mn>
+    <mo>&InvisibleTimes;</mo>
+    <mi>log</mi>
+    <mi>E</mi>
+  </math>
+</div>
+<p class="blog-post_paragraph"></p>
+<p class="blog-post_paragraph">This means that <code>Q30</code> corresponds to 99.90% accuracy, <code>Q40</code> to 99.99%, etc.</p>
 
 <p class="blog-post_paragraph">The following table shows column descriptors for an example <em>A. thaliana</em> dataset.</p>
 
