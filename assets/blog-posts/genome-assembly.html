@@ -6,9 +6,9 @@
     </p>
 </div>
 
-<p class="blog-post_paragraph">In November of 2024, I took part in an online workshop run by Physalia and the Wellcome Sanger Institute in order to learn the cutting edge techniques to assemble high quality Eukaryotic genomes using PacBio and Hi-C data. This was to help bolster my capabilities as a genomics scientist. I started off my research journey in the wet lab, working hands on with solutions and organisms in the lab, but I quickly realized that the amount of biological insight you can achieve at this scale of research is very limited. Current day -omics technologies allow us to gain far better resolution and give us much more of a complete picture about the biological realialities of the organisms we work with. Unfortunately performing this kind of research requires a lot of computational and statistical know-how that a lot of biologists do not possess. During my masters, I challenged myself to take on a computational project in addition to my main project in the lab. I tried to remap all the existing gene models of an organism to a newer and more improved version of it's genome assembly. This project forced me to learn a lot of important foundational programming and computer science concepts which enabled me to pursue bioinformatics work, but for the duration of my bioinformatics journey I was forced to learn all the important concepts through self-study. When I started my PhD, one of the first projects I started working on was to sequence and and assemble the genomes of a library of living photosynthetic microorganisms that were collected from the region I was working on. This is a humongous task as genome assembly is still not a trivial feat. Despite more an more genome assembly pipelines being published by researchers in recent years, genome assembly is still a process that requires a lot of biological knowledge, refinement, iterating, and curation by an someone with a lot of genome-scale understanding of biology. Every organism will pose it's own unique challenges and quirks and so sequencing a lot of biodiverse organisms from an understudied area of the Tree of Life felt a little daunting. Luckily, my supervisor was gratious enough to enroll me in a week-long, hands-on online workshop to get me up to speed with the history and current state of the genome assembly techniques. The workshop was run by Dr. Marcela Uliano-Silva from the Darwin tree of life project, a project aimed at sequencing the genomes of thousands of eukaryotic organisms from the UK region. We learned a lot of foundational and in-depth topics of the genome assembly process and were tasked with assembling a chromosome-level genome by the end of the week and presenting our thought process behind the assembly choices that we made.</p>
+<p class="blog-post_paragraph">In November of 2024, I took part in an online workshop run by Physalia and the Wellcome Sanger Institute in order to learn the cutting edge techniques to assemble high quality Eukaryotic genomes using PacBio and Hi-C data. This was to help bolster my capabilities as a genomics scientist. I started off my research journey in the wet lab, working hands on with solutions and organisms in the lab, but I quickly realized that the amount of biological insight you can achieve at this scale of research is very limited. Current day -omics technologies allow us to gain far better resolution and give us much more of a complete picture about the biological realities of the organisms we work with. Unfortunately performing this kind of research requires a lot of computational and statistical know-how that a lot of biologists do not possess. During my masters, I challenged myself to take on a computational project in addition to my main project in the lab. I tried to remap all the existing gene models of an organism to a newer and more improved version of it's genome assembly. This project forced me to learn a lot of important foundational programming and computer science concepts which enabled me to pursue bioinformatics work, but for the duration of my bioinformatics journey I was forced to learn all the important concepts through self-study. When I started my PhD, one of the first projects I started working on was to sequence and assemble the genomes of a library of living photosynthetic microorganisms that were collected from the region I was working on. This is a humongous task as genome assembly is still not a trivial feat. Despite more and more genome assembly pipelines being published by researchers in recent years, genome assembly is still a process that requires a lot of biological knowledge, refinement, iterating, and curation by someone with a lot of genome-scale understanding of biology. Every organism will pose it's own unique challenges and quirks and so sequencing a lot of biodiverse organisms from an understudied area of the Tree of Life felt a little daunting. Luckily, my supervisor was gratious enough to enroll me in a week-long, hands-on online workshop to get me up to speed with the history and current state of genome assembly techniques. The workshop was run by Dr. Marcela Uliano-Silva from the Darwin tree of life project, a project aimed at sequencing the genomes of thousands of eukaryotic organisms from the UK region. We learned a lot of foundational and in-depth topics of the genome assembly process and were tasked with assembling a chromosome-level genome by the end of the week and presenting our thought process behind the assembly choices that we made.</p>
 
-<p class="blog-post_paragraph">In the workship I worked on assembling the genome of the plant species <em>Urtica urens</em>, commonly known as a small nettle. I chose this organism because it came from a plant lineage and so I figured it would have many similar biological features to the organisms that I was sequencing in my lab, such as chloroplasts with photosynthetic machinery and their own DNA, as well as cell walls that would make DNA isolation from samples difficult.</p>
+<p class="blog-post_paragraph">In the workshop I worked on assembling the genome of the plant species <em>Urtica urens</em>, commonly known as a small nettle. I chose this organism because it came from a plant lineage and so I figured it would have many similar biological features to the organisms that I was sequencing in my lab, such as chloroplasts with photosynthetic machinery and their own DNA, as well as cell walls that would make DNA isolation from samples difficult.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_1.png" alt="alt text" />
@@ -22,19 +22,19 @@
 
 <p class="blog-post_paragraph">A little background on genome assembly technologies before I start with the workshop portion. The first full DNA genome to be sequenced was that of bacteriophage &phi;X174 in 1977. Since then, it took researchers until 2022 to create a fully-resolved, human genome assembly. This breakthrough was powered by innovations in genome sequencing technologies that overcame decades long challenges in genomics.</p>
 
-<p class="blog-post_paragraph">The main hurdles to creating contiguous genome assemblies has been, and to this day still is, dealing with repetative regions in the genome.</p>
+<p class="blog-post_paragraph">The main hurdles to creating contiguous genome assemblies have been, and to this day still is, dealing with repetative regions in the genome.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_2.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">These regions confuse assembly algorithms and lead to fragmented or missassembled genomes. In order to effectively resolve repetative regions in the genome, you need sequencing reads are longer than the span of repetative region, and in high-enough abundance to resolve any ambiguities in the assembly algorithms.</p>
+<p class="blog-post_paragraph">These regions confuse assembly algorithms and lead to fragmented or misassembled genomes. In order to effectively resolve repetative regions in the genome, you need sequencing reads That are longer than the span of the repetative regions, and in high-enough abundance to resolve any ambiguities in the assembly algorithms.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_3.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">Modern Sequencing Technologies, also known as long-read technologies, capture much more of the genome per-read, and have enabled us resolve a lot of tricky genomic areas, and investigate genetic phenomena across the tree of life that previously was never possible. Some interesting patterns were noticed. Firstly, the human genome contains around 26,000 genes. This number is pretty consistent across the tree of life. It's become evident that a lot of the genetic diversity that we see comes at the regulatory, or epigenomic level. Another interesting phenomenon emerged across biodiversity genomics studies is something known as the <strong>C-value paradox</strong>. The <strong><em>C</em></strong>-value refers to the amount of DNA in the haploid genome of an organism. Very similar organisms can show a large difference in C-value (e.g. Flowering plants and amphibians).</p>
+<p class="blog-post_paragraph">Modern sequencing technologies, also known as long-read technologies, capture much more of the genome per-read, and have enabled us resolve a lot of tricky genomic areas, and investigate genetic phenomena across the tree of life that previously was never possible. Some interesting patterns were noticed. Firstly, the human genome contains around 26,000 genes. This number is pretty consistent across the tree of life. It's become evident that a lot of the genetic diversity that we see comes at the regulatory, or epigenomic level. Another interesting phenomenon that emerged across biodiversity genomics studies is something known as the <strong>C-value paradox</strong>. The <strong><em>C</em></strong>-value refers to the amount of DNA in the haploid genome of an organism. Very similar organisms can show a large difference in C-value (e.g. Flowering plants and amphibians).</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_4.png" alt="alt text" />
@@ -48,7 +48,7 @@
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_5.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">The main problem with this technology is that the DNA polymerase can synthesize the complementary strand at a rate of 1000 base pairs per second. This rate can actually be too fast sometimes for the machine to measure the fluouresence accurately at the same rate and so it might miss some insertions or get confused. This means that <strong> the main error type for this technology are deletions and insertions</strong> (indels).</p>
+<p class="blog-post_paragraph">The main problem with this technology is that the DNA polymerase can synthesize the complementary strand at a rate of 1000 base pairs per second. This rate can actually be too fast sometimes for the machine to measure the fluorescence accurately at the same rate and so it might miss some insertions or get confused. This means that <strong> the main error type for this technology are deletions and insertions</strong> (indels).</p>
 
 <p class="blog-post_paragraph">The first generation of this technology was called PacBio continuous long reads, or PacBio CLR reads. These reads were very errorneous, and could have a per-read error rate of around 15%. This is a problem in the assembly process because most assembly algorithms require you to have good quality reads and so you had to correct your reads before assembly. This is computationally a very costly process but also causes you to lose a lot of your data afterwards. Noisy reads also pose problems for certain hard to assemble regions, especially if you don't have even sequencing coverage across the genome.</p>
 
@@ -58,13 +58,13 @@
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_6.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">The innovation here is that the DNA sequence is cirularized with special sequencing adapters and the molecule is read over-and-over again. Because the errors in each pass of the sequencing should be randomly distributed accross the reads, this strategy will give you enough sequencing depth and every base in the sequence to create an accurate consensus sequence, which in most cases is extremely close to the reality of what the original seequence was.</p>
+<p class="blog-post_paragraph">The innovation here is that the DNA sequence is circularized with special sequencing adapters and the molecule is read over-and-over again. Because the errors in each pass of the sequencing should be randomly distributed accross the reads, this strategy will give you enough sequencing depth and every base in the sequence to create an accurate consensus sequence, which in most cases is extremely close to the reality of what the original sequence was.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_7.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">The other major player in the long-read sequencing space are Oxford Nanopore Technologies sequencers. These technologies work on the native molecule of DNA, sequencing it by analysing the electrical signal that is disrupted as the DNA molecular passes through a pore in a membrane.</p>
+<p class="blog-post_paragraph">The other major player in the long-read sequencing space is Oxford Nanopore Technologies sequencing. These technologies work on the native molecule of DNA, sequencing it by analysing the electrical signal that is disrupted as the DNA molecular passes through a pore in a membrane.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_8.png" alt="alt text" />
@@ -133,33 +133,33 @@ run_drUrtUren1.hifiasm.p.busco_odb10
 run_drUrtUren1.purged.busco_odb10
 run_drUrtUren1.purged_htigs.busco_odb10</code></pre>
 
-<p class="blog-post_paragraph"><code>drUrtUren1.ccs.total.fasta.gz</code> contains all the sequencing reads for collected for this organism. This reads are PacBio Circular Consensus (Hifi) Reads, processessed with with PacBio <code>css</code> program</p>
+<p class="blog-post_paragraph"><code>drUrtUren1.ccs.total.fasta.gz</code> contains all the sequencing reads collected for this organism. This reads are PacBio Circular Consensus (Hifi) Reads, processessed with with PacBio <code>css</code> program</p>
 
-<p class="blog-post_paragraph">The first thing I wanted to do was to perform a k-mer analysis on the sequencing reads for this organism.</p>
+<p class="blog-post_paragraph">The first thing I wanted to do was to perform a <u><em>k</em>-mer analysis</u> on the sequencing reads for this organism.</p>
 
-<p class="blog-post_paragraph">In biology, k-mers are unique subsequences of a sequence of length k.</p>
+<p class="blog-post_paragraph">In biology, <em>k</em>-mers are unique subsequences of a sequence of length k.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_12.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">Performing a k-mer analysis is a powerful tool in genomics with several key applications. It plays a fundamental role in genome assembly by enabling the construction of De Bruijn graphs, which help reconstruct sequences from short reads through overlap identification (although this assembly method is less in-favour these days due to modern sequencing technologies whose reads assemble better using the other main approach to genome assembly, the Overlap, Layout, Consensus (OLC) method).</p>
+<p class="blog-post_paragraph">Performing a <em>k</em>-mer analysis is a powerful tool in genomics with several key applications. It plays a fundamental role in genome assembly by enabling the construction of De Bruijn graphs, which help reconstruct sequences from short reads through overlap identification (although this assembly method is less in-favour these days due to modern sequencing technologies whose reads assemble better using the other main approach to genome assembly, the Overlap, Layout, Consensus (OLC) method).</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_13.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">Additionally, k-mer frequency analysis can detect bacterial contamination in eukaryotic genome assemblies by revealing discrepancies in CG content.</p>
+<p class="blog-post_paragraph">Additionally, <em>k</em>-mer frequency analysis can detect bacterial contamination in eukaryotic genome assemblies by revealing discrepancies in CG content.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_14.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">Here you can see two clusters with different GC contents. If you sequencing reads are of high enough quality you can perform a contamination analysis from just the read data alone.</p>
+<p class="blog-post_paragraph">Here you can see two clusters with different GC contents. If your sequencing reads are of high enough quality you can perform a contamination analysis from just the read data alone.</p>
 
-<p class="blog-post_paragraph">k-mer analysis is also useful for correcting errors in next-generation sequencing (NGS) data by identifying abnormal k-mer distributions. Moreover, k-mer compositions across different genomes can indicate horizontal gene transfer events by highlighting unusual patterns. This method is also useful for aiding in locating CpG islands, which are regions rich in cytosine and guanine dinucleotides often associated with gene regulation. All these features and more make k-mer analysis a versatile and essential tool in genomic research. More information about k-mer counting can be found <a href="https://bioinfologics.github.io/post/2018/09/17/k-mer-counting-part-i-introduction/" target="_blank">in this blogpost</a> by Bernardo J. Clavijo, one of the authors of the k-mer counting program <a href="https://doi.org/10.1093/bioinformatics/btw663" target="_blank">KAT</a>.</p>
+<p class="blog-post_paragraph"><em>k</em>-mer analysis is also useful for correcting errors in next-generation sequencing (NGS) data by identifying abnormal <em>k</em>-mer distributions. Moreover, <em>k</em>-mer compositions across different genomes can indicate horizontal gene transfer events by highlighting unusual patterns. This method is also useful for aiding in locating CpG islands, which are regions rich in cytosine and guanine dinucleotides often associated with gene regulation. All these features and more make <em>k</em>-mer analysis a versatile and essential tool in genomic research. More information about <em>k</em>-mer counting can be found <a href="https://bioinfologics.github.io/post/2018/09/17/k-mer-counting-part-i-introduction/" target="_blank">in this blogpost</a> by Bernardo J. Clavijo, one of the authors of the <em>k</em>-mer counting program <a href="https://doi.org/10.1093/bioinformatics/btw663" target="_blank">KAT</a>, or in this recently submitted <a href="https://arxiv.org/abs/2404.01519" target="_blank">guide to performing <em>k</em>-mer analyses</a>.</p>
 
-<p class="blog-post_paragraph">For our purposes here, we'll explore two other major roles of k-mer analysis that are vital to genome assembly — especially <em>de novo</em> genome assembly — the ability to estimate genome size and heterozygosity, which are a major factor in estimating the completeness of a genome assembly.</p>
+<p class="blog-post_paragraph">For our purposes here, we'll explore two other major roles of <em>k</em>-mer analysis that are vital to genome assembly — especially <em>de novo</em> genome assembly — the ability to <strong>estimate genome size and heterozygosity</strong>, which are a major factor in estimating the completeness of a genome assembly.</p>
 
 <p class="blog-post_paragraph">To start investigating this in my data, I created a directory for my <em>Urtica urens</em> inside my home directory</p>
 
@@ -172,9 +172,9 @@ mkdir kmers assembly</code></pre>
 
 <pre class="command-line" data-user="" data-host=""><code class="language-commandline">conda activate eukaryotic_genome_assembly</code></pre>
 
-<p class="blog-post_paragraph">For this workshop, I used the program <a href="https://doi.org/10.1093/bioinformatics/btr011" target="_blank">Jellyfish</a>. To count k-mers. There are a few other options like Kat and Smudgeplot, but these were not investigated.</p>
+<p class="blog-post_paragraph">For this workshop, I used the program <a href="https://doi.org/10.1093/bioinformatics/btr011" target="_blank">Jellyfish</a> to count <em>k</em>-mers. There are a few other options like Kat and Smudgeplot, but these were not investigated.</p>
 
-<p class="blog-post_paragraph">Counting kmers with Jellyfish works in a couple of steps. First you want to count the kmers with <code>jellyfish count</code>. I checked the help page to see what the important flags are to be used.</p>
+<p class="blog-post_paragraph">Counting <em>k</em>-mers with Jellyfish works in a couple of steps. First you want to count the <em>k</em>-mers with <code>jellyfish count</code>. I checked the help page to see what the important flags are to be used.</p>
 
 <pre class="command-line" data-user="" data-host=""><code class="language-commandline">jellyfish count --help</code></pre>
 
@@ -213,59 +213,59 @@ Options (default value in (), *required):
      --full-help                          Detailed help
  -V, --version                            Version</code></pre>
 
-<p class="blog-post_paragraph">Now it's time to determine what size to pick for <code>k</code>. Choosing k is a tradeoff between specificity and sensitivity. Using a k that is too small will result in many unrelated sequences being composed of the same k-mers, in a textbook case of specificity loss because there being very few possible k-mers of that size. In the extreme of the small k, k=1 only distinguishes two canonical k-mers: A and C. 1- mer analysis is incredibly popular in biology, but it is best known by the name of GC content analysis. Using extremely large k values would sacrifice many of the benefits and sensitivity of k-mer analyses in the first place. For the k-mer size, I picked <code>31</code>. This is a common k-mer size in genomic analysis because it provides a good balance between specificity and sensitivit. It is long enough to provide specific sequences that help reduce ambiguity (like distinguishing between similar regions, and between mammalian and bacterial DNA) while still being short enough to maintain a high frequency in the data. It is also computational efficient. While longer k-mers can increase the computational burden due to the larger number of possible combinations, 31 is often a manageable size that balances memory resources and processing effectiveness when analyizing large amounds of DNA bases.</p>
+<p class="blog-post_paragraph">Now it's time to determine what size to pick for <code>k</code>. <strong>Choosing <em>k</em> is a tradeoff between specificity and sensitivity</strong>. Using a k that is too small will result in many unrelated sequences being composed of the same <em>k</em>-mers, in a textbook case of specificity loss because there being very few possible <em>k</em>-mers of that size. In the extreme of the small <em>k</em>, <em>k</em>=1 only distinguishes two canonical <em>k</em>-mers: A and C. 1-mer analysis is incredibly popular in biology, but it is best known by the name of GC content analysis. Using extremely large k values would sacrifice many of the benefits and sensitivity of <em>k</em>-mer analyses in the first place. For the <em>k</em>-mer size, I picked <code>31</code>. This is a common <em>k</em>-mer size in genomic analysis because it provides a good balance between specificity and sensitivit. It is long enough to provide specific sequences that help reduce ambiguity (like distinguishing between similar regions, and between mammalian and bacterial DNA) while still being short enough to maintain a high frequency in the data. It is also computationally efficient. While longer <em>k</em>-mers can increase the computational burden due to the larger number of possible combinations, 31 is often a manageable size that balances memory resources and processing effectiveness when analyizing large amounds of DNA bases.</p>
 
 <p class="blog-post_paragraph">I also had to make sure that <code>--canonical</code> was chosen.</p>
 
-<p class="blog-post_paragraph">DNA is typically double-stranded. When sequencing, we can read from either strand, however, we would like to consider every location of the genome once, no matter on which strand we happened to have landed.</p>
+<p class="blog-post_paragraph">DNA is typically double-stranded. When sequencing, we can read from either strand. However, we would like to consider every location of the genome once, no matter on which strand we happened to have landed.</p>
 
-<p class="blog-post_paragraph">For example, if we read the sequence <code>ATCGAC</code>, it indicates that both this sequence and its reverse complement, <code>GTCGAT</code>, exist in the genome. One is observed when reading in one direction, while the other is observed in the opposite direction. To ensure completeness in our analyses and to prevent over-counting of k-mers across the genome, we should take both of these sequences into account as a single k-mer, <code>ATCGAC</code>/<code>GTCGAT</code>.</p>
+<p class="blog-post_paragraph">For example, if we read the sequence <code>ATCGAC</code>, it indicates that both this sequence and its reverse complement, <code>GTCGAT</code>, exist in the genome. One is observed when reading in one direction, while the other is observed in the opposite direction. To ensure completeness in our analyses and to prevent over-counting of <em>k</em>-mers across the genome, we should take both of these sequences into account as a single <em>k</em>-mer, <code>ATCGAC</code>/<code>GTCGAT</code>.</p>
 
-<p class="blog-post_paragraph">To standardize how we refer to k-mers, we can use the concept of canonical k-mers. This means selecting the lexicographically smaller of the two reverse complementary sequences, which helps us consistently represent these sequences. Essentially, if we have both <code>ATCGAC</code> and <code>GTCGAT</code>, we only refer to <code>ATCGAC</code>, as it comes first in alphabetical order.</p>
+<p class="blog-post_paragraph">To standardize how we refer to <em>k</em>-mers, we can use the concept of <strong>canonical <em>k</em>-mers</strong>. This means selecting the lexicographically smaller of the two reverse complementary sequences, which helps us consistently represent these sequences. Essentially, if we have both <code>ATCGAC</code> and <code>GTCGAT</code>, we only refer to <code>ATCGAC</code>, as it comes first in alphabetical order.</p>
 
-<p class="blog-post_paragraph">Most k-mer counting tools either default to counting canonical k-mers or offer an option to switch between canonical and non-canonical counting. Typically, canonical counting is preferred, meaning that if <code>GTCGAT</code> appears, it will be counted as <code>ATCGAC</code>. However jellyfish by default does not use canonical k-mers, and so this option has to be specified.</p>
+<p class="blog-post_paragraph">Most <em>k</em>-mer counting tools either default to counting canonical <em>k</em>-mers or offer an option to switch between canonical and non-canonical counting. <u>Typically, canonical counting is preferred</u>, meaning that if <code>GTCGAT</code> appears, it will be counted as <code>ATCGAC</code>. However jellyfish by default does not use canonical <em>k</em>-mers, and so this option has to be specified.</p>
 
-<p class="blog-post_paragraph"><code>size</code> and <code>threads</code> were also specified, but this has more to do with computational efficiency and computer memory management than any biological relevant parameters.</p>
+<p class="blog-post_paragraph"><code>size</code> and <code>threads</code> were also specified, but this has more to do with computational efficiency and computer memory management than any biologically relevant parameters.</p>
 
 <pre class="command-line" data-user="" data-host=""><code class="language-commandline">jellyfish count --mer-len=31 --size=1000 --threads=1 --canonical --output=drUrtUren1.ccs.total.jf drUrtUren1.ccs.total.fasta.gz</code></pre>
 
-<p class="blog-post_paragraph">This generated the file <code>drUrtUren1.jf</code>. This file is what is used in the next step to generate a k-mer histogram using <code>jellyfish histo</code>.</p>
+<p class="blog-post_paragraph">This generated the file <code>drUrtUren1.jf</code>. This file is what is used in the next step to generate a <em>k</em>-mer histogram using <code>jellyfish histo</code>.</p>
 
 <pre class="command-line" data-user="" data-host=""><code class="language-commandline">jellyfish histo drUrtUren1.ccs.total.jf > drUrtUren1.ccs.total.histo</code></pre>
 
-<p class="blog-post_paragraph">Now that a histogram has been generated of these k-mer counts, the next step is to visualize it. To do this, <a href="https://www.nature.com/articles/s41467-020-14998-3" target="_blank">GenomeScope 2.0</a> was used. This program enables you to estimate the size, heterozygosity, and repeat content of the genome based on the frequency of k-mers found in the sequencing data. It comes with the web application accessible at http://genomescope.org/genomescope2.0/ and so the data was pulled off the server first and then uploaded to this website.</p>
+<p class="blog-post_paragraph">Now that a histogram has been generated of these <em>k</em>-mer counts, the next step is to visualize it. To do this, <a href="https://www.nature.com/articles/s41467-020-14998-3" target="_blank">GenomeScope 2.0</a> was used. This program enables you to estimate the size, heterozygosity, and repeat content of the genome based on the frequency of <em>k</em>-mers found in the sequencing data. It comes with the web application accessible at <a href="http://genomescope.org/genomescope2.0/" target="_blank">http://genomescope.org/genomescope2.0/</a> and so the data was pulled off the workshop server first and then uploaded to this website.</p>
 
-<p class="blog-post_paragraph">GenomeScope analyzes the k-mer profile (also called k-mer spectrum) of unassembled, unaligned (i.e. raw) reads to compute the genome and read characteristics. The k-mer profile counts how many k-mers, substrings of length k, occur in the sequence data. A key advantage of the k-mer based approach is that the k-mer profile can be computed without a reference genome by directly scanning the sequencing reads, so that it works well for novel genomes. The frequency of unique k-mers are plotted against the k-mer coverage, the formala of which is shown here:</p>
+<p class="blog-post_paragraph">GenomeScope analyzes the <em>k</em>-mer profile (also called <em>k</em>-mer spectrum) of unassembled, unaligned (i.e. raw) reads to compute the genome and read characteristics. The <em>k</em>-mer profile counts how many <em>k</em>-mers, substrings of length k, occur in the sequence data. A key advantage of the <em>k</em>-mer based approach is that <strong>the <em>k</em>-mer profile can be computed without a reference genome</strong> by directly scanning the sequencing reads, so that it works well for novel genomes. The frequency of unique <em>k</em>-mers are plotted against the <em>k</em>-mer coverage, the formula of which is shown here:</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_15.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">So a plotted out a homozygous genome—free of repeats and free of sequencing errors—should be distributed around this location on a k-mer spectrum plot:</p>
+<p class="blog-post_paragraph">So plotted out, a homozygous genome — free of repeats and free of sequencing errors — should be distributed around this location on a <em>k</em>-mer spectrum plot:</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_16.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">If instead the genome is heterozygous, then the k-mer profile will show a characteristic two-peak profile. The two peaks will be centered at X and 2X (e.g. 50x and 100x) representing heterozygous k-mers that have been sequenced to half the coverage (50x) as the homozygous k-mers sequenced equally from both alleles (100x).</p>
+<p class="blog-post_paragraph">If instead the genome is heterozygous, then the <em>k</em>-mer profile will show a characteristic two-peak profile. The two peaks will be centered at X and 2X (e.g. 50x and 100x) representing heterozygous <em>k</em>-mers that have been sequenced to half the coverage (50x) as the homozygous <em>k</em>-mers sequenced equally from both alleles (100x).</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_17.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">The relative heights of the peaks will be determined by the overall rate of heterozygosity: low heterozygosity causes the first peak to be relatively short and higher rates of heterozygosity causes the first peak to grow taller and taller. Since each heterozygous base can create 2\*k heterozygous k-mers, the height of the heterozygous peak grows very quickly and matches the height of the homozygous peak at around only 1.2% heterozygosity for k=21.</p>
+<p class="blog-post_paragraph">The relative heights of the peaks will be determined by the overall rate of heterozygosity: low heterozygosity causes the first peak to be relatively short and higher rates of heterozygosity causes the first peak to grow taller and taller. Since each heterozygous base can create 2\*k heterozygous <em>k</em>-mers, the height of the heterozygous peak grows very quickly and matches the height of the homozygous peak at around only 1.2% heterozygosity for <em>k</em>=21.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_18.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">Repeats have the opposite effect and cause k-mers to be present more than 2X times, proportional to the number of copies of that repeat in the genome.</p>
+<p class="blog-post_paragraph">Repeats have the opposite effect and cause <em>k</em>-mers to be present more than 2X times, proportional to the number of copies of that repeat in the genome.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_19.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">Sequencing errors and read duplications distort the distribution by creating false k-mers that only occur a few numbers of times or artificially creating duplicated k-mers, which reduces the effective average coverage and increases the variance of the distributions. As with heterozygous variation, since each erroneous base can create 2\*k erroneous k-mers, the height of the erroneousus peak grows very quickly. However because these errors will be scattered randomly across the reads unlike heterozygous variation, these k-mers peaks will be differentiable from the heterozygous peaks because off the much smaller amount of genome coverage.</p>
+<p class="blog-post_paragraph">Sequencing errors and read duplications distort the distribution by creating false <em>k</em>-mers that only occur a few numbers of times or artificially creating duplicated <em>k</em>-mers, which reduces the effective average coverage and increases the variance of the distributions. As with heterozygous variation, since each erroneous base can create 2\*k erroneous <em>k</em>-mers, the height of the erroneousus peak grows very quickly. However because these errors will be scattered randomly across the reads unlike heterozygous variation, these <em>k</em>-mers' peak will be differentiable from the heterozygous peaks because off the much smaller amount of genome coverage.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_20.png" alt="alt text" />
@@ -277,7 +277,7 @@ Options (default value in (), *required):
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_21.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">So for example, this is what a typical k-mer plot would look like for sequencing reads from a diploid organism:</p>
+<p class="blog-post_paragraph">So for example, this is what a typical <em>k</em>-mer plot would look like for sequencing reads from a diploid organism:</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_22.png" alt="alt text" />
@@ -289,21 +289,21 @@ Options (default value in (), *required):
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_23.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">And if sequencing reads were generated from a diploid sample with <strong>low</strong> heterozygosity, the k-mer spectra might look something like this:</p>
+<p class="blog-post_paragraph">And if sequencing reads were generated from a diploid sample with <strong>low</strong> heterozygosity, the <em>k</em>-mer spectra might look something like this:</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_24.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">Notice the little bump around 25-30X coverage. That is the heterozygous peak in this k-mer spectrum.</p>
+<p class="blog-post_paragraph">Notice the little bump around 25-30X coverage. That is the heterozygous peak in this <em>k</em>-mer spectrum.</p>
 
-<p class="blog-post_paragraph">So back to our example, taking the <code>drUrtUren1.ccs.total.histo</code>, I put it into the <a href="http://genomescope.org/genomescope2.0/" target="_blank">GenomeScope 2.0 Web App</a> and I ran generated the model with <code>k=31</code> and with the rest of the parameters left as default. The resulting plot looked like this:</p>
+<p class="blog-post_paragraph">So back to our example, taking the <code>drUrtUren1.ccs.total.histo</code>, I put it into the <a href="http://genomescope.org/genomescope2.0/" target="_blank">GenomeScope 2.0 Web App</a> and I generated the model with <code>k=31</code> and with the rest of the parameters left as default. The resulting plot looked like this:</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_25.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">On a logarithmic scale the plot looked like this. You can see the red dotted line (<code>cov-threshold</code>) at the end of the graph. This represents the maximum k-mer coverage used in generating the model. Because this paramter was set to <code>-1</code> in this plot, this means that all the reads are being taken into account to generate the GenomeScope model of the genome. Note: High copy-number DNA such as mitochondria and chloroplasts can confuse the model. Setting a maximum k-mer coverage can avoid this. In GenomScope 1.0, the default <code>Max kmer coverage</code> parameter is set to <code>1000</code>, and so this may be a sensible option in some cases. In fact in this plot, you can see a spike in the sequencing coverage at over 1000X which might correlate to DNA from these organelles:</p>
+<p class="blog-post_paragraph">On a logarithmic scale the plot looked like this. You can see the red dotted line (<code>cov-threshold</code>) at the end of the graph. This represents the maximum <em>k</em>-mer coverage used in generating the model. Because this paramter was set to <code>-1</code> in this plot, this means that all the reads are being taken into account to generate the GenomeScope model of the genome. Note: High copy-number DNA such as mitochondria and chloroplasts can confuse the model. Setting a maximum <em>k</em>-mer coverage can avoid this. In GenomScope 1.0, the default <code>Max kmer coverage</code> parameter is set to <code>1000</code>, and so this may be a sensible option in some cases. In fact in this plot, you can see a spike in the sequencing coverage at over 1000X which might correlate to DNA from these organelles:</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_26.png" alt="alt text" />
@@ -346,15 +346,15 @@ Residual standard error: 2022000 on 1995 degrees of freedom
 Number of iterations to convergence: 6
 Achieved convergence tolerance: 1.49e-08</code></pre>
 
-<p class="blog-post_paragraph">So since the k-mer distrution follows the model lines very well, the data fits the model very well. The estimated model fit is between 71.6% and 97.8%. This means that you can trust the other model parameters very well. From the k-mers found in the reads, the model estimated that the genome size is around 331Mb (found from the haploid genome size), and has a repeat composition of 31.1% (found from subtracting the unique percentage found in the plot from the 100).</p>
+<p class="blog-post_paragraph">So since the <em>k</em>-mer distribution follows the model lines very well, the data fits the model very well. The estimated model fit is between 71.6% and 97.8%. This means that you can trust the other model parameters very well. From the <em>k</em>-mers found in the reads, the model estimated that the genome size is around 331Mb (found from the haploid genome size), and has a repeat composition of 31.1% (found from subtracting the unique percentage found in the plot from 100).</p>
 
-<p class="blog-post_paragraph">Here in this figure (sections C and D) you can see a few examples where the sequencing data does not fit the model well (aka poor model convergence). In these cases the numbers predicted by GenomeScope should not be used to estimate your genome characteristics because there is too much noise in your data.</p>
+<p class="blog-post_paragraph">Here in this figure (sections C and D) you can see a few examples where the sequencing data does not fit the model well (aka poor model convergence). <strong>In these cases the numbers predicted by GenomeScope should not be used to estimate your genome characteristics</strong> because there is too much noise in your data.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_27.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">Now that I had my k-mer spectra plotted, I went ahead and investigated my raw sequencing data some more</p>
+<p class="blog-post_paragraph">Now that I had my <em>k</em>-mer spectra plotted, I went ahead and investigated my raw sequencing data some more</p>
 
 <p class="blog-post_paragraph">I linked all the reads found <code>drUrtUren1.ccs.total.fasta.gz</code> to my personal directory and checked if this link worked by seeing if I could peek into this file.</p>
 
@@ -374,7 +374,7 @@ python plot_fasta_length.py drUrtUren1.ccs.total.fasta.gz drUrtUren1.ccs.total.f
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_28.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">And then I ran <a href="https://github.com/marcelauliano/Teaching/blob/main/asmstats" target="_blank">asmstats</a>, a program provided by Dr. Marcela Uliano-Silva, to view the statsics of the reads</p>
+<p class="blog-post_paragraph">And then I ran <a href="https://github.com/marcelauliano/Teaching/blob/main/asmstats" target="_blank">asmstats</a>, a program provided by Dr. Marcela Uliano-Silva, to view the statistics of the reads</p>
 
 <pre class="command-line" data-user="" data-host=""><code class="language-commandline">export PATH=$PATH:scp /home/ubuntu/Share/scripts/
 asmstats drUrtUren1.ccs.total.fasta.gz > drUrtUren1.ccs.total.fasta.stats
@@ -390,15 +390,15 @@ N80 = 7012, L80 = 1546627
 N90 = 5993, L90 = 1835022
 N100 = 51, L100 = 2215315</code></pre>
 
-<p class="blog-post_paragraph">From all this data I can now now estimat how much coverage of the genome I have in this reads file. From the summary statistics I can see that I have 18820619451 total bases in the sequencing reads. From the GenomeScope k-mer spectra, I can see that the estimated genome size is around 331324497 base pairs. Dividing the total number of bases in the reads by the estimated genome size, I can calculate the estimated coverage I have to assemble this genome. 18820619451 / 331324497 ≅ <strong>56.8X coverage</strong>.</p>
+<p class="blog-post_paragraph">From all this data I can now now estimate how much coverage of the genome I have in this reads file. From the summary statistics I can see that I have 18820619451 total bases in the sequencing reads. From the GenomeScope <em>k</em>-mer spectra, I can see that the estimated genome size is around 331324497 base pairs. Dividing the total number of bases in the reads by the estimated genome size, I can calculate the estimated coverage I have to assemble this genome. 18820619451 / 331324497 ≅ <strong>56.8X coverage</strong>.</p>
 
-<p class="blog-post_paragraph">Now that I've performed my k-mer analysis, I can begin the process of assembling my genome.</p>
+<p class="blog-post_paragraph">Now that I've performed my <em>k</em>-mer analysis, I can begin the process of assembling my genome.</p>
 
 <p class="blog-post_paragraph">
     <u><em>Step 2: Performing a Genome Assembly</em></u>
   </p>
 
-<p class="blog-post_paragraph">In order to perform a genome assembly, you have to pick an ideal assembler for your data. This involves understanding the basic mechanisms behind how these assemblers work and also the differences between the popular assemblers used by the research community. This is critical because different assemblers employ different overall stategies and are designed to assemble reads that span the genome at a certain coverage, and depending on which one you choose will effect how you interpret and process your data downstream of the initial assembly step.</p>
+<p class="blog-post_paragraph">In order to perform a genome assembly, you have to pick an ideal assembler for your data. This involves understanding the basic mechanisms behind how these assemblers work and also the differences between the popular assemblers used by the research community. This is critical because different assemblers employ different overall strategies and are designed to assemble reads that span the genome at a certain coverage, and depending on which one you choose will effect how you interpret and process your data downstream of the initial assembly step.</p>
 
 <p class="blog-post_paragraph">For diploid organisms, a lot of modern long, high-quality read assemblers will work by first creating a collapsed draft assembly, called the <u>primary assembly</u> (usually a fusion of the paternal and maternal haplotypes). This assembly is as contiguous as possible without scaffolding. Then, an <u>alternate assembly</u> will try to be assembled. This assembly will usually be much more fragmented, because it is usually comprised of all the heterozygous variation not collapsed into the primary assembly. The primary assembly will contain all the homozygous sequences common to both maternal and paternal chromosomes (see the left side of the figure below for reference).</p>
 
@@ -406,7 +406,7 @@ N100 = 51, L100 = 2215315</code></pre>
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_29.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">For PacBio HiFi data, a the current consensus best assembler is the <a href="https://hifiasm.readthedocs.io/en/latest/" target="_blank">hifiasm</a> assembler written by Heng Li (<a href="https://doi.org/10.1038/s41592-020-01056-5" target="_blank">see paper here</a>). This was verified by a <a href="https://doi.org/10.1101/gr.278232.123" target="_blank">benchmarking study</a> published in 2024, however it's always important to stay up to date with the literature and the latest trends and understand the biology of your organism before making your decision of which assembler to choose for your organism.</p>
+<p class="blog-post_paragraph">For PacBio HiFi data, <u>the current consensus best assembler is the <a href="https://hifiasm.readthedocs.io/en/latest/" target="_blank">hifiasm</a> assemble</u> written by Heng Li (<a href="https://doi.org/10.1038/s41592-020-01056-5" target="_blank">see paper here</a>). This was verified by a <a href="https://doi.org/10.1101/gr.278232.123" target="_blank">benchmarking study</a> published in 2024, however it's always important to stay up to date with the literature and the latest trends and understand the biology of your organism before making your decision of which assembler to choose for your organism.</p>
 
 <p class="blog-post_paragraph">hifiasm works by first correcting errors in the sequencing reads if there are 3 or more reads that overlap at an errorneous location. It then tries to reconstruct both haplotypes into a primary and an alternate assembly using an internal purging tool. It can then phase these assemblies into their correct paternal and maternal chromosomes if complimentary data (either trio binning data or Hi-C data is provided). Trio binning involves taking illumina sequencing reads from the parents of the organism and using that data to resolve the haplotypes of the child's genome assembly. This method is useful but it doesn't work very accurately if the paternal, maternal, and child genomes are too homozygous. Hi-C on the other hand is an assay that uses DNA-DNA proximity ligation to identify long range chromatin contacts in an unbiased, genome-wide fashion. If a high quality Hi-C library is generated, it can be used to phase the genome of the organism (elaborated on in a further section of this post).</p>
 
@@ -414,7 +414,7 @@ N100 = 51, L100 = 2215315</code></pre>
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_30.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph"><a href="http://www.genome.org/cgi/doi/10.1101/gr.263566" target="_blank">HiCanu</a> was one of the first generation of HiFi read assemblers. HiCanu also does read error correction in the approach as hifiasm. It finds the coverage in the reads and if there is enough of a consensus overlap to correctly identify an error it will correct it. However one major difference in it's assembly strategy is it performs homopolymer compression (e.g. CAAAT -> CAT). This is done because when you have a homopolymer in the sequence, there is a higher chance that you will have errors in the sequencing reads. So through this strategy, the OLC graph is created using compressed reads that likely have less errors and then after the assembly graph is created, it is expanded to retiain the homopolymer information. Also, because HiFi reads are very long and high quality, the assembler can detect and seperate haplotypes very well. HiCanu tries to find perfect overlaps, so when it finds something like a SNP or 2, it's probably going to thinks it's another haplotype of the same contig. So HiCanu is going to output to you a <strong>pot of contigs with double the expected genome size</strong>. It combines all the haplotype contigs into one output files. This is why you have to run a post processing step on HiCanu assemlbies especially (using tools like <a href="https://github.com/dfguan/purge_dups" target="_blank">purge_dups</a>)</p>
+<p class="blog-post_paragraph"><a href="http://www.genome.org/cgi/doi/10.1101/gr.263566" target="_blank">HiCanu</a> was one of the first generation of HiFi read assemblers. HiCanu also does read error correction in the approach as hifiasm. It finds the coverage in the reads and if there is enough of a consensus overlap to correctly identify an error it will correct it. However one major difference in it's assembly strategy is it performs homopolymer compression (e.g. CAAAT -> CAT). This is done because when you have a homopolymer in the sequence, there is a higher chance that you will have errors in the sequencing reads. So through this strategy, the OLC graph is created using compressed reads that likely have less errors and then after the assembly graph is created, it is expanded to retain the homopolymer information. Also, because HiFi reads are very long and high quality, the assembler can detect and seperate haplotypes very well. HiCanu tries to find perfect overlaps, so when it finds something like a SNP, it's probably going to thinks it's another haplotype of the same contig. So HiCanu is going to output to you a <strong>pot of contigs with double the expected genome size</strong>. It combines all the haplotype contigs into one output files. This is why you have to run a post processing step on HiCanu assemlbies especially (using tools like <a href="https://github.com/dfguan/purge_dups" target="_blank">purge_dups</a>)</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_31.png" alt="alt text" />
@@ -510,7 +510,7 @@ example: canu -d run1 -p godzilla genomeSize=1g -nanopore-raw reads/*.fasta.gz
 
 Complete documentation at http://canu.readthedocs.org/en/latest/</code></pre>
 
-<p class="blog-post_paragraph">I performed the assembly on a subset of 600 sequencing reads in order to save time and computing power. HiCanu requires that you pass in the estimated size of the genome as input. Here I put 16000 since the 600 reads correspond to this organisms mitochondria.</p>
+<p class="blog-post_paragraph">I performed the assembly on a subset of 600 sequencing reads in order to save time and computing power. HiCanu requires that you pass in the estimated size of the genome as input. Here I put 16000 since the 600 reads correspond to this organism's mitochondria.</p>
 
 <pre class="command-line" data-user="" data-host=""><code class="language-commandline">ln -s scp /home/ubuntu/Share/drUrtUren1_data/drUrtUren1.600.fasta
 canu -d run1 -p drUrtUren1.600 genomeSize=16000 -pacbio-hifi drUrtUren1.600.fasta useGrid=false corThreads=2</code></pre>
@@ -1504,7 +1504,7 @@ Options:
 Example: ./hifiasm -o NA12878.asm -t 32 NA12878.fq.gz
 See `https://hifiasm.readthedocs.io/en/latest/' or `man ./hifiasm.1' for complete documentation.</code></pre>
 
-<p class="blog-post_paragraph">hifiasm doesn't require you to provide the estimated genome size. All it requires is the sequencing reads for assembly. The <code>--primary</code> flag tells hifiasm to output both a primary and an alternate assembly, with emphasize on generating a more contiguous primary assembly containing homozygous and some heterzygous regions. The <code>-f0</code> flag is used to disable the initial bloom filter which takes 16GB memory at the beginning. The bloom filter is used to filter out singleton k-mers when counting all k-mers. It takes 2^(INT-3) bytes of memory. Using a proper value for <code>-f</code> saves memory. <code>-f37</code> is recommended for human assemblies, and for genomes much larger than human, applying <code>-f38</code> or even <code>-f39</code> is preferred to save memory on k-mer counting. However for small genomes it's often recommended to disable this with <code>-f0</code>.</p>
+<p class="blog-post_paragraph">hifiasm doesn't require you to provide the estimated genome size. All it requires is the sequencing reads for assembly. The <code>--primary</code> flag tells hifiasm to output both a primary and an alternate assembly, with emphasis on generating a more contiguous primary assembly containing homozygous and some heterzygous regions. The <code>-f0</code> flag is used to disable the initial bloom filter which takes 16GB memory at the beginning. The bloom filter is used to filter out singleton <em>k</em>-mers when counting all <em>k</em>-mers. It takes 2^(INT-3) bytes of memory. Using a proper value for <code>-f</code> saves memory. <code>-f37</code> is recommended for human assemblies, and for genomes much larger than human, applying <code>-f38</code> or even <code>-f39</code> is preferred to save memory on <em>k</em>-mer counting. However for small genomes it's often recommended to disable this with <code>-f0</code>.</p>
 
 <pre class="command-line" data-user="" data-host=""><code class="language-commandline">cd /home/user19/drUrtUren1/hifiasm
 ln -s /home/ubuntu/Share/drUrtUren1_data/drUrtUren1.600.fasta
@@ -1958,7 +1958,7 @@ N80 = 232352, L80 = 105
 N90 = 41878, L90 = 578
 N100 = 2268, L100 = 2590</code></pre>
 
-<p class="blog-post_paragraph">Here you can see that hifiasm assembled 437Mb accross 2590 contigs. The assembly has an N50 of 17272222 bp. N50 is a genome assembly statistic that measures the contiguity of an assembly. The N50 is defined as the sequence length of the shortest contig at 50% of the total assembly length. It can be thought of as the point of half of the mass of the distribution; the number of bases from all contigs longer than the N50 will be close to the number of bases from all contigs shorter than the N50.</p>
+<p class="blog-post_paragraph">Here you can see that hifiasm assembled 437 Mb across 2590 contigs. The assembly has an N50 of 17272222 bp. <strong>N50</strong> is a genome assembly statistic that measures the contiguity of an assembly. The N50 is defined as <u>the sequence length of the shortest contig at 50% of the total assembly length</u>. It can be thought of as the point of half of the mass of the distribution. The number of bases from all contigs longer than the N50 will be close to the number of bases from all contigs shorter than the N50.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_32.png" alt="alt text" />
@@ -1997,13 +1997,11 @@ N80 = 23001, L80 = 4566
 N90 = 18042, L90 = 7994
 N100 = 4224, L100 = 13242</code></pre>
 
-<p class="blog-post_paragraph">Here you can see that the assembly generated was much bigger than that of hifiasm, with almost 700 Mb being found in the assembly. However it is not the case that this assembly is more contiguous. Remember that HiCanu outputs all contigs, even those containing different haplotypes, into the same assembly output file. This means that there will likely be a lot of duplicated sequences assemblies generated by HiCanu. This can be very dangerous if you are not aware of this behaviour. You might think you've found evidence of a gene-family duplication in your organisms, while in reality this is just an artificat of the assembly process (see <a href="https://doi.org/10.1186/s13059-022-02764-1" target="_blank">here</a> for a review detailing this problem).</p>
+<p class="blog-post_paragraph">Here you can see that the assembly generated was much bigger than that of hifiasm, with almost 700 Mb being found in the assembly. However it is not the case that this assembly is more contiguous. Remember that HiCanu outputs all contigs, even those containing different haplotypes, into the same assembly output file. This means that there will likely be a lot of duplicated sequences assemblies generated by HiCanu. This can be very dangerous if you are not aware of this behaviour. You might think you've found evidence of a gene-family duplication in your organisms, while in reality this is just an artifact of the assembly process (see <a href="https://doi.org/10.1186/s13059-022-02764-1" target="_blank">here</a> for a review detailing this problem).</p>
 
 <p class="blog-post_paragraph">
     <u><em>Step 3: Genome Assembly Quality Control</em></u>
   </p>
-
-<p class="blog-post_paragraph">Now that we have assemblies generated for these organisms, the next question is how do we start verifying whether these assemblies are of high quality. An organism's genomes will often contain hundreds and thousands of A's, C's, G's, and T's seemingly randomly scrambled together in one sequence. Trying to find out whether these sequences are arranged in the correct order or if there are any sequences missing is a challenge that involves clever algorithms and use of existing data in biological databases like the NCBI. A few common tactics for genome assembly quality checking are:</p>
 
 <p class="blog-post_paragraph">Now that we have assemblies generated for these organisms, the next question is how do we start verifying whether these assemblies are of high quality. An organism's genomes will often contain hundreds and thousands of A's, C's, G's, and T's seemingly randomly scrambled together in one sequence. Trying to find out whether these sequences are arranged in the correct order or if there are any sequences missing is a challenge that involves clever algorithms and use of existing data in biological databases like the NCBI. A few common tactics for genome assembly quality checking are:</p>
 
@@ -2012,8 +2010,8 @@ N100 = 4224, L100 = 13242</code></pre>
     <p class="blog-post_paragraph"><strong>Checking for Base Accuracy</strong></p>
   </li>
   <ul>
-    <li>This can be done by <strong>realigning reads from the same species' k-mers </strong>. This involves aligning sequencing reads based on k-mers (short DNA sequences of length k) that are specific to the target species. The goal is to minimize errors and ensure that the assembly accurately represents the species' genomic sequence. This step can help identify misassemblies or regions of low accuracy in the genome.</li>
-    <li>Another method is by checking for <strong>k-mer Completeness with Respect to Illumina or HiFi Data</strong>. This involves comparing the k-mer distribution from the assembled genome against the k-mers obtained from high-quality sequencing data (e.g., Illumina or HiFi reads). This comparison helps determine how well the assembly captures the genetic diversity and completeness of the genome, identifying regions that may be missing or poorly represented.</li>
+    <li>This can be done by <strong>realigning reads from the same species' <em>k</em>-mers </strong>. This involves aligning sequencing reads based on <em>k</em>-mers that are specific to the target species. The goal is to minimize errors and ensure that the assembly accurately represents the species' genomic sequence. This step can help identify misassemblies or regions of low accuracy in the genome.</li>
+    <li>Another method is by checking for <strong><em>k</em>-mer Completeness with Respect to Illumina or HiFi Data</strong>. This involves comparing the <em>k</em>-mer distribution from the assembled genome against the <em>k</em>-mers obtained from high-quality sequencing data (e.g., Illumina or HiFi reads). This comparison helps determine how well the assembly captures the genetic diversity and completeness of the genome, identifying regions that may be missing or poorly represented.</li>
   </ul>
   <p></p>
   <li>
@@ -2056,7 +2054,7 @@ N100 = 4224, L100 = 13242</code></pre>
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_35.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">For the sake of the workshop, the initial genome QC was performed by aligning the sequencing reads back to the read assembly. Minimapping was done using <a href="https://github.com/lh3/minimap2" target="_blank">minimap2</a>.</p>
+<p class="blog-post_paragraph">For the sake of the workshop, the initial genome QC was performed by aligning the sequencing reads back to the read assembly. Mapping the reads was done using <a href="https://github.com/lh3/minimap2" target="_blank">minimap2</a>.</p>
 
 <pre class="command-line" data-user="" data-host=""><code class="language-commandline">minimap2 -t 8 --secondary=no -ax map-pb drUrtUren1.hicanu.total.contigs.fasta.gz drUrtUren1.ccs.total.fasta.gz -o drUrtUren1.hicanu.total.contigs.sam</code></pre>
 
@@ -2108,7 +2106,7 @@ N100 = 4224, L100 = 13242</code></pre>
 [M::main] CMD: minimap2 -t 8 --secondary=no -ax map-pb -o drUrtUren1.hicanu.total.contigs.sam drUrtUren1.hicanu.total.contigs.fasta.gz drUrtUren1.ccs.total.fasta.gz
 [M::main] Real time: 14788.295 sec; CPU: 81384.543 sec; Peak RSS: 9.547 GB</code></pre>
 
-<p class="blog-post_paragraph">Now that the mapping has finished, I then used a tool called <a href="https://github.com/samtools/samtools" target="_blank">samtools</a> to manipulate the output file. When the mapping has completed, the information is stored inside a <code>.sam</code> file. This <code>.sam</code> file is human readible but it is also very large and takes up a lot of storage space. When working with reads, it's more common to work with <code>.bam</code> files. These files are not human readible (they are binary files and just contain a series of <code>0</code>'s and <code>1</code>'s) but they store the same information as the <code>.sam</code> files and consume much less memory. It's more common to store alignment data as <code>.bam</code> files and use tools like <code>samtools</code> to manipulate and read these files. Another thing that is often done to these alignment files is to index them. Often times you want to view your alignemnt data in a visual software, or use this data for downstream processing. Often times a prerequisite for these other programs to work with these alignment files is to have them indexed as well, which just means storing certain information from that alignment file in a special data structure that the computer likes. These indexes are usually stored in files with the <code>.bai</code> extension. However, before you can index an alignment file, you have to sort it first. The following commands are what I used to do all the mentionned steps.</p>
+<p class="blog-post_paragraph">Now that the mapping has finished, I then used a tool called <a href="https://github.com/samtools/samtools" target="_blank">samtools</a> to manipulate the output file. When the mapping has completed, the information is stored inside a <code>.sam</code> file. This <code>.sam</code> file is human readable but it is also very large and takes up a lot of storage space. When working with reads, it's more common to work with <code>.bam</code> files. These files are not human readable (they are binary files and just contain a series of <code>0</code>'s and <code>1</code>'s) but they store the same information as the <code>.sam</code> files and consume much less memory. It's more common to store alignment data as <code>.bam</code> files and use tools like <code>samtools</code> to manipulate and read these files. Another thing that is often done to these alignment files is to <strong>index them</strong>. Often times you want to view your alignment data in a visual software, or use this data for downstream processing. Often times a prerequisite for these other programs to work with these alignment files is to have them indexed as well, which just means storing certain information from that alignment file in a special data structure that the computer likes. These indexes are usually stored in files with the <code>.bai</code> extension. However, <u>before you can index an alignment file, you have to sort it first</u>. The following commands are what I used to do all the aforementioned steps.</p>
 
 <pre class="command-line" data-user="" data-host=""><code class="language-commandline">samtools view -h -Sb drUrtUren1.hicanu.total.contigs.sam -o drUrtUren1.hicanu.total.contigs.bam
 samtools sort drUrtUren1.hicanu.total.contigs.bam -o drUrtUren1.hicanu.total.contigs.sorted.bam
@@ -2116,14 +2114,14 @@ samtools index drUrtUren1.hicanu.total.contigs.sorted.bam</code></pre>
 
 <pre class="output no-lang-display language-output" tabindex="0"><code class="language-output">[bam_sort_core] merging from 3 files and 1 in-memory blocks...</code></pre>
 
-<p class="blog-post_paragraph">Now that these reads are mapped, it's a good idea to visualize how they mapped to this genome assembly. Normally, it's a good idea to use visualization techniques where you can visualize how <em>all</em> of the reads map the the <em>entire</em> genome in a single data visualization plot (which will did do and will be elaborated on further in this post). However, it's also good to know how to look at certain mappings in higher resolution. This is what was focused on at this part of the workshop. The goal here was to isolate a single contig that was assembled from the HiCanu assembly and then see how the reads that mapped to that contig looked. In order to get stared on this goal, I used the <code>filterfasta.py</code> that was provided on the workshop's folder. In order to get this script to work, I needed to isolate the ID of the contig I wanted to isolate the sequence for and provide that to the folder. I used the following two lines to isolate and inspect the first contig ID from the HiCanu assembly.</p>
+<p class="blog-post_paragraph">Now that these reads are mapped, it's a good idea to visualize how they mapped to this genome assembly. Normally, it's a good idea to use visualization techniques where you can visualize how <em>all</em> of the reads map the the <em>entire</em> genome in a single data visualization plot (which will be elaborated on further in this post). However, it's also good to know how to look at certain mappings in higher resolution. This is what was focused on at this part of the workshop. The goal here was to isolate a single contig that was assembled from the HiCanu assembly and then see how the reads that mapped to that contig looked. In order to get stared on this goal, I used the <code>filterfasta.py</code> that was provided on the workshop's folder. In order to get this script to work, I needed to isolate the ID of the contig I wanted to isolate the sequence for and provide that to the folder. I used the following two lines to isolate and inspect the first contig ID from the HiCanu assembly.</p>
 
 <pre class="command-line" data-user="" data-host=""><code class="language-commandline">gunzip -c drUrtUren1.hicanu.total.contigs.fasta.gz | grep ">" | head -n 1 | sed 's/>//g' | cut -d ' ' -f 1 > contig-to-isolate.txt
 cat contig-to-isolate.txt</code></pre>
 
 <pre class="output no-lang-display language-output" tabindex="0"><code class="language-output">tig00000002</code></pre>
 
-<p class="blog-post_paragraph">Now I isolated the sequence from that contig using the provided script.</p>
+<p class="blog-post_paragraph">Then I isolated the sequence from that contig using the provided script.</p>
 
 <pre class="command-line" data-user="" data-host=""><code class="language-commandline">cp ~/Share/scripts/filterfasta.py .
 python filterfasta.py -i contig-to-isolate.txt drUrtUren1.hicanu.total.contigs.fasta > tig00000002.fasta</code></pre>
@@ -2573,7 +2571,7 @@ CAAAACGTACTTCAACTTGTAAAAAACGTACCTTAACTTGTAAAAAACCTACTTCAACTT
 GTCAAAAATGTGATTTAACTTGTAACAAATGTACTTTAACTTGTAAAAACGTACTTCAAC
 TTGTAAAAAAACGTACTTTAACTTGTAAAAAACCTACTTTAACTTGTCA</code></pre>
 
-<p class="blog-post_paragraph">Now I wanted to visualize how the sequencing reads mapped to the contig I just isolated, using a software like the <a href="https://igv.org/" target="_blank">Integrative Genomics Viewer (IGV)</a>. In order to do this, I needed to filter out the reads that mapped to this file (and that alignment file needs to be indexed). Also, just like the <code>.bam</code> file, the <code>.fasta</code> file needs to be indexed (needs a corresponding <code>.fai</code> file) in order to be opened by IGV. The following commands were used to perform all these tasks.</p>
+<p class="blog-post_paragraph">Now I wanted to visualize how the sequencing reads mapped to the contig I just isolated, using a software like the <a href="https://igv.org/" target="_blank">Integrative Genomics Viewer (IGV)</a>. In order to do this, I needed to filter out the reads that mapped to this file (and that alignment file needs to be indexed). Also, just like the <code>.bam</code> file, <u>the <code>.fasta</code> file needs to be indexed</u> (needs a corresponding <code>.fai</code> file) <u>in order to be opened by IGV</u>. The following commands were used to perform all these tasks.</p>
 
 <pre class="command-line" data-user="" data-host=""><code class="language-commandline">samtools faidx tig00000002.fasta
 samtools view -b -h drUrtUren1.hicanu.total.contigs.sorted.bam tig00000002 > tig00000002.bam
@@ -2594,9 +2592,9 @@ tig00000002.fasta.fai</code></pre>
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_36.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">You can see the distribution of coverage on the top channel. You can see that the coverage is in a way that most of the center of the contig is covered, but the coverage of reads tapers off at the ends. This is expected because with lower coverage at the ends, the alignment algorithm starts to lose confidence about what sequences are adjacent to the current contig, and so they will decide to end the building of the contig and that's one of the main determining factor of the contig size. IGV also highlights certain details in the reads, specifically how they differ to the reference sequence (although some of these may be hard to see from this zoomed out view of the contig). Purple I-beam-like shapes indicate single base pair insertions. You can see a lot of them scattered around in these reads. It's known that the current biggest issue with the PacBio technology is the insertions or deletions of bases (indel errors). This is because the rate of synthesis of the polymerase is sporatic and not perfectly matched with the sampling rate of the fluoresence, and so certain incorporations may get lost or mistakenly added. This was more common with PacBio CSS reads but with current HiFi read technology, this is less of an issue. Another issue you may encounter is base mismatches. These are viewed on the reads in IGV as coloured bars. Green bars on the reads indicate a mismatch at a given location between the base on the read and the base in the reference, where the base in the read is an <code>A</code> and the base in the reference sequence is something else. Blue bars indicate the mismatch is a <code>C</code>, orange bars indicate the mismatch is a <code>G</code>, and red bars indicate the mismatch is a <code>T</code>. The last thing you can see is deletions (represented by thin, black lines found between the reads). These occur for much of the same reasons as insertions but are much less common in this dataset than insertions for some reason.</p>
+<p class="blog-post_paragraph">You can see the distribution of coverage on the top channel. You can see that the coverage is distributed in a way where most of the center of the contig is covered, but the coverage of reads tapers off at the ends. This is expected because with lower coverage at the ends, the alignment algorithm starts to lose confidence about what sequences are adjacent to the current contig, and so they will decide to end the building of the contig and that's one of the main determining factor of the contig size. IGV also highlights certain details in the reads, specifically how they differ to the reference sequence (although some of these may be hard to see from this zoomed out view of the contig). Purple I-beam-like shapes indicate single base pair insertions. You can see a lot of them scattered around in these reads. It's known that the current biggest issue with the PacBio technology is the insertions or deletions of bases (indel errors). This is because the rate of synthesis of the polymerase is sporatic and not perfectly matched with the sampling rate of the fluorescence, and so certain incorporations may get lost or mistakenly added. This was more common with PacBio CSS reads but with current HiFi read technology, this is less of an issue. Another issue you may encounter is base mismatches. These are viewed on the reads in IGV as coloured bars. Green bars on the reads indicate a mismatch at a given location between the base on the read and the base in the reference, where the base in the read is an <code>A</code> and the base in the reference sequence is something else. Blue bars indicate the mismatch is a <code>C</code>, orange bars indicate the mismatch is a <code>G</code>, and red bars indicate the mismatch is a <code>T</code>. The last thing you can see is deletions (represented by thin, black lines found between the reads). These occur for much of the same reasons as insertions but are much less common in this dataset than insertions for some reason.</p>
 
-<p class="blog-post_paragraph">In addition to investigating the data contig-by-contig, you can also get the full summary of the alignment statistics of the whole dataset using the <code>samtools flagstat</code> program. <code>flagstat</code> Counts and reports the number of reads with different flags set in the file. These flags represent various attributes of each read (such as whether it’s mapped, unmapped, paired, and so on). It generates counts for different categories of reads, such as:</p>
+<p class="blog-post_paragraph">In addition to investigating the data contig-by-contig, you can also get the full summary of the alignment statistics of the whole dataset using the <code>samtools flagstat</code> program. <code>flagstat</code> counts and reports the number of reads with different flags set in the file. These flags represent various attributes of each read (such as whether it’s mapped, unmapped, paired, and so on). It generates counts for different categories of reads, such as:</p>
 <ul>
   <li>
     Mapped vs. unmapped reads
@@ -2656,11 +2654,11 @@ tig00000002.fasta.fai</code></pre>
     <u><em>Step 4: Purging Duplications and Merqury evaluation</em></u>
   </p> 
 
-<p class="blog-post_paragraph">Now that the genomes are assembled, the next required step will be to remove any sort of duplications from the genome. Genome assemblies that don't perform this step are often inaccurate and can lead to a lot of incorrect biological insights. An interesting example that demonstrates this well came from came from <a href="https://doi.org/10.1186/s13059-022-02764-1" target="_blank">a study</a> that analyzed genomes generated by the Vertabrate Genomes Project and other researchers. The Vertebrate Genomes Project is an initiative aimed at producing high-quality reference genomes for a wide range of vertebrate species. The project focuses on generating genome assemblies that are both comprehensive and accurate utilizing the most modern and advanced sequencing technologies. While most of their genome assemblies are performed <em>de novo</em>, however recently this project created assemblies of three species that already contained reference assemblies on NCBI, those being the platypus, zebra finch, and Anna’s hummingbird. Some researcher decided to compare the older genome assemblies with the new ones generated by the Vertebrate Genomes Project, which used methods like haplotype phasing and purging to reduce false duplications. By conducting whole genome alignments, they identified the extent of false duplications, finding that 4 to 16% of sequences in the previous assemblies were inaccurately duplicated, leading to the overestimation of gene family expansions.</p>
+<p class="blog-post_paragraph">Now that the genomes are assembled, the next required step will be to remove any sort of duplications from the genome. Genome assemblies that don't perform this step are often inaccurate and can lead to a lot of incorrect biological insights. An interesting example that demonstrates this well came from <a href="https://doi.org/10.1186/s13059-022-02764-1" target="_blank">a study</a> that analyzed genomes generated by the Vertabrate Genomes Project and other researchers. The Vertebrate Genomes Project is an initiative aimed at producing high-quality reference genomes for a wide range of vertebrate species. The project focuses on generating genome assemblies that are both comprehensive and accurate utilizing the most modern and advanced sequencing technologies. While most of their genome assemblies are performed <em>de novo</em>, recently this project created assemblies of three species that already contained reference assemblies on NCBI, those being the platypus, zebra finch, and Anna’s hummingbird. Some researcher decided to compare the older genome assemblies with the new ones generated by the Vertebrate Genomes Project, which used methods like haplotype phasing and purging to reduce false duplications. By conducting whole genome alignments, they identified the extent of false duplications, finding that 4 to 16% of sequences in the previous assemblies were inaccurately duplicated, leading to the overestimation of gene family expansions.</p>
 
-<p class="blog-post_paragraph">The main source of these false duplications is what's known as <strong><em>heterotype duplications</em></strong>, where the haplotype sequences were relatively more divergent than other parts of the genome leading the assembly algorithms to classify them as separate genes or genomic regions (false paralogs). However, there are two other types of errors that are quite important. <strong></em>Switch errors</em></strong> occur in which variants from each haplotype are assembled into the same pseudo-haplotype. You will basically have a hybrid between the maternal and the paternal haplotype. You don't even have necessarily the heterozygosity belonging to only one of them. Also <strong></em>nucleotide consensus errors</em></strong> occur due to the collapse between the two haplotypes, causing mixing of SNPs and of different variants from of both haplotypes. To fix this, you need to do some post-processing of the initial assemblies.</p>
+<p class="blog-post_paragraph">The main source of these false duplications is what's known as <strong><em>heterotype duplications</em></strong>, where certain haplotype sequences were relatively more divergent than other parts of the genome leading the assembly algorithms to classify them as separate genes or genomic regions (false paralogs). However, there are two other types of errors that are quite important. <strong></em>Switch errors</em></strong> occur in which variants from each haplotype are assembled into the same pseudo-haplotype. You will basically have a hybrid between the maternal and the paternal haplotype. You don't even have necessarily the heterozygosity belonging to only one of them. Also <strong></em>nucleotide consensus errors</em></strong> occur due to the collapse between the two haplotypes, causing mixing of SNPs and of different variants from both haplotypes. To fix this, you need to do some post-processing of the initial assemblies.</p>
 
-<p class="blog-post_paragraph">What happens routinely during genome assembly without phasing, is that two haplotypes that belong to the same region but are somehow divergent, they both end up in one of the assemblies.</p>
+<p class="blog-post_paragraph">What happens routinely during genome assembly without phasing, is that two haplotypes that belong to the same region but are somehow divergent, both end up in one of the assemblies.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_37.png" alt="alt text" />
@@ -2672,7 +2670,7 @@ tig00000002.fasta.fai</code></pre>
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_38.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">You end up with sequences that should not be in the primary assembly, but yet they are. Therefore, often times, your primary assemblies before "purging" for further processing will be larger than what you expect in your final asssembly. This is a very common problem when assembling using poor quality reads like PacBio CLR, but still happens even in HiFi reads.</p>
+<p class="blog-post_paragraph">You end up with sequences that should not be in the primary assembly, but yet they are. Therefore, often times, your primary assemblies before <em>purging</em> will be larger than what you expect in your final asssembly. This is a very common problem when assembling using poor quality reads like PacBio CLR, but still happens even in HiFi reads.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_39.png" alt="alt text" />
@@ -2680,13 +2678,13 @@ tig00000002.fasta.fai</code></pre>
 
 <p class="blog-post_paragraph">So how can you identify whether this has happened in your assemblies at this stage?</p>
 
-<p class="blog-post_paragraph">One thing you can do is map your reads back to your genome. This will produce a coverage plot. If you have this duplication in, for example a 2n genome, you will expect to see a drop in coverage in the reads to about half this level at the location where the read occurs. Also, you'll likely see a spot with 0 coverage in the middle. This coverage signature is a good indication that something like this has occured. Assemblers will often perform this kind of test periodically during assembly to try to find and remove these errors, but they aren't perfect and so often times you'll find these errors in the primary assembly.</p>
+<p class="blog-post_paragraph">One thing you can do is map your reads back to your genome. This will produce a coverage plot. If you have this duplication in, for example a 2<em>n</em> genome, you will expect to see a drop in coverage in the reads to about half this level at the location where the read occurs. Also, you'll likely see a spot with 0 coverage in the middle. This coverage signature is a good indication that something like this has occured. Assemblers will often perform this kind of test periodically during assembly to try to find and remove these errors, but they aren't perfect and so often times you'll find these errors in the primary assembly.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_40.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">If you see a coverage signature similar to the one below, then there is a good chance that your assembly contains an erroneous insertion. However, be aware that perform sequence alignment with improper alignment parameters can also cause reads from 2 similar sequences to pileup in a single region and produce a similar pattern. Often times if this step is done as part of a post-processing program, the alignment parameters chosen by the program should be sufficient to prevent this kind of thing, but it is good to be aware about and these regions might need closer inspection.</p>
+<p class="blog-post_paragraph">If you see a coverage signature similar to the one below, then there is a good chance that your assembly contains an erroneous insertion. However, be aware that performing sequence alignment with improper alignment parameters can also cause reads from 2 similar sequences to pileup in a single region and produce a similar pattern. Often times if this step is done as part of a post-processing program, the alignment parameters chosen by the program should be sufficient to prevent this kind of thing, but it is good to be aware about and these regions might need closer inspection.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_41.png" alt="alt text" />
@@ -2700,7 +2698,7 @@ tig00000002.fasta.fai</code></pre>
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_42.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph"><code>purge_dups</code> will identify retained haplotigs by looking for parts of the genome where there is a drop in coverage. The cutoffs for this drop in coverage can vary (it can be a 2x drop in coverage or it could be more).Unlike it's predacessor software <code>purge_haplotigs</code>, <code>purge_dups</code> can identify whole contigs and also <strong>parts of contigs</strong> where there is the case.</p>
+<p class="blog-post_paragraph"><code>purge_dups</code> will identify retained haplotigs by looking for parts of the genome where there is a drop in coverage. The cutoffs for this drop in coverage can vary (it can be a 2x drop in coverage or it could be more). Unlike its predacessor software <code>purge_haplotigs</code>, <code>purge_dups</code> can identify whole contigs and also <strong>parts of contigs</strong> where this is the case.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_43.png" alt="alt text" />
@@ -2712,7 +2710,7 @@ tig00000002.fasta.fai</code></pre>
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_44.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">If it finds that that portion of genome has similarity to some other contig, then it's going to delete portion from the original assembly because it knows that this is a retained haplotype.</p>
+<p class="blog-post_paragraph">If it finds that that portion of genome has similarity to some other contig, then it's going to delete that portion from the original assembly because it knows that this is a retained haplotype.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_45.png" alt="alt text" />
@@ -2720,8 +2718,7 @@ tig00000002.fasta.fai</code></pre>
 
 <p class="blog-post_paragraph">So by running <code>purge_dups</code>, you are purging out the contigs that are retained haplotigs and you are also purging out parts of your contigs (like tips of your contigs) that there might be haplotypes retained.</p>
 
-<p class="blog-post_paragraph">The Hifiasm assembler has an internal purging, but it is</p>
-<p class="blog-post_paragraph">not perfect for highly heterozygous species, so even for Hifiasm which doesn't require you to have a genome size estimate, you still need to have an idea of your estimated genome size for quality control purposes to have an idea if you're dealing with retained haplotypes. <u>The Darwin Tree of Life project runs <code>purge_dups</code> for every single assembly they run with Hifiasm</u> (their main assembler). Then they perform QC using <strong><em>Merqury plots</em></strong> to see if <code>purge_dups</code> has done a good job.</p>
+<p class="blog-post_paragraph">The Hifiasm assembler has an internal purging, but it is not perfect for highly heterozygous species, so even for Hifiasm which doesn't require you to have a genome size estimate, you still need to have an idea of your estimated genome size for quality control purposes to have an idea if you're dealing with retained haplotypes. <u>The Darwin Tree of Life project runs <code>purge_dups</code> for every single assembly they run with Hifiasm</u> (their main assembler). Then they perform QC using <strong><em>Merqury plots</em></strong> to see if <code>purge_dups</code> has done a good job.</p>
 
 <p class="blog-post_paragraph">For HiCanu, <code>purge_dups</code> will help you parse your primary and your alternate assembly. Then, if you continue the steps in the Darwin Tree of Life Project Pipeline, you will continue the scaffolding steps and curation steps using the primary assembly.</p>
 
@@ -2729,35 +2726,35 @@ tig00000002.fasta.fai</code></pre>
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_46.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">Here is an example of a k-mer spectra plot of a primary hifiasm assembly back to the reads before and after purging.</p>
+<p class="blog-post_paragraph">Here is an example of a <em>k</em>-mer spectra plot of a primary hifiasm assembly back to the reads before and after purging.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_47.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">In the beginning the assembly was 3.5 gigabase with had 3753 contigs. After purging, 300 million bases and a lot of contigs were removed. So purging can automatically remove a large amount of the erroneously assembled genome. If you're plotting only the primary assembly, it means you should have all your K-mers only at 1x coverage. Yet, before purging, you can see a layer of something on the top which are K-mers happening twice (you can mainly see a small purple peak in the plot on the left). This is wrong. These indicate retained haplotypes. And then when running this K-mer after my purging again, you can see that that peak has been nicely removed. This is just the first look into what like K-mers can do for you to be able to evaluate your assembly.</p>
+<p class="blog-post_paragraph">In the beginning the assembly was 3.5 gigabase, which had 3753 contigs. After purging, 300 million bases and a lot of contigs were removed. So purging can automatically remove a large amount of the erroneously assembled genome. If you're plotting only the primary assembly, it means you should have all your <em>k</em>-mers only at 1x coverage. Yet, before purging, you can see a layer of something on the top which are <em>k</em>-mers happening twice (you can mainly see a small purple peak in the plot on the left). This is wrong. <u>These indicate retained haplotypes</u>. Then, when running this <em>k</em>-mer analysis again after purging, you can see that that peak has been nicely removed. This is just the first look into what <em>k</em>-mers can do for you to be able to evaluate your assembly.</p>
 
-<p class="blog-post_paragraph">How do you perform a QC to see if your assembly is well purged? How do you know if you've over-purged and thrown valuable pieces of your genome away? One way to do that is by performing another k-mer analysis using <a href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02134-9" target="_blank"><strong>Merqury</strong></a>.</p>
+<p class="blog-post_paragraph">How do you perform a QC to see if your assembly is well purged? How do you know if you've over-purged and thrown valuable pieces of your genome away? One way to do that is by performing another <em>k</em>-mer analysis using <a href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02134-9" target="_blank"><strong>Merqury</strong></a>.</p>
 
-<p class="blog-post_paragraph">What Merqury bascially does is that it takes the k-mers of you assembly and counts them. It will also count the k-mers of your initial reads (instead of counting k-mers with Jellyfish, k-mers are counted with the </code>meryl</code> program which is a tool inside the merqury program. These k-mers are stored in something called a <em>meryl database</em>). It then compares them looking for the interection of k-mers and plots them (think of this like a Venn Diagrom. The program looks for k-mers that are in both the assembly and the reads).</p>
+<p class="blog-post_paragraph">What Merqury basically does is that it takes the <em>k</em>-mers of you assembly and counts them. It will also count the <em>k</em>-mers of your initial reads (instead of counting <em>k</em>-mers with Jellyfish, <em>k</em>-mers are counted with the </code>meryl</code> program which is a tool inside the merqury program. These <em>k</em>-mers are stored in something called a <em>meryl database</em>). It then compares them looking for the intersection of <em>k</em>-mers and plots them (think of this like a Venn Diagrom. The program looks for <em>k</em>-mers that are in both the assembly and the reads).</p>
 
-<p class="blog-post_paragraph">So baiscally the question you are trying to answer with Merqury is **"are all my k-mers in my assembly also in my reads?"**. If you have a lot of k-mers in your reads that are not present in your assembly, your assembly might be incomplete because they were not all assembled. If on the other hand, you have a lot of k-mers, extra k-mers, or duplicated k-mers in the assembly, when in reality there was supposed to be only one copy in the assembly because there is only one copy of the region (like for example a homozygous region) then you can quickly see that your assembly might contain haplotypes.</p>
+<p class="blog-post_paragraph">So baiscally the question you are trying to answer with Merqury is <u>"are all my <em>k</em>-mers in my assembly also in my reads?"</u> If you have a lot of <em>k</em>-mers in your reads that are not present in your assembly, your assembly might be incomplete because they were not all assembled. If on the other hand, you have a lot of <em>k</em>-mers, extra <em>k</em>-mers, or duplicated <em>k</em>-mers in the assembly, when in reality there was supposed to be only one copy in the assembly because there is only one copy of the region (like for example a homozygous region) then you can quickly see that your assembly might contain retained haplotypes.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_48.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">Here on the right side, you can see a distribution of k-mers in a concatenated primary and alternate assembly. k-mer's either appear 0 times in the assembly (only in the reads), 1 time (k-mers represeting heterozygous regions), 2 times (representing homozygous regions), or 3 or more times (representing repeats). k-mers that appear 1 or more times can also represent k-mers found only in the assembly, although these will be plotted at extremly low coverage, so they will map to the bottom left of the plot and are an easy way to see if there are any errors in the assembly.</p>
+<p class="blog-post_paragraph">Here on the right side, you can see a distribution of <em>k</em>-mers in a concatenated primary and alternate assembly. <em>k</em>-mer's either appear 0 times in the assembly (only in the reads), 1 time (<em>k</em>-mers represeting heterozygous regions), 2 times (representing homozygous regions), or 3 or more times (representing repeats). <em>k</em>-mers that appear 1 or more times can also represent <em>k</em>-mers found only in the assembly, although these will be plotted at extremly low coverages, so they will map to the bottom left of the plot and are an easy way to see if there are any errors in the assembly.</p>
 
-<p class="blog-post_paragraph">Below is an example of what a Merqury plot looks like for a diploid organism's primary assembly only.</p>
+<p class="blog-post_paragraph">Below is an example of what a Merqury plot looks like for a diploid organism's <strong>primary assembly only</strong>.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_49.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">You can notice that despite being a diploid organism, this Merqury plot only has 1 times coverage of the k-mers. This is because when plotting only a primary assembly, every region of the genome is only plotted once. The haplotypes are absent from this plot. You can see that there is a lot of coverage of k-mers in where the heterozygous peak would be and those are classified as "read only". These k-mers are not actually "read only", but rather the missing k-mers that are found in the alternate assembly.</p>
+<p class="blog-post_paragraph">You can notice that despite being a diploid organism, this Merqury plot only has 1 times coverage of the <em>k</em>-mers. This is because when plotting only a primary assembly, every region of the genome is only plotted once. The haplotypes are absent from this plot. You can see that there is a lot of coverage of <em>k</em>-mers in where the heterozygous peak would be and those are classified as "read only". These <em>k</em>-mers are not actually "read only", but rather the missing <em>k</em>-mers that are found in the alternate assembly.</p>
 
-<p class="blog-post_paragraph">You can also kind of see a <em>little bit</em> of green above the homozygous peak at ~70 times coverage. This is indiciative of retained haplotypes in the primary assembly. However, <u>this amount of retention is fine</u>. You're hardly ever going to get perfect genome assembly and this is enough to qualify as a high-quality primary assembly.</p>
+<p class="blog-post_paragraph">You can also kind of see a <em>little bit</em> of green above the homozygous peak at ~70 times coverage. This is indicative of retained haplotypes in the primary assembly. However, <u>this amount of retention is fine</u>. You're hardly ever going to get perfect genome assembly and this is enough to qualify as a high-quality primary assembly.</p>
 
 <p class="blog-post_paragraph">It's important to understand what the final pool of contigs are in your <code>.fasta</code> file(s) in order to interpret Merqury plots properly. For example, some genome assembly pipelines or consortia will classify their primary and alternate assemblies in different ways. The Darwin Tree of Life project for example will <em>combine</em> the sequences from their alternate assembly from the original assembly run and the sequences that were purged from the primary assembly in a single file (before purging this pool of sequences again). The final pool of sequences is what's plotted in the Merqury plots from their assembly pipelines. Here you can see what the Merqury plot looks like when the primary and alternate assemblies are passed into Merqury as 2 separate files.</p>
 
@@ -2771,23 +2768,23 @@ tig00000002.fasta.fai</code></pre>
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_51.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">Back to these graphs, it's important to understand that when performing Genome Quality QC, **it's important to perform Merqury QC on every stage of the assembly process to ensure you are going in the correct direction**. Here you see Merqury perfromed on the primary assembly before purging and the primary assembly after purging.</p>
+<p class="blog-post_paragraph">Back to these graphs, it's important to understand that when performing Genome Quality QC, <u>it's important to perform Merqury QC on every stage of the assembly process to ensure you are going in the correct direction</u>. Here you see Merqury perfromed on the primary assembly before purging and the primary assembly after purging.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_52.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">Here is an example of what would happen if you **over-purge** your assemblies.</p>
+<p class="blog-post_paragraph">Here is an example of what would happen if you <strong>over-purge</strong> your assemblies.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_53.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">Here you have an example of a Mequry plot for a diploid organism of both haplotypes (the primary and the alternate assembly) together. Because the heterozygous k-mers from both assemblies should be present, you expect to only see one peak at the heterozygous peak location (at 1X coverage). However, you can see a second, overlapping peak at this location corresponding to read-only k-mers. This indicates that you have over-purged as a lot of non-erroneous, k-mers derived from real reads of the organism's genomes are all of a sudden not incorporated into the assembly anymore and are only found in the sequencing reads.</p>
+<p class="blog-post_paragraph">Here you have an example of a Merqury plot for a diploid organism of both haplotypes (the primary and the alternate assembly) together. Because the heterozygous <em>k</em>-mers from both assemblies should be present, you expect to only see one peak at the heterozygous peak location (at 1X coverage). However, you can see a second, overlapping peak at this location corresponding to read-only <em>k</em>-mers. This indicates that you have over-purged as a lot of non-erroneous, <em>k</em>-mers derived from real reads of the organism's genomes are all of a sudden not incorporated into the assembly anymore and are only found in the sequencing reads.</p>
 
-<p class="blog-post_paragraph">So in conclusion, when it comes to purging, in your Merqury plots you can have an extra layer above your peaks with higher coverage (indicating **retained-haplotypes**) or a peak of read-only k-mers (indicating that you **over-purged**). All in all it shows the necessity of performing multiple Merqury QC steps at every step of the assembly. More information on how to evaluate k-mer plots can be found <a href="https://github.com/marbl/merqury/wiki/2.-Overall-k-mer-evaluation" target="_blank">here</a>.</p>
+<p class="blog-post_paragraph">So in conclusion, when it comes to purging, in your Merqury plots you can have an extra layer above your peaks with higher coverage (indicating <strong>retained-haplotypes</strong>) or a peak of read-only <em>k</em>-mers (indicating that you <strong>over-purged</strong>). All in all it shows the necessity of performing multiple Merqury QC steps at every step of the assembly. More information on how to evaluate <em>k</em>-mer plots can be found <a href="https://github.com/marbl/merqury/wiki/2.-Overall-k-mer-evaluation" target="_blank">here</a>.</p>
 
-<p class="blog-post_paragraph">The last thing to note about Merqury is that in addition to k-mer spectra plots, Merqury will also output alignment stats to give you QV (consensus quality value) estimates in files titled <code>output.qv</code>. QV is a assembly quality metric, based on the number of k-mers that are found only in the assembly but not in the reads (which would imply consensus base pair errors). This is also known as the **k-mer survival rate** (i.e., how many k-mers are unaffected by sequencing error). To calculate this, the error rate is first determined. The proportion of unique k-mers in the assembly over the total number of k-mers in the assembly represent the error rate, as they are assumed to have base errors. Then, it is recorded as a log-scaled probability of error for the consensus base calls (Phred Quality Score). The formula for the error rate, with E being error rate is <code>QV = −10log E</code>. <code>Q30</code> corresponds to 99.90% accuracy, <code>Q40</code> to 99.99%, etc.</p>
+<p class="blog-post_paragraph">The last thing to note about Merqury is that in addition to <em>k</em>-mer spectra plots, Merqury will also output alignment stats to give you <strong>QV</strong> (consensus quality value) estimates in files titled <code>output.qv</code>. QV is a assembly quality metric, based on the number of <em>k</em>-mers that are found only in the assembly but not in the reads (which would imply consensus base pair errors). This is also known as the <strong><em>k</em>-mer survival rate</strong> (i.e., how many <em>k</em>-mers are unaffected by sequencing error). To calculate this, the error rate is first determined. The proportion of unique <em>k</em>-mers in the assembly over the total number of <em>k</em>-mers in the assembly represent the error rate, as they are assumed to have base errors. Then, it is recorded as a log-scaled probability of error for the consensus base calls (Phred Quality Score). The formula for the error rate, with E being error rate is <code>QV = −10log E</code>. <code>Q30</code> corresponds to 99.90% accuracy, <code>Q40</code> to 99.99%, etc.</p>
 
 <p class="blog-post_paragraph">The following table shows column descriptors for an example <em>A. thaliana</em> dataset.</p>
 
@@ -2812,9 +2809,9 @@ col	682359	123511626	35.1183	0.000307729
 cvi	506306	122349407	36.3761	0.00023035
 Both	1188665	245861033	35.6991	0.00026921</code></pre>
 
-<p class="blog-post_paragraph">Here you can see multiple assemblies in the same output file. This can be the case when you measure different versions of assemblies or primary and alternate versions with Merqury. Merqury will also give you QV estimates of both assemblies combined. Here you can see that these results suggest the cvi assembly has slightly higher QV (36.4) than the col assembly (35.1), but still are very similar. As of writing, <strong>the current estimated QV for assemblies from PacBio HiFi reads is even higher than this (around a QV 40)</strong>. This has been benchmarked to show that SNP calling studies can be accurate.</p>
+<p class="blog-post_paragraph">Here you can see multiple assemblies in the same output file. This can be the case when you measure different versions of assemblies or primary and alternate versions with Merqury. Merqury will also give you QV estimates of both assemblies combined. Here you can see that these results suggest the <code>cvi</code> assembly has slightly higher QV (36.4) than the <code>col</code> assembly (35.1), but still are very similar. As of writing, <strong>the current estimated QV for assemblies from PacBio HiFi reads is even higher than this (around a QV 40)</strong>. This has been benchmarked to show that SNP calling studies can be accurate.</p>
 
-<p class="blog-post_paragraph">Assembly QV used to be estimated based on mapping based techniques. The problem with these however was that mapping biases occured because you have have heterozygosity compounded with errors. You expect each read to map back to their specific haplotypes, especially if they are long reads, however this isn't always the case. Complicated regions, like repetative regions and ribosomal RNA arrays can have multiple mappings and supplemental mappings, and these skew the QV estimtates. Some studies exclude these regions and QV estimates can be biased or cherry-picked for better results. K-mer-based QV estimation removes a lot of these priors and offers a more accurate estimate quality of the assembled genomes.</p>
+<p class="blog-post_paragraph">Assembly QV used to be estimated based on mapping based techniques. The problem with these however was that mapping biases occured because you have heterozygosity compounded with errors. You expect each read to map back to their specific haplotypes, especially if they are long reads, however this isn't always the case. Complicated regions, like repetative regions and ribosomal RNA arrays can have multiple mappings and supplemental mappings, and these skew the QV estimates. Some studies exclude these regions and QV estimates can be biased or cherry-picked for better results. <strong><em>k</em>-mer-based QV estimation removes a lot of these priors and offers a more accurate estimate quality of the assembled genomes</strong>.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_56.png" alt="alt text" />
@@ -2828,7 +2825,7 @@ Both	1188665	245861033	35.6991	0.00026921</code></pre>
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_57.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">One more thing to note on performing genome assembly QC is that you will often see <a href="https://github.com/ablab/quast" target="_blank">QUAST</a> used to perform QC on multiple assemblies. However, <strong>QUAST is reference-based</strong>. If you are performin We live in a time where we are getting quite high resolution with the genomes we produce, which means we are going to have variations. We are going to be able to pick up the total population of variations between the genomes. So if you have a very close sample or the same organism you have sequenced and you want to use QUAST to evaluate because you are just changing the sequencing technology, You can use QUAST and use the reference as a ground truth. However if you have another specimen sequenced, then the QUAST evaluation will be affected by the biology as well. For example, if you take version 38 of the human genome and compare it to the telomere-to-telomere human genome assembly, QUAST is going to give you an output with 20,000 errors on the telomere-to-telomere assembly. However a big part of this is because the assemblies were generated on different human beings with different variation and our technology is able to pick these up very well. Therefore it's always important to keep reference bias aware in your mind and know which tools are reference-based and which are reference-free and also keep in mind that the reference doesn't mean that it presents the ground-truth of the biology of the organisms. Genome assemblies are often mosiacs and heuristics to model certain realities in collected from bulk samples in nature.</p>
+<p class="blog-post_paragraph">One more thing to note on performing genome assembly QC is that you will often see <a href="https://github.com/ablab/quast" target="_blank">QUAST</a> used to perform QC on multiple assemblies. However, <strong>QUAST is reference-based</strong>. We live in a time where we are getting quite high resolution with the genomes we produce, which means we are going to have variations. We are going to be able to pick up the total population of variations between the genomes. So if you have a very close sample or the same organism you have sequenced and you want to use QUAST to evaluate because you are just changing the sequencing technology, you can use QUAST and use the reference as a ground truth. However if you have another specimen sequenced, then the QUAST evaluation will be affected by the biology as well. For example, if you take version 38 of the human genome and compare it to the telomere-to-telomere human genome assembly, QUAST is going to give you an output with 20,000 errors on the telomere-to-telomere assembly. However a big part of this is because the assemblies were generated on different human beings with different variation and our technology is able to pick these up very well. <strong>Therefore it's always important to keep reference bias aware in your mind and know which tools are reference-based and which are reference-free and also keep in mind that the reference doesn't mean that it presents the ground-truth of the biology of the organisms</strong>. Genome assemblies are often mosiacs and heuristics to model certain realities in collected from bulk samples in nature.</p>
 
 <p class="blog-post_paragraph">With that background out of the way, these is how I performed Merqury QC on the <em>Urtica urens</em> assembly.</p>
 
@@ -2839,11 +2836,11 @@ cd ~/drUrtUren1/merqury_hifiasm_eval
 ln -s /home/ubuntu/Share/drUrtUren1_data/drUrtUren1.hifiasm.total.p_ctg.fa.gz
 ln -s /home/ubuntu/Share/drUrtUren1_data/drUrtUren1.hifiasm.total.a_ctg.fa.gz</code></pre>
 
-<p class="blog-post_paragraph">In order to run merqury, you need a meryl datase of the reads you want to compare kmers with the kmers in your assembly. In this workshop, the meryl database for <em>Urtica urens</em> PacBio HiFi reads was provided (with k=21). I simply symlinked the meryl database folder to my execution folder.</p>
+<p class="blog-post_paragraph">In order to run merqury, you need a meryl datase of the reads you want to compare <em>k</em>-mers with the <em>k</em>-mers in your assembly. In this workshop, the meryl database for <em>Urtica urens</em> PacBio HiFi reads was provided (with <em>k</em>=21). I simply symlinked the meryl database folder to my execution folder.</p>
 
 <pre class="command-line" data-user="" data-host=""><code class="language-commandline">ln -s /home/ubuntu/Share/drUrtUren1_data/drUrtUren1.pacbio.k21.meryl/</code></pre>
 
-<p class="blog-post_paragraph">Next I actitvated my conda environment and checked the merqury usage.</p>
+<p class="blog-post_paragraph">Next I activated my conda environment and checked the Merqury usage.</p>
 
 <pre class="command-line" data-user="" data-host=""><code class="language-commandline">conda activate merqury_env
 merqury.sh</code></pre>
@@ -3000,7 +2997,7 @@ $MERQURY/trio/block_n_stats.sh $asm1 $out.${asm1/.fasta/}.*.phased_block.bed $as
 
 <pre class="command-line" data-user="" data-host=""><code class="language-commandline">merqury.sh drUrtUren1.pacbio.k21.meryl drUrtUren1.hifiasm.total.p_ctg.fa.gz drUrtUren1.hifiasm.total.a_ctg.fa.gz hifiasm</code></pre>
 
-<p class="blog-post_paragraph">Regarding the Merqury output files, for the plot files, you will have 3 types: <code>st</code> (stacked), <code>ln</code> (line) and <code>fl</code> (filled). These three graphs will represent the same data. They are just a different way of plotting the (same) data. Apart from having <code>st</code>, <code>fn</code> and <code>ln</code>, merqury is going to output 2 types of files, <code>asm</code> and <code>cn</code>. If the file contains <code>cn</code> it’s going to show you all kmer counts of primary + haplotigs in the plot, without descriminating them. If it contains <code>asm</code> it is going to show you kmers belonging to each assembly in different colours. For further information I recommend having a look at the manual <a href="https://github.com/marbl/merqury/wiki/2.-Overall-k-mer-evaluation" target="_blank">here</a>.</p> 
+<p class="blog-post_paragraph">Regarding the Merqury output files, for the plot files, you will have 3 types: <code>st</code> (stacked), <code>ln</code> (line) and <code>fl</code> (filled). These three graphs will represent the same data. They are just a different way of plotting the (same) data. Apart from having <code>st</code>, <code>fn</code> and <code>ln</code>, Merqury is going to output 2 types of files, <code>asm</code> and <code>cn</code>. If the file contains <code>cn</code> it’s going to show you all <em>k</em>-mer counts of primary + haplotigs in the plot, without descriminating them. If it contains <code>asm</code> it is going to show you <em>k</em>-mers belonging to each assembly in different colours. For further information I recommend having a look at the manual <a href="https://github.com/marbl/merqury/wiki/2.-Overall-k-mer-evaluation" target="_blank">here</a>.</p> 
 
 <p class="blog-post_paragraph">
     <u><em>Step 5: Proximity Ligation and Chromosome Conformation Capture</em></u>
@@ -3012,7 +3009,7 @@ $MERQURY/trio/block_n_stats.sh $asm1 $out.${asm1/.fasta/}.*.phased_block.bed $as
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_58.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">This 3D organization is important for gene expression dynamics, but it is also very useful for aiding in assembling genomes. Even though the 3D organization of chromosomes in a nucleus is a fluid and constantly changing, there are certain patterns that emerge in DNA organizaiton that can be use to help resolve which regions should be next with other regions. Sometimes distant linear regions of the same chromosome or of other chromosomes tend to stay in close proximity with other distant regions of the genome and this is often done to regulate gene expression. In fact on average, intrachromosomal contact probability is much higher than interchromosomal contact. In other words, <strong>Chromosomes are more likely to make contact with themselves than with other chromosomes</strong>. Another important pattern is that <strong>interaction probaility rapidly decays with increasing genomic distance</strong>.</p>
+<p class="blog-post_paragraph">This 3D organization is important for gene expression dynamics, but it is also very useful for aiding in assembling genomes. Even though the 3D organization of chromosomes in a nucleus is fluid and constantly changing, there are certain patterns that emerge in DNA organizaiton that can be use to help resolve which regions should be next with other regions. Sometimes distant linear regions of the same chromosome or of other chromosomes tend to stay in close proximity with other distant regions of the genome and this is often done to regulate gene expression. In fact on average, intrachromosomal contact probability is much higher than interchromosomal contact. In other words, <strong>Chromosomes are more likely to make contact with themselves than with other chromosomes</strong>. Another important pattern is that <strong>interaction probability rapidly decays with increasing genomic distance</strong>.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_59.png" alt="alt text" />
@@ -3024,7 +3021,7 @@ $MERQURY/trio/block_n_stats.sh $asm1 $out.${asm1/.fasta/}.*.phased_block.bed $as
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_60.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">Capturing this information is very useful for resolving gaps and breaks in genome assembly's as contigs can be <strong>scaffolded</strong>. Long distance interactions can help orient contigs and join contigs together assemblies.</p>
+<p class="blog-post_paragraph">Capturing this information is very useful for resolving gaps and breaks in genome assembly's as contigs can be <strong>scaffolded</strong>. Long distance interactions can help orient contigs and join them together in assemblies.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_61.png" alt="alt text" />
@@ -3036,7 +3033,7 @@ $MERQURY/trio/block_n_stats.sh $asm1 $out.${asm1/.fasta/}.*.phased_block.bed $as
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_62.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">In recent history, there have been many Chromatin Capture techniques that have been developped, each with their benefits and limitations. The biggest revolution came from development of the <strong>Hi-C</strong> technique, which allowed for interactions from all regions of the genomes to screened against all regions from the genome for this first time. A great review about the development of protein capture techniques and their limitations can be found <a href="https://wires.onlinelibrary.wiley.com/doi/10.1002/wdev.395" target="_blank">here</a>.</p>
+<p class="blog-post_paragraph">In recent history, there have been many Chromatin Capture techniques that have been developped, each with their benefits and limitations. The biggest revolution came from development of the <strong>Hi-C</strong> technique, which allowed for interactions from all regions of the genomes to be screened against all regions from the genome for the first time. A great review about the development of protein capture techniques and their limitations can be found <a href="https://wires.onlinelibrary.wiley.com/doi/10.1002/wdev.395" target="_blank">here</a>.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_63.png" alt="alt text" />
@@ -3045,14 +3042,14 @@ $MERQURY/trio/block_n_stats.sh $asm1 $out.${asm1/.fasta/}.*.phased_block.bed $as
 <p class="blog-post_paragraph">Hi-C works by the following steps:</p>
 
 <ol>
-  <li>Cells are first treated with a chemical crosslinker (usually formaldehyde) to freeze interactions between DNA regions that are physically close to each other in the 3D space of the nucleus. This preserves the spatial relationships between different parts of the genome.</li>
+  <li>Cells are first treated with a chemical crosslinker (<strong>usually formaldehyde</strong>) to freeze interactions between DNA regions that are physically close to each other in the 3D space of the nucleus. This preserves the spatial relationships between different parts of the genome.</li>
   <li>The crosslinked DNA is then cut into smaller fragments using restriction enzymes. These enzymes recognize specific DNA sequences and cleave the DNA at those sites, creating smaller, more manageable pieces.</li>
-  <li>The ends of the DNA fragments are repaired and labeled with a small detectable molecule called biotin. This step ensures that the ends of the DNA fragments are compatible for ligation and can be later captured for sequencing.</li>
+  <li>The ends of the DNA fragments are repaired and labeled with a small detectable molecule called <strong>biotin</strong>. This step ensures that the ends of the DNA fragments are compatible for ligation and can be later captured for sequencing.</li>
   <li>The DNA fragments are then ligated under dilute conditions, which favors the joining of DNA fragments that are physically close to each other in the nucleus. This step creates chimeric DNA molecules that represent interactions between different regions of the genome.</li>
   <li>The crosslinks are reversed, freeing the DNA from proteins and other molecules. This step also breaks the bonds formed by the crosslinker, which allows the DNA to be processed further.</li>
   <li>The DNA is purified and then sheared into smaller fragments, which are more suitable for sequencing.</li>
   <li>The biotinylated DNA fragments are captured using streptavidin beads, which bind tightly to biotin. This step enriches for the chimeric DNA molecules that represent interactions between different genomic regions.</li>
-  <li>The captured DNA fragments are used to prepare a sequencing library (usually as short read-paired ends).
+  <li>The captured DNA fragments are used to prepare a sequencing library (usually as short read-paired ends using Illumina sequencing).
     <ul>
       <li>Paired ends can be thousands of bases apart on a linear DNA sequence.</li>
     </ul>
@@ -3069,19 +3066,19 @@ $MERQURY/trio/block_n_stats.sh $asm1 $out.${asm1/.fasta/}.*.phased_block.bed $as
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_65.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">Although Hi-C has been used as the "Gold-standard" for chromosome conformation capture technology, researchers began reaching the limits of its ability to capture fine-resolution (~1 kb). Newer technologies such as Micro-C have been able to increase the resolution of chromatin conformation capture. You can see in the plot less gaps in contact (white crosses) appearing when the sample is analyzed using Micro-C instead of Hi-C. This is incredibly useful for epigenetic studies, however for the purposes of genome assembly, these higher resolution standards might be overkill as collecting this data may be very expensive and the Hi-C data is often sufficient for scaffolding genome.</p>
+<p class="blog-post_paragraph">Although Hi-C has been used as the "Gold-standard" for chromosome conformation capture technology, researchers began reaching the limits of its ability to capture fine-resolution (~1 kb) architectures. Newer technologies such as Micro-C have been able to increase the resolution of chromatin conformation capture. You can see in the plot less gaps in contact (white crosses) appearing when the sample is analyzed using Micro-C instead of Hi-C. This is incredibly useful for epigenetic studies, however for the purposes of genome assembly, these higher resolution standards might be overkill as collecting this data may be very expensive and the Hi-C data is often sufficient for scaffolding a genome.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_66.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">Nanopore sequencing based chromatin capture techniques are also being developped, such as Pore-C and HiPore-C. These techinques are very promising because they offer similar chromatin capture accuract as Hi-C, however they claim to offer cheaper and streamlined data collection and analysis.</p>
+<p class="blog-post_paragraph">Nanopore sequencing based chromatin capture techniques are also being developped, such as Pore-C and HiPore-C. These techinques are very promising because they offer similar chromatin capture accuracy as Hi-C, however they claim to offer cheaper and streamlined data collection and analysis.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_67.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">Additionally, there is another promising technique called <a href="https://omni-c.readthedocs.io/en/latest/" target="_blank">Omni-C</a>. Omni-C improves upon the Hi-C protocol because it does not depend on restriction enzymes to digest the crosslinked DNA. Instead it uses a sequence-independent endonuclease. This reduces the sequence bias of the overall library because restriction biases can only digest in certain areas of the genome.</p>
+<p class="blog-post_paragraph">Additionally, there is another promising technique called <a href="https://omni-c.readthedocs.io/en/latest/" target="_blank">Omni-C</a>. Omni-C improves upon the Hi-C protocol because <strong>it does not depend on restriction enzymes to digest the crosslinked DNA</strong>. Instead it uses a sequence-independent endonuclease. This reduces the sequence bias of the overall library because restriction biases can only digest in certain areas of the genome.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_68.png" alt="alt text" />
@@ -3112,7 +3109,7 @@ $MERQURY/trio/block_n_stats.sh $asm1 $out.${asm1/.fasta/}.*.phased_block.bed $as
 
 <p class="blog-post_paragraph">Which chromosomes in the genome share a lot of similarity with each other but are also expected contain half the mapping coverage of other chromosomes? <strong>The sex chromosomes</strong>. Because there are 2 contigs/scaffolds of <strong>different sizes</strong> that share a lot of similarity with each other, these are likely X and Y chromosomes. <strong>Using just a Hi-C map on a non-curated genome, we could quickly deduce that this sample was collected from a male organism</strong>.</p>
 
-<p class="blog-post_paragraph">Annotation <strong>B</strong> is showing some chromosome abberation in the assembly. These aberations can be fixed through manual curation a lot of manual curation (<a href="https://gitlab.com/wtsi-grit/rapid-curation/-/blob/main/Interpreting_HiC_Maps_guide.pdf" target="_blank">see here for more information</a>).</p>
+<p class="blog-post_paragraph">Annotation <strong>B</strong> is showing some chromosome abberation in the assembly. These aberations can be fixed through manual curation (<a href="https://gitlab.com/wtsi-grit/rapid-curation/-/blob/main/Interpreting_HiC_Maps_guide.pdf" target="_blank">see here for more information</a>).</p>
 
 <p class="blog-post_paragraph">Here is another example of a contact map for another organism's draft assembly.</p>
 
@@ -3122,7 +3119,7 @@ $MERQURY/trio/block_n_stats.sh $asm1 $out.${asm1/.fasta/}.*.phased_block.bed $as
 
 <p class="blog-post_paragraph">Here you can see more strong off-target mapping that likely needs manual creation, but in additon you can notice contigs that don't have any Hi-C mapping data mapped to them at all. As the figure explains, this could be due to contamination or incorrect preparation of your Hi-C library.</p>
 
-<p class="blog-post_paragraph">Contamination in your assembly can also manifest as sequences with higher sequencing coverage but also less off-diagonal chromatic-capture mapping to the rest of the genome.</p>
+<p class="blog-post_paragraph">Contamination in your assembly can also manifest as sequences with higher sequencing coverage but also less off-diagonal chromatin-capture mapping to the rest of the genome.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_72.png" alt="alt text" />
@@ -3134,19 +3131,19 @@ $MERQURY/trio/block_n_stats.sh $asm1 $out.${asm1/.fasta/}.*.phased_block.bed $as
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_73.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">Another genome assembly phenomenon that you can encounter are imposter sequences. These are sequences that somehow got incorporated to your contigs or scaffolds but will share no mappings with any other sequences.</p>
+<p class="blog-post_paragraph">Another genome assembly phenomenon that you can encounter are <strong>imposter sequences</strong>. These are sequences that somehow got incorporated to your contigs or scaffolds but will share no mappings with any other sequences.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_74.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">Another thing you might encounter is retained haplotigs in your assemblies. Even after using <code>purge_dups</code> to try and remove these, some of these assembly artificats can bypass detection by the software and still persist in your genome. The Hi-C maps can quickly identify them and allow you to fix them manually.</p>
+<p class="blog-post_paragraph">Another thing you might encounter is <strong>retained haplotigs</strong> in your assemblies. Even after using <code>purge_dups</code> to try and remove these, some of these assembly artificats can bypass detection by the software and still persist in your genome. The Hi-C maps can quickly identify them and allow you to fix them manually.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_75.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">Hi-C maps can also give you a good indication of the completeness of your genomes because (in probably most eukaryotic organisms), you should see a nice, repatative, off-diagonal mapping pattern accross the middle and ends of all of your final chromosomes, indicating the shared similarity of centromeric and telomeric sequences across chromosomes.</p>
+<p class="blog-post_paragraph">Hi-C maps can also give you a good indication of the completeness of your genomes because (in probably most eukaryotic organisms), you should see a nice, repetative, off-diagonal mapping pattern accross the middle and ends of all of your final chromosomes, indicating the shared similarity of centromeric and telomeric sequences across chromosomes.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_76.png" alt="alt text" />
@@ -3166,7 +3163,7 @@ $MERQURY/trio/block_n_stats.sh $asm1 $out.${asm1/.fasta/}.*.phased_block.bed $as
 
 <p class="blog-post_paragraph">We tend to take certain things in biology for granted: "Centromeres are very repetative", "Telomeres are organized in specific ways", etc. Now with these chromatin-capture technologies we are able to do this high-resolution biology that we were never able to do before. We can now easily evaluate how our previous biological notions hold up across the tree of life.</p>
 
-<p class="blog-post_paragraph">Scaffolding using some sort of chromatin-capture technology is a very important ingredient of creating a high-quality genome assembly. Not only for the myriads of benefits of having better data for identifying contamination, missassemblies, and genome features like sex chromosomes, but also just on a basic level whereby proximity-ligation-based scaffolding can significantly improve the contiguity of your genome.</p>
+<p class="blog-post_paragraph"><strong>Scaffolding using some sort of chromatin-capture technology is a very important ingredient of creating a high-quality genome assembly</strong>. Not only for the myriads of benefits of having better data for identifying contamination, misassemblies, and genome features like sex chromosomes, but also just on a basic level whereby proximity-ligation-based scaffolding can significantly improve the contiguity of your genome.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_101.png" alt="alt text" />
@@ -3174,7 +3171,7 @@ $MERQURY/trio/block_n_stats.sh $asm1 $out.${asm1/.fasta/}.*.phased_block.bed $as
 
 <p class="blog-post_paragraph">Here you can see an example where just by performing Hi-C scaffolding on an assembly using short-reads, the researchers were able to go from a contig N50 of 64,321 to a scaffold N50 of 140,950,122. <strong>This is a over 2000-fold increase in genome contiguity</strong>.</p>
 
-<p class="blog-post_paragraph">After running a scaffolding software, there genome will still likely not be complete and will need some human intervention for refinement. This is called manual curation. Manual Curation should be done using <a href="https://github.com/wtsi-hpag/PretextView" target="_blank">PretextView</a>. This is an app that allows inspection of Hi-C reads mapped to an assembly.</p>
+<p class="blog-post_paragraph">After running a scaffolding software, there genome will still likely not be complete and will need some human intervention for refinement. This is called manual curation. <u>Manual curation should be done using <a href="https://github.com/wtsi-hpag/PretextView" target="_blank">PretextView</a></u>. This is an app that allows inspection of Hi-C reads mapped to an assembly.</p>
 
 <p class="blog-post_paragraph">PretextView can be used to make real-time changes to assemblies:</p>
 
@@ -3184,7 +3181,7 @@ $MERQURY/trio/block_n_stats.sh $asm1 $out.${asm1/.fasta/}.*.phased_block.bed $as
   <li>Additional tracks (bedgraphs) can be injected into Pretext maps to view alongside the Hi-C data, e.g., Coverage, Telomeres, Sequence gaps, Repeat density.</li>
 </ol>
 
-<p class="blog-post_paragraph">Pretext can also be used to dump an <code>agp</code> (describes the assembly of a larger sequence object from smaller objects) of changes to an assembly. This <code>agp</code> can then be passed to our in-house script <code>rapid_pretext2tpf.py</code>, which will allow the edited map to be turned back into a corrected fasta file.</p>
+<p class="blog-post_paragraph">PretextView can also be used to dump an <code>agp</code> (describes the assembly of a larger sequence object from smaller objects) of changes to an assembly. This <code>agp</code> can then be passed to our in-house script <code>rapid_pretext2tpf.py</code>, which will allow the edited map to be turned back into a corrected fasta file.</p>
 
 <p class="blog-post_paragraph">Some caveats to be aware of are:</p>
 
@@ -3202,7 +3199,7 @@ $MERQURY/trio/block_n_stats.sh $asm1 $out.${asm1/.fasta/}.*.phased_block.bed $as
 
 <p class="blog-post_paragraph">As you can see, even after manual curation, there is still a lot of small, off-target mappings in the fragments. Genome assembly is hardly ever perfect, and for a lot of organisms, you aren't striving to spend weeks upon weeks to create the perfect assembly and refine out every little innaccuracy in all of your smallest fragments. At some point you will just have to say "<em>khallas</em> this is good enough for what I need".</p>
 
-<p class="blog-post_paragraph">One of the softwares that is used to scaffold genomes with Hi-C that is called SALSA2. In the workshop, this is what I used.</p>
+<p class="blog-post_paragraph">One of the softwares that is used to scaffold genomes with Hi-C that is called <a href="https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-017-3879-z" target="_blank">SALSA2</a>. In the workshop, this is what I used.</p>
 
 <pre class="command-line" data-user="" data-host=""><code class="language-commandline">mkdir ~/drUrtUren1/scaff
 cd ~/drUrtUren1/scaff
@@ -3240,7 +3237,7 @@ optional arguments:
   -p PRNT, --prnt PRNT  Set this option to "yes" if you want to output the
                         scaffolds sequence and agp file for each iteration</code></pre>
 
-<p class="blog-post_paragraph">To run SALSA2 you need 3 files. The files are a <code>*purged.polish.fa</code> file a <code>*purged.polish.fa.fai</code> (fasta index) and <code>merge.mkdup.bed</code> (A BED file that contains information about the alignment of sequencing reads to the reference genome). I symlinked all these files to my execution directory and ran:</p>
+<p class="blog-post_paragraph">To run SALSA2 you need 3 files. The files are a <code>*purged.polish.fa</code> file, a <code>*purged.polish.fa.fai</code> (fasta index), and <code>merge.mkdup.bed</code> (A BED file that contains information about the alignment of sequencing reads to the reference genome). I symlinked all these files to my execution directory and ran:</p>
 
 <pre class="command-line" data-user="" data-host=""><code class="language-commandline">ln -s /home/ubuntu/Share/drUrtUren1_data/HiC/drUrtUren1_hifiasm.purged.polish.fa
 ln -s /home/ubuntu/Share/drUrtUren1_data/HiC/drUrtUren1_hifiasm.purged.polish.fa.fai
@@ -3292,7 +3289,7 @@ GAP	sum = 16000, n = 32, mean = 500, largest = 500, smallest = 500</code></pre>
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_102.1.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">In the workshop we also performed a missassembly investigation using Hi-C maps and IGV, for this purpose, a <em>Eristalis pertinax</em> scaffolded assembly was provided and visualized in Juicebox.</p>
+<p class="blog-post_paragraph">In the workshop we also performed a misassembly investigation using Hi-C maps and IGV, for this purpose, a <em>Eristalis pertinax</em> scaffolded assembly was provided and visualized in Juicebox.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_102.2.png" alt="alt text" />
@@ -3304,9 +3301,9 @@ GAP	sum = 16000, n = 32, mean = 500, largest = 500, smallest = 500</code></pre>
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_102.3.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">As you can see, there is a gap in the Pacbio coverage at this region. Therefore, since we have a weird looking Hi-C Heatmap and no reads crossing that region, we can very safetly assume this is a mis-assembly.</p>
+<p class="blog-post_paragraph">As you can see, there is a gap in the Pacbio coverage at this region. Therefore, since we have a weird looking Hi-C Heatmap and no reads crossing that region, <strong>we can very safetly assume this is a misassembly</strong>.</p>
 
-<p class="blog-post_paragraph">So overall, this is basically all you need to create a high-quality, chromosome-level nuclear genome assembly. High quality reads and chromatin proximity ligation data. Telomere-to-telomere genome assemblies still need the added ingredient of Ultra Long reads (Have to be Oxford Nanopore Reads as of right now), however this may change soon with how quickly this field evolves.</p>
+<p class="blog-post_paragraph">So overall, <u>this is basically all you need to create a high-quality, chromosome-level nuclear genome assembly. High quality reads and chromatin proximity ligation data.</u> Telomere-to-telomere genome assemblies still need the added ingredient of Ultra Long reads (Have to be Oxford Nanopore Reads as of right now), however this may change soon with how quickly this field evolves. RNA-Sequencing needs to be done, especially in eukaryotic organisms, to produce good gene models for the organism</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_103.png" alt="alt text" />
@@ -3318,13 +3315,13 @@ GAP	sum = 16000, n = 32, mean = 500, largest = 500, smallest = 500</code></pre>
 
 
 
-<p class="blog-post_paragraph">The final thing to take note of is organelle genome assemblies. Every time you isolate DNA from an organism, a large percentage of the reads will come from the organelle genomes. Each organelle (mitochondria and chlroplasts (in photosynthetic eukaryotes)) typically contains multiple copies of their own genome. The number of copies can vary depending on the cell type, organism, and metabolic demands, but as a general rule of thumb for well studied organisms, a single mitochondrion may contain 2 to 10 copies of mitochondrial DNA (mtDNA) and a single chloroplast can contain 10 to 100 copies of chloroplast DNA (cpDNA). In addition, a cell can have tenss, to hundreds, to thousands of organelles per cell, the overall number of organellular DNA copies per cell can range from hundreds to tens of thousands.</p>
+<p class="blog-post_paragraph">The final thing to take note of is organelle genome assemblies. Every time you isolate DNA from an organism, a large percentage of the reads will come from the organelle genomes. Each organelle (mitochondria and chlroplasts (in photosynthetic eukaryotes)) typically contains multiple copies of their own genome. The number of copies can vary depending on the cell type, organism, and metabolic demands, but as a general rule of thumb for well studied organisms, <strong>a single mitochondrion may contain 2 to 10 copies of mitochondrial DNA (mtDNA) and a single chloroplast can contain 10 to 100 copies of chloroplast DNA (cpDNA)</strong>. In addition, a cell can have tenss, to hundreds, to thousands of organelles per cell,<strong>the overall number of organellular DNA copies per cell can range from hundreds to tens of thousands</strong>.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_104.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">A lot of assembly programs will output files that end in <code>.gfa</code>. These are <strong>Graphical Fragment Assembly files</strong>. These files contain information from the <em>graph space</em> of the genome assembly (which is like the intermediate version of the assembly, before the assembly is linearized). A <code>.gfa</code> file consists of a set of sequences and tab-delimited pairs of sequences with their overlaps. You can read more about this format from <a href="http://gfa-spec.github.io/GFA-spec/GFA1.html" target="_blank">here</a>. These graphical fragment assembly files can be visualized in programs like <a href="https://rrwick.github.io/Bandage/" target="_blank">Bandage</a>, which help you visualize assembly graphs of your genomes. An assembly graph is used to represent the final assembly of a genome (or metagenomes). In simple terms, the assembler builds this assembly graph based on reads and their overlap information. Then the assembler resolves paths across the assembly graph and outputs non-branching paths as contigs.</p>
+<p class="blog-post_paragraph">A lot of assembly programs will output files that end in <code>.gfa</code>. These are <strong>Graphical Fragment Assembly files</strong>. These files contain information from the <em>graph space</em> of the genome assembly (which is like the intermediate version of the assembly, before the assembly is linearized). A <code>.gfa</code> file consists of a set of sequences and tab-delimited pairs of sequences with their overlaps. You can read more about this format from <a href="http://gfa-spec.github.io/GFA-spec/GFA1.html" target="_blank">here</a>. These graphical fragment assembly files can be visualized in programs like <a href="https://rrwick.github.io/Bandage/" target="_blank">Bandage</a>, which help you visualize assembly graphs of your genomes. An assembly graph is used to represent the final assembly of a genome (or metagenomes). In simple terms, <strong>the assembler builds this assembly graph based on reads and their overlap information. Then the assembler resolves paths across the assembly graph and outputs non-branching paths as contigs</strong>.</p>
 
 <p class="blog-post_paragraph">Genome assembly graphs in Bandage can be very confusing to interpret at first. I recommend <a href="https://github.com/rrwick/Bandage/wiki" target="_blank">reading the Bandage wiki</a> and <a href="https://www.youtube.com/playlist?list=PLJU3mQyt10C3rv3SMCF44mVy64GuZpqPT" target="_blank">watching these videos</a> before trying to work with it.</p>
 
@@ -3340,7 +3337,7 @@ GAP	sum = 16000, n = 32, mean = 500, largest = 500, smallest = 500</code></pre>
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_106.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">This is an example of a resolved DNA structure. The way to think about this is imagine tracing a single path through the graph and then linearizing that trace. This results in a single, circular sequence of DNA.</p>
+<p class="blog-post_paragraph">This is an example of a resolved DNA structure. The way to think about this is to imagine tracing a single path through the graph and then linearizing that trace. This results in a single, circular sequence of DNA.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_107.png" alt="alt text" />
@@ -3352,9 +3349,9 @@ GAP	sum = 16000, n = 32, mean = 500, largest = 500, smallest = 500</code></pre>
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_108.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">It's important to always take into account the biology of your organism when interpretting this graph. If you combine this infomration with additional knowledge about chloroplast structures and how they contain long, inverted repeats, then you can rule out the first scenario and deduce that the real structure of the bacterial genome would be the second option. In this way, Bandage has assisted in turning a fragmented assembly of three contigs into a completed genome of one sequence.</p>
+<p class="blog-post_paragraph">It's important to always take into account the biology of your organism when interpretting this graph. If you combine this information with additional knowledge about chloroplast structures and how they contain long, inverted repeats, then you can rule out the first scenario and deduce that the real structure of the bacterial genome would be the second option. In this way, Bandage has assisted in turning a fragmented assembly of three contigs into a completed genome of one sequence.</p>
 
-<p class="blog-post_paragraph">Assembly of the chloroplast genome, especially in plants, is usually a very streamlined process. There are usually no real issues with it and softwares like <a href="https://github.com/c-zhou/oatk" target="_blank">Oatk</a> are really good at assembling them. However, mitochondrial genome assembly is can still be a complicated challenge. Mitochondrial biology can be more diverse than chloroplast biology generally. Here is just a quick rundown of many differences between mitochondria found in plants and animals.</p>
+<p class="blog-post_paragraph"><strong>Assembly of the chloroplast genome, especially in plants, is usually a very streamlined process</strong>. There are usually no real issues with it and softwares like <a href="https://github.com/c-zhou/oatk" target="_blank">Oatk</a> are really good at assembling them. However, <strong>mitochondrial genome assembly can still be a complicated challenge</strong>. Mitochondrial biology can be more diverse than chloroplast biology generally. Here is just a quick rundown of many differences between mitochondria found in plants and animals.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_109.png" alt="alt text" />
@@ -3372,25 +3369,25 @@ GAP	sum = 16000, n = 32, mean = 500, largest = 500, smallest = 500</code></pre>
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_111.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">Below is an example of how these genes are layed out on the a mitochondrial genome.</p>
+<p class="blog-post_paragraph">Below is an example of how these genes are layed out on a mitochondrial genome.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_112.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">It's also important to remember that mitochondria exhibit heteroplasmy, which is the presence of more than one type of mtDNA in an individual. This was thought to be a rare phenomenon that was associated with aging and disease, but with modern sequencing technology we are realising that it is quite common amongst many taxa. Heterplasmy can exist at the level of different mtDNA between cells of an organism but also different mtDNA within the same cell.</p>
+<p class="blog-post_paragraph">It's also important to remember that mitochondria exhibit <strong>heteroplasmy</strong>, which is the presence of more than one type of mtDNA in an individual. This was thought to be a rare phenomenon that was associated with aging and disease, but with modern sequencing technology we are realising that it is quite common amongst many taxa. Heterplasmy can exist at the level of different mtDNA between cells of an organism but also different mtDNA within the same cell.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_113.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">Another important concept for mitochondrial genome assembly is NUMTs, which stands for Nuclear Mitochondrial DNA segments. These are created by the transfer of portions of the mitochondrial genome to the nuclear genome. Because this usually an evolutionary process that takes a lot of time, the original mitochondrial genome that's inserted into the nuclear genome tend to go through mutations over the generations and becomes diversified away from the original sequence. However, there is still some similarity which makes some software and analytical tools that try to find mitochondrial sequences confused and they predict that NUMTs are really the mitochondrial sequences.</p>
+<p class="blog-post_paragraph">Another important concept for mitochondrial genome assembly is <strong>NUMTs</strong>, which stands for <strong>Nuclear Mitochondrial DNA segments</strong>. These are created by the transfer of portions of the mitochondrial genome to the nuclear genome. Because this is usually an evolutionary process that takes a lot of time, the original mitochondrial genome that's inserted into the nuclear genome tend to go through mutations over the generations and becomes diversified away from the original sequence. However, there is still some similarity which makes some software and analytical tools that try to find mitochondrial sequences confused and they predict that NUMTs are really the mitochondrial sequences.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_114.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">This trend is not limited to evolutionary DNA transfer from the mitochondria to the nucleus. In eukaryotic biology, the general trend is suummarized below.</p>
+<p class="blog-post_paragraph">This trend is not limited to evolutionary DNA transfer from the mitochondria to the nucleus. In eukaryotic biology, the general trend is summarized below.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_115.png" alt="alt text" />
@@ -3415,15 +3412,15 @@ GAP	sum = 16000, n = 32, mean = 500, largest = 500, smallest = 500</code></pre>
   </li>
 </ol>
 
-<p class="blog-post_paragraph">More specifically, this is how the MitoHiFi workflow looks like. To run MitoHiFi, you will always need to have a reference genome. This will probably need to be a mitogenome of a closely related organisms. The MitoHiFi program comes with a script that helps you find a closely-related reference mitogenome called <code>findMitoReference.py</code>. MitoHiFi can also be run in two different modes: The first one is the <strong>reads mode</strong> (<code>-r</code>). Here you can input you PacBio HiFi reads or your Nanopore high-quality reads together with the reference mitogenome. Then the reads are mapped to the reference genome and only the reads with high-quality mappings are retained because these reads that likely came from the mitochondrial DNA. These reads are then fed into <code>hifiasm</code> to assemble contigs. The contigs are then aligned to the reference mitogenome, and then only the best aligning contigs are retained. The selected contigs are circularized and then annotated with either <code>MitoFinder</code> or <code>MITOS</code>. You can also run this in <strong>contig mode</strong> (<code>-c</code>), so if you already have an initial set of contigs then this you just skip the <code>hifiasm</code> assembly and go straight to the BLAST stage.</p>
+<p class="blog-post_paragraph">More specifically, this is how the MitoHiFi workflow looks like. To run MitoHiFi, you will always need to have a reference genome. This will probably need to be a mitogenome of a closely related organism. The MitoHiFi program comes with a script that helps you find a closely-related reference mitogenome called <code>findMitoReference.py</code>. MitoHiFi can also be run in two different modes: The first one is the <strong>reads mode</strong> (<code>-r</code>). Here you can input you PacBio HiFi reads or your Nanopore high-quality reads together with the reference mitogenome. Then the reads are mapped to the reference genome and only the reads with high-quality mappings are retained because these reads that likely came from the mitochondrial DNA. These reads are then fed into <code>hifiasm</code> to assemble contigs. The contigs are then aligned to the reference mitogenome, and then only the best aligning contigs are retained. The selected contigs are circularized and then annotated with either <code>MitoFinder</code> or <code>MITOS</code>. You can also run this in <strong>contig mode</strong> (<code>-c</code>), so if you already have an initial set of contigs then this you just skip the <code>hifiasm</code> assembly and go straight to the BLAST stage.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_116.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">More details on how to run MitoHiFi can be found below. To run <code>findMitoReference.py</code>, you provde as input the name of your species, your email, an output directory and a minimum mitogenome reference length to ensure that the mitogenome you get back is not an incomplete or partial mitogenome (usually would set this to around 15000 for an aninmal mitogenome).</p>
+<p class="blog-post_paragraph">To run <code>findMitoReference.py</code>, you provide as input the name of your species, your email, an output directory and a minimum mitogenome reference length to ensure that the mitogenome you get back is not an incomplete or partial mitogenome (<strong>suggested to set this to around 15000 for an animal mitogenome</strong>).</p>
 
-<p class="blog-post_paragraph">To run the pipeline (using the main <code>mitohifi.py</code> script), provide your reads or contigs using the <code>-r</code> or <code>-c</code> flags, respectively (for the reads you can input muliple <code>.fasta</code> files). You also need to specify the reference mitogenome with the <code>-f</code> flag and also a GenBank file of the reference mitogenome with the <code>-g</code> flag. <code>-t</code> is used to specificy the number of threads to run this program with. You also need to specify the organism's genetic code following the NCBI table using the <code>-o</code> flag (for the mitogenome annotation step). The inputs for this parameter are:</p>
+<p class="blog-post_paragraph">To run the pipeline (using the main <code>mitohifi.py</code> script), provide your reads or contigs using the <code>-r</code> or <code>-c</code> flags, respectively (for the reads you can input multiple <code>.fasta</code> files). You also need to specify the reference mitogenome with the <code>-f</code> flag and also a GenBank file of the reference mitogenome with the <code>-g</code> flag. <code>-t</code> is used to specificy the number of threads to run this program with. You also need to specify the organism's genetic code following the <a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi" target="_blank">NCBI table</a> using the <code>-o</code> flag (for the mitogenome annotation step). The inputs for this parameter are:</p>
 
 <ul>
       <li><code>1</code> - The Standard Code</li>
@@ -3452,22 +3449,22 @@ GAP	sum = 16000, n = 32, mean = 500, largest = 500, smallest = 500</code></pre>
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_117.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">More information on how MitoHiFi works under the hood is shown below. First, if you are using read mode, reads are mapped to the reference and mapped reads are assembled with hifiasm to produce contigs. These contigs (or the ones you provided in contig mode) are then blasted to the reference mitogenome, and then the results of the alignment are parsed and filtered according to three different criterea:</p>
+<p class="blog-post_paragraph">More information on how MitoHiFi works under the hood is shown below. First, if you are using read mode, reads are mapped to the reference and mapped reads are assembled with hifiasm to produce contigs. These contigs (or the ones you provided in contig mode) are then BLASTed to the reference mitogenome, and then the results of the alignment are parsed and filtered according to three different criterea:</p>
 
 
 <ol>
   <li>If the length of the query (contig) is <code>5</code> times higher than the size of the subject (reference mitogenome), then it is filtered out because this contig likely represents a NUMT, not a mitogenome</li>
   <li>If the coverage of the query (contig) is <code>80%</code> smaller than the length of the subject (reference mitogenome), then it is filtered out because it suggests that your contig is an incomplete or partial mitogenome.</li>
-  <li>If the percentage of the query (contig) in the BLAST match is smaller than <code>50%</code>, filter out the contig because you don't have strong evidence that this contig really is a mitogenome.</li>
+  <li>If the percentage of the query (contig) in the BLAST match is smaller than <code>50%</code>, the contig is filtered out because you don't have strong evidence that this contig really is a mitogenome.</li>
 </ol>
 
-<p class="blog-post_paragraph">You can tweak all of these parameters from their default values. The most important parameter out of all of these to be aware of is the last one, which you can change with the <code>-p</code> flag. If you are dealing with mitogenomes from taxa that are usually well conserved, like mammals or vertebrates, then you can likely increase this default <code>50%</code> filter to something higher like <code>70%</code> or <code>80%</code>. The default value of <code>50%</code> was chosen because the Darwin Tree of Life team noticed that for some invertebrate mitogenomes, a lot of their mitogenomes are really similar to each other, especially in the repeated regions, and that sometimes picking a very stringent value would cause the researcher to <em>overfilter</em> real mitogenomes that were just divergent sequence-wise.</p>
+<p class="blog-post_paragraph">You can tweak all of these parameters from their default values. The most important parameter out of all of these to be aware of is the last one, which you can change with the <code>-p</code> flag. If you are dealing with mitogenomes from taxa that are usually well conserved, like mammals or vertebrates, then you can likely increase this default <code>50%</code> filter to something higher like <code>70%</code> or <code>80%</code>. The default value of <code>50%</code> was chosen because the Darwin Tree of Life team noticed that for some invertebrate mitogenomes, a lot of their mitogenomes are really dissimilar to each other, especially in the repeated regions, and that sometimes picking a very stringent value would cause the researcher to <em>overfilter</em> real mitogenomes that were just divergent sequence-wise.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_118.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">Once the pool of contigs are filtered, the program then proceeds to the circularization step. Because of the circular nature of the mitochondrial genome, you will have sequencing reads that support overlaps all across the sequence. So for example, if you look at the diagram below, you will have many reads that support connections from regions A <-> B, B <-> C, and C <-> A. Sometimes, during the assembly process, the assemblers can get confused and you might end up having a linear contig that contains the same sequence at the start and end positions. So sometimes with circular DNA you will get an assembly artifact where you get a contig with redundant information.</p>
+<p class="blog-post_paragraph">Once the pool of contigs are filtered, the program then proceeds to the circularization step. Because of the circular nature of the mitochondrial genome, you will have sequencing reads that support overlaps all across the sequence. So for example, if you look at the diagram below, you will have many reads that support connections from regions <code>A <-> B</code>, <code>B <-> C</code>, and <code>C <-> A</code>. Sometimes, during the assembly process, the assemblers can get confused and you might end up having a linear contig that contains the same sequence at the start and end positions. So sometimes with circular DNA you will get an assembly artifact where you get a contig with redundant information.</p>
 
 <p class="blog-post_paragraph">To solve this issue, MitoHiFi performs a <strong>self-blast</strong> on the contigs. If a contig has a redundant region at the beginning and the end, the region at the end is deleted. This is performed using the script inside <code>circularizationCheck.py</code>.</p>
 
@@ -3475,7 +3472,7 @@ GAP	sum = 16000, n = 32, mean = 500, largest = 500, smallest = 500</code></pre>
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_119.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">The next thing that MitoHiFi does is <strong>rotate</strong> the contig. This is to ensure that all the potential mitogenomes have the same start location. The creators of MitoHiFi decided to standardize this so that the mitogenome sequence starts that the <strong>tRNA-Phe</strong> coding gene. However, in order rotate the sequence so that it starts at this gene, the contig has to be annotated first, The mitogenome is annotated using the GenBank information of the reference mitogenome.</p>
+<p class="blog-post_paragraph">The next thing that MitoHiFi does is <strong>rotate</strong> the contig. This is to ensure that all the potential mitogenomes have the same start location. The creators of MitoHiFi decided to standardize this so at the mitogenome sequence starts that the <strong>tRNA-Phe</strong> coding gene. However, in order rotate the sequence so that it starts at this gene, the contig has to be annotated first, The mitogenome is annotated using the GenBank information of the reference mitogenome.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_120.png" alt="alt text" />
@@ -3483,15 +3480,17 @@ GAP	sum = 16000, n = 32, mean = 500, largest = 500, smallest = 500</code></pre>
 
 <p class="blog-post_paragraph">The last step in the MitoHiFi pipeline is to take all the potential mitogenomes that have remained passed the previous filters, and then choose the <strong>final mitogenome</strong>. The final mitogenome is that one that satisfies these three criteria:</p>
 
-1. The genome is circularized
-2. The genome is similar to the reference mitogenome (in overall size).
-3. There are no frameshifts in the annotated genes.
+<ol>
+  <li>The genome is circularized</li>
+  <li>The genome is similar to the reference mitogenome (in overall size)</li>
+  <li>There are no frameshifts in the annotated genes.</li>
+</ol> 
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_121.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">Once MitoHifi finishes running, you expect to have these <strong>3 main files as outputs</strong>: <code>final_mitogenome.fasta</code>, <code>final_mitogenome.gb</code>, and <code>final_mitogenome.annotation.png</code>. If you are running MitoHifi in the reads mode (<code>-r</code>), you will also have another important file called <code>final_mitogenome.coverage.png</code>. This is a graph that shows the sequencing coverage of the reads. This is a sanity check to see if there could have been any drops in coverage across the genome that could have caused a missassembly of the final mitogenome. You will likely see a drop in coverage at the beginning and the end of the mitogenome but this is okay this is a common artifact of a mitogenome assembly</p>
+<p class="blog-post_paragraph">Once MitoHifi finishes running, you expect to have these <strong>3 main files as outputs</strong>: <code>final_mitogenome.fasta</code>, <code>final_mitogenome.gb</code>, and <code>final_mitogenome.annotation.png</code>. If you are running MitoHifi in the reads mode (<code>-r</code>), you will also have another important file called <code>final_mitogenome.coverage.png</code>. This is a graph that shows the sequencing coverage of the reads. This is a sanity check to see if there could have been any drops in coverage across the genome that could have caused a misassembly of the final mitogenome. You will likely see a drop in coverage at the beginning and the end of the mitogenome but this is okay. This is a common artifact of a mitogenome assembly</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_122.png" alt="alt text" />
@@ -3515,7 +3514,7 @@ GAP	sum = 16000, n = 32, mean = 500, largest = 500, smallest = 500</code></pre>
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_125.png" alt="alt text" />
 </div>
 
-<p class="blog-post_paragraph">A final note on mitogenome assembly is that organelle genome assembly is a thing that is kept in mind during the entire genome assembly process. For example, if you want to run MitoHiFi in contig mode, the best time do so would be right after you perform the initial assembly step. This is because other programs in the assembly pipleine like <code>purge_dups</code> might purge out the mitogenome contigs because the mitochondria has a different coverage to the nuclear genome. For the Darwin Tree of Life Genome Assembly pipeline specifically, there is another step that was not really touched on here which is contamination filtering before manual curation. They have <a href="https://pipelines.tol.sanger.ac.uk/blobtoolkit" target="_blank">their own pipeline that uses <code>blobtoolkit</code></a> and they use that to find mitochondrial contigs and other organelle contigs that they then remove. The organelle genomes are then assembled seperated from the nuclear genomes at the end. The final genome <code>.fasta</code> files that are deposited in databases like the NCBI will have the organelle genomes concatenated to the end of the file but it's important to be aware that these are all assembled seperately.</p>
+<p class="blog-post_paragraph">A final note on mitogenome assembly is that organelle genome assembly is a thing that is kept in mind during the entire genome assembly process. For example, if you want to run MitoHiFi in contig mode, the best time do so would be right after you perform the initial assembly step. This is because other programs in the assembly pipeline like <code>purge_dups</code> might purge out the mitogenome contigs because the mitochondria has a different coverage to the nuclear genome. For the Darwin Tree of Life Genome Assembly pipeline specifically, there is another step that was not really touched on here which is contamination filtering before manual curation. They have <a href="https://pipelines.tol.sanger.ac.uk/blobtoolkit" target="_blank">their own pipeline that uses <code>blobtoolkit</code></a> and they use that to find mitochondrial contigs and other organelle contigs that they then remove. The organelle genomes are then assembled seperated from the nuclear genomes at the end. The final genome <code>.fasta</code> files that are deposited in databases like the NCBI will have the organelle genomes concatenated to the end of the file but it's important to be aware that these are all assembled seperately.</p>
 
 <p class="blog-post_paragraph">Back to the workshop, this are the commands performed to perform Mitogenome assembly with MitoHiFi. We performed this assembly on <em>Phalera bucephala</em>. First I prepared my working environemnt and looked for a reference mitogenome.</p>
 
@@ -4139,7 +4138,7 @@ ORIGIN
     <u><em>Conclusion</em></u>
   </p> 
 
-<p class="blog-post_paragraph">Overall I learned a great deal from this workshop. It has been an invaluable experience that has significantly enhanced my technical skills and deepened my understanding of genomic data analysis. The hands-on training and insights gained will undoubtedly accelerate my progress in effectively working towards my PhD research, which focuses sequencing challenges. Beyond my immediate project, this workshop has equipped me with tools and knowledge that will make me a more versatile and effective scientist, as sequencing technologies underpin a lot of the modern biological analyses. I feel much more capable of thinking critical about these techniques problems and effectively collaborating with other research groups. There is still a lot to learn on this topic, but I feel lucky to learn the best practices from members of some of the best genome sequencing initiatives in the world and to have access to their public resources to streamline future sequencing projects.</p>
+<p class="blog-post_paragraph">Overall, I learned a great deal from this workshop. It has been an invaluable experience that has significantly enhanced my technical skills and deepened my understanding of genomic data analysis. The hands-on training and insights gained will undoubtedly accelerate my progress in effectively working towards my PhD research, which focuses on sequencing challenges. Beyond my immediate project, this workshop has equipped me with tools and knowledge that will make me a more versatile and effective scientist, as sequencing technologies underpin a lot of the modern biological analyses performed today. I feel much more capable of thinking critical about these techniques problems and effectively collaborating with other research groups. There is still a lot to learn on this topic, but I feel lucky to learn the best practices from members of some of the best genome sequencing initiatives in the world and to have access to their public resources to streamline my future sequencing projects.</p>
 
 <div class="workshowcase-img-container">
   <img class="img-fluid" src="assets/img/blog_posts/genome-assembly/image_127.png" alt="alt text" />
