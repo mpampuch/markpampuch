@@ -54,7 +54,7 @@
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/01-seq-variants.png"
+      src="assets/img/blog_posts/building-a-variant-caller/01-seq-variants.webp"
       alt="Sequence Variants"
     />
   </div>
@@ -72,7 +72,7 @@
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/02-igv-alignment.png"
+      src="assets/img/blog_posts/building-a-variant-caller/02-igv-alignment.webp"
       alt="IGV Alignments"
     />
   </div>
@@ -92,7 +92,7 @@
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/03-deep-variant.png"
+      src="assets/img/blog_posts/building-a-variant-caller/03-deep-variant.webp"
       alt="Deep Variant Architecture"
     />
   </div>
@@ -370,7 +370,7 @@ plt.show()</code></pre>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/04-alignment-diagram.png"
+      src="assets/img/blog_posts/building-a-variant-caller/04-alignment-diagram.webp"
       alt="Alignment Diagram"
     />
   </div>
@@ -398,7 +398,7 @@ plt.show()</code></pre>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/05-no-mutation.png"
+      src="assets/img/blog_posts/building-a-variant-caller/05-no-mutation.webp"
       alt="Example of DNA sequencing alignments for an individual with no mutation"
     />
   </div>
@@ -417,7 +417,7 @@ plt.show()</code></pre>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/06-heterozygous-mutation.png"
+      src="assets/img/blog_posts/building-a-variant-caller/06-heterozygous-mutation.webp"
       alt="Example of DNA sequencing alignments for an individual with a heterozygous mutation"
     />
   </div>
@@ -436,7 +436,7 @@ plt.show()</code></pre>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/07-homozygous-mutation.png"
+      src="assets/img/blog_posts/building-a-variant-caller/07-homozygous-mutation.webp"
       alt="Example of DNA sequencing alignments for an individual with a homozygous mutation"
     />
   </div>
@@ -552,21 +552,21 @@ plot_alignment(alignment_idx = 2)</code></pre>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/08-no-mutation-errored.png"
+      src="assets/img/blog_posts/building-a-variant-caller/08-no-mutation-errored.webp"
       alt="Example of DNA sequencing alignments for an individual with no mutation and errors"
     />
   </div>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/09-heterozygous-mutation-errored.png"
+      src="assets/img/blog_posts/building-a-variant-caller/09-heterozygous-mutation-errored.webp"
       alt="Example of DNA sequencing alignments for an individual with a heterozygous mutation and errors"
     />
   </div>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/10-homozygous-mutation-errored.png"
+      src="assets/img/blog_posts/building-a-variant-caller/10-homozygous-mutation-errored.webp"
       alt="Example of DNA sequencing alignments for an individual with a homozygous mutation and errors"
     />
   </div>
@@ -631,7 +631,7 @@ plot_alignment(alignment_idx = 2)</code></pre>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/11-pileup.png"
+      src="assets/img/blog_posts/building-a-variant-caller/11-pileup.webp"
       alt="Example of image encoding in Deep Variant"
     />
   </div>
@@ -814,7 +814,7 @@ def save_alignment_data(X_data: List[List[List[int]]],
     rand_string = ""
     if add_rand_string_to_filename:
       rand_string = '_' + ''.join(random.choices(string.ascii_uppercase + string.digits, k = 5))
-    filename = str(i + buffer).zfill(len(str(len(X_data)))) + rand_string + ".png"
+    filename = str(i + buffer).zfill(len(str(len(X_data)))) + rand_string + ".webp"
     file_path = mutation_dir / filename
 
     # save the alignment to the directory
@@ -1085,7 +1085,7 @@ Image(filename=file_path)</code></pre>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/12-no-mutation.png"
+      src="assets/img/blog_posts/building-a-variant-caller/12-no-mutation.webp"
       alt="Example of DNA sequencing alignments for an individual with no mutation from the subsetted data folder"
     />
   </div>
@@ -1100,7 +1100,7 @@ Image(filename=file_path)</code></pre>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/13-heterozygous-mutation.png"
+      src="assets/img/blog_posts/building-a-variant-caller/13-heterozygous-mutation.webp"
       alt="Example of DNA sequencing alignments for an individual with a heterozygous mutation from the subsetted data folder"
     />
   </div>
@@ -1115,7 +1115,7 @@ Image(filename=file_path)</code></pre>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/14-homozygous-mutation.png"
+      src="assets/img/blog_posts/building-a-variant-caller/14-homozygous-mutation.webp"
       alt="Example of DNA sequencing alignments for an individual with a homozygous mutation from the subsetted data folder"
     />
   </div>
@@ -1130,7 +1130,7 @@ Image(filename=file_path)</code></pre>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/15-no-mutation-errored.png"
+      src="assets/img/blog_posts/building-a-variant-caller/15-no-mutation-errored.webp"
       alt="Example of DNA sequencing alignments for an individual with no mutation and errors present from the subsetted data folder"
     />
   </div>
@@ -1145,7 +1145,7 @@ Image(filename=file_path)</code></pre>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/16-heterozygous-mutation-errored.png"
+      src="assets/img/blog_posts/building-a-variant-caller/16-heterozygous-mutation-errored.webp"
       alt="Example of DNA sequencing alignments for an individual with a heterozygous mutation and errors present from the subsetted data folder"
     />
   </div>
@@ -1160,7 +1160,7 @@ Image(filename=file_path)</code></pre>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/17-homozygous-mutation-errored.png"
+      src="assets/img/blog_posts/building-a-variant-caller/17-homozygous-mutation-errored.webp"
       alt="Example of DNA sequencing alignments for an individual with a homozygous mutation and errors present from the subsetted data folder"
     />
   </div>
@@ -1662,7 +1662,7 @@ data_transform = transforms.Compose([
       
 # Plot the images
 data_path = Path("data/")
-image_path_list = list(data_path.glob("**/*.png"))
+image_path_list = list(data_path.glob("**/*.webp"))
 plot_transformed_images(image_path_list,
                         transform = data_transform,
                         padding = True,
@@ -1673,21 +1673,21 @@ plot_transformed_images(image_path_list,
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/18-to-tensor-1.png"
+      src="assets/img/blog_posts/building-a-variant-caller/18-to-tensor-1.webp"
       alt="Example of DNA sequencing alignments converted to a image tensor"
     />
   </div>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/19-to-tensor-2.png"
+      src="assets/img/blog_posts/building-a-variant-caller/19-to-tensor-2.webp"
       alt="Example of DNA sequencing alignments converted to a image tensor"
     />
   </div>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/20-to-tensor-3.png"
+      src="assets/img/blog_posts/building-a-variant-caller/20-to-tensor-3.webp"
       alt="Example of DNA sequencing alignments converted to a image tensor"
     />
   </div>
@@ -1966,7 +1966,7 @@ Label: 1</code></pre>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/21-sample-from-dataset.png"
+      src="assets/img/blog_posts/building-a-variant-caller/21-sample-from-dataset.webp"
       alt="Example of DNA sequencing alignments from a dataloader"
     />
   </div>
@@ -2112,7 +2112,7 @@ model_0</code></pre>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/22-resnet50.png"
+      src="assets/img/blog_posts/building-a-variant-caller/22-resnet50.webp"
       alt="ResNet50 Architecture"
     />
   </div>
@@ -2255,21 +2255,21 @@ plot_transformed_images(image_path_list,
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/23-transforms-1.png"
+      src="assets/img/blog_posts/building-a-variant-caller/23-transforms-1.webp"
       alt="Example of DNA sequencing alignments transformed with ResNet50 transforms"
     />
   </div>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/24-transforms-2.png"
+      src="assets/img/blog_posts/building-a-variant-caller/24-transforms-2.webp"
       alt="Example of DNA sequencing alignments transformed with ResNet50 transforms"
     />
   </div>
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/25-transforms-3.png"
+      src="assets/img/blog_posts/building-a-variant-caller/25-transforms-3.webp"
       alt="Example of DNA sequencing alignments transformed with ResNet50 transforms"
     />
   </div>
@@ -3384,7 +3384,7 @@ plot_loss_accuracy(loaded_model_1_df_train_loss, loaded_model_1_df_test_loss, lo
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/26-model-1-curves.png"
+      src="assets/img/blog_posts/building-a-variant-caller/26-model-1-curves.webp"
       alt="Loss and accuracy curves of model 1"
     />
   </div>
@@ -3453,7 +3453,7 @@ plot_loss_accuracy(loaded_resnet50_model_1_df_train_loss, loaded_resnet50_model_
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/27-model-2-curves.png"
+      src="assets/img/blog_posts/building-a-variant-caller/27-model-2-curves.webp"
       alt="Loss and accuracy curves of model 2"
     />
   </div>
@@ -3669,7 +3669,7 @@ with open("loaded_resnet50_model_1_test_results.pkl", "wb") as f:
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/28-model-1-heatmap.png"
+      src="assets/img/blog_posts/building-a-variant-caller/28-model-1-heatmap.webp"
       alt="Accuracy heatmap and confusion matrix of model 1"
     />
   </div>
@@ -3768,7 +3768,7 @@ plot_loss_accuracy(loaded_model_2_df_train_loss, loaded_model_2_df_test_loss, lo
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/29-model-3-curves.png"
+      src="assets/img/blog_posts/building-a-variant-caller/29-model-3-curves.webp"
       alt="Loss and accuracy curves of model 3"
     />
   </div>
@@ -3837,7 +3837,7 @@ plot_loss_accuracy(loaded_resnet50_model_2_df_train_loss, loaded_resnet50_model_
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/30-model-4-curves.png"
+      src="assets/img/blog_posts/building-a-variant-caller/30-model-4-curves.webp"
       alt="Loss and accuracy curves of model 4"
     />
   </div>
@@ -3878,7 +3878,7 @@ with open("loaded_resnet50_model_2_test_results.pkl", "wb") as f:
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/31-model-4-heatmap.png"
+      src="assets/img/blog_posts/building-a-variant-caller/31-model-4-heatmap.webp"
       alt="Accuracy heatmap and confusion matrix of model 4"
     />
   </div>
@@ -3988,7 +3988,7 @@ plot_loss_accuracy(loaded_resnet50_model_3_df_train_loss, loaded_resnet50_model_
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/32-model-5-curves.png"
+      src="assets/img/blog_posts/building-a-variant-caller/32-model-5-curves.webp"
       alt="Loss and accuracy curves of model 5"
     />
   </div>
@@ -4019,7 +4019,7 @@ plot_heatmap_and_confusion_matrix(loaded_resnet50_model_3_test_results)</code></
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/33-model-5-heatmap.png"
+      src="assets/img/blog_posts/building-a-variant-caller/33-model-5-heatmap.webp"
       alt="Accuracy heatmap and confusion matrix of model 5"
     />
   </div>
@@ -4091,7 +4091,7 @@ visualize_samples(loaded_resnet50_model_3_test_results, num_samples=14)</code></
   <div class="workshowcase-img-container">
     <img
       class="img-fluid"
-      src="assets/img/blog_posts/building-a-variant-caller/34-model-5-predictions.png"
+      src="assets/img/blog_posts/building-a-variant-caller/34-model-5-predictions.webp"
       alt="Model predictions vs true labels on a variety of DNA alignment image samples"
     />
   </div>
