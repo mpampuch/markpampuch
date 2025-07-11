@@ -226,6 +226,7 @@ document.addEventListener("DOMContentLoaded", function () {
     Supercomputing: ["90%", "92%"],
     "Web Development": ["80%", "80%"],
     "Machine Learning": ["95%", "94%"],
+    "Cloud Computing": ["95%", "94%"],
   };
   let offsetList =
     window.innerWidth >= 992
@@ -238,6 +239,7 @@ document.addEventListener("DOMContentLoaded", function () {
           offsetObj["Supercomputing"][0],
           offsetObj["Web Development"][0],
           offsetObj["Machine Learning"][0],
+          offsetObj["Cloud Computing"][0],
         ] // offset for desktop
       : [
           offsetObj["General"][1],
@@ -247,6 +249,7 @@ document.addEventListener("DOMContentLoaded", function () {
           offsetObj["Supercomputing"][1],
           offsetObj["Web Development"][1],
           offsetObj["Machine Learning"][1],
+          offsetObj["Cloud Computing"][1],
         ]; // offset for mobile
 
   skillsContents.forEach((skillsContent, index) => {
