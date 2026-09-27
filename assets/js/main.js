@@ -867,6 +867,7 @@ function formatGoBack(word) {
     science: "Science",
     software: "Software",
     business: "Business",
+    "statistics-informatics": "Statistics/Informatics",
     "wet-lab": "Wet Lab",
     "dry-lab": "Dry Lab",
     "other-science": "Other Science Projects",
